@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "sjkz1misc",
+  "version": "1.0.0",
+  "name": "sjkz1misc",
+  "description": "More Miscellaneous to the game!",
+  "authors": [
+    "SJKZ1"
+  ],
+  "contact": {
+    "homepage": "https://github.com/SJKZ1-2565/SJKZ1miscellaneous",
+    "issues": "https://github.com/SJKZ1-2565/SJKZ1miscellaneous/issues"
+  },
+
+  "license": "MIT",
+  "icon": "assets/sjkz1misc/icon.png",
+
+  "environment": "client",
+  "entrypoints": {
+    "main": [
+      "com.sjkz1.sjkz1misc.SJKZ1Misc"
+    ],
+    "modmenu": [
+      "com.sjkz1.sjkz1misc.screen.SJKZ1MiscModMenuScreen"
+    ]
+  },
+  "mixins": [
+    "sjkz1misc.mixins.json"
+  ],
+
+  "accessWidener": "sjkz1misc.accesswidener",
+  "depends": {
+    "fabricloader": ">=0.11.6",
+    "fabric": "*",
+    "minecraft": "1.17.x",
+    "java": ">=16"
+  }
+}

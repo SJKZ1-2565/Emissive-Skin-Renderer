@@ -1,0 +1,28 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.sjkz1.sjkz1misc.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+    "ArmorItemMixin",
+    "AxolotlDanceMixin",
+    "AxolotlRendererMixin",
+    "BossBarHudMixin",
+    "CapeMixin",
+    "CatDanceMixin",
+    "CatRendererMixin",
+    "ElytraItemMixin",
+    "InGameHudMixin",
+    "LivingRendererMixin",
+    "MinecraftClientMixin",
+    "PlayerDanceMixin",
+    "PlayerEntityMixin",
+    "PlayerRenderMixin",
+    "EndermanRenderMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

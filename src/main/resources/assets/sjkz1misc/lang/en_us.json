@@ -1,0 +1,15 @@
+{
+  "key.sjkz1misc.start_dance": "Start dancing",
+  "key.sjkz1misc.showPost": "Send current position in chat",
+  "key.sjkz1misc.openFolder" : "Open world folder",
+  "sjkz1misc.config.title" : "SJKZ1Misc Config...",
+  "sjkz1misc.config.show_fps" : "Enable show FPS",
+  "sjkz1misc.config.ignore_villager" : "Enable ignore attacking Villager",
+  "sjkz1misc.config.rainbow" : "Enable rainbow text color",
+  "sjkz1misc.config.color" : "Text color",
+  "sjkz1misc.config.swap" : "Enable swap armor while wearing elytra",
+  "sjkz1misc.config.hp_detector" : "Enable entity hp",
+  "sjkz1misc.config.render_glint_on_cape" : "Enable glint on cape",
+  "sjkz1misc.config.coloredEnderman" : "Enable colored Enderman",
+  "sjkz1misc.config.glowing_skin" : "§6Render Glowing skin"
+}
