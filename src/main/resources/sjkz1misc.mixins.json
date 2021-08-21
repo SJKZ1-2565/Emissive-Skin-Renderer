@@ -18,7 +18,9 @@
     "PlayerDanceMixin",
     "PlayerEntityMixin",
     "PlayerRenderMixin",
-    "EndermanRenderMixin"
+    "EndermanRenderMixin",
+    "LivingEntityMixin"
+    
   ],
   "client": [
   ],

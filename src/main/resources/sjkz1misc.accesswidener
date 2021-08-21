@@ -1,5 +1,4 @@
 accessWidener	v1	named
 
 accessible field net/minecraft/client/MinecraftClient currentFps I
-accessible field net/minecraft/client/gui/screen/TitleScreen splashText Ljava/lang/String;
-accessible method net/minecraft/client/render/entity/EndermanEntityRenderer getTexture (Lnet/minecraft/entity/mob/EndermanEntity;)Lnet/minecraft/util/Identifier;
+accessible field net/minecraft/entity/decoration/ItemFrameEntity fixed Z

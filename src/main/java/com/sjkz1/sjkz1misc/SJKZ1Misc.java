@@ -10,8 +10,11 @@ import java.util.List;
 import java.util.UUID;
 
 import com.google.common.collect.Lists;
+import com.sjkz1.sjkz1misc.command.EntityDetector;
+import com.sjkz1.sjkz1misc.command.OpenFolderCommand;
 import com.sjkz1.sjkz1misc.utils.SoundInits;
 import com.sjkz1.sjkz1misc.utils.SpecialMember;
+import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.*;
 import net.minecraft.client.gui.screen.Screen;
@@ -20,14 +23,18 @@ import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.toast.AdvancementToast;
 import net.minecraft.client.toast.SystemToast;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.resource.ResourcePackManager;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.dimension.DimensionType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
@@ -48,12 +55,10 @@ public class SJKZ1Misc implements ModInitializer
 
 	private KeyBinding danceKey;
 	private KeyBinding showPost;
-	private KeyBinding openFolder;
 
 	private static SJKZ1Misc instance;
 	public static String MOD_ID = "sjkz1misc";
 	public static Logger LOGGER = LogManager.getLogger(MOD_ID);
-	private static final Text ENTER_NAME_TEXT = new TranslatableText("selectWorld.enterName");
 	public static boolean dance = false;
 
 	public static final ConFigIN CONFIG = new ConFigIN();
@@ -70,10 +75,11 @@ public class SJKZ1Misc implements ModInitializer
 	{
 		danceKey = KeyBindingHelper.registerKeyBinding(new KeyBinding ("key.sjkz1misc.start_dance", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_R, "sjkz1misc"));
 		showPost = KeyBindingHelper.registerKeyBinding(new KeyBinding ("key.sjkz1misc.showPost", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_G, "sjkz1misc"));
-		openFolder = KeyBindingHelper.registerKeyBinding(new KeyBinding ("key.sjkz1misc.openFolder", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_O, "sjkz1misc"));
 
 		ClientTickEvents.END_CLIENT_TICK.register(this::tick);
 		SoundInits.init();
+		new OpenFolderCommand(ClientCommandManager.DISPATCHER);
+		new EntityDetector(ClientCommandManager.DISPATCHER);
 
 	}
 
@@ -86,10 +92,6 @@ public class SJKZ1Misc implements ModInitializer
 				client.player.playSound(SoundInits.DRAGONBALL_SOUND_EVENT, SoundCategory.PLAYERS, 1, 1);
 			}
 		}
-		if (openFolder.wasPressed() && Screen.hasControlDown()) {
-			Util.getOperatingSystem().open(new File(FabricLoader.getInstance().getGameDirectory(), "saves"));
-			LOGGER.info(client.player.getEntityWorld().getServer().getName());
-		}
 
 		if (showPost.wasPressed())
 		{
@@ -97,8 +99,18 @@ public class SJKZ1Misc implements ModInitializer
 			int j = (int) client.player.getY();
 			int k = (int) client.player.getZ();
 			String pos = "X:" + i + " Y:" + j+ " Z:" + k;
+			String Netherpos = "Nether position X:" + i / 8 + " Y:" + j  + " Z:" + k / 8 ;
+			String OverWorldPose = "Overworld position X:" + i * 8 + " Y:" + j  + " Z:" + k * 8 ;
 
-			client.player.sendChatMessage(pos);
+			if(client.player.getEntityWorld().getDimension().isPiglinSafe()) {
+				client.player.sendChatMessage(pos);
+				client.player.sendChatMessage(OverWorldPose);
+			}
+			else
+			{
+				client.player.sendChatMessage(pos);
+				client.player.sendChatMessage(Netherpos);
+			}
 		}
 		if(client != null && client.player != null && client.world != null)
 		{
@@ -114,13 +126,5 @@ public class SJKZ1Misc implements ModInitializer
 			}
 		}
 
-	}
-
-
-	public static SJKZ1Misc getInstance() {
-		return instance;
-	}
-
-	public static void openFolder(File folder) {
 	}
 }

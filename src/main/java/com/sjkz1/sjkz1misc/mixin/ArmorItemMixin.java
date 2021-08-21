@@ -11,6 +11,8 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(ArmorItem.class)
 public class ArmorItemMixin extends Item implements Wearable {
@@ -31,6 +33,7 @@ public class ArmorItemMixin extends Item implements Wearable {
             if (!world.isClient()) {
                 playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
             }
+
 
             playerEntity.setStackInHand(hand,itemStack2);
             return TypedActionResult.success(itemStack, world.isClient());
