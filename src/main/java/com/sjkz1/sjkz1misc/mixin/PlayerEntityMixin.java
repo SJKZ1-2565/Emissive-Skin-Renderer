@@ -51,23 +51,4 @@ public abstract class PlayerEntityMixin extends LivingEntity
 			}
 		}
 	}
-	@Inject(method = "tick",at = @At("HEAD"))
-	public void tick(CallbackInfo info)
-	{
-		if(mc.player != null && mc.world != null) {
-//			int arrow = SJKZ1Helper.getArrowItem(mc.player.getInventory());
-//			for (int i = arrow;i == 0;)
-//			{
-//				System.out.println("No arrow left");
-//				break;
-//			}
-		}
-	}
-
-//	@Override
-//	public void tick()
-//	{
-//		super.tick();
-//		if(SJKZ1Helper.isBambooClose())
-//	}
 }
