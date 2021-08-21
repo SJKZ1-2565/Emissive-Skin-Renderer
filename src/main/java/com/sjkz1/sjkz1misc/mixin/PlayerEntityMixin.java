@@ -41,13 +41,13 @@ public abstract class PlayerEntityMixin extends LivingEntity
 			{
 				ci.cancel();
 			}
-			else if(target instanceof ItemFrameEntity)
+		}
+		else if(target instanceof ItemFrameEntity)
+		{
+			ItemFrameEntity itemFrameEntity = (ItemFrameEntity) target;
+			if(itemFrameEntity.fixed)
 			{
-				ItemFrameEntity itemFrameEntity = (ItemFrameEntity) target;
-				if(itemFrameEntity.fixed)
-				{
-					ci.cancel();
-				}
+				ci.cancel();
 			}
 		}
 	}
