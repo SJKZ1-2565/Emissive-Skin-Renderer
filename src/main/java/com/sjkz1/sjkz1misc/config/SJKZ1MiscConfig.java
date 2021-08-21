@@ -13,6 +13,7 @@ public class SJKZ1MiscConfig {
 	  public boolean IgnoreHittingVillager;
 	  public boolean SwapArmorAndElytra;
 	  public boolean rainbowColor;
+	  public boolean ShowDebrisUnderFire = true;
 	  public boolean coloredEnderman;
 	  public int color = 0x12586E;
 

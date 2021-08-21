@@ -19,7 +19,8 @@
     "PlayerEntityMixin",
     "PlayerRenderMixin",
     "EndermanRenderMixin",
-    "LivingEntityMixin"
+    "LivingEntityMixin",
+    "BlocksMixin"
     
   ],
   "client": [

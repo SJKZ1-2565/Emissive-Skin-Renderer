@@ -49,6 +49,7 @@ public class SJKZ1MiscModMenuScreen implements ModMenuApi
 			generalCategory.addEntry(entry.startColorField(new TranslatableText("sjkz1misc.config.color"), config.color).setTooltip(Text.of("Text color.")).setSaveConsumer(value -> config.color = value).setDefaultValue(config.color).build());
 
 			singlePlayerCategory.addEntry(entry.startBooleanToggle(new TranslatableText("sjkz1misc.config.swap"), config.SwapArmorAndElytra).setTooltip(Text.of("Swap armor and elytra.")).setSaveConsumer(value -> config.SwapArmorAndElytra = value).setDefaultValue(true).build());
+			singlePlayerCategory.addEntry(entry.startBooleanToggle(new TranslatableText("sjkz1misc.config.show_fire_debris"), config.ShowDebrisUnderFire).setTooltip(Text.of("Easiest way to find Ancient Debris.")).setSaveConsumer(value -> config.ShowDebrisUnderFire = value).setDefaultValue(true).build());
 
 			specialMemberCategory.addEntry(entry.startBooleanToggle(new TranslatableText("sjkz1misc.config.glowing_skin"), config.glowingSkin).setTooltip(Text.of("Render glowing skin!")).setSaveConsumer(value -> config.glowingSkin = value).setDefaultValue(true).build());
 			return builder.build();
