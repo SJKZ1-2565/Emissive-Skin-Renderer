@@ -17,14 +17,13 @@ public class ColoredEnderman<T extends EndermanEntity, M extends EndermanEntityM
     public ColoredEnderman(FeatureRendererContext<T, M> featureRendererContext) {
         super(featureRendererContext);
     }
-    private static final Identifier TEXTURE = new Identifier("textures/entity/enderman/enderman.png");
+    private static final Identifier TEXTURE = GlowingLayer.getPath("enderman");
 
     @Override
     public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, T entity, float f, float g, float h, float j, float k, float l) {
        if(SJKZ1Misc.CONFIG.getConfig().coloredEnderman) {
-           int color = SJKZ1Misc.CONFIG.getConfig().color;
-           VertexConsumer inveterate = vertexConsumerProvider.getBuffer(RenderLayer.getEyes(TEXTURE));
-           this.getContextModel().render(matrixStack, inveterate, i, OverlayTexture.DEFAULT_UV, color, color, color, 1.0F);
+           VertexConsumer inveterate = vertexConsumerProvider.getBuffer(RenderLayer.getEntitySolid(TEXTURE));
+           this.getContextModel().render(matrixStack, inveterate, i, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
        }
     }
 }
