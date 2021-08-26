@@ -11,5 +11,6 @@
   "sjkz1misc.config.render_glint_on_cape" : "Enable glint on cape",
   "sjkz1misc.config.coloredEnderman" : "Enable colored Enderman",
   "sjkz1misc.config.show_fire_debris" : "Marking Ancient Debris under Fire",
+  "sjkz1misc.config.discord_message" : "Enable Discord Message",
   "sjkz1misc.config.glowing_skin" : "§6Render Glowing skin"
 }

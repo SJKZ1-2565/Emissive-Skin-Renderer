@@ -12,8 +12,12 @@ import java.util.UUID;
 import com.google.common.collect.Lists;
 import com.sjkz1.sjkz1misc.command.EntityDetector;
 import com.sjkz1.sjkz1misc.command.OpenFolderCommand;
+import com.sjkz1.sjkz1misc.utils.CommonEvent;
 import com.sjkz1.sjkz1misc.utils.SoundInits;
 import com.sjkz1.sjkz1misc.utils.SpecialMember;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.*;
@@ -49,12 +53,15 @@ import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.text.Text;
 
+import javax.security.auth.login.LoginException;
+
 
 public class SJKZ1Misc implements ModInitializer
 {
 
 	private KeyBinding danceKey;
 	private KeyBinding showPost;
+	public static JDABuilder builder;
 
 	private static SJKZ1Misc instance;
 	public static String MOD_ID = "sjkz1misc";
@@ -81,8 +88,21 @@ public class SJKZ1Misc implements ModInitializer
 		new OpenFolderCommand(ClientCommandManager.DISPATCHER);
 		new EntityDetector(ClientCommandManager.DISPATCHER);
 
+		String token = "ODYwMDc1NTYxODk2NjQwNTEz.YN19yQ.ZdV8KIV3zBF8Ov3g_xmP30Sco-4";
+		builder = JDABuilder.createDefault(token);
+		builder.setActivity(Activity.playing("Minecraft"));
+		builder.disableCache(CacheFlag.ROLE_TAGS, CacheFlag.VOICE_STATE);
+		registerEvent();
+		try {
+			builder.build();
+		} catch (LoginException e) {
+		}
 	}
 
+	public static void registerEvent()
+	{
+		builder.addEventListeners(new CommonEvent());
+	}
 
 	public void tick(MinecraftClient client) {
 		if (danceKey.wasPressed()) {

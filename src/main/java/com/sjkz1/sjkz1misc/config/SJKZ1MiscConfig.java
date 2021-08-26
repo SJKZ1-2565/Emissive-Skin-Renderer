@@ -15,6 +15,7 @@ public class SJKZ1MiscConfig {
 	  public boolean rainbowColor;
 	  public boolean ShowDebrisUnderFire = true;
 	  public boolean coloredEnderman;
+	  public boolean enableDiscordMessage;
 	  public int color = 0x12586E;
 
 
