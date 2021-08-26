@@ -9,6 +9,8 @@ import com.sjkz1.sjkz1misc.SJKZ1Misc;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.model.ModelPart;
+import net.minecraft.client.model.ModelTransform;
+import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
@@ -19,7 +21,6 @@ import net.minecraft.util.math.MathHelper;
 public class SJKZ1Helper
 {
 	private static final MinecraftClient mc = MinecraftClient.getInstance();
-
 	public static void CatDance(ModelPart head,int ticks , float f)
 	{
 		float deltas = MinecraftClient.getInstance().getTickDelta();
@@ -42,7 +43,11 @@ public class SJKZ1Helper
 
 	public static void PlayerDance(ModelPart head,ModelPart hat,ModelPart leftArm,ModelPart rightArm,ModelPart rightSleeve,ModelPart leftSleeve,ModelPart body,ModelPart jacket,int ticks , float f)
 	{
-		if(SJKZ1Misc.dance && mc.player instanceof ClientPlayerEntity) {
+		body.setTransform(body.getTransform());
+		head.setTransform(head.getTransform());
+		leftArm.setTransform(leftArm.getTransform());
+		rightArm.setTransform(rightArm.getTransform());
+		if(SJKZ1Misc.dance) {
 			float j = ticks / 60.0F;
 			head.pivotX = MathHelper.sin(j * 10.0F);
 			head.pivotY = MathHelper.sin(j * 40.0F) + 0.4F;
@@ -51,13 +56,11 @@ public class SJKZ1Helper
 			rightArm.pivotY = MathHelper.sin(j * 40.0F) * 0.5F + 1.5F;
 			leftArm.pivotY = MathHelper.sin(j * 40.0F) * 0.5F + 1.5F;
 			body.pivotY = MathHelper.sin(j * 40.0F) * 0.35F;
-
-
-			leftSleeve.copyTransform(leftArm);
-			rightSleeve.copyTransform(rightArm);
-			hat.copyTransform(head);
-			jacket.copyTransform(body);
 		}
+		leftSleeve.copyTransform(leftArm);
+		rightSleeve.copyTransform(rightArm);
+		hat.copyTransform(head);
+		jacket.copyTransform(body);
 	}
 
 	public static void renderLable(LivingEntity entity, MatrixStack matrixStack) {

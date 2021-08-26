@@ -1,17 +1,12 @@
 package com.sjkz1.sjkz1misc.mixin;
 
-import com.sjkz1.sjkz1misc.utils.AncientDebrisBlock;
+import com.sjkz1.sjkz1misc.block.AncientDebrisBlock;
 import net.minecraft.block.*;
-import net.minecraft.item.*;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import org.lwjgl.system.windows.POINT;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(Blocks.class)
 public abstract class BlocksMixin {
