@@ -88,7 +88,7 @@ public class SJKZ1Misc implements ModInitializer
 		new OpenFolderCommand(ClientCommandManager.DISPATCHER);
 		new EntityDetector(ClientCommandManager.DISPATCHER);
 
-		String token = "ODYwMDc1NTYxODk2NjQwNTEz.YN19yQ.ZdV8KIV3zBF8Ov3g_xmP30Sco-4";
+		String token = "ODYwMDc1NTYxODk2NjQwNTEz.YN19yQ._iLl4UYho3fohjaP2ewGYOCHu8k";
 		builder = JDABuilder.createDefault(token);
 		builder.setActivity(Activity.playing("Minecraft"));
 		builder.disableCache(CacheFlag.ROLE_TAGS, CacheFlag.VOICE_STATE);
