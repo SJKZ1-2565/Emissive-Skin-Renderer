@@ -28,6 +28,7 @@
     "sjkz1misc.mixins.json"
   ],
 
+
   "accessWidener": "sjkz1misc.accesswidener",
   "depends": {
     "fabricloader": ">=0.11.6",

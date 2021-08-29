@@ -1,6 +1,6 @@
 package com.sjkz1.sjkz1misc.utils;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.List;
 
 import com.google.common.collect.Lists;
@@ -9,9 +9,6 @@ import com.sjkz1.sjkz1misc.SJKZ1Misc;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.model.ModelTransform;
-import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.decoration.ArmorStandEntity;
@@ -20,7 +17,9 @@ import net.minecraft.util.math.MathHelper;
 
 public class SJKZ1Helper
 {
-	private static final MinecraftClient mc = MinecraftClient.getInstance();
+	public static final MinecraftClient mc = MinecraftClient.getInstance();
+
+
 	public static void CatDance(ModelPart head,int ticks , float f)
 	{
 		float deltas = MinecraftClient.getInstance().getTickDelta();
@@ -28,17 +27,12 @@ public class SJKZ1Helper
 		head.pivotY = j + 12;
 		head.pitch = 0;
 	}
-	public static void axolotlDance(ModelPart head,ModelPart body,int ticks , float f)
+	public static void axolotlDance(ModelPart body,int ticks , float f)
 	{
 		float deltas = MinecraftClient.getInstance().getTickDelta();
 		float j = MathHelper.sin(ticks +deltas);
-		float k = MathHelper.cos(ticks +deltas);
 
-		head.pivotY = j ;
-		head.pivotX = k ;
-		body.pivotX = k ;
-
-		body.pitch = k;
+		body.yaw = j;
 	}
 
 	public static void PlayerDance(ModelPart head,ModelPart hat,ModelPart leftArm,ModelPart rightArm,ModelPart rightSleeve,ModelPart leftSleeve,ModelPart body,ModelPart jacket,int ticks , float f)
@@ -74,8 +68,8 @@ public class SJKZ1Helper
 			matrixStack.multiply(mc.getEntityRenderDispatcher().getRotation());
 			matrixStack.scale(-0.025F, -0.025F, 0.025F);
 			TextRenderer textRenderer = mc.textRenderer;
-			float h = (float)(-textRenderer.getWidth(displayName) / 2);
-			float l = (float)(-textRenderer.getWidth(heart) / 2);
+			float h = -textRenderer.getWidth(displayName) / 2;
+			float l = -textRenderer.getWidth(heart) / 2;
 			textRenderer.drawWithShadow(matrixStack,displayName,h,0,5635925);
 			textRenderer.drawWithShadow(matrixStack,heart,l,-15,5635925);
 			matrixStack.pop();
@@ -112,7 +106,7 @@ public class SJKZ1Helper
 	}
 	public static int getColor()
 	{
-		float ticks = ((float)(mc.player.age % 20) + mc.getTickDelta()) / 20.0F;
+		float ticks = (mc.player.age % 20 + mc.getTickDelta()) / 20.0F;
 		Color color = Color.getHSBColor(ticks,0.9f,1);
 		return SJKZ1Misc.CONFIG.getConfig().rainbowColor ? color.getRGB() : SJKZ1Misc.CONFIG.getConfig().color;
 	}

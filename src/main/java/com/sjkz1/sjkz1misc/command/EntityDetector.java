@@ -1,6 +1,7 @@
 package com.sjkz1.sjkz1misc.command;
 
 import com.mojang.brigadier.CommandDispatcher;
+
 import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v1.FabricClientCommandSource;
 

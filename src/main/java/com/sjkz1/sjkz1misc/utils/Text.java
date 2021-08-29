@@ -9,7 +9,6 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonNull;
 import com.google.gson.internal.Streams;
 import com.google.gson.stream.JsonWriter;
-import net.minecraft.text.OrderedText;
 
 public class Text {
 

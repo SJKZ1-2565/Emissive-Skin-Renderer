@@ -1,29 +1,27 @@
 package test;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
-import com.sjkz1.sjkz1misc.utils.SpecialMember;
-import net.minecraft.client.MinecraftClient;
-import org.apache.commons.io.IOUtils;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+
+import org.apache.commons.io.IOUtils;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 
 public class NameChecker {
 
     public static void main(String[] arg)
     {
-        try {
-            Desktop.getDesktop().open(MinecraftClient.getInstance().runDirectory);
-        } catch (IOException e) {
-            e.printStackTrace();
 
-        }
+//        final  String token = "ODYwMDc1NTYxODk2NjQwNTEz.YN19yQ._iLl4UYho3fohjaP2ewGYOCHu8k";;
+//        try {
+//            Desktop.getDesktop().open(MinecraftClient.getInstance().runDirectory);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//
+//        }
 //            for(SpecialMember values : SpecialMember.VALUES)
 //            {
 //                try {

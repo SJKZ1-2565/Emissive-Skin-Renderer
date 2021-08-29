@@ -1,11 +1,9 @@
 package com.sjkz1.sjkz1misc.mixin;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
-import com.sjkz1.sjkz1misc.SJKZ1Misc;
-import com.sjkz1.sjkz1misc.utils.SpecialMember;
-import net.minecraft.util.Formatting;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.Logger;
 import org.spongepowered.asm.mixin.Final;
@@ -15,11 +13,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import net.minecraft.client.MinecraftClient;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
+import com.sjkz1.sjkz1misc.utils.SpecialMember;
 
-import java.io.IOException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
+import net.minecraft.client.MinecraftClient;
 
 
 @Mixin(MinecraftClient.class)

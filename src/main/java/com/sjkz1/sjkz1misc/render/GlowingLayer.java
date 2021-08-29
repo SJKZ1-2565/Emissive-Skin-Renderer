@@ -2,6 +2,7 @@ package com.sjkz1.sjkz1misc.render;
 
 import com.sjkz1.sjkz1misc.SJKZ1Misc;
 import com.sjkz1.sjkz1misc.utils.SpecialMember;
+
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;

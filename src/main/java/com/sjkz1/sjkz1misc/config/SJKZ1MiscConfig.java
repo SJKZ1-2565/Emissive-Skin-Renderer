@@ -1,10 +1,5 @@
 package com.sjkz1.sjkz1misc.config;
 
-import net.minecraft.text.TextColor;
-import net.minecraft.util.Formatting;
-
-import java.awt.*;
-
 public class SJKZ1MiscConfig {
 	  public boolean showFps;
 	  public boolean showHealthStatus;
