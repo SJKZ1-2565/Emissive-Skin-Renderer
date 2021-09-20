@@ -4,14 +4,16 @@ public class SJKZ1MiscConfig {
 	  public boolean showFps;
 	  public boolean showHealthStatus;
 	  public boolean glowingSkin;
-	  public boolean renderglintncape;
 	  public boolean IgnoreHittingVillager;
 	  public boolean SwapArmorAndElytra;
-	  public boolean rainbowColor;
+	  public boolean rainbowFpsColor;
+	  public boolean healthStatusRainbowColor;
 	  public boolean ShowDebrisUnderFire = true;
-	  public boolean coloredEnderman;
-	  public boolean enableDiscordMessage;
-	  public int color = 0x12586E;
+	  public int HeightFPSColor;
+	  public int MediumFPSColor;
+	  public int lowFPSColor;
+	  public int healthStatusColor;
+
 
 
 

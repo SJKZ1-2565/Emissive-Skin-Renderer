@@ -30,7 +30,9 @@ public abstract class AxolotlDanceMixin<T extends AxolotlEntity & AngledModelEnt
     public void dance(T axolotlEntity, float f, float g, float h, float i, float j, CallbackInfo ci)
     {
         if(SJKZ1Misc.dance) {
+            if(axolotlEntity.getName().getString().equals("Mooky")) {
                 SJKZ1Helper.axolotlDance(this.body, axolotlEntity.age, h);
+            }
         }
     }
 }

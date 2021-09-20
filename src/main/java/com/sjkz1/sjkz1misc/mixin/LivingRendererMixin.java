@@ -21,9 +21,9 @@ public abstract class LivingRendererMixin <T extends LivingEntity, M extends Ent
 	LivingRendererMixin() {
 		super(null);
 	}
-	@Inject(method = "render",at = @At("TAIL"))
+	@Inject(method = "render",at = @At("HEAD"))
 	public void render(T entity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo info)
 	{
-		SJKZ1Helper.renderLable(entity,matrixStack);
+		SJKZ1Helper.renderLabel(entity,matrixStack,vertexConsumerProvider,i);
 	}
 }

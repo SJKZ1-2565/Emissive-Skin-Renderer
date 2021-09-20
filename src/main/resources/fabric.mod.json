@@ -12,7 +12,7 @@
     "issues": "https://github.com/SJKZ1-2565/SJKZ1miscellaneous/issues"
   },
 
-  "license": "MIT",
+  "license": "MIT-LICENSE",
   "icon": "assets/sjkz1misc/icon.png",
 
   "environment": "client",

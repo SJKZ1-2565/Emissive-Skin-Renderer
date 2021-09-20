@@ -40,17 +40,22 @@ public class SJKZ1MiscModMenuScreen implements ModMenuApi
 	        ConfigCategory generalCategory = builder.getOrCreateCategory(Text.of("General Settings"));
 	        ConfigCategory singlePlayerCategory = builder.getOrCreateCategory(Text.of("Single player Settings"));
 	        ConfigCategory specialMemberCategory = builder.getOrCreateCategory(Text.of("Special member Settings"));
+	        ConfigCategory colorCategory = builder.getOrCreateCategory(Text.of("Color Settings"));
+
+
 			generalCategory.addEntry(entry.startBooleanToggle(new TranslatableText("sjkz1misc.config.show_fps"), config.showFps).setTooltip(Text.of("Show current fps, on your top right corner.")).setSaveConsumer(value -> config.showFps = value).setDefaultValue(true).build());
 			generalCategory.addEntry(entry.startBooleanToggle(new TranslatableText("sjkz1misc.config.hp_detector"), config.showHealthStatus).setTooltip(Text.of("Render entity HP, on their name tag.")).setSaveConsumer(value -> config.showHealthStatus = value).setDefaultValue(true).build());
-			generalCategory.addEntry(entry.startBooleanToggle(new TranslatableText("sjkz1misc.config.render_glint_on_cape"), config.renderglintncape).setTooltip(Text.of("Render glint effect when armor is enchanted.")).setSaveConsumer(value -> config.renderglintncape = value).setDefaultValue(true).build());
 			generalCategory.addEntry(entry.startBooleanToggle(new TranslatableText("sjkz1misc.config.ignore_villager"), config.IgnoreHittingVillager).setTooltip(Text.of("Ignore attack village.")).setSaveConsumer(value -> config.IgnoreHittingVillager = value).setDefaultValue(true).build());
-			generalCategory.addEntry(entry.startBooleanToggle(new TranslatableText("sjkz1misc.config.rainbow"), config.rainbowColor).setTooltip(Text.of("Set rainbow color text.")).setSaveConsumer(value -> config.rainbowColor = value).setDefaultValue(true).build());
-			generalCategory.addEntry(entry.startBooleanToggle(new TranslatableText("sjkz1misc.config.coloredEnderman"), config.coloredEnderman).setTooltip(Text.of("Render colored enderman to easier to finding.")).setSaveConsumer(value -> config.coloredEnderman = value).setDefaultValue(false).build());
-			generalCategory.addEntry(entry.startColorField(new TranslatableText("sjkz1misc.config.color"), config.color).setTooltip(Text.of("Text color.")).setSaveConsumer(value -> config.color = value).setDefaultValue(config.color).build());
+
+			colorCategory.addEntry(entry.startBooleanToggle(new TranslatableText("sjkz1misc.config.rainbow_fps"), config.rainbowFpsColor).setTooltip(Text.of("Set rainbow color text.")).setSaveConsumer(value -> config.rainbowFpsColor = value).setDefaultValue(false).build());
+			colorCategory.addEntry(entry.startBooleanToggle(new TranslatableText("sjkz1misc.config.rainbow_health"), config.healthStatusRainbowColor).setTooltip(Text.of("Set rainbow color text.")).setSaveConsumer(value -> config.healthStatusRainbowColor = value).setDefaultValue(false).build());
+			colorCategory.addEntry(entry.startColorField(new TranslatableText("sjkz1misc.config.hi_fps_color"), config.HeightFPSColor).setTooltip(Text.of("Text color.")).setSaveConsumer(value -> config.HeightFPSColor = value).setDefaultValue(0x4dff52).build());
+			colorCategory.addEntry(entry.startColorField(new TranslatableText("sjkz1misc.config.med_fps_color"), config.MediumFPSColor).setTooltip(Text.of("Text color.")).setSaveConsumer(value -> config.MediumFPSColor = value).setDefaultValue(0xf8fc05).build());
+			colorCategory.addEntry(entry.startColorField(new TranslatableText("sjkz1misc.config.low_fps_color"), config.lowFPSColor).setTooltip(Text.of("Text color.")).setSaveConsumer(value -> config.lowFPSColor = value).setDefaultValue(0xff0000).build());
+			colorCategory.addEntry(entry.startColorField(new TranslatableText("sjkz1misc.config.health_color"), config.healthStatusColor).setTooltip(Text.of("Text color.")).setSaveConsumer(value -> config.healthStatusColor = value).setDefaultValue(0x4dff52).build());
 
 			singlePlayerCategory.addEntry(entry.startBooleanToggle(new TranslatableText("sjkz1misc.config.swap"), config.SwapArmorAndElytra).setTooltip(Text.of("Swap armor and elytra.")).setSaveConsumer(value -> config.SwapArmorAndElytra = value).setDefaultValue(true).build());
 			singlePlayerCategory.addEntry(entry.startBooleanToggle(new TranslatableText("sjkz1misc.config.show_fire_debris"), config.ShowDebrisUnderFire).setTooltip(Text.of("Easiest way to find Ancient Debris.")).setSaveConsumer(value -> config.ShowDebrisUnderFire = value).setDefaultValue(true).build());
-			singlePlayerCategory.addEntry(entry.startBooleanToggle(new TranslatableText("sjkz1misc.config.discord_message"), config.enableDiscordMessage).setTooltip(Text.of("Enable Discord Message.")).setSaveConsumer(value -> config.enableDiscordMessage = value).setDefaultValue(false).build());
 
 			specialMemberCategory.addEntry(entry.startBooleanToggle(new TranslatableText("sjkz1misc.config.glowing_skin"), config.glowingSkin).setTooltip(Text.of("Render glowing skin!")).setSaveConsumer(value -> config.glowingSkin = value).setDefaultValue(true).build());
 			return builder.build();

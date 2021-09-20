@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
+import com.sjkz1.sjkz1misc.utils.SpecialMember;
 import org.apache.commons.io.IOUtils;
 
 import com.google.gson.JsonArray;
@@ -22,20 +23,25 @@ public class NameChecker {
 //            e.printStackTrace();
 //
 //        }
-//            for(SpecialMember values : SpecialMember.VALUES)
-//            {
-//                try {
-//
-//
-//                    if(!getName(values.getUuid()).equals(values.getName()))
-//                    {
-//                        System.out.println("Found not matched, Replace " + values.getName() + " with " + getName(values.getUuid()) +" instead");
-//                    }
-//
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
+            for(SpecialMember values : SpecialMember.VALUES)
+            {
+                try {
+
+
+                    if(!getName(values.getUuid()).equals(values.getName()))
+                    {
+                        System.out.println("Found not matched, Replace " + values.getName() + " with " + getName(values.getUuid()) +" instead");
+                    }
+                    else
+                    {
+                        System.out.println("Not found :D");
+
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
     }
 
     private static String getName(String uuid) throws JsonSyntaxException, IOException

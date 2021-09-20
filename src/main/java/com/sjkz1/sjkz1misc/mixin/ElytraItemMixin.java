@@ -1,22 +1,16 @@
 package com.sjkz1.sjkz1misc.mixin;
 
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-
 import com.sjkz1.sjkz1misc.SJKZ1Misc;
-
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ElytraItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Wearable;
+import net.minecraft.item.*;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
+import org.spongepowered.asm.mixin.*;
+
 
 @Mixin(ElytraItem.class)
 public class ElytraItemMixin extends Item implements Wearable {
@@ -26,10 +20,9 @@ public class ElytraItemMixin extends Item implements Wearable {
     }
 
     /**
-     * @author SJZJK1
+     * @author SJKZ1
      */
-    @Override
-	@Overwrite
+    @Overwrite
     public TypedActionResult<ItemStack> use(World world, PlayerEntity playerEntity, Hand hand) {
         ItemStack itemStack = playerEntity.getStackInHand(hand);
         EquipmentSlot equipmentSlot = LivingEntity.getPreferredEquipmentSlot(itemStack);
@@ -39,8 +32,6 @@ public class ElytraItemMixin extends Item implements Wearable {
             if (!world.isClient()) {
                 playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
             }
-
-
             playerEntity.setStackInHand(hand,itemStack2);
             return TypedActionResult.success(itemStack, world.isClient());
         } else {

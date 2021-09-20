@@ -14,6 +14,7 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.toast.SystemToast;
+import net.minecraft.client.toast.TutorialToast;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
@@ -26,7 +27,7 @@ import java.util.UUID;
 
 
 public class SJKZ1Misc implements ModInitializer
-{ ;
+{
 	private KeyBinding danceKey;
 	private KeyBinding showPost;
 
@@ -53,7 +54,6 @@ public class SJKZ1Misc implements ModInitializer
 		SoundInits.init();
 		new OpenFolderCommand(ClientCommandManager.DISPATCHER);
 		new EntityDetector(ClientCommandManager.DISPATCHER);
-
 	}
 
 
@@ -95,9 +95,20 @@ public class SJKZ1Misc implements ModInitializer
 				int j = (int) client.player.getY();
 				int k = (int) client.player.getZ();
 				String pos = "X:" + i + " Y:" + j+ " Z:" + k;
-				client.player.sendSystemMessage(Text.of(pos), UUID.randomUUID());
+				String NetherPos = "Nether position X:" + i / 8 + " Y:" + j  + " Z:" + k / 8 ;
+				String OverWorldPose = "OverWorld position X:" + i * 8 + " Y:" + j  + " Z:" + k * 8 ;
+
+				if(client.player.getEntityWorld().getDimension().isPiglinSafe()) {
+					client.player.sendChatMessage(pos);
+					client.player.sendChatMessage(OverWorldPose);
+				}
+				else
+				{
+					client.player.sendChatMessage(pos);
+					client.player.sendChatMessage(NetherPos);
+				}
 				client.player.requestRespawn();
-				client.getToastManager().add(new SystemToast(SystemToast.Type.TUTORIAL_HINT,Text.of("Dead position"),Text.of(pos)));
+				client.getToastManager().add(new SystemToast(SystemToast.Type.NARRATOR_TOGGLE, Text.of("Dead position"),Text.of(pos)));
 			}
 		}
 	}

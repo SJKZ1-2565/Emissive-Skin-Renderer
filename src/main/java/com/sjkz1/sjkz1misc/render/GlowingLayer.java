@@ -17,14 +17,14 @@ import net.minecraft.util.math.MathHelper;
 
 public class GlowingLayer<T extends AbstractClientPlayerEntity, M extends PlayerEntityModel<T>> extends FeatureRenderer<T, M>
 {
-	public GlowingLayer(FeatureRendererContext<T, M> context)
+    public GlowingLayer(FeatureRendererContext<T, M> context)
     {
         super(context);
     }
 
-	public static Identifier getPath(String name) {
-		return new Identifier("sjkz1misc:textures/entity/" + name + ".png");
-	}
+    public static Identifier getPath(String name) {
+        return new Identifier("sjkz1misc:textures/entity/" + name + ".png");
+    }
 
     @Override
     public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumers, int light, T entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {

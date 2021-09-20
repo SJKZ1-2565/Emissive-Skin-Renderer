@@ -1,5 +1,6 @@
 package com.sjkz1.sjkz1misc.mixin;
 
+import com.sjkz1.sjkz1misc.utils.SJKZ1Helper;
 import net.minecraft.block.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,9 +25,7 @@ public abstract class BlocksMixin {
         }
         if(string.equals("beacon"))
         {
-            cir.setReturnValue(Registry.register(Registry.BLOCK,string, new BeaconBlock(AbstractBlock.Settings.of(Material.GLASS, MapColor.DIAMOND_BLUE).sounds(BlockSoundGroup.GLASS).strength(3.0F).luminance((blockStatex) -> {
-                return 15;
-            }).nonOpaque().solidBlock(Blocks::never))));
+            cir.setReturnValue(Registry.register(Registry.BLOCK,string, new BeaconBlock(AbstractBlock.Settings.of(Material.GLASS, MapColor.DIAMOND_BLUE).sounds(BlockSoundGroup.GLASS).strength(3.0F).luminance((blockStatex) -> 15).nonOpaque().solidBlock(Blocks::never))));
         }
         if(string.equals("tripwire_hook"))
         {

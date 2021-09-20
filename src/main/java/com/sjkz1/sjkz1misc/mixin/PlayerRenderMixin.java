@@ -40,8 +40,6 @@ public abstract class PlayerRenderMixin extends LivingEntityRenderer<AbstractCli
     private void renderArm(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, AbstractClientPlayerEntity abstractClientPlayerEntity, ModelPart mainHand, ModelPart sleeve, CallbackInfo info) {
 
         float time = abstractClientPlayerEntity.age;
-
-        GlowingLayer.makeFade(time);
         mainHand.render(matrixStack, vertexConsumerProvider.getBuffer(RenderLayer.getEntitySolid(abstractClientPlayerEntity.getSkinTexture())), i, OverlayTexture.DEFAULT_UV);
         for(SpecialMember values : SpecialMember.VALUES)
         {

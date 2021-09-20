@@ -6,22 +6,16 @@
   "mixins": [
     "ArmorItemMixin",
     "AxolotlDanceMixin",
-    "AxolotlRendererMixin",
-    "BossBarHudMixin",
-    "CapeMixin",
-    "CatDanceMixin",
-    "CatRendererMixin",
     "ElytraItemMixin",
-    "InGameHudMixin",
     "LivingRendererMixin",
     "MinecraftClientMixin",
-    "PlayerDanceMixin",
     "PlayerEntityMixin",
     "PlayerRenderMixin",
-    "EndermanRenderMixin",
     "LivingEntityMixin",
-    "BlocksMixin"
-
+    "BlocksMixin",
+    "InventoryScreenMixin",
+    "PlayerModelMixin",
+    "ClientPlayerInteractionManagerMixin"
 
   ],
   "client": [

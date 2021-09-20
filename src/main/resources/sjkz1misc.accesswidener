@@ -6,3 +6,9 @@ accessible method net/minecraft/block/Blocks never (Lnet/minecraft/block/BlockSt
 accessible method net/minecraft/block/Blocks canSpawnOnLeaves (Lnet/minecraft/block/BlockState;Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/EntityType;)Ljava/lang/Boolean;
 accessible method net/minecraft/client/render/WorldRenderer getLightmapCoordinates (Lnet/minecraft/world/BlockRenderView;Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;)I
 accessible method net/minecraft/client/render/WorldRenderer getLightmapCoordinates (Lnet/minecraft/world/BlockRenderView;Lnet/minecraft/util/math/BlockPos;)I
+accessible class net/minecraft/client/world/ClientWorld$BlockParticle
+accessible method net/minecraft/block/Blocks always (Lnet/minecraft/block/BlockState;Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;)Z
+accessible method net/minecraft/block/Blocks always (Lnet/minecraft/block/BlockState;Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/EntityType;)Ljava/lang/Boolean;
+accessible method net/minecraft/client/render/WorldRenderer drawBlockOutline (Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumer;Lnet/minecraft/entity/Entity;DDDLnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;)V
+accessible method net/minecraft/client/render/WorldRenderer drawShapeOutline (Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumer;Lnet/minecraft/util/shape/VoxelShape;DDDFFFF)V
+accessible method net/minecraft/util/math/ChunkPos getBlockPos (III)Lnet/minecraft/util/math/BlockPos
