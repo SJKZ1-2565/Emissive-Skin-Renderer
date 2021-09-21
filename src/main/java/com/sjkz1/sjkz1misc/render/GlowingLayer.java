@@ -33,7 +33,7 @@ public class GlowingLayer<T extends AbstractClientPlayerEntity, M extends Player
         for(SpecialMember values : SpecialMember.VALUES)
         {
             RenderLayer GLOWING_LAYER = RenderLayer.getEyes(getPath(values.getName().toLowerCase()));
-            if (!entity.isInvisible() && entity.getName().getString().equals(values.getName()) && entity instanceof AbstractClientPlayerEntity && SJKZ1Misc.CONFIG.getConfig().glowingSkin) {
+            if (!entity.isInvisible() && entity.getName().getString().equals(values.getName()) && SJKZ1Misc.CONFIG.getConfig().glowingSkin) {
                 VertexConsumer inveterate = vertexConsumers.getBuffer(GLOWING_LAYER);
                 this.getContextModel().render(matrixStack, inveterate, light, OverlayTexture.DEFAULT_UV, makeFade(time), makeFade(time), makeFade(time), 1.0F);
             }

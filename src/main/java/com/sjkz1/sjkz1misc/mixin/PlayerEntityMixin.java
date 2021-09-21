@@ -15,6 +15,8 @@ import net.minecraft.entity.decoration.ItemFrameEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
+import java.util.Objects;
+
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity
 {
@@ -31,16 +33,15 @@ public abstract class PlayerEntityMixin extends LivingEntity
 	@Inject(method = "attack",at = @At("HEAD"), cancellable = true)
 	public void attack(Entity target, CallbackInfo ci)
 	{
-		if(target instanceof VillagerEntity && !mc.player.getAbilities().creativeMode)
+		if(target instanceof VillagerEntity && !Objects.requireNonNull(mc.player).getAbilities().creativeMode)
 		{
 			if(SJKZ1Misc.CONFIG.getConfig().IgnoreHittingVillager)
 			{
 				ci.cancel();
 			}
 		}
-		else if(target instanceof ItemFrameEntity)
+		else if(target instanceof ItemFrameEntity itemFrameEntity)
 		{
-			ItemFrameEntity itemFrameEntity = (ItemFrameEntity) target;
 			if(itemFrameEntity.fixed)
 			{
 				ci.cancel();

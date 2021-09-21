@@ -31,12 +31,7 @@ public abstract  class ConfigHandler {
 	        }
 	    }
 
-	    public File getConfigFile()
-	    {
-	        return this.configFile;
-	    }
-
-	    public static String readFile(String path, Charset encoding) throws IOException
+	public static String readFile(String path, Charset encoding) throws IOException
 	    {
 	        byte[] encoded = Files.readAllBytes(Paths.get(path));
 	        return new String(encoded, encoding);

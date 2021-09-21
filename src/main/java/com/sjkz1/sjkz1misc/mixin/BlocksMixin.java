@@ -1,20 +1,14 @@
 package com.sjkz1.sjkz1misc.mixin;
 
-import com.sjkz1.sjkz1misc.utils.SJKZ1Helper;
+import com.sjkz1.sjkz1misc.block.AncientDebrisBlock;
 import net.minecraft.block.*;
+import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.registry.Registry;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import com.sjkz1.sjkz1misc.block.AncientDebrisBlock;
-
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.registry.Registry;
-
-@SuppressWarnings("UnresolvedMixinReference")
 @Mixin(Blocks.class)
 public abstract class BlocksMixin {
 

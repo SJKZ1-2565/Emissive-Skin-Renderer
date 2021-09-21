@@ -32,6 +32,6 @@ public class PlayerDanceMixin<T extends LivingEntity> extends BipedEntityModel<T
     @Inject(method = "setAngles",at = @At("TAIL"))
     public void PlayDance(T livingEntity, float f, float g, float h, float i, float j, CallbackInfo ci)
     {
-            SJKZ1Helper.PlayerDance(head, hat, leftArm, rightArm, rightSleeve, leftSleeve, body, jacket, livingEntity.age, h);
+//            SJKZ1Helper.PlayerDance(head, hat, leftArm, rightArm, rightSleeve, leftSleeve, body, jacket, livingEntity.age, h); TODO
     }
 }

@@ -7,6 +7,7 @@
     "ArmorItemMixin",
     "AxolotlDanceMixin",
     "BlocksMixin",
+    "CatRendererMixin",
     "ClientPlayerInteractionManagerMixin",
     "ElytraItemMixin",
     "InventoryScreenMixin",

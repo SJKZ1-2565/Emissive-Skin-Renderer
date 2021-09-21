@@ -28,11 +28,4 @@ public abstract class LivingEntityMixin extends Entity
 			this.setGlowing(EntityDetector.glow);
 		}
 	}
-
-//	@Override
-//	public void tick()
-//	{
-//		super.tick();
-//		if(SJKZ1Helper.isBambooClose())
-//	}
 }

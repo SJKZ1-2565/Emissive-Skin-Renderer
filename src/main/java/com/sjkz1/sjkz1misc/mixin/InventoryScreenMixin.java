@@ -14,8 +14,10 @@ public class InventoryScreenMixin {
     @Redirect(method = "drawBackground",at = @At(value = "INVOKE",target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderColor(FFFF)V"))
     public void dsa(float f, float g, float h, float i)
     {
-        float time = MinecraftClient.getInstance().player.age + MinecraftClient.getInstance().getTickDelta();
-        RenderSystem.setShaderColor(makeFade(time), makeFade(time), makeFade(time), 1.0F);
+      if(MinecraftClient.getInstance().player != null) {
+          float time = MinecraftClient.getInstance().player.age + MinecraftClient.getInstance().getTickDelta();
+          RenderSystem.setShaderColor(makeFade(time), makeFade(time), makeFade(time), 1.0F);
+      }
     }
     private float makeFade(float alpha)
     {
