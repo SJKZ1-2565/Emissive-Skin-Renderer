@@ -15,14 +15,6 @@ public class NameChecker {
 
     public static void main(String[] arg)
     {
-
-//        final  String token = "ODYwMDc1NTYxODk2NjQwNTEz.YN19yQ._iLl4UYho3fohjaP2ewGYOCHu8k";;
-//        try {
-//            Desktop.getDesktop().open(MinecraftClient.getInstance().runDirectory);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//
-//        }
             for(SpecialMember values : SpecialMember.VALUES)
             {
                 try {
