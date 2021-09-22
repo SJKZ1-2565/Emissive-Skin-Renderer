@@ -8,7 +8,7 @@ import net.minecraft.sounds.SoundSource;
 
 public class ClientInit {
 
-    private static boolean dance = false;
+    public static boolean dance = false;
 
     public static void tick(Minecraft client) {
         if (SJKZ1Misc.danceKey.isDown()) {

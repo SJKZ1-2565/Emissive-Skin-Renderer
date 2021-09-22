@@ -42,8 +42,8 @@ public class PlayerModelMixin<T extends LivingEntity> extends HumanoidModel<T> {
            float deltas = client.getDeltaFrameTime();
            boolean drinkingoreating = itemstack.getUseAnimation() == UseAnim.EAT || itemstack.getUseAnimation() == UseAnim.DRINK;
            if (client.player.getTicksUsingItem() > 0 && drinkingoreating && client.player.getUsedItemHand() == InteractionHand.MAIN_HAND) {
-               rightArm.x = (0.25F * Mth.sin(ticks + deltas) + 5F);
-               rightArm.y = -6.75F;
+               rightArm.xRot = (0.25F * Mth.sin(ticks + deltas) + 5F);
+               rightArm.yRot = -6.75F;
                rightSleeve.copyFrom(rightArm);
            }
        }
@@ -55,8 +55,8 @@ public class PlayerModelMixin<T extends LivingEntity> extends HumanoidModel<T> {
             float deltas = client.getDeltaFrameTime();
             boolean drinkingoreating = itemstack.getUseAnimation() == UseAnim.EAT || itemstack.getUseAnimation() == UseAnim.DRINK;
             if (client.player.getTicksUsingItem() > 0 && drinkingoreating && client.player.getUsedItemHand() == InteractionHand.OFF_HAND) {
-                lefttArm.x = (0.25F * Mth.sin(ticks + deltas) + 5F);
-                lefttArm.y = 6.75F;
+                lefttArm.xRot = (0.25F * Mth.sin(ticks + deltas) + 5F);
+                lefttArm.yRot = 6.75F;
                 leftSleeve.copyFrom(lefttArm);
             }
         }

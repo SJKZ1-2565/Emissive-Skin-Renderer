@@ -1,6 +1,9 @@
 package com.sjkz1.sjkz1misc.mixin;
 
+import ca.weblite.objc.Client;
 import com.sjkz1.sjkz1misc.SJKZ1Misc;
+import com.sjkz1.sjkz1misc.utils.ClientInit;
+import com.sjkz1.sjkz1misc.utils.KeyBindInit;
 import com.sjkz1.sjkz1misc.utils.SJKZ1Helper;
 import net.minecraft.client.model.AgeableListModel;
 import net.minecraft.client.model.AxolotlModel;
@@ -26,7 +29,7 @@ public abstract class AxolotlDanceMixin<T extends Axolotl & LerpingModel> extend
     @Inject(method = "setupAnim",at = @At("TAIL"))
     public void dance(T axolotlEntity, float f, float g, float h, float i, float j, CallbackInfo ci)
     {
-        if(SJKZ1Misc.dance) {
+        if(ClientInit.dance) {
             if(axolotlEntity.getName().getString().equals("Mooky")) {
                 SJKZ1Helper.axolotlDance(body, axolotlEntity.tickCount, h);
             }
