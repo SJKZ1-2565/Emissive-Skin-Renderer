@@ -13,8 +13,7 @@ import net.minecraft.Util;
 public class OpenFolderCommand {
     public OpenFolderCommand(CommandDispatcher<FabricClientCommandSource> dispatcher)
 {
-    var node = dispatcher.register(ClientCommandManager.literal("open_folder").executes(requirement -> OpenFolderCommand.openSFolder()));
-    dispatcher.register(ClientCommandManager.literal("opf").redirect(node));
+    var node = dispatcher.register(ClientCommandManager.literal("open-folder").executes(requirement -> OpenFolderCommand.openSFolder()));
 }
 
     private static int openSFolder()

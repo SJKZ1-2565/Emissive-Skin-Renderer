@@ -9,7 +9,7 @@ public class EntityDetector {
 public static boolean glow;
     public EntityDetector(CommandDispatcher<FabricClientCommandSource> dispatcher)
 {
-    var node = dispatcher.register(ClientCommandManager.literal("entity_detect").executes(requirement -> EntityDetector.setGlowing()));
+    var node = dispatcher.register(ClientCommandManager.literal("glowingentity").executes(requirement -> EntityDetector.setGlowing()));
 }
 
     private static int setGlowing()
