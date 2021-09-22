@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v1.FabricClientCommandSource;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.Util;
+import net.minecraft.client.Minecraft;
 
 
 public class OpenFolderCommand {
@@ -18,7 +19,7 @@ public class OpenFolderCommand {
 
     private static int openSFolder()
     {
-        Util.OS.UNKNOWN.openFile(new File(FabricLoader.getInstance().getGameDirectory(), "saves"));
+       Util.OS.WINDOWS.openFile(new File(FabricLoader.getInstance().getGameDirectory(), "saves"));
         return 1;
     }
 }
