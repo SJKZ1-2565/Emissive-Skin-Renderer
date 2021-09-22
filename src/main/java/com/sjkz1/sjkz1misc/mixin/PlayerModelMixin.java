@@ -1,14 +1,14 @@
 package com.sjkz1.sjkz1misc.mixin;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.client.render.entity.model.PlayerEntityModel;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
-import net.minecraft.util.UseAction;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.PlayerModel;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -16,9 +16,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(PlayerEntityModel.class)
-public class PlayerModelMixin<T extends LivingEntity> extends BipedEntityModel<T> {
-    private final MinecraftClient client = MinecraftClient.getInstance();
+@Mixin(PlayerModel.class)
+public class PlayerModelMixin<T extends LivingEntity> extends HumanoidModel<T> {
+    private final Minecraft client = Minecraft.getInstance();
     public PlayerModelMixin() {
         super(null);
     }
@@ -28,36 +28,36 @@ public class PlayerModelMixin<T extends LivingEntity> extends BipedEntityModel<T
     @Final
     @Shadow
     public ModelPart rightSleeve;
-    @Inject(method = "setAngles",at = @At("TAIL"))
+    @Inject(method = "setupAnim",at = @At("TAIL"))
     public void injectAnim(T livingEntity, float f, float g, float h, float i, float j, CallbackInfo ci)
     {
-        eatingAnimationRightHand(rightArm,rightSleeve,livingEntity.age);
-        eatingAnimationLeftHand(leftArm,leftSleeve,livingEntity.age);
+        eatingAnimationRightHand(rightArm,rightSleeve,livingEntity.tickCount);
+        eatingAnimationLeftHand(leftArm,leftSleeve,livingEntity.tickCount);
     }
 
     private  void eatingAnimationRightHand(ModelPart rightArm, ModelPart rightSleeve, int ticks) {
 
        if(client.player != null) {
-           ItemStack itemstack = client.player.getStackInHand(Hand.MAIN_HAND);
-           float deltas = client.getTickDelta();
-           boolean drinkingoreating = itemstack.getUseAction() == UseAction.EAT || itemstack.getUseAction() == UseAction.DRINK;
-           if (client.player.getItemUseTimeLeft() > 0 && drinkingoreating && client.player.getActiveHand() == Hand.MAIN_HAND) {
-               rightArm.pitch = (0.25F * MathHelper.sin(ticks + deltas) + 5F);
-               rightArm.yaw = -6.75F;
-               rightSleeve.copyTransform(rightArm);
+           ItemStack itemstack = client.player.getItemInHand(InteractionHand.MAIN_HAND);
+           float deltas = client.getDeltaFrameTime();
+           boolean drinkingoreating = itemstack.getUseAnimation() == UseAnim.EAT || itemstack.getUseAnimation() == UseAnim.DRINK;
+           if (client.player.getTicksUsingItem() > 0 && drinkingoreating && client.player.getUsedItemHand() == InteractionHand.MAIN_HAND) {
+               rightArm.x = (0.25F * Mth.sin(ticks + deltas) + 5F);
+               rightArm.y = -6.75F;
+               rightSleeve.copyFrom(rightArm);
            }
        }
     }
 
     private  void eatingAnimationLeftHand(ModelPart lefttArm, ModelPart leftSleeve, int ticks) {
         if(client.player != null) {
-            ItemStack itemstack = client.player.getStackInHand(Hand.OFF_HAND);
-            float deltas = client.getTickDelta();
-            boolean drinkingoreating = itemstack.getUseAction() == UseAction.EAT || itemstack.getUseAction() == UseAction.DRINK;
-            if (client.player.getItemUseTimeLeft() > 0 && drinkingoreating && client.player.getActiveHand() == Hand.OFF_HAND) {
-                lefttArm.pitch = (0.25F * MathHelper.sin(ticks + deltas) + 5F);
-                lefttArm.yaw = 6.75F;
-                leftSleeve.copyTransform(lefttArm);
+            ItemStack itemstack = client.player.getItemInHand(InteractionHand.OFF_HAND);
+            float deltas = client.getDeltaFrameTime();
+            boolean drinkingoreating = itemstack.getUseAnimation() == UseAnim.EAT || itemstack.getUseAnimation() == UseAnim.DRINK;
+            if (client.player.getTicksUsingItem() > 0 && drinkingoreating && client.player.getUsedItemHand() == InteractionHand.OFF_HAND) {
+                lefttArm.x = (0.25F * Mth.sin(ticks + deltas) + 5F);
+                lefttArm.y = 6.75F;
+                leftSleeve.copyFrom(lefttArm);
             }
         }
     }

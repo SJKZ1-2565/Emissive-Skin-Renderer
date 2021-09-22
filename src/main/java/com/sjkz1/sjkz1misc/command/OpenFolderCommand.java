@@ -7,7 +7,8 @@ import com.mojang.brigadier.CommandDispatcher;
 import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v1.FabricClientCommandSource;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.util.Util;
+import net.minecraft.Util;
+
 
 public class OpenFolderCommand {
     public OpenFolderCommand(CommandDispatcher<FabricClientCommandSource> dispatcher)
@@ -18,7 +19,7 @@ public class OpenFolderCommand {
 
     private static int openSFolder()
     {
-        Util.getOperatingSystem().open(new File(FabricLoader.getInstance().getGameDirectory(), "saves"));
+        Util.OS.UNKNOWN.openFile(new File(FabricLoader.getInstance().getGameDirectory(), "saves"));
         return 1;
     }
 }

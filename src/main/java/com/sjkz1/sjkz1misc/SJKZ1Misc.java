@@ -11,12 +11,11 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.toast.SystemToast;
-import net.minecraft.client.util.InputUtil;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.text.Text;
+import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.toasts.SystemToast;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.sounds.SoundSource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
@@ -26,8 +25,8 @@ import java.util.List;
 
 public class SJKZ1Misc implements ModInitializer
 {
-	private KeyBinding danceKey;
-	private KeyBinding showPost;
+	private KeyMapping danceKey;
+	private KeyMapping showPost;
 
 	public static String MOD_ID = "sjkz1misc";
 	public static Logger LOGGER = LogManager.getLogger(MOD_ID);
@@ -45,8 +44,8 @@ public class SJKZ1Misc implements ModInitializer
 	@Override
 	public void onInitialize()
 	{
-		danceKey = KeyBindingHelper.registerKeyBinding(new KeyBinding ("key.sjkz1misc.start_dance", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_R, "sjkz1misc"));
-		showPost = KeyBindingHelper.registerKeyBinding(new KeyBinding ("key.sjkz1misc.showPost", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_G, "sjkz1misc"));
+		danceKey = KeyBindingHelper.registerKeyBinding(new KeyMapping("key.sjkz1misc.start_dance", GLFW.GLFW_KEY_R, "sjkz1misc"));
+		showPost = KeyBindingHelper.registerKeyBinding(new KeyMapping("key.sjkz1misc.showPost", GLFW.GLFW_KEY_G, "sjkz1misc"));
 
 		ClientTickEvents.END_CLIENT_TICK.register(this::tick);
 		SoundInits.init();
@@ -55,17 +54,17 @@ public class SJKZ1Misc implements ModInitializer
 	}
 
 
-	public void tick(MinecraftClient client) {
-		if (danceKey.wasPressed()) {
+	public void tick(Minecraft client) {
+		if (danceKey.isDown()) {
 			dance = !dance;
-			client.getSoundManager().stopSounds(SoundInits.DRAGONBALL_ID, SoundCategory.PLAYERS);
+			client.getSoundManager().stop(SoundInits.DRAGONBALL_ID, SoundSource.PLAYERS);
 			if(dance) {
 				assert client.player != null;
-				client.player.playSound(SoundInits.DRAGONBALL_SOUND_EVENT, SoundCategory.PLAYERS, 1, 1);
+				client.player.playNotifySound(SoundInits.DRAGONBALL_SOUND_EVENT, SoundSource.PLAYERS, 1, 1);
 			}
 		}
 
-		if (showPost.wasPressed())
+		if (showPost.isDown())
 		{
 			assert client.player != null;
 			int i = (int) client.player.getX();
@@ -75,19 +74,19 @@ public class SJKZ1Misc implements ModInitializer
 			String NetherPos = "Nether position X:" + i / 8 + " Y:" + j  + " Z:" + k / 8 ;
 			String OverWorldPose = "OverWorld position X:" + i * 8 + " Y:" + j  + " Z:" + k * 8 ;
 
-			if(client.player.getEntityWorld().getDimension().isPiglinSafe()) {
-				client.player.sendChatMessage(pos);
-				client.player.sendChatMessage(OverWorldPose);
+			if(client.player.level.dimensionType().piglinSafe()) {
+				client.player.chat(pos);
+				client.player.chat(OverWorldPose);
 			}
 			else
 			{
-				client.player.sendChatMessage(pos);
-				client.player.sendChatMessage(NetherPos);
+				client.player.chat(pos);
+				client.player.chat(NetherPos);
 			}
 		}
-		if(client != null && client.player != null && client.world != null)
+		if(client != null && client.player != null && client.level != null)
 		{
-			if(client.player.isDead() && client.world.isClient)
+			if(client.player.isDeadOrDying() && client.level.isClientSide)
 			{
 				int i = (int) client.player.getX();
 				int j = (int) client.player.getY();
@@ -96,17 +95,17 @@ public class SJKZ1Misc implements ModInitializer
 				String NetherPos = "Nether position X:" + i / 8 + " Y:" + j  + " Z:" + k / 8 ;
 				String OverWorldPose = "OverWorld position X:" + i * 8 + " Y:" + j  + " Z:" + k * 8 ;
 
-				if(client.player.getEntityWorld().getDimension().isPiglinSafe()) {
-					client.player.sendChatMessage(pos);
-					client.player.sendChatMessage(OverWorldPose);
+				if(client.player.level.dimensionType().piglinSafe()) {
+					client.player.chat(pos);
+					client.player.chat(OverWorldPose);
 				}
 				else
 				{
-					client.player.sendChatMessage(pos);
-					client.player.sendChatMessage(NetherPos);
+					client.player.chat(pos);
+					client.player.chat(NetherPos);
 				}
-				client.player.requestRespawn();
-				client.getToastManager().add(new SystemToast(SystemToast.Type.NARRATOR_TOGGLE, Text.of("Dead position"),Text.of(pos)));
+				client.player.respawn();
+				client.getToasts().addToast(new SystemToast(SystemToast.SystemToastIds.NARRATOR_TOGGLE,new TextComponent("Dead position"),new TextComponent(pos)));
 			}
 		}
 	}

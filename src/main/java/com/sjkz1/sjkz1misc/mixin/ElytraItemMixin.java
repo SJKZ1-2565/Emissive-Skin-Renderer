@@ -1,15 +1,16 @@
 package com.sjkz1.sjkz1misc.mixin;
 
 import com.sjkz1.sjkz1misc.SJKZ1Misc;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
-import net.minecraft.stat.Stats;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.world.World;
-import org.spongepowered.asm.mixin.*;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 
 
 @Mixin(ElytraItem.class)
@@ -23,19 +24,19 @@ public class ElytraItemMixin extends Item implements Wearable {
      * @author SJKZ1
      */
     @Overwrite
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity playerEntity, Hand hand) {
-        ItemStack itemStack = playerEntity.getStackInHand(hand);
-        EquipmentSlot equipmentSlot = LivingEntity.getPreferredEquipmentSlot(itemStack);
-        ItemStack itemStack2 = playerEntity.getEquippedStack(equipmentSlot);
+    public InteractionResultHolder<ItemStack> use(Level world, Player playerEntity, InteractionHand hand) {
+        ItemStack itemStack = playerEntity.getItemInHand(hand);
+        EquipmentSlot equipmentSlot = Mob.getEquipmentSlotForItem(itemStack);
+        ItemStack itemStack2 = playerEntity.getItemBySlot(equipmentSlot);
         if (itemStack2.isEmpty() || (itemStack2.getItem() instanceof ArmorItem || itemStack2.getItem() instanceof ElytraItem && SJKZ1Misc.CONFIG.getConfig().SwapArmorAndElytra)){
-            playerEntity.equipStack(equipmentSlot, itemStack.copy());
-            if (!world.isClient()) {
-                playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
+            playerEntity.setItemSlot(equipmentSlot, itemStack.copy());
+            if (!world.isClientSide()) {
+                playerEntity.awardStat(Stats.ITEM_USED.get(this));
             }
-            playerEntity.setStackInHand(hand,itemStack2);
-            return TypedActionResult.success(itemStack, world.isClient());
+            playerEntity.setItemInHand(hand,itemStack2);
+            return InteractionResultHolder.sidedSuccess(itemStack, world.isClientSide());
         } else {
-            return TypedActionResult.fail(itemStack);
+            return InteractionResultHolder.fail(itemStack);
         }
     }
 }
