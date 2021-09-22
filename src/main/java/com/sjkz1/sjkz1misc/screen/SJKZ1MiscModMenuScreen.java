@@ -42,7 +42,6 @@ public class SJKZ1MiscModMenuScreen implements ModMenuApi
 	        ConfigCategory colorCategory = builder.getOrCreateCategory(new TextComponent("Color Settings"));
 
 
-			generalCategory.addEntry(entry.startBooleanToggle(new TranslatableComponent("sjkz1misc.config.show_fps"), config.showFps).setTooltip(new TextComponent("Show current fps, on your top right corner.")).setSaveConsumer(value -> config.showFps = value).setDefaultValue(true).build());
 			generalCategory.addEntry(entry.startBooleanToggle(new TranslatableComponent("sjkz1misc.config.hp_detector"), config.showHealthStatus).setTooltip(new TextComponent("Render entity HP, on their name tag.")).setSaveConsumer(value -> config.showHealthStatus = value).setDefaultValue(true).build());
 			generalCategory.addEntry(entry.startBooleanToggle(new TranslatableComponent("sjkz1misc.config.ignore_villager"), config.IgnoreHittingVillager).setTooltip(new TextComponent("Ignore attack village.")).setSaveConsumer(value -> config.IgnoreHittingVillager = value).setDefaultValue(true).build());
 
@@ -54,7 +53,6 @@ public class SJKZ1MiscModMenuScreen implements ModMenuApi
 			colorCategory.addEntry(entry.startColorField(new TranslatableComponent("sjkz1misc.config.health_color"), config.healthStatusColor).setTooltip(new TextComponent("Text color.")).setSaveConsumer(value -> config.healthStatusColor = value).setDefaultValue(0x4dff52).build());
 
 			singlePlayerCategory.addEntry(entry.startBooleanToggle(new TranslatableComponent("sjkz1misc.config.swap"), config.SwapArmorAndElytra).setTooltip(new TextComponent("Swap armor and elytra.")).setSaveConsumer(value -> config.SwapArmorAndElytra = value).setDefaultValue(true).build());
-			singlePlayerCategory.addEntry(entry.startBooleanToggle(new TranslatableComponent("sjkz1misc.config.show_fire_debris"), config.ShowDebrisUnderFire).setTooltip(new TextComponent("Easiest way to find Ancient Debris.")).setSaveConsumer(value -> config.ShowDebrisUnderFire = value).setDefaultValue(true).build());
 
 			specialMemberCategory.addEntry(entry.startBooleanToggle(new TranslatableComponent("sjkz1misc.config.glowing_skin"), config.glowingSkin).setTooltip(new TextComponent("Render glowing skin!")).setSaveConsumer(value -> config.glowingSkin = value).setDefaultValue(true).build());
 			return builder.build();
