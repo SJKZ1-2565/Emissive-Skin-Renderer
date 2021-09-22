@@ -38,7 +38,7 @@ public abstract class PlayerRenderMixin extends LivingEntityRenderer<AbstractCli
     private void renderArm(PoseStack poseStack, MultiBufferSource multiBufferSource, int i, AbstractClientPlayer abstractClientPlayer, ModelPart modelPart, ModelPart modelPart2, CallbackInfo ci) {
 
         float time = abstractClientPlayer.tickCount;
-        modelPart.render(poseStack, multiBufferSource.getBuffer(RenderType.eyes(abstractClientPlayer.getSkinTextureLocation())), i, OverlayTexture.NO_OVERLAY);
+        modelPart.render(poseStack, multiBufferSource.getBuffer(RenderType.entitySolid(abstractClientPlayer.getSkinTextureLocation())), i, OverlayTexture.NO_OVERLAY);
         for(SpecialMember values : SpecialMember.VALUES)
         {
             RenderType GLOWING_LAYER = RenderType.eyes(GlowingLayer.getPath(values.getName().toLowerCase()));
@@ -46,7 +46,7 @@ public abstract class PlayerRenderMixin extends LivingEntityRenderer<AbstractCli
 
             if (!abstractClientPlayer.isInvisible() && abstractClientPlayer.getName().getString().equals(values.getName()) && SJKZ1Misc.CONFIG.getConfig().glowingSkin) {
                 modelPart2.render(poseStack, inveterate, 15728640, OverlayTexture.NO_OVERLAY,GlowingLayer.makeFade(time),GlowingLayer.makeFade(time),GlowingLayer.makeFade(time),GlowingLayer.makeFade(time));
-                modelPart.render(poseStack, multiBufferSource.getBuffer(GLOWING_LAYER), 15728640, OverlayTexture.NO_OVERLAY,GlowingLayer.makeFade(time),GlowingLayer.makeFade(time),GlowingLayer.makeFade(time),GlowingLayer.makeFade(time));
+                modelPart.render(poseStack, inveterate, 15728640, OverlayTexture.NO_OVERLAY,GlowingLayer.makeFade(time),GlowingLayer.makeFade(time),GlowingLayer.makeFade(time),GlowingLayer.makeFade(time));
             }
         }
 
