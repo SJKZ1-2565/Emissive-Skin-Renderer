@@ -52,6 +52,7 @@ public class MinetilscModMenuScreen implements ModMenuApi
 			colorCategory.addEntry(entry.startColorField(new TranslatableComponent("minetils.config.health_color"), config.healthStatusColor).setTooltip(new TextComponent("Text color.")).setSaveConsumer(value -> config.healthStatusColor = value).setDefaultValue(0x4dff52).build());
 
 			singlePlayerCategory.addEntry(entry.startBooleanToggle(new TranslatableComponent("minetils.config.swap"), config.SwapArmorAndElytra).setTooltip(new TextComponent("Swap armor and elytra.")).setSaveConsumer(value -> config.SwapArmorAndElytra = value).setDefaultValue(true).build());
+			singlePlayerCategory.addEntry(entry.startBooleanToggle(new TranslatableComponent("minetils.config.particle"), config.disableBlockParticle).setTooltip(new TextComponent("Disable block particle.")).setSaveConsumer(value -> config.disableBlockParticle = value).setDefaultValue(false).build());
 
 			specialMemberCategory.addEntry(entry.startBooleanToggle(new TranslatableComponent("minetils.config.glowing_skin"), config.glowingSkin).setTooltip(new TextComponent("Render glowing skin!")).setSaveConsumer(value -> config.glowingSkin = value).setDefaultValue(true).build());
 			return builder.build();

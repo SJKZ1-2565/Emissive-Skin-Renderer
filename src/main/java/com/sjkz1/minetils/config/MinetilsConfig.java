@@ -8,6 +8,7 @@ public class MinetilsConfig {
 	  public boolean SwapArmorAndElytra;
 	  public boolean healthStatusRainbowColor;
 	  public boolean showTamedHorse;
+	  public boolean disableBlockParticle;
 	  public int healthStatusColor;
 	  public int yPositionHorseDisplay;
 	  public int yPositionHealthStatus;

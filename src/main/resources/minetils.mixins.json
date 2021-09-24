@@ -12,6 +12,7 @@
     "MinecraftClientMixin",
     "PlayerEntityMixin",
     "PlayerModelMixin",
+    "ParticleEngineMixin",
     "PlayerRenderMixin"
   ],
   "client": [
