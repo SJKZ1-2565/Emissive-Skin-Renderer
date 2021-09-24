@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
-import com.sjkz1.sjkz1misc.utils.SpecialMember;
+import com.sjkz1.minetils.utils.SpecialMember;
 import org.apache.commons.io.IOUtils;
 
 import com.google.gson.JsonArray;

@@ -1,0 +1,16 @@
+{
+  "key.sjkz1misc.start_dance": "Start dancing",
+  "key.sjkz1misc.showPost": "Send current position in chat",
+  "minetils.config.title" : "Minetils Config...",
+  "minetils.config.ignore_villager" : "Enable ignore attacking Villager",
+  "minetils.config.rainbow" : "Enable rainbow text color",
+  "minetils.config.swap" : "Enable swap armor while wearing elytra",
+  "minetils.config.hp_detector" : "Enable entity hp",
+  "minetils.config.y_hp_detector" : "Y position entity hp text",
+  "minetils.config.rainbow_health" : "Rainbow Health Color",
+  "minetils.config.coloredEnderman" : "Enable colored Enderman",
+  "minetils.config.discord_message" : "Enable Discord Message",
+  "minetils.config.tamed_horse_detector" : "Enable tamed horse display",
+  "minetils.config.y_tamed_horse_detector" : "Y position of tamed horse text",
+  "minetils.config.glowing_skin" : "§6Render Glowing skin"
+}

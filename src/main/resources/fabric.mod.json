@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "sjkz1misc",
+  "id": "minetils",
   "version": "1.0.2",
-  "name": "sjkz1misc",
+  "name": "minetils",
   "description": "Miscellaneous for playing experience!\n\u00A7lChange log\u00A7r\n\u00A7nMain\u00A7r\n-This version is remove some useless feature but code is more stable!\n§n§aAdded§r\n§n§eFixed§r\n§n§cRemoved§r\n-Removed show ancient debris under fire\n-Remove show fps\n§n§6Changed§r\n-Command argument changed",
   "authors": [
     "SJKZ1"
@@ -13,19 +13,19 @@
   },
 
   "license": "MIT-LICENSE",
-  "icon": "assets/sjkz1misc/icon.png",
+  "icon": "assets/minetils/icon.png",
 
   "environment": "client",
   "entrypoints": {
     "main": [
-      "com.sjkz1.sjkz1misc.SJKZ1Misc"
+      "com.sjkz1.minetils.Minetils"
     ],
     "modmenu": [
-      "com.sjkz1.sjkz1misc.screen.SJKZ1MiscModMenuScreen"
+      "com.sjkz1.minetils.screen.MinetilscModMenuScreen"
     ]
   },
   "mixins": [
-    "sjkz1misc.mixins.json"
+    "minetils.mixins.json"
   ],
 
   "depends": {
