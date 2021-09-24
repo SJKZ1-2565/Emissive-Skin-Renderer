@@ -3,7 +3,7 @@
   "id": "minetils",
   "version": "1.0.2",
   "name": "minetils",
-  "description": "Miscellaneous for playing experience!\n\u00A7lChange log\u00A7r\n\u00A7nMain\u00A7r\n-This version is remove some useless feature but code is more stable!\n§n§aAdded§r\n§n§eFixed§r\n§n§cRemoved§r\n-Removed show ancient debris under fire\n-Remove show fps\n§n§6Changed§r\n-Command argument changed",
+  "description": "Miscellaneous for playing experience!\n\u00A7lChange log\u00A7r\n\u00A7nMain\u00A7r\n-This version is remove some useless feature but code is more stable!\n§n§aAdded§r\n-Added Display Tamed horse\n§n§eFixed§r\n§n§cRemoved§r\n-Removed show ancient debris under fire\n-Remove show fps\n§n§6Changed§r\n-Command argument changed",
   "authors": [
     "SJKZ1"
   ],
