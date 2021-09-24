@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -25,5 +26,9 @@ public abstract class LivingRendererMixin <T extends Mob, M extends EntityModel<
 	public void render(T mob, float f, float g, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, CallbackInfo ci)
 	{
 		SJKZ1Helper.renderLabel(mob,poseStack,multiBufferSource,i);
+		if(mob instanceof AbstractHorse abstractHorse)
+		{
+			SJKZ1Helper.renderLabelTamed(abstractHorse,poseStack,multiBufferSource,i);
+		}
 	}
 }
