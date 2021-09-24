@@ -23,7 +23,7 @@ public class GlowingLayer extends RenderLayer<AbstractClientPlayer, PlayerModel<
     }
 
     public static ResourceLocation getPath(String name) {
-        return new ResourceLocation("sjkz1misc:textures/entity/" + name + ".png");
+        return new ResourceLocation("minetils:textures/entity/" + name + ".png");
     }
 
 
