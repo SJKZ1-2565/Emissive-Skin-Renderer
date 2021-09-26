@@ -1,9 +1,12 @@
 package com.sjkz1.minetils.mixin;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
@@ -17,6 +20,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerModel.class)
+@Environment(EnvType.CLIENT)
 public class PlayerModelMixin<T extends LivingEntity> extends HumanoidModel<T> {
     private final Minecraft client = Minecraft.getInstance();
     public PlayerModelMixin() {
@@ -31,8 +35,10 @@ public class PlayerModelMixin<T extends LivingEntity> extends HumanoidModel<T> {
     @Inject(method = "setupAnim",at = @At("TAIL"))
     public void injectAnim(T livingEntity, float f, float g, float h, float i, float j, CallbackInfo ci)
     {
-        eatingAnimationRightHand(rightArm,rightSleeve,livingEntity.tickCount);
-        eatingAnimationLeftHand(leftArm,leftSleeve,livingEntity.tickCount);
+        if(livingEntity instanceof AbstractClientPlayer) {
+            eatingAnimationRightHand(rightArm, rightSleeve, livingEntity.tickCount);
+            eatingAnimationLeftHand(leftArm, leftSleeve, livingEntity.tickCount);
+        }
     }
 
     private  void eatingAnimationRightHand(ModelPart rightArm, ModelPart rightSleeve, int ticks) {
