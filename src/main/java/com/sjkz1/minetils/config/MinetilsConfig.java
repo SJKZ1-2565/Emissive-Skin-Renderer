@@ -9,6 +9,7 @@ public class MinetilsConfig {
 	  public boolean healthStatusRainbowColor;
 	  public boolean showTamedHorse;
 	  public boolean disableBlockParticle;
+	  public boolean enableEatingAnim;
 	  public int healthStatusColor;
 	  public int yPositionHorseDisplay;
 	  public int yPositionHealthStatus;

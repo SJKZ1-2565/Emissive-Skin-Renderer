@@ -1,26 +1,31 @@
 package com.sjkz1.minetils.utils;
 
 import com.sjkz1.minetils.Minetils;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.components.toasts.SystemToast;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.sounds.SoundSource;
+import com.sjkz1.minetils.screen.SpecialMemberScreen;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.toast.SystemToast;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.text.Text;
+
 
 public class ClientInit {
 
     public static boolean dance = false;
 
-    public static void tick(Minecraft client) {
-        if (Minetils.danceKey.isDown()) {
+    public static void tick(MinecraftClient client) {
+        if (Minetils.danceKey.isPressed()) {
             dance = !dance;
-            client.getSoundManager().stop(SoundInits.DRAGONBALL_ID, SoundSource.PLAYERS);
+            client.getSoundManager().stopSounds(SoundInits.DRAGONBALL_ID, SoundCategory.PLAYERS);
             if(dance) {
                 assert client.player != null;
-                client.player.playNotifySound(SoundInits.DRAGONBALL_SOUND_EVENT, SoundSource.PLAYERS, 1, 1);
+                client.player.playSound(SoundInits.DRAGONBALL_SOUND_EVENT, SoundCategory.PLAYERS, 1, 1);
             }
         }
+    if (Minetils.openModScreen.isPressed()) {
+        client.openScreen(new SpecialMemberScreen(Text.of("Special Screen")));
+        }
 
-        if (Minetils.showPost.isDown())
+        if (Minetils.showPost.isPressed())
         {
             assert client.player != null;
             int i = (int) client.player.getX();
@@ -30,19 +35,19 @@ public class ClientInit {
             String NetherPos = "Nether position X:" + i / 8 + " Y:" + j  + " Z:" + k / 8 ;
             String OverWorldPose = "OverWorld position X:" + i * 8 + " Y:" + j  + " Z:" + k * 8 ;
 
-            if(client.player.level.dimensionType().piglinSafe()) {
-                client.player.chat(pos);
-                client.player.chat(OverWorldPose);
+            if(client.player.world.getDimension().isPiglinSafe()) {
+                client.player.sendChatMessage(pos);
+                client.player.sendChatMessage(OverWorldPose);
             }
             else
             {
-                client.player.chat(pos);
-                client.player.chat(NetherPos);
+                client.player.sendChatMessage(pos);
+                client.player.sendChatMessage(NetherPos);
             }
         }
-        if(client != null && client.player != null && client.level != null)
+        if(client != null && client.player != null && client.world != null)
         {
-            if(client.player.isDeadOrDying() && client.level.isClientSide)
+            if(client.player.isDead() && client.world.isClient)
             {
                 int i = (int) client.player.getX();
                 int j = (int) client.player.getY();
@@ -51,17 +56,17 @@ public class ClientInit {
                 String NetherPos = "Nether position X:" + i / 8 + " Y:" + j  + " Z:" + k / 8 ;
                 String OverWorldPose = "OverWorld position X:" + i * 8 + " Y:" + j  + " Z:" + k * 8 ;
 
-                if(client.player.level.dimensionType().piglinSafe()) {
-                    client.player.chat(pos);
-                    client.player.chat(OverWorldPose);
+                if(client.player.world.getDimension().isPiglinSafe()) {
+                    client.player.sendChatMessage(pos);
+                    client.player.sendChatMessage(OverWorldPose);
                 }
                 else
                 {
-                    client.player.chat(pos);
-                    client.player.chat(NetherPos);
+                    client.player.sendChatMessage(pos);
+                    client.player.sendChatMessage(NetherPos);
                 }
-                client.player.respawn();
-                client.getToasts().addToast(new SystemToast(SystemToast.SystemToastIds.NARRATOR_TOGGLE,new TextComponent("Dead position"),new TextComponent(pos)));
+                client.player.requestRespawn();
+                client.getToastManager().add(new SystemToast(SystemToast.Type.NARRATOR_TOGGLE,Text.of("Dead position"),Text.of(pos)));
             }
         }
     }

@@ -6,6 +6,7 @@
   "minetils.config.rainbow" : "Enable rainbow text color",
   "minetils.config.swap" : "Enable swap armor while wearing elytra",
   "minetils.config.particle" : "Disable block particle",
+  "minetils.config.eating_anim" : "Enable Eating Animation",
   "minetils.config.hp_detector" : "Enable entity hp",
   "minetils.config.y_hp_detector" : "Y position entity hp text",
   "minetils.config.rainbow_health" : "Rainbow Health Color",

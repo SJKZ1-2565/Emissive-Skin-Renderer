@@ -1,26 +1,26 @@
 package com.sjkz1.minetils.mixin;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.sjkz1.minetils.Minetils;
 import com.sjkz1.minetils.render.GlowingLayer;
 import com.sjkz1.minetils.utils.SpecialMember;
-import net.minecraft.client.model.PlayerModel;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.player.AbstractClientPlayer;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.LivingEntityRenderer;
-import net.minecraft.client.renderer.entity.player.PlayerRenderer;
-import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.model.ModelPart;
+import net.minecraft.client.network.AbstractClientPlayerEntity;
+import net.minecraft.client.render.OverlayTexture;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.entity.LivingEntityRenderer;
+import net.minecraft.client.render.entity.PlayerEntityRenderer;
+import net.minecraft.client.render.entity.model.PlayerEntityModel;
+import net.minecraft.client.util.math.MatrixStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(PlayerRenderer.class)
-public abstract class PlayerRenderMixin extends LivingEntityRenderer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>>
+@Mixin(PlayerEntityRenderer.class)
+public abstract class PlayerRenderMixin extends LivingEntityRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>>
 {
     PlayerRenderMixin()
     {
@@ -28,25 +28,25 @@ public abstract class PlayerRenderMixin extends LivingEntityRenderer<AbstractCli
     }
 
     @Inject(method = "<init>",at = @At("RETURN"))
-   public void init(EntityRendererProvider.Context context, boolean bl, CallbackInfo ci)
+   public void init(EntityRendererFactory.Context context, boolean bl, CallbackInfo ci)
    {
-         this.addLayer(new GlowingLayer((PlayerRenderer) (Object) this));
+       this.addFeature(new GlowingLayer<>((PlayerEntityRenderer) (Object) this));
    }
 
 
-    @Inject(method = "renderHand", at = @At("TAIL"))
-    private void renderArm(PoseStack poseStack, MultiBufferSource multiBufferSource, int i, AbstractClientPlayer abstractClientPlayer, ModelPart modelPart, ModelPart modelPart2, CallbackInfo ci) {
+    @Inject(method = "renderArm", at = @At("TAIL"))
+    private void re(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, AbstractClientPlayerEntity abstractClientPlayerEntity, ModelPart mainHand, ModelPart sleeve, CallbackInfo ci) {
 
-        float time = abstractClientPlayer.tickCount;
-        modelPart.render(poseStack, multiBufferSource.getBuffer(RenderType.entitySolid(abstractClientPlayer.getSkinTextureLocation())), i, OverlayTexture.NO_OVERLAY);
+        float time = abstractClientPlayerEntity.age;
+        mainHand.render(matrixStack, vertexConsumerProvider.getBuffer(RenderLayer.getEntitySolid(abstractClientPlayerEntity.getSkinTexture())), i, OverlayTexture.DEFAULT_UV);
         for(SpecialMember values : SpecialMember.VALUES)
         {
-            RenderType GLOWING_LAYER = RenderType.eyes(GlowingLayer.getPath(values.getName().toLowerCase()));
-            VertexConsumer inveterate = multiBufferSource.getBuffer(GLOWING_LAYER);
+            RenderLayer GLOWING_LAYER = RenderLayer.getEyes(GlowingLayer.getPath(values.getName().toLowerCase()));
+            VertexConsumer inveterate = vertexConsumerProvider.getBuffer(GLOWING_LAYER);
 
-            if (!abstractClientPlayer.isInvisible() && abstractClientPlayer.getName().getString().equals(values.getName()) && Minetils.CONFIG.getConfig().glowingSkin) {
-                modelPart2.render(poseStack, inveterate, 15728640, OverlayTexture.NO_OVERLAY,GlowingLayer.makeFade(time),GlowingLayer.makeFade(time),GlowingLayer.makeFade(time),GlowingLayer.makeFade(time));
-                modelPart.render(poseStack, inveterate, 15728640, OverlayTexture.NO_OVERLAY,GlowingLayer.makeFade(time),GlowingLayer.makeFade(time),GlowingLayer.makeFade(time),GlowingLayer.makeFade(time));
+            if (!abstractClientPlayerEntity.isInvisible() && abstractClientPlayerEntity.getName().getString().equals(values.getName()) && Minetils.CONFIG.getConfig().glowingSkin) {
+                sleeve.render(matrixStack, inveterate, 15728640, OverlayTexture.DEFAULT_UV,GlowingLayer.makeFade(time),GlowingLayer.makeFade(time),GlowingLayer.makeFade(time),GlowingLayer.makeFade(time));
+                mainHand.render(matrixStack, inveterate, 15728640, OverlayTexture.DEFAULT_UV,GlowingLayer.makeFade(time),GlowingLayer.makeFade(time),GlowingLayer.makeFade(time),GlowingLayer.makeFade(time));
             }
         }
 

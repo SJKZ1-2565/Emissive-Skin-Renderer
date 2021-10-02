@@ -13,7 +13,8 @@
     "PlayerEntityMixin",
     "PlayerModelMixin",
     "ParticleEngineMixin",
-    "PlayerRenderMixin"
+    "PlayerRenderMixin",
+    "ItemEntityMixin"
   ],
   "client": [
   ],

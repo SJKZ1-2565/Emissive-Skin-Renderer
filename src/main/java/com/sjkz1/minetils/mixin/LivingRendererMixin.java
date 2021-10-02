@@ -1,34 +1,36 @@
 package com.sjkz1.minetils.mixin;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.sjkz1.minetils.utils.SJKZ1Helper;
-import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.LivingEntityRenderer;
-import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.entity.LivingEntityRenderer;
+import net.minecraft.client.render.entity.feature.FeatureRendererContext;
+import net.minecraft.client.render.entity.model.EntityModel;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.passive.HorseBaseEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(MobRenderer.class)
-public abstract class LivingRendererMixin <T extends Mob, M extends EntityModel<T>> extends LivingEntityRenderer<T, M>
-{
+;
 
-	public LivingRendererMixin(EntityRendererProvider.Context context, M entityModel, float f) {
-		super(context, entityModel, f);
+@Mixin(LivingEntityRenderer.class)
+public abstract class LivingRendererMixin <T extends LivingEntity, M extends EntityModel<T>> extends EntityRenderer<T> implements FeatureRendererContext<T, M>
+{
+	protected LivingRendererMixin(EntityRendererFactory.Context context) {
+		super(context);
 	}
 
 	@Inject(method = "render",at = @At("HEAD"))
-	public void render(T mob, float f, float g, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, CallbackInfo ci)
+	public void render(T livingEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo ci)
 	{
-		SJKZ1Helper.renderLabel(mob,poseStack,multiBufferSource,i);
-		if(mob instanceof AbstractHorse abstractHorse)
+		SJKZ1Helper.renderLabel(livingEntity,matrixStack,vertexConsumerProvider,i);
+		if(livingEntity instanceof HorseBaseEntity abstractHorse)
 		{
-			SJKZ1Helper.renderLabelTamed(abstractHorse,poseStack,multiBufferSource,i);
+			SJKZ1Helper.renderLabelTamed(abstractHorse,matrixStack,vertexConsumerProvider,i);
 		}
 	}
 }

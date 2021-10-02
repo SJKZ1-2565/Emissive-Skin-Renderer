@@ -4,7 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import com.sjkz1.minetils.utils.SpecialMember;
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.MinecraftClient;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.Logger;
 import org.spongepowered.asm.mixin.Final;
@@ -19,7 +19,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 
-@Mixin(Minecraft.class)
+@Mixin(MinecraftClient.class)
 public abstract class MinecraftClientMixin {
 
 	@Shadow @Final private static Logger LOGGER;

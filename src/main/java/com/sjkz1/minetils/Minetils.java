@@ -12,7 +12,7 @@ import com.sjkz1.minetils.utils.SpecialMember;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.minecraft.client.KeyMapping;
+import net.minecraft.client.option.KeyBinding;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,8 +21,9 @@ import java.util.List;
 
 public class Minetils implements ModInitializer
 {
-	public static KeyMapping danceKey;
-	public static KeyMapping showPost;
+	public static KeyBinding danceKey;
+	public static KeyBinding showPost;
+	public static KeyBinding openModScreen;
 
 	public static String MOD_ID = "minetils";
 	public static Logger LOGGER = LogManager.getLogger(MOD_ID);

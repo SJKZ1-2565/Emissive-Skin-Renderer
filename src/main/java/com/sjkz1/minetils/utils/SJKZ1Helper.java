@@ -1,74 +1,71 @@
 package com.sjkz1.minetils.utils;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Matrix4f;
 import com.sjkz1.minetils.Minetils;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.animal.horse.AbstractHorse;
-import net.minecraft.world.entity.decoration.ArmorStand;
+
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
+
+import net.minecraft.client.model.ModelPart;
+
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.decoration.ArmorStandEntity;
+import net.minecraft.entity.passive.HorseBaseEntity;
+import net.minecraft.util.Formatting;
+
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Matrix4f;
 
 import java.awt.*;
 
 public class SJKZ1Helper
 {
-	public static final Minecraft mc = Minecraft.getInstance();
+	public static final MinecraftClient mc = MinecraftClient.getInstance();
 
-	public static void axolotlDance(ModelPart body, int ticks , float f)
-	{
-		float deltas = mc.getFrameTime();
-		float j = Mth.sin(ticks +deltas * 2.5F);
-		body.y = j;
-	}
-
-	public static void renderLabel(LivingEntity entity, PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i) {
-		float ticks = (mc.player.tickCount % 20 + mc.getFrameTime()) / 20.0F;
+	public static void renderLabel(LivingEntity entity, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+		float ticks = (mc.player.age % 20 + mc.getTickDelta()) / 20.0F;
 		Color color = Color.getHSBColor(ticks,0.9f,1);
 		float health = entity.getHealth();
 		String heart = String.valueOf(health) + " HP";
-		double d = mc.getEntityRenderDispatcher().distanceToSqr(entity);
+		double d = mc.getEntityRenderDispatcher().getSquaredDistanceToCamera(entity);
 		if (!(d > 4096.0D)) {
-			if (Minetils.CONFIG.getConfig().showHealthStatus && !mc.options.hideGui && !entity.isInvisible() && !(entity instanceof ArmorStand)) {
+			if (Minetils.CONFIG.getConfig().showHealthStatus && !mc.options.hudHidden && !entity.isInvisible() && !(entity instanceof ArmorStandEntity)) {
 				float f = Minetils.CONFIG.getConfig().yPositionHealthStatus + 0.5F;
-				matrixStack.pushPose();
+				matrixStack.push();
 				matrixStack.translate(0.0D, f, 0.0D);
-				matrixStack.mulPose(mc.getEntityRenderDispatcher().cameraOrientation());
+				matrixStack.multiply(mc.getEntityRenderDispatcher().camera.getRotation());
 				matrixStack.scale(-0.025F, -0.025F, 0.025F);
-				Matrix4f matrix4f = matrixStack.last().pose();
-				float g = mc.options.getBackgroundOpacity(0.25F);
+				Matrix4f matrix4f = matrixStack.peek().getModel();
+				float g = mc.options.getTextBackgroundOpacity(0.25F);
 				int k = (int) (g * 255.0F) << 24;
-				Font textRenderer = mc.font;
-				float l = -textRenderer.width(heart) / 2;
-				textRenderer.drawInBatch(heart, l, -15, Minetils.CONFIG.getConfig().healthStatusRainbowColor ? color.getRGB() : Minetils.CONFIG.getConfig().healthStatusColor, true, matrix4f, vertexConsumerProvider, false, 0, i);
-				matrixStack.popPose();
+				TextRenderer textRenderer = mc.textRenderer;
+				float l = -textRenderer.getWidth(heart) / 2;
+				textRenderer.draw(heart, l, -15, Minetils.CONFIG.getConfig().healthStatusRainbowColor ? color.getRGB() : Minetils.CONFIG.getConfig().healthStatusColor, true, matrix4f, vertexConsumerProvider, false, 0, i);
+				matrixStack.pop();
 			}
 		}
 	}
-	public static void renderLabelTamed(AbstractHorse entity, PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i) {
-		float ticks = (mc.player.tickCount % 20 + mc.getFrameTime()) / 20.0F;
+	public static void renderLabelTamed(HorseBaseEntity entity, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+		float ticks = (mc.player.age % 20 + mc.getTickDelta()) / 20.0F;
 		Color color = Color.getHSBColor(ticks,0.9f,1);
-		boolean tamed = entity.isTamed();
-		String tamedHorseText = tamed ? ChatFormatting.GREEN + "Tamed" :  ChatFormatting.RED + "Untamed";
-		double d = mc.getEntityRenderDispatcher().distanceToSqr(entity);
+		boolean tamed = entity.isTame();
+		String tamedHorseText = tamed ? Formatting.GREEN + "Tamed" :  Formatting.RED + "Untamed";
+		double d = mc.getEntityRenderDispatcher().getSquaredDistanceToCamera(entity);
 		if (!(d > 4096.0D)) {
-			if (Minetils.CONFIG.getConfig().showTamedHorse && !mc.options.hideGui && !entity.isInvisible()) {
+			if (Minetils.CONFIG.getConfig().showTamedHorse && !mc.options.hudHidden && !entity.isInvisible()) {
 				float f = Minetils.CONFIG.getConfig().yPositionHorseDisplay + 0.5F;
-				matrixStack.pushPose();
+				matrixStack.push();
 				matrixStack.translate(0.0D, f, 0.0D);
-				matrixStack.mulPose(mc.getEntityRenderDispatcher().cameraOrientation());
+				matrixStack.multiply(mc.getEntityRenderDispatcher().camera.getRotation());
 				matrixStack.scale(-0.025F, -0.025F, 0.025F);
-				Matrix4f matrix4f = matrixStack.last().pose();
-				float g = mc.options.getBackgroundOpacity(0.25F);
+				Matrix4f matrix4f = matrixStack.peek().getModel();
+				float g = mc.options.getTextBackgroundOpacity(0.25F);
 				int k = (int) (g * 255.0F) << 24;
-				Font textRenderer = mc.font;
-				float l = -textRenderer.width(tamedHorseText) / 2;
-				textRenderer.drawInBatch(tamedHorseText, l, -15, i, true, matrix4f, vertexConsumerProvider, false, 0, i);
-				matrixStack.popPose();
+				TextRenderer textRenderer = mc.textRenderer;
+				float l = -textRenderer.getWidth(tamedHorseText) / 2;
+				textRenderer.draw(tamedHorseText, l, -15, Minetils.CONFIG.getConfig().healthStatusRainbowColor ? color.getRGB() : Minetils.CONFIG.getConfig().healthStatusColor, true, matrix4f, vertexConsumerProvider, false, 0, i);
+				matrixStack.pop();
 			}
 		}
 	}
