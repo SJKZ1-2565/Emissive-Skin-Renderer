@@ -5,13 +5,12 @@ import com.google.common.collect.Lists;
 import com.sjkz1.minetils.command.EntityDetector;
 import com.sjkz1.minetils.command.OpenFolderCommand;
 import com.sjkz1.minetils.config.ConFigIN;
-import com.sjkz1.minetils.utils.ClientInit;
-import com.sjkz1.minetils.utils.KeyBindInit;
-import com.sjkz1.minetils.utils.SoundInits;
-import com.sjkz1.minetils.utils.SpecialMember;
+import com.sjkz1.minetils.utils.*;
+import com.sun.jna.platform.unix.solaris.LibKstat;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -46,5 +45,6 @@ public class Minetils implements ModInitializer
 		SoundInits.init();
 		new OpenFolderCommand(ClientCommandManager.DISPATCHER);
 		new EntityDetector(ClientCommandManager.DISPATCHER);
+		IdentifierUtils.IDENTIFIER_ORDINAL = 1;
 	}
 }

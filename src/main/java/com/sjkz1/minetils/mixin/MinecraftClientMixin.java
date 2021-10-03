@@ -3,6 +3,7 @@ package com.sjkz1.minetils.mixin;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
+import com.sjkz1.minetils.Minetils;
 import com.sjkz1.minetils.utils.SpecialMember;
 import net.minecraft.client.MinecraftClient;
 import org.apache.commons.io.IOUtils;
@@ -36,7 +37,6 @@ public abstract class MinecraftClientMixin {
 				{
 						LOGGER.warn("Found not matched, Replace {} with {} instead",values.getName(),getName(values.getUuid()));
 				}
-
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

@@ -18,6 +18,7 @@
     "ExperienceOrbEntityMixin"
   ],
   "client": [
+    "AbstractPlayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
