@@ -37,21 +37,5 @@ public class SpecialMemberScreen extends Screen {
         int k = leftPos;
         int l = topPos;
         InventoryScreen.drawEntity(k + 51, l + 75, 30, (float)(k + 51) - mouseX, (float)(l + 75 - 50) - mouseY, this.client.player);
-
-        PlayerInventory inv = this.client.player.getInventory();
-        ItemStack itemStack = inv.getMainHandStack();
-            if(itemStack != null) {
-                for(int i = 0;i >=0;) {
-                    renderItem(itemStack, width / 2, 35);
-                }
-            }
-    }
-
-    public static void renderItem(ItemStack itemStack, int x, int y)
-    {
-        var itemRender = MinecraftClient.getInstance().getItemRenderer();
-        itemRender.zOffset = -200.0F;
-        itemRender.renderInGui(itemStack, x, y);
-        itemRender.zOffset = 0.0F;
     }
 }

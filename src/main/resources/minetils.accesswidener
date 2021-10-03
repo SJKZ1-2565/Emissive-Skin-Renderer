@@ -1,2 +1,2 @@
 accessWidener	v1	named
-accessible class net/minecraft/client/world/ClientWorld$BlockParticle
+accessible field net/minecraft/entity/decoration/ItemFrameEntity fixed Z
