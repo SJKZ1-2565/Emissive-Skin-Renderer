@@ -10,6 +10,7 @@
   "minetils.config.hp_detector" : "Enable entity hp",
   "minetils.config.y_hp_detector" : "Y position entity hp text",
   "minetils.config.rainbow_health" : "Rainbow Health Color",
+  "minetils.config.display_mending" : "Display Mending Repair Amount",
   "minetils.config.coloredEnderman" : "Enable colored Enderman",
   "minetils.config.discord_message" : "Enable Discord Message",
   "minetils.config.tamed_horse_detector" : "Enable tamed horse display",

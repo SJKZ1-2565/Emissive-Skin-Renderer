@@ -14,7 +14,8 @@
     "PlayerModelMixin",
     "ParticleEngineMixin",
     "PlayerRenderMixin",
-    "ItemEntityMixin"
+    "ItemEntityMixin",
+    "ExperienceOrbEntityMixin"
   ],
   "client": [
   ],
