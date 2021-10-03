@@ -19,7 +19,7 @@ public class OpenFolderCommand {
 
     public OpenFolderCommand(CommandDispatcher<FabricClientCommandSource> dispatcher)
 {
-    var node = dispatcher.register(ClientCommandManager.literal("open-folder").executes(requirement -> OpenFolderCommand.openSFolder()));
+    var node = dispatcher.register(ClientCommandManager.literal("datapacks-folder").executes(requirement -> OpenFolderCommand.openSFolder()));
 }
 
     private static int openSFolder()
