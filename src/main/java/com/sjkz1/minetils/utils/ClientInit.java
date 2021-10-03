@@ -45,29 +45,5 @@ public class ClientInit {
                 client.player.sendChatMessage(NetherPos);
             }
         }
-        if(client != null && client.player != null && client.world != null)
-        {
-            if(client.player.isDead() && client.world.isClient)
-            {
-                int i = (int) client.player.getX();
-                int j = (int) client.player.getY();
-                int k = (int) client.player.getZ();
-                String pos = "X:" + i + " Y:" + j+ " Z:" + k;
-                String NetherPos = "Nether position X:" + i / 8 + " Y:" + j  + " Z:" + k / 8 ;
-                String OverWorldPose = "OverWorld position X:" + i * 8 + " Y:" + j  + " Z:" + k * 8 ;
-
-                if(client.player.world.getDimension().isPiglinSafe()) {
-                    client.player.sendChatMessage(pos);
-                    client.player.sendChatMessage(OverWorldPose);
-                }
-                else
-                {
-                    client.player.sendChatMessage(pos);
-                    client.player.sendChatMessage(NetherPos);
-                }
-                client.player.requestRespawn();
-                client.getToastManager().add(new SystemToast(SystemToast.Type.NARRATOR_TOGGLE,Text.of("Dead position"),Text.of(pos)));
-            }
-        }
     }
 }
