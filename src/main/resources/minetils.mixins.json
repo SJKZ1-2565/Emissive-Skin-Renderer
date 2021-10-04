@@ -18,7 +18,8 @@
     "ExperienceOrbEntityMixin"
   ],
   "client": [
-    "AbstractPlayerMixin"
+    "AbstractPlayerMixin",
+    "CapeLayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
