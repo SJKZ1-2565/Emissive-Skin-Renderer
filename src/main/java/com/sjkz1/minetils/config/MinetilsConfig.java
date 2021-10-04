@@ -11,7 +11,9 @@ public class MinetilsConfig {
 	  public boolean disableBlockParticle;
 	  public boolean enableEatingAnim;
 	  public boolean displayMendingRepairAmount;
+	  public boolean SpecialCape;
 	  public int healthStatusColor;
+	  public int IdentifierOrdinal;
 	  public int yPositionHorseDisplay;
 	  public int yPositionHealthStatus;
 

@@ -6,11 +6,8 @@ import net.minecraft.util.Identifier;
 
 public class IdentifierUtils {
 
-    public static int IDENTIFIER_ORDINAL = 1;
-    public static boolean SPECIAL_IDENTIFIER;
-
     public static Identifier getSpeCapeTexture()
     {
-        return new Identifier(Minetils.MOD_ID+":textures/entity/cape_" + IDENTIFIER_ORDINAL + ".png");
+        return new Identifier(Minetils.MOD_ID+":textures/entity/cape_" +  Minetils.CONFIG.getConfig().IdentifierOrdinal + ".png");
     }
 }

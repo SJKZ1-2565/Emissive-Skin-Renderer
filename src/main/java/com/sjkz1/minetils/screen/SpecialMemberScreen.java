@@ -1,28 +1,19 @@
 package com.sjkz1.minetils.screen;
 
 
-import com.google.common.base.Function;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.sjkz1.minetils.mixin.PlayerEntityMixin;
+import com.sjkz1.minetils.Minetils;
 import com.sjkz1.minetils.utils.IdentifierUtils;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.GameModeSelectionScreen;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.ingame.InventoryScreen;
-import net.minecraft.client.gui.screen.option.OptionsScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.render.DiffuseLighting;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Quaternion;
 import net.minecraft.util.math.Vec3f;
@@ -49,11 +40,11 @@ public class SpecialMemberScreen extends Screen {
         int j = this.height / 4 + 48;
 
         this.addDrawableChild(new ButtonWidget(this.width / 2 - 100, j + 72 + 12, 98, 20, Text.of("Switch"), (buttonWidget) -> {
-            IdentifierUtils.IDENTIFIER_ORDINAL++;
-            IdentifierUtils.IDENTIFIER_ORDINAL %= 6;
+            Minetils.CONFIG.getConfig().IdentifierOrdinal++;
+            Minetils.CONFIG.getConfig().IdentifierOrdinal %= 6;
         }));
         this.addDrawableChild(new ButtonWidget(this.width / 2 + 20, j + 72 + 12, 98, 20, Text.of("Mode"), (buttonWidget) -> {
-            IdentifierUtils.SPECIAL_IDENTIFIER = !IdentifierUtils.SPECIAL_IDENTIFIER;;
+            Minetils.CONFIG.getConfig().SpecialCape = ! Minetils.CONFIG.getConfig().SpecialCape;
         }));
     }
 
@@ -61,15 +52,13 @@ public class SpecialMemberScreen extends Screen {
     public void render(MatrixStack mat, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(mat);
         drawCenteredText(mat, this.textRenderer,Text.of("Special Member Wardrobe"), this.width / 2, 15, Formatting.GOLD.getColorValue());
-        drawCenteredText(mat, this.textRenderer, Text.of(Formatting.BOLD + "Feature for this screen, Not Soon..."), this.width / 2 , 25, Formatting.RED.getColorValue());
+        drawCenteredText(mat, this.textRenderer, Text.of(Formatting.BOLD + "Feature for this screen, 30%"), this.width / 2 , 25, Formatting.RED.getColorValue());
         super.render(mat, mouseX, mouseY, partialTicks);
-        int k = leftPos;
-        int l = topPos;
         playerXRot -= 0.15 * partialTicks;
         if(playerXRot <= -179.85) {
             playerXRot = 180;
         }
-        renderEntityInInventory(this.width / 2 - 100,145,  100,playerXRot,0,client.player);
+        renderEntityInInventory(this.width / 2 - 150,145,  50,playerXRot,0,client.player);
     }
 
     public static void renderEntityInInventory(int x, int y, int scale, float xRot, float yRot, LivingEntity livingEntity) {

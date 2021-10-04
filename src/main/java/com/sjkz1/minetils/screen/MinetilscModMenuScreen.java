@@ -58,6 +58,7 @@ public class MinetilscModMenuScreen implements ModMenuApi
 			singlePlayerCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.particle"), config.disableBlockParticle).setTooltip(Text.of("Disable block particle.")).setSaveConsumer(value -> config.disableBlockParticle = value).setDefaultValue(false).build());
 
 			specialMemberCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.glowing_skin"), config.glowingSkin).setTooltip(Text.of("Render glowing skin!")).setSaveConsumer(value -> config.glowingSkin = value).setDefaultValue(true).build());
+			specialMemberCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.SpecialCape"), config.SpecialCape).setTooltip(Text.of("Render special cape!")).setSaveConsumer(value -> config.SpecialCape = value).setDefaultValue(false).build());
 			return builder.build();
 	    }
 }

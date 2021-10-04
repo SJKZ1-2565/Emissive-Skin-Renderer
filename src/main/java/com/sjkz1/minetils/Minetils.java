@@ -45,6 +45,5 @@ public class Minetils implements ModInitializer
 		SoundInits.init();
 		new OpenFolderCommand(ClientCommandManager.DISPATCHER);
 		new EntityDetector(ClientCommandManager.DISPATCHER);
-		IdentifierUtils.IDENTIFIER_ORDINAL = 1;
 	}
 }
