@@ -3,7 +3,6 @@ package com.sjkz1.minetils.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.sjkz1.minetils.Minetils;
-import com.sjkz1.minetils.utils.IdentifierUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -58,7 +57,7 @@ public class SpecialMemberScreen extends Screen {
         if(playerXRot <= -179.85) {
             playerXRot = 180;
         }
-        renderEntityInInventory(this.width / 2 - 150,145,  50,playerXRot,0,client.player);
+        renderEntityInInventory(this.width / 2 - 150,145,  50,playerXRot,0,this.client.player);
     }
 
     public static void renderEntityInInventory(int x, int y, int scale, float xRot, float yRot, LivingEntity livingEntity) {
