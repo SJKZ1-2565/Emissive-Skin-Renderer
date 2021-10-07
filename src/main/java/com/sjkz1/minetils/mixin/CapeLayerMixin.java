@@ -20,9 +20,10 @@ public class CapeLayerMixin {
         {
             for(String name : Minetils.SPECIAL_MEMBER)
             {
+                assert MinecraftClient.getInstance().player != null;
                 if(MinecraftClient.getInstance().player.getName().getString().contains(name))
                 {
-                    renderLayer = RenderLayer.getEyes(identifier);
+                    renderLayer = RenderLayer.getEntityAlpha(identifier);
                 }
                 else {
                     renderLayer = RenderLayer.getEntitySolid(identifier);
