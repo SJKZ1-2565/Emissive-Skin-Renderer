@@ -17,11 +17,14 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Quaternion;
 import net.minecraft.util.math.Vec3f;
 
+import java.awt.*;
+
 public class SpecialMemberScreen extends Screen {
 
     private int leftPos;
     private int topPos;
     private float playerXRot = 0;
+    private float ticks = 0;
 
     private double guiScale;
 
@@ -43,23 +46,33 @@ public class SpecialMemberScreen extends Screen {
             Minetils.CONFIG.getConfig().IdentifierOrdinal %= 6;
         }));
         this.addDrawableChild(new ButtonWidget(this.width / 2 + 20, j + 72 + 12, 98, 20, Text.of("Mode"), (buttonWidget) -> {
-            Minetils.CONFIG.getConfig().SpecialCape = ! Minetils.CONFIG.getConfig().SpecialCape;
+            Minetils.CONFIG.getConfig().SpecialCape = !Minetils.CONFIG.getConfig().SpecialCape;
         }));
     }
 
     @Override
     public void render(MatrixStack mat, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(mat);
-        drawCenteredText(mat, this.textRenderer,Text.of("Special Member Wardrobe"), this.width / 2, 15, Formatting.GOLD.getColorValue());
-        drawCenteredText(mat, this.textRenderer, Text.of(Formatting.BOLD + "Feature for this screen, 30%"), this.width / 2 , 25, Formatting.RED.getColorValue());
-        super.render(mat, mouseX, mouseY, partialTicks);
+        ticks += 0.005F * partialTicks;
+        Math.min(20.0F, (MathHelper.sin(ticks / 24) + 1F) / 2F + 0.15F);
+
         playerXRot -= 0.15 * partialTicks;
         if(playerXRot <= -179.85) {
             playerXRot = 180;
         }
-        renderEntityInInventory(this.width / 2 - 150,145,  50,playerXRot,0,this.client.player);
+        Color color = Color.getHSBColor(ticks,0.9f,1);
+        String name = Minetils.SPECIAL_MEMBER.toString();
+        String formattedText = name.replace("[","");
+        formattedText = formattedText.replace("]","");
+        formattedText = formattedText.replace(",","");
+        drawCenteredText(mat, this.textRenderer,Text.of("Special Member Wardrobe"), this.width / 2, 15, Formatting.GOLD.getColorValue());
+        drawCenteredText(mat, this.textRenderer, Text.of(Formatting.BOLD + "Feature for this screen, 35%"), this.width / 2 , 25, Formatting.RED.getColorValue());
+        drawCenteredText(mat, this.textRenderer, Text.of(formattedText), this.width / 2 , 45, color.getRGB());
+        super.render(mat, mouseX, mouseY, partialTicks);
+        renderEntityInInventory(this.width / 2 - 165,155,  65,playerXRot,0,this.client.player);
     }
 
+    //Taken from https://github.com/Intro-Dev/Osmium/blob/fabric/1.17.x/src/main/java/com/intro/client/render/screen/OsmiumCapeOptionsScreen.java
     public static void renderEntityInInventory(int x, int y, int scale, float xRot, float yRot, LivingEntity livingEntity) {
         float xRotClamped = MathHelper.clamp(xRot, -180, 180);
         float yRotClamped = MathHelper.clamp(yRot, -180, 180);
