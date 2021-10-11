@@ -28,7 +28,7 @@ public class ElytraItemMixin extends Item implements Wearable {
         ItemStack itemStack = playerEntity.getStackInHand(hand);
         EquipmentSlot equipmentSlot = MobEntity.getPreferredEquipmentSlot(itemStack);
         ItemStack itemStack2 = playerEntity.getEquippedStack(equipmentSlot);
-        if (itemStack2.isEmpty() || (itemStack2.getItem() instanceof ArmorItem || itemStack2.getItem() instanceof ElytraItem && Minetils.CONFIG.getConfig().SwapArmorAndElytra)) {
+        if ((itemStack2.isEmpty() || (itemStack2.getItem() instanceof ArmorItem || itemStack2.getItem() instanceof ElytraItem) && Minetils.CONFIG.getConfig().SwapArmorAndElytra)) {
             playerEntity.equipStack(equipmentSlot, itemStack.copy());
             if (!world.isClient()) {
                 playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
