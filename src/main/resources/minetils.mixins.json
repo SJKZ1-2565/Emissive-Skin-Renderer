@@ -6,11 +6,13 @@
   "mixins": [
     "ArmorItemMixin",
     "ElytraItemMixin",
+    "InventoryScreenMixin",
     "LivingEntityMixin",
     "LivingRendererMixin",
     "MinecraftClientMixin",
     "PlayerEntityMixin",
     "PlayerModelMixin",
+    "ParticleEngineMixin",
     "PlayerRenderMixin",
     "ItemEntityMixin",
     "ExperienceOrbEntityMixin"
