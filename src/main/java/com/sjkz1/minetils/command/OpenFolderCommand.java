@@ -5,6 +5,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v1.FabricClientCommandSource;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.world.EditWorldScreen;
 import net.minecraft.util.Util;
 import net.minecraft.util.WorldSavePath;
@@ -24,7 +25,7 @@ public class OpenFolderCommand {
 
     private static int openSFolder()
     {
-       Util.getOperatingSystem().open(new File(WorldSavePath.DATAPACKS.getRelativePath()));
+//       Util.getOperatingSystem().open(new File(WorldSavePath.DATAPACKS.getRelativePath()));
         return 1;
     }
 }
