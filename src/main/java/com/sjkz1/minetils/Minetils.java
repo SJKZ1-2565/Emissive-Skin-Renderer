@@ -7,9 +7,11 @@ import com.sjkz1.minetils.command.OpenFolderCommand;
 import com.sjkz1.minetils.config.ConFigIN;
 import com.sjkz1.minetils.utils.*;
 import com.sun.jna.platform.unix.solaris.LibKstat;
+import com.terraformersmc.modmenu.util.mod.fabric.FabricMod;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.loader.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import org.apache.logging.log4j.LogManager;
@@ -36,6 +38,7 @@ public class Minetils implements ModInitializer
 			SPECIAL_MEMBER.add(values.getName());
 		}
 	}
+
 
 	@Override
 	public void onInitialize()

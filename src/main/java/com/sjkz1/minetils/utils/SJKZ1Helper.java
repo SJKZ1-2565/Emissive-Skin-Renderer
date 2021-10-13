@@ -1,5 +1,6 @@
 package com.sjkz1.minetils.utils;
 
+import com.google.gson.JsonIOException;
 import com.sjkz1.minetils.Minetils;
 
 import net.minecraft.client.MinecraftClient;
@@ -18,6 +19,9 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Matrix4f;
 
 import java.awt.*;
+import java.io.*;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 public class SJKZ1Helper
 {
@@ -67,6 +71,42 @@ public class SJKZ1Helper
 				textRenderer.draw(tamedHorseText, l, -15, Minetils.CONFIG.getConfig().healthStatusRainbowColor ? color.getRGB() : Minetils.CONFIG.getConfig().healthStatusColor, true, matrix4f, vertexConsumerProvider, false, 0, i);
 				matrixStack.pop();
 			}
+		}
+	}
+
+
+	@Deprecated
+	public static BufferedReader get(String path) throws Exception
+	{
+		URL url = new URL("https://raw.githubusercontent.com/SJKZ1-2565/modJSON-URL/master/" + path);
+
+		try
+		{
+			BufferedReader in = new BufferedReader(new InputStreamReader(url.openConnection().getInputStream(), StandardCharsets.UTF_8));
+			return in;
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public static BufferedReader getData(String fileName)
+	{
+		try
+		{
+			//https://raw.githubusercontent.com/SteveKunG/SkyBlockcatia/skyblock_data/
+			URL url = new URL("https://raw.githubusercontent.com/SJKZ1-2565/modJSON-URL/master/" + fileName);
+			BufferedReader in = new BufferedReader(new InputStreamReader(url.openConnection().getInputStream(), StandardCharsets.UTF_8));
+			return in;
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+			Minetils.LOGGER.error("Couldn't get {} from remote, using local data", fileName);
+			BufferedReader in = new BufferedReader(new InputStreamReader(Thread.currentThread().getContextClassLoader().getResourceAsStream("assets/skyblockcatia/api/" + fileName)));
+			return in;
 		}
 	}
 }

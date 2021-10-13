@@ -3,8 +3,8 @@ package com.sjkz1.minetils.utils;
 import com.sjkz1.minetils.Minetils;
 import com.sjkz1.minetils.screen.SpecialMemberScreen;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.toast.SystemToast;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 
 
@@ -23,6 +23,7 @@ public class ClientInit {
         }
     if (Minetils.openModScreen.isPressed()) {
         client.openScreen(new SpecialMemberScreen(Text.of("Special Screen")));
+        client.player.playSound(SoundEvents.BLOCK_END_PORTAL_SPAWN,SoundCategory.PLAYERS,1,1);
         }
 
         if (Minetils.showPost.isPressed())
