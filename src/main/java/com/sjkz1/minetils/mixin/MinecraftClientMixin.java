@@ -3,8 +3,6 @@ package com.sjkz1.minetils.mixin;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
-import com.sjkz1.minetils.Minetils;
-import com.sjkz1.minetils.screen.SpecialMemberScreen;
 import com.sjkz1.minetils.utils.SpecialMember;
 import net.minecraft.client.MinecraftClient;
 import org.apache.commons.io.IOUtils;
@@ -32,8 +30,6 @@ public abstract class MinecraftClientMixin {
 		for(SpecialMember values : SpecialMember.VALUES)
 		{
 			try {
-
-
 				if(!getName(values.getUuid()).equals(values.getName()))
 				{
 					LOGGER.warn("Found not matched, Replace {} with {} instead",values.getName(),getName(values.getUuid()));
@@ -42,12 +38,6 @@ public abstract class MinecraftClientMixin {
 				e.printStackTrace();
 			}
 		}
-	}
-
-	@Inject(method = "run",at = @At("HEAD"))
-	public void runS(CallbackInfo ci)
-	{
-		SpecialMemberScreen.getMisc();
 	}
 
 

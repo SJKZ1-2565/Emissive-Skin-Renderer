@@ -21,7 +21,7 @@
       "com.sjkz1.minetils.Minetils"
     ],
     "modmenu": [
-      "com.sjkz1.minetils.screen.MinetilscModMenuScreen"
+      "com.sjkz1.minetils.gui.screen.MinetilscModMenuScreen"
     ]
   },
   "mixins": [

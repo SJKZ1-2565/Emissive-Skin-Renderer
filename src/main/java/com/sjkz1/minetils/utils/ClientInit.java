@@ -1,10 +1,9 @@
 package com.sjkz1.minetils.utils;
 
 import com.sjkz1.minetils.Minetils;
-import com.sjkz1.minetils.screen.SpecialMemberScreen;
+import com.sjkz1.minetils.gui.screen.SpecialMemberScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 
 
@@ -13,6 +12,11 @@ public class ClientInit {
     public static boolean dance = false;
 
     public static void tick(MinecraftClient client) {
+        if(client.player != null)
+        {
+                SJKZ1Helper.runAsync(() ->
+                new DiscordMemberThread().run());
+        }
         if (Minetils.danceKey.isPressed()) {
             dance = !dance;
             client.getSoundManager().stopSounds(SoundInits.DRAGONBALL_ID, SoundCategory.PLAYERS);
@@ -22,8 +26,7 @@ public class ClientInit {
             }
         }
     if (Minetils.openModScreen.isPressed()) {
-        client.openScreen(new SpecialMemberScreen(Text.of("Special Screen")));
-        client.player.playSound(SoundEvents.BLOCK_END_PORTAL_SPAWN,SoundCategory.PLAYERS,1,1);
+        client.openScreen(new SpecialMemberScreen(Text.of(""),254));
         }
 
         if (Minetils.showPost.isPressed())

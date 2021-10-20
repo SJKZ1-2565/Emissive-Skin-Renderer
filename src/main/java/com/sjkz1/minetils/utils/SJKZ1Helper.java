@@ -1,27 +1,27 @@
 package com.sjkz1.minetils.utils;
 
-import com.google.gson.JsonIOException;
 import com.sjkz1.minetils.Minetils;
-
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
-
-import net.minecraft.client.model.ModelPart;
-
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.decoration.ArmorStandEntity;
 import net.minecraft.entity.passive.HorseBaseEntity;
 import net.minecraft.util.Formatting;
-
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Matrix4f;
 
 import java.awt.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class SJKZ1Helper
 {
@@ -73,6 +73,23 @@ public class SJKZ1Helper
 			}
 		}
 	}
+
+	private static final ExecutorService POOL = Executors.newFixedThreadPool(100, new ThreadFactory()
+	{
+		private final AtomicInteger counter = new AtomicInteger(0);
+
+		@Override
+		public Thread newThread(Runnable runnable)
+		{
+			return new Thread(runnable, String.format("Thread %s", this.counter.incrementAndGet()));
+		}
+	});
+
+	public static void runAsync(Runnable runnable)
+	{
+		CompletableFuture.runAsync(runnable, SJKZ1Helper.POOL);
+	}
+
 
 
 	@Deprecated

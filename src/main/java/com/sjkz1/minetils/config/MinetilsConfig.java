@@ -16,6 +16,9 @@ public class MinetilsConfig {
 	  public int IdentifierOrdinal;
 	  public int yPositionHorseDisplay;
 	  public int yPositionHealthStatus;
+	  public int skinColorR;
+	  public int skinColorG;
+	  public int skinColorB;
 
 
 

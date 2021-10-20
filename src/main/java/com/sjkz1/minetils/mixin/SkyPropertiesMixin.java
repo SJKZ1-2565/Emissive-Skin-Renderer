@@ -1,6 +1,5 @@
 package com.sjkz1.minetils.mixin;
 
-import com.sjkz1.minetils.utils.console;
 import net.minecraft.client.render.SkyProperties;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -25,7 +24,6 @@ public abstract class SkyPropertiesMixin{
         if (getSkyType() == SkyProperties.SkyType.NORMAL)
         {
             setCloudsHeight(192f);
-            console.log("YEET");
         }
     }
 }
