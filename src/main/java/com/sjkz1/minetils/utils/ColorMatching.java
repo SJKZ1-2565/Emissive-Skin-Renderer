@@ -16,7 +16,7 @@ public class ColorMatching {
 
     public static void createGlowingSkinImage() {
         try {
-
+            //This URL not found bruh -*-
             BufferedImage image = ImageIO.read(new URL(String.format("http://skins.minecraft.net/MinecraftSkins/%s.png", ChatUtil.stripTextFormat("SteveKunG"))).openStream());
             BufferedImage resizedImage = resize(image, 3, 3);
             ArrayList<Color> colors = new ArrayList<>();
