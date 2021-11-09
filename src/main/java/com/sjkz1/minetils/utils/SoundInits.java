@@ -1,6 +1,7 @@
 package com.sjkz1.minetils.utils;
 
 import com.sjkz1.minetils.Minetils;
+
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;

@@ -1,6 +1,6 @@
 package boon4681.ColorUtils;
 
-import java.awt.*;
+import java.awt.Color;
 
 public class ColorMixer {
     private static int a(int c1,int c2){

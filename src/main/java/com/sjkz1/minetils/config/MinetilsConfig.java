@@ -12,13 +12,13 @@ public class MinetilsConfig {
 	  public boolean enableEatingAnim;
 	  public boolean displayMendingRepairAmount;
 	  public boolean SpecialCape;
+	  public boolean darkTheme;
+	  public boolean disableHurtCamera;
 	  public int healthStatusColor;
 	  public int IdentifierOrdinal;
 	  public int yPositionHorseDisplay;
 	  public int yPositionHealthStatus;
-	  public int skinColorR;
-	  public int skinColorG;
-	  public int skinColorB;
+	  public double palletsRate;
 
 
 

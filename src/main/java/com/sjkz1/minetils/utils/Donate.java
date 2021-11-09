@@ -1,15 +1,17 @@
 package com.sjkz1.minetils.utils;
 
+import java.io.IOException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+
+import org.apache.commons.io.IOUtils;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
-import net.minecraft.client.MinecraftClient;
-import org.apache.commons.io.IOUtils;
 
-import java.io.IOException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
+import net.minecraft.client.MinecraftClient;
 
 public class Donate {
 

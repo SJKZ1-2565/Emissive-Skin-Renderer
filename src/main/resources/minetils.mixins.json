@@ -15,14 +15,16 @@
     "ParticleEngineMixin",
     "PlayerRenderMixin",
     "ItemEntityMixin",
-    "ExperienceOrbEntityMixin"
+    "ExperienceOrbEntityMixin",
+    "SkinProcessorMixin"
   ],
   "client": [
     "SkyPropertiesMixin",
     "AbstractPlayerMixin",
     "InventoryScreenMixin",
     "ParticleEngineMixin",
-    "CapeLayerMixin"
+    "CapeLayerMixin",
+    "GameRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

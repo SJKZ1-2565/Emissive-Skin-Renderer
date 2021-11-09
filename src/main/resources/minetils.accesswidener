@@ -1,2 +1,3 @@
 accessWidener	v1	named
 accessible field net/minecraft/entity/decoration/ItemFrameEntity fixed Z
+accessible field net/minecraft/util/Identifier path Ljava/lang/String;

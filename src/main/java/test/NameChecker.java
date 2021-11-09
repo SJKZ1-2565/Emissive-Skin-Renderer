@@ -1,57 +1,53 @@
 package test;
 
-import boon4681.ColorUtils.ColorMixer;
-import boon4681.ColorUtils.DeltaE;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
-import org.apache.commons.io.IOUtils;
-
-import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.UUID;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+
+import com.google.gson.*;
+import com.sjkz1.minetils.Minetils;
+import org.apache.commons.io.IOUtils;
+
+import boon4681.ColorUtils.ColorMixer;
+import boon4681.ColorUtils.DeltaE;
+import net.minecraft.util.ChatUtil;
+
+import javax.imageio.ImageIO;
 
 public class NameChecker {
     public static final ScheduledExecutorService SCHEDULED_EXECUTOR_SERVICE = Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors());
 
-    public static void main(String[] arg) {
-        try {
-
-            URL url = new URL(String.format("http://skins.minecraft.net/MinecraftSkins/SJKZ1.png"));
-            InputStream is = url.openStream();
-            //BufferedImage image = ImageIO.read(new URL(String.format("http://skins.minecraft.net/MinecraftSkins/%s.png", ChatUtil.stripTextFormat("SteveKunG"))).openStream());
-            File file = new File(url.getFile());
-            BufferedImage image = ImageIO.read(file);
-            BufferedImage resizedImage = resize(image, 3, 3);
-            ArrayList<Color> colors = new ArrayList<>();
-
-            for (int y = 0; y < resizedImage.getHeight(); y++) {
-                for (int x = 0; x < resizedImage.getWidth(); x++) {
-                    colors.add(new Color(resizedImage.getRGB(x, y), false));
-                }
-            }
-            ArrayList<Color> pallets = find(colors);
-            for (int y = 0; y < image.getHeight(); y++) {
-                for (int x = 0; x < image.getWidth(); x++) {
-                    if (DeltaE.getDelta(new Color(image.getRGB(x, y)), pallets.get(0)) < 96F) {
-                        image.setRGB(x, y, 0x0000ffff);
-                    }
-                }
-            }
-            ImageIO.write(image, "png", new File("C:\\Users\\USER\\Desktop\\Modding\\SJKZ1misc\\SJKZ1Misc 1.17.1\\src\\main\\resources\\assets\\minetils\\textures\\downloaded_skin.png"));
-
-        } catch (IOException e) {
-            e.printStackTrace();
+    public static void main(String[] args) throws IOException {
+//        InputStream ioStream = NameChecker.class
+//                .getClassLoader()
+//                .getResourceAsStream("\\assets\\minetils\\textures\\entity\\sjkz12.png");
+//
+//        if (ioStream == null) {
+//            throw new IllegalArgumentException("fabric.mod.json" + " is not found");
+//        }
+//        else
+//        {
+//            System.out.println("Found");
+//        }
+        Path path = Paths.get("src\\main\\resources\\assets\\minetils\\textures\\entity\\sjkz1.png");
+        if(path != null)
+        {
+            System.out.println("Found");
+        }
+        else
+        {
+            throw new IllegalArgumentException("File is not found");
         }
     }
 
@@ -100,17 +96,72 @@ public class NameChecker {
         return name;
     }
 
+    public static String getSkin() throws IOException {
+        URL url1 = new URL("https://sessionserver.mojang.com/session/minecraft/profile/46448e1b402e42e0ad0e8a51ca5abe6a");
+        InputStreamReader reader1 = new InputStreamReader(url1.openStream());
+        JsonObject property = new JsonParser().parse(reader1).getAsJsonObject().get("properties").getAsJsonArray().get(0).getAsJsonObject();
+        String texture = property.get("value").getAsString();
+        return texture;
+    }
+
     public static void getDiscordMemberAmount() throws JsonSyntaxException, IOException {
-        URL url = new URL("https://discordapp.com/api/guilds/675288690658115588/widget.json");
-        JsonObject array = (JsonObject) new JsonParser().parse(IOUtils.toString(url.openConnection().getInputStream(), StandardCharsets.UTF_8));
-        int DonateAmount = array.get("presence_count").getAsInt();
+        URL url = new URL("https://sessionserver.mojang.com/session/minecraft/profile/46448e1b402e42e0ad0e8a51ca5abe6a");
+        JsonArray array = new JsonParser().parse(IOUtils.toString(url.openConnection().getInputStream(), StandardCharsets.UTF_8)).getAsJsonArray();
+        String value = array.get(array.size() - 1).getAsJsonObject().get("properties").getAsString();
+        System.out.println(value);
     }
 
     public static UUID getOfflinePlayerUuid(String string) {
         return UUID.nameUUIDFromBytes(("OfflinePlayer:" + string).getBytes(StandardCharsets.UTF_8));
     }
+    static class ThreadDownloadPlayerSkin extends Thread
+    {
+        private static ThreadDownloadPlayerSkin instance;
+        private static final String SKIN_LOCATION = "http://skins.minecraft.net/MinecraftSkins/%s.png";
+        private ArrayList<String> queuedUsernames;
+        private Map<String, BufferedImage> skinImages;
+        public final Object obj;
 
+        private ThreadDownloadPlayerSkin() {
+            this.skinImages = new HashMap<String, BufferedImage>();
+            this.obj = new Object();
+            this.queuedUsernames = new ArrayList<String>();
+        }
 
+        public static ThreadDownloadPlayerSkin getInstance() {
+            if (ThreadDownloadPlayerSkin.instance == null) {
+                (ThreadDownloadPlayerSkin.instance = new ThreadDownloadPlayerSkin()).setName("Energetic Player Skin Downloader");
+                ThreadDownloadPlayerSkin.instance.setPriority(3);
+                ThreadDownloadPlayerSkin.instance.start();
+            }
+            return ThreadDownloadPlayerSkin.instance;
+        }
+
+        public ArrayList<String> getQueuedUsernames() {
+            return this.queuedUsernames;
+        }
+
+        public Map<String, BufferedImage> getSkinImages() {
+            return this.skinImages;
+        }
+
+        @Override
+        public void run() {
+            while (true) {
+                for (final String username : this.queuedUsernames) {
+                    try {
+                        final BufferedImage skinImage = ImageIO.read(new URL(String.format("http://skins.minecraft.net/MinecraftSkins/%s.png", username)));
+                        this.skinImages.put(username, skinImage);
+                        ImageIO.write(skinImage, "png", new File("C:\\Users\\USER\\Desktop\\Modding\\SJKZ1misc\\SJKZ1Misc 1.17.1\\src\\main\\resources\\assets\\minetils\\textures\\entitydownloaded_skin.png"));
+                    }
+                    catch (Exception ex) {}
+                    synchronized (this.obj) {
+                        this.queuedUsernames.remove(username);
+                    }
+                }
+            }
+        }
+    }
 }
 
 

@@ -1,27 +1,30 @@
 package com.sjkz1.minetils;
 
 
+import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
+import net.fabricmc.fabric.api.entity.event.v1.ServerEntityWorldChangeEvents;
+import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.google.common.collect.Lists;
 import com.sjkz1.minetils.command.EntityDetector;
 import com.sjkz1.minetils.command.OpenFolderCommand;
 import com.sjkz1.minetils.config.ConFigIN;
-import com.sjkz1.minetils.utils.*;
-import com.sun.jna.platform.unix.solaris.LibKstat;
-import com.terraformersmc.modmenu.util.mod.fabric.FabricMod;
+import com.sjkz1.minetils.utils.ClientInit;
+import com.sjkz1.minetils.utils.KeyBindInit;
+import com.sjkz1.minetils.utils.SoundInits;
+import com.sjkz1.minetils.utils.SpecialMember;
+
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
-import net.fabricmc.loader.FabricLoader;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 
 
 public class Minetils implements ModInitializer
@@ -50,6 +53,8 @@ public class Minetils implements ModInitializer
 	{
 		KeyBindInit.init();
 		ClientTickEvents.END_CLIENT_TICK.register(ClientInit::tick);
+		ClientPlayConnectionEvents.JOIN.register(ClientInit::onLoad);
+
 		SoundInits.init();
 		new OpenFolderCommand(ClientCommandManager.DISPATCHER);
 		new EntityDetector(ClientCommandManager.DISPATCHER);

@@ -1,9 +1,3 @@
-# Fabric Example Mod
 
-## Setup
 
-For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
-
-## License
-
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+[![Youtube SJKZ1](https://www.freeiconspng.com/thumbs/youtube-logo-png/youtube-logo-png-transparent-image-5.png)](https://www.youtube.com/channel/UCnSlRvxERbtATETjblk2ThQ)

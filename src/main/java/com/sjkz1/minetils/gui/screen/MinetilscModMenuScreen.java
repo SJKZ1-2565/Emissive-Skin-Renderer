@@ -1,17 +1,18 @@
 package com.sjkz1.minetils.gui.screen;
 
+import java.io.IOException;
+
 import com.sjkz1.minetils.Minetils;
 import com.sjkz1.minetils.config.MinetilsConfig;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
+
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
-
-import java.io.IOException;
 
 public class MinetilscModMenuScreen implements ModMenuApi
 {
@@ -49,12 +50,10 @@ public class MinetilscModMenuScreen implements ModMenuApi
 			generalCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.ignore_villager"), config.IgnoreHittingVillager).setTooltip(Text.of("Ignore attack village.")).setSaveConsumer(value -> config.IgnoreHittingVillager = value).setDefaultValue(true).build());
 			generalCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.eating_anim"), config.enableEatingAnim).setTooltip(Text.of("Enable Eating Animation.")).setSaveConsumer(value -> config.enableEatingAnim = value).setDefaultValue(true).build());
 			generalCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.display_mending"), config.displayMendingRepairAmount).setTooltip(Text.of("Display Mending Repair Amount.")).setSaveConsumer(value -> config.displayMendingRepairAmount = value).setDefaultValue(true).build());
+			generalCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.disableHurtCamera"), config.disableHurtCamera).setTooltip(Text.of("Disable shake camera when hurting.")).setSaveConsumer(value -> config.disableHurtCamera = value).setDefaultValue(false).build());
 
 			colorCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.rainbow_health"), config.healthStatusRainbowColor).setTooltip(Text.of("Set rainbow color text.")).setSaveConsumer(value -> config.healthStatusRainbowColor = value).setDefaultValue(false).build());
 			colorCategory.addEntry(entry.startColorField(new TranslatableText("minetils.config.health_color"), config.healthStatusColor).setTooltip(Text.of("Text color.")).setSaveConsumer(value -> config.healthStatusColor = value).setDefaultValue(0x4dff52).build());
-			colorCategory.addEntry(entry.startColorField(new TranslatableText("minetils.config.skin"), config.skinColorR).setTooltip(Text.of("Skin color.")).setSaveConsumer(value -> config.skinColorR = value).setDefaultValue(0000000).build());
-			colorCategory.addEntry(entry.startColorField(new TranslatableText("minetils.config.skin"), config.skinColorG).setTooltip(Text.of("Skin color.")).setSaveConsumer(value -> config.skinColorG = value).setDefaultValue(0000000).build());
-			colorCategory.addEntry(entry.startColorField(new TranslatableText("minetils.config.skin"), config.skinColorB).setTooltip(Text.of("Skin color.")).setSaveConsumer(value -> config.skinColorB = value).setDefaultValue(0000000).build());
 
 			singlePlayerCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.swap"), config.SwapArmorAndElytra).setTooltip(Text.of("Swap armor and elytra.")).setSaveConsumer(value -> config.SwapArmorAndElytra = value).setDefaultValue(true).build());
 			singlePlayerCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.particle"), config.disableBlockParticle).setTooltip(Text.of("Disable block particle.")).setSaveConsumer(value -> config.disableBlockParticle = value).setDefaultValue(false).build());

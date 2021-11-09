@@ -1,7 +1,9 @@
 package com.sjkz1.minetils.render;
 
 import com.sjkz1.minetils.Minetils;
+import com.sjkz1.minetils.utils.ColorMatching;
 import com.sjkz1.minetils.utils.SpecialMember;
+
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
@@ -23,7 +25,8 @@ public class GlowingLayer<T extends AbstractClientPlayerEntity, M extends Player
     }
 
     public static Identifier getPath(String name) {
-        return new Identifier("minetils:textures/entity/" + name + ".png");
+
+        return ColorMatching.identifier != null ? ColorMatching.identifier : new Identifier("dynamic/textures/entity/_1");
     }
 
 

@@ -1,6 +1,19 @@
 package com.sjkz1.minetils.mixin;
 
+import java.util.Objects;
+import java.util.UUID;
+
+import com.mojang.authlib.GameProfile;
+import me.shedaniel.autoconfig.util.Utils;
+import net.minecraft.client.network.AbstractClientPlayerEntity;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
 import com.sjkz1.minetils.Minetils;
+
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -8,19 +21,14 @@ import net.minecraft.entity.decoration.ItemFrameEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.Objects;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity
 {
 
 	@Shadow public abstract Text getName();
+
+	@Shadow public abstract GameProfile getGameProfile();
 
 	MinecraftClient mc = MinecraftClient.getInstance();
 
@@ -39,5 +47,12 @@ public abstract class PlayerEntityMixin extends LivingEntity
 				ci.cancel();
 			}
 		}
+	}
+	@Inject(method = "tick",at = @At("HEAD"), cancellable = true)
+	public void attack(CallbackInfo ci) {
+//		if(this != null)
+//		{
+//			this.sendSystemMessage(Text.of(String.valueOf(AbstractClientPlayerEntity.getSkinId(this.getGameProfile().getName()))), UUID.randomUUID());
+//		}
 	}
 }

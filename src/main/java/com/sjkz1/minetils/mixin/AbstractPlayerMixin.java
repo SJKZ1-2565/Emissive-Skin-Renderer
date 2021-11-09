@@ -1,17 +1,19 @@
 package com.sjkz1.minetils.mixin;
 
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Redirect;
+
 import com.mojang.authlib.GameProfile;
 import com.sjkz1.minetils.Minetils;
 import com.sjkz1.minetils.utils.IdentifierUtils;
+
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(AbstractClientPlayerEntity.class)
 public abstract class AbstractPlayerMixin  extends PlayerEntity {

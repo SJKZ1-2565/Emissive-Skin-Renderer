@@ -1,6 +1,6 @@
 package boon4681.ColorUtils;
 
-import java.awt.*;
+import java.awt.Color;
 
 public class DeltaE {
     public static double getDelta(Color c1,Color c2){

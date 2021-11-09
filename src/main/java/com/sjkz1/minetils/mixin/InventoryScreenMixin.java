@@ -1,12 +1,14 @@
 package com.sjkz1.minetils.mixin;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.ingame.InventoryScreen;
-import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
+
+import com.mojang.blaze3d.systems.RenderSystem;
+
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.ingame.InventoryScreen;
+import net.minecraft.util.math.MathHelper;
 
 @Mixin(InventoryScreen.class)
 public class InventoryScreenMixin {

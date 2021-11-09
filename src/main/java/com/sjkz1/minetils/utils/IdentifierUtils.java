@@ -1,6 +1,7 @@
 package com.sjkz1.minetils.utils;
 
 import com.sjkz1.minetils.Minetils;
+
 import net.minecraft.util.Identifier;
 
 public class IdentifierUtils {

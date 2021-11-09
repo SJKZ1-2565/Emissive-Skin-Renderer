@@ -1,6 +1,16 @@
 package com.sjkz1.minetils.mixin;
 
+import com.sjkz1.minetils.utils.ClientInit;
+import com.sjkz1.minetils.utils.ModelHelper;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
 import com.sjkz1.minetils.Minetils;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -13,12 +23,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.UseAction;
 import net.minecraft.util.math.MathHelper;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntityModel.class)
 @Environment(EnvType.CLIENT)
@@ -33,12 +37,18 @@ public class PlayerModelMixin<T extends LivingEntity> extends BipedEntityModel<T
     @Final
     @Shadow
     public ModelPart rightSleeve;
+    @Shadow @Final public ModelPart jacket;
+
     @Inject(method = "setAngles",at = @At("TAIL"))
     public void injectAnim(T livingEntity, float f, float g, float h, float i, float j, CallbackInfo ci)
     {
         if(livingEntity instanceof AbstractClientPlayerEntity && Minetils.CONFIG.getConfig().enableEatingAnim) {
             eatingAnimationRightHand(rightArm, rightSleeve, livingEntity.age);
             eatingAnimationLeftHand(leftArm, leftSleeve, livingEntity.age);
+        }
+        if(livingEntity instanceof AbstractClientPlayerEntity)
+        {
+            ModelHelper.playerDance(head,rightArm,leftArm,body,hat,rightSleeve,leftSleeve,jacket, livingEntity.age);
         }
     }
 

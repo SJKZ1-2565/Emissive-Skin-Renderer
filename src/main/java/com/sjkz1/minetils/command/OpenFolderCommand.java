@@ -4,15 +4,6 @@ import com.mojang.brigadier.CommandDispatcher;
 
 import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v1.FabricClientCommandSource;
-import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.world.EditWorldScreen;
-import net.minecraft.util.Util;
-import net.minecraft.util.WorldSavePath;
-import net.minecraft.world.level.storage.LevelStorage;
-import org.lwjgl.system.CallbackI;
-
-import java.io.File;
 
 
 public class OpenFolderCommand {
