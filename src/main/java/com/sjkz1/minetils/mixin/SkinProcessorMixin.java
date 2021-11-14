@@ -1,15 +1,17 @@
 package com.sjkz1.minetils.mixin;
 
-import net.minecraft.client.realms.util.SkinProcessor;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import net.minecraft.client.realms.util.SkinProcessor;
 
 @Mixin(SkinProcessor.class)
 public class SkinProcessorMixin {

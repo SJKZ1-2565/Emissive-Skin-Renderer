@@ -30,12 +30,12 @@ public class Player extends AbstractClientPlayerEntity {
     }
 
     @Override
-    public boolean shouldRenderName() {
-        return false;
+    public ItemStack getStackInHand(Hand hand) {
+        return ItemStack.EMPTY;
     }
 
     @Override
-    public ItemStack getStackInHand(Hand hand) {
-        return ItemStack.EMPTY;
+    public boolean shouldRender(double d) {
+        return super.shouldRender(d);
     }
 }

@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 import com.sjkz1.minetils.Minetils;
 
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ElytraItem;
@@ -27,10 +27,11 @@ public class ArmorItemMixin extends Item implements Wearable {
     /**
      * @author SJKZ1
      */
-    @Overwrite
+    @Override
+	@Overwrite
     public TypedActionResult<ItemStack> use(World world, PlayerEntity playerEntity, Hand hand) {
         ItemStack itemStack = playerEntity.getStackInHand(hand);
-        EquipmentSlot equipmentSlot = MobEntity.getPreferredEquipmentSlot(itemStack);
+        EquipmentSlot equipmentSlot = LivingEntity.getPreferredEquipmentSlot(itemStack);
         ItemStack itemStack2 = playerEntity.getEquippedStack(equipmentSlot);
         if ((itemStack2.isEmpty() || (itemStack2.getItem() instanceof ArmorItem || itemStack2.getItem() instanceof ElytraItem) && Minetils.CONFIG.getConfig().SwapArmorAndElytra)) {
             playerEntity.equipStack(equipmentSlot, itemStack.copy());

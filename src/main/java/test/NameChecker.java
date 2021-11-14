@@ -4,51 +4,35 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.*;
-import java.net.URISyntaxException;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
-import com.google.gson.*;
-import com.sjkz1.minetils.Minetils;
+import javax.imageio.ImageIO;
+
 import org.apache.commons.io.IOUtils;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 
 import boon4681.ColorUtils.ColorMixer;
 import boon4681.ColorUtils.DeltaE;
-import net.minecraft.util.ChatUtil;
-
-import javax.imageio.ImageIO;
 
 public class NameChecker {
     public static final ScheduledExecutorService SCHEDULED_EXECUTOR_SERVICE = Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors());
 
     public static void main(String[] args) throws IOException {
-//        InputStream ioStream = NameChecker.class
-//                .getClassLoader()
-//                .getResourceAsStream("\\assets\\minetils\\textures\\entity\\sjkz12.png");
-//
-//        if (ioStream == null) {
-//            throw new IllegalArgumentException("fabric.mod.json" + " is not found");
-//        }
-//        else
-//        {
-//            System.out.println("Found");
-//        }
-        Path path = Paths.get("src\\main\\resources\\assets\\minetils\\textures\\entity\\sjkz1.png");
-        if(path != null)
-        {
-            System.out.println("Found");
-        }
-        else
-        {
-            throw new IllegalArgumentException("File is not found");
-        }
+
     }
 
     public static ArrayList<Color> find(ArrayList<Color> color) {
@@ -59,10 +43,10 @@ public class NameChecker {
             copyColor.remove(0);
             double min = 10000;
             Color save = null;
-            for (int i = 0; i < copyColor.size(); i++) {
-                double calculate = DeltaE.getDelta(copyColor.get(i), color.get(0));
+            for (Color element : copyColor) {
+                double calculate = DeltaE.getDelta(element, color.get(0));
                 if (calculate < min) {
-                    save = copyColor.get(i);
+                    save = element;
                     min = calculate;
                 }
             }
@@ -96,13 +80,16 @@ public class NameChecker {
         return name;
     }
 
-    public static String getSkin() throws IOException {
+
+
+    public static String getNamee() throws IOException {
         URL url1 = new URL("https://sessionserver.mojang.com/session/minecraft/profile/46448e1b402e42e0ad0e8a51ca5abe6a");
         InputStreamReader reader1 = new InputStreamReader(url1.openStream());
         JsonObject property = new JsonParser().parse(reader1).getAsJsonObject().get("properties").getAsJsonArray().get(0).getAsJsonObject();
         String texture = property.get("value").getAsString();
         return texture;
     }
+
 
     public static void getDiscordMemberAmount() throws JsonSyntaxException, IOException {
         URL url = new URL("https://sessionserver.mojang.com/session/minecraft/profile/46448e1b402e42e0ad0e8a51ca5abe6a");
@@ -123,9 +110,9 @@ public class NameChecker {
         public final Object obj;
 
         private ThreadDownloadPlayerSkin() {
-            this.skinImages = new HashMap<String, BufferedImage>();
+            this.skinImages = new HashMap<>();
             this.obj = new Object();
-            this.queuedUsernames = new ArrayList<String>();
+            this.queuedUsernames = new ArrayList<>();
         }
 
         public static ThreadDownloadPlayerSkin getInstance() {

@@ -4,6 +4,7 @@ import com.sjkz1.minetils.Minetils;
 import com.sjkz1.minetils.utils.ColorMatching;
 import com.sjkz1.minetils.utils.SpecialMember;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
@@ -24,7 +25,7 @@ public class GlowingLayer<T extends AbstractClientPlayerEntity, M extends Player
         super(featureRendererContext);
     }
 
-    public static Identifier getPath(String name) {
+    public static Identifier getPath() {
 
         return ColorMatching.identifier != null ? ColorMatching.identifier : new Identifier("dynamic/textures/entity/_1");
     }
@@ -37,10 +38,10 @@ public class GlowingLayer<T extends AbstractClientPlayerEntity, M extends Player
 
     @Override
     public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumers, int light, T entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-        float time = entity.age + tickDelta;
+        float time = MinecraftClient.getInstance().getTickDelta() + tickDelta;
         for(SpecialMember values : SpecialMember.VALUES)
         {
-            RenderLayer GLOWING_LAYER = RenderLayer.getEyes(getPath(values.getName().toLowerCase()));
+            RenderLayer GLOWING_LAYER = RenderLayer.getEyes(getPath());
             if (!entity.isInvisible() && entity.getName().getString().equals(values.getName()) && Minetils.CONFIG.getConfig().glowingSkin) {
                 VertexConsumer inveterate = vertexConsumers.getBuffer(GLOWING_LAYER);
                 this.getContextModel().render(matrixStack, inveterate, light, OverlayTexture.DEFAULT_UV, makeFade(time), makeFade(time), makeFade(time), 1.0F);

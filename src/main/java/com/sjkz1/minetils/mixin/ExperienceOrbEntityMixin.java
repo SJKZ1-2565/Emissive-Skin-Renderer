@@ -33,7 +33,7 @@ public abstract class ExperienceOrbEntityMixin {
         Map.Entry<EquipmentSlot, ItemStack> entry = EnchantmentHelper.chooseEquipmentWith(Enchantments.MENDING, playerEntity, ItemStack::isDamaged);
         if (entry != null && Minetils.CONFIG.getConfig().displayMendingRepairAmount)
         {
-            ItemStack itemStack = (ItemStack)entry.getValue();
+            ItemStack itemStack = entry.getValue();
             int j = Math.min(this.getMendingRepairAmount(this.amount), itemStack.getDamage());
             String amount = Formatting.YELLOW + String.valueOf(j);
             playerEntity.sendMessage(Text.of(Formatting.BOLD.toString() + Formatting.GREEN + "Mending Repair amount "  + amount),true);

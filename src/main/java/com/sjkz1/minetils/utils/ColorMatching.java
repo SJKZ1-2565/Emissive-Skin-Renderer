@@ -1,32 +1,31 @@
 package com.sjkz1.minetils.utils;
 
-import boon4681.ColorUtils.ColorMixer;
-import boon4681.ColorUtils.DeltaE;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Transparency;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Base64;
+
+import javax.imageio.ImageIO;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.mojang.authlib.GameProfile;
 import com.sjkz1.minetils.Minetils;
-import net.fabricmc.loader.api.FabricLoader;
+
+import boon4681.ColorUtils.ColorMixer;
+import boon4681.ColorUtils.DeltaE;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.texture.NativeImageBackedTexture;
-import net.minecraft.client.texture.PlayerSkinProvider;
-import net.minecraft.resource.Resource;
-import net.minecraft.util.ChatUtil;
 import net.minecraft.util.Identifier;
-import org.apache.commons.compress.utils.IOUtils;
-import org.lwjgl.system.CallbackI;
-import test.NameChecker;
-
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.*;
-import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Base64;
 
 public class ColorMatching {
 
@@ -34,14 +33,7 @@ public class ColorMatching {
     public static Identifier identifier =  null;
     public static void createGlowingSkinImage() {
         try {
-            //This URL not found bruh -*-
-            String s =  getSkin();
-            byte[] decodedBytes = Base64.getMimeDecoder().decode(s);
-            String decodedMime = new String(decodedBytes);
-            JsonObject property = new JsonParser().parse(decodedMime).getAsJsonObject().get("textures").getAsJsonObject();
-            JsonObject texture = property.get("SKIN").getAsJsonObject();
-            String url = texture.get("url").getAsString();
-
+            String url = getSkin();
             BufferedImage image = ImageIO.read(new URL(url).openStream());
             BufferedImage resizedImage = resize(image, 3, 3);
             ArrayList<Color> colors = new ArrayList<>();
@@ -55,7 +47,7 @@ public class ColorMatching {
             for (int y = 0; y < image.getHeight(); y++) {
                 for (int x = 0; x < image.getWidth(); x++) {
                     if (DeltaE.getDelta(new Color(image.getRGB(x, y)), pallets.get(0)) < Minetils.CONFIG.getConfig().palletsRate) {
-                        image.setRGB(x, y, Color.TRANSLUCENT);
+                        image.setRGB(x, y, Transparency.TRANSLUCENT);
                     }
                 }
             }
@@ -65,7 +57,7 @@ public class ColorMatching {
                 GLOWSKIN_DIR.mkdirs();
             }
 
-           ImageIO.write(image,"png", new File(GLOWSKIN_DIR,"glow.png"));;
+           ImageIO.write(image,"png", new File(GLOWSKIN_DIR,"glow.png"));
            SJKZ1Helper.runAsync(() ->MoveToResourceLoc());
            MoveToResourceLoc();
 
@@ -100,10 +92,10 @@ public class ColorMatching {
             copyColor.remove(0);
             double min = 10000;
             Color save = null;
-            for (int i = 0; i < copyColor.size(); i++) {
-                double calculate = DeltaE.getDelta(copyColor.get(i), color.get(0));
+            for (Color element : copyColor) {
+                double calculate = DeltaE.getDelta(element, color.get(0));
                 if (calculate < min) {
-                    save = copyColor.get(i);
+                    save = element;
                     min = calculate;
                 }
             }
@@ -131,7 +123,12 @@ public class ColorMatching {
         InputStreamReader reader1 = new InputStreamReader(url1.openStream());
         JsonObject property = new JsonParser().parse(reader1).getAsJsonObject().get("properties").getAsJsonArray().get(0).getAsJsonObject();
         String texture = property.get("value").getAsString();
-        return texture;
+        byte[] decodedBytes = Base64.getMimeDecoder().decode(texture);
+        String decodedMime = new String(decodedBytes);
+        JsonObject property1 = new JsonParser().parse(decodedMime).getAsJsonObject().get("textures").getAsJsonObject();
+        JsonObject texture1 = property1.get("SKIN").getAsJsonObject();
+        String url = texture1.get("url").getAsString();
+        return url;
     }
 
 }
