@@ -3,7 +3,7 @@
   "id": "minetils",
   "version": "1.0.3",
   "name": "minetils",
-  "description": "Miscellaneous for playing experience!\n§lChange log§r\n§nMain§r\n-This version is has added necessary feature from older version!\n§n§aAdded§r\n-Added Config for Eating Animation\n-Added Display Mending repair amount\n§n§eFixed§r\n-Fixed ItemEntity not glowing when use command\n§n§cRemoved§r\n-Remove auto respawn\n§n§6Changed§r\n-Eating animation is more smooth\n-Special Member Wardrobe is look bit better(Not finish yet)\n-Open Folder Command now change to Open datapacks folder command",
+  "description": "",
   "authors": [
     "SJKZ1"
   ],
