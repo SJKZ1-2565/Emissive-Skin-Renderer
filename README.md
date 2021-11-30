@@ -5,7 +5,4 @@
 =======
 # Minetils Mod
 
-## Owner
 
-SJKZ1
->>>>>>> 35f2c0c8d993b620c070cd4c01be13c41a360527
