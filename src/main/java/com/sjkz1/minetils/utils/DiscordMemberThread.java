@@ -24,10 +24,7 @@ public class DiscordMemberThread extends Thread
             URL url = new URL("https://discord.com/api/guilds/675288690658115588/widget.json");
             URLConnection connection = url.openConnection();
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8));
-            JsonObject element = new JsonParser().parse(in).getAsJsonObject();
-            JsonObject member = element;
-            int name = member.get("presence_count").getAsInt();
-            SpecialMemberScreen.ONLINE_USER = name;
+            SpecialMemberScreen.ONLINE_USER = JsonParser.parseReader(in).getAsJsonObject().get("presence_count").getAsInt();
         }
         catch (IOException | JsonIOException | JsonSyntaxException e)
         {

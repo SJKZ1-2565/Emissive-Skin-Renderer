@@ -8,13 +8,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import com.mojang.authlib.GameProfile;
 import com.sjkz1.minetils.Minetils;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.decoration.ItemFrameEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
@@ -26,7 +24,7 @@ public abstract class PlayerEntityMixin extends LivingEntity
 	@Override
 	@Shadow public abstract Text getName();
 
-	MinecraftClient mc = MinecraftClient.getInstance();
+	final MinecraftClient mc = MinecraftClient.getInstance();
 
 	PlayerEntityMixin() {
 		super(null, null);

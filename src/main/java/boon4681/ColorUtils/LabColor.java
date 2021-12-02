@@ -3,7 +3,7 @@ package boon4681.ColorUtils;
 import java.awt.Color;
 
 public class LabColor {
-    private Color RGB;
+    private final Color RGB;
     private double L = 0;
     private double A = 0;
     private double B = 0;
@@ -39,8 +39,7 @@ public class LabColor {
         this.B = 200 * (b - c);
     }
     public double[] getLab(){
-        double[] Lab = new double[]{this.L,this.A,this.B};
-        return Lab;
+        return new double[]{this.L, this.A, this.B};
     }
     public double getL() {
         return L;

@@ -17,7 +17,7 @@ public class ClientInit {
     public static void tick(MinecraftClient client) {
         if (client.player != null) {
             SJKZ1Helper.runAsync(() ->
-                    new DiscordMemberThread().run());
+                    new DiscordMemberThread().start());
         }
         if (Minetils.danceKey.wasPressed()) {
             dance = !dance;

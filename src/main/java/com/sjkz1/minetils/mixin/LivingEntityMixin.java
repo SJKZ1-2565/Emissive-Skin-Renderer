@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class LivingEntityMixin extends Entity
 {
 
-	MinecraftClient mc = MinecraftClient.getInstance();
+	final MinecraftClient mc = MinecraftClient.getInstance();
 
 	LivingEntityMixin() {
 		super(null, null);

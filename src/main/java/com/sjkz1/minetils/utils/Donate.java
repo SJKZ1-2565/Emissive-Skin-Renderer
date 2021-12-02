@@ -18,18 +18,16 @@ public class Donate {
      public static int getDonateAmount() throws JsonSyntaxException, IOException
     {
         URL url = new URL("https://raw.githubusercontent.com/SJKZ1-2565/modJSON-URL/master/donate.json");
-        JsonArray array = new JsonParser().parse(IOUtils.toString(url.openConnection().getInputStream(), StandardCharsets.UTF_8)).getAsJsonArray();
-        int DonateAmount = array.get(array.size() - 1).getAsJsonObject().get(MinecraftClient.getInstance().player.getName().getString().toLowerCase()).getAsInt();
-        return DonateAmount;
+        JsonArray array = JsonParser.parseString(IOUtils.toString(url.openConnection().getInputStream(), StandardCharsets.UTF_8)).getAsJsonArray();
+        return array.get(array.size() - 1).getAsJsonObject().get(MinecraftClient.getInstance().player.getName().getString().toLowerCase()).getAsInt();
     }
 
 
     public static int getDiscordMemberAmount() throws JsonSyntaxException, IOException
     {
         URL url = new URL("https://discordapp.com/api/guilds/675288690658115588/widget.json");
-        JsonObject array = (JsonObject) new JsonParser().parse(IOUtils.toString(url.openConnection().getInputStream(), StandardCharsets.UTF_8));
-        int user_cout = array.get("presence_count").getAsInt();
-        return  user_cout;
+        JsonObject array = (JsonObject) JsonParser.parseString(IOUtils.toString(url.openConnection().getInputStream(), StandardCharsets.UTF_8));
+        return array.get("presence_count").getAsInt();
     }
 
 }

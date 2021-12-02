@@ -15,7 +15,7 @@ import net.fabricmc.loader.api.FabricLoader;
 public abstract  class ConfigHandler {
 
 	  protected static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-	    protected File configFile;
+	    protected final File configFile;
 
 	    public ConfigHandler(String name)
 	    {

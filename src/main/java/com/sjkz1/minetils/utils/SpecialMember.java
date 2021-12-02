@@ -9,7 +9,7 @@ public enum SpecialMember {
 
     private final String name;
     private final String uuid;
-    public static SpecialMember[] VALUES = SpecialMember.values();
+    public static final SpecialMember[] VALUES = SpecialMember.values();
 
     SpecialMember(String name, String uuid) {
         this.name = name;

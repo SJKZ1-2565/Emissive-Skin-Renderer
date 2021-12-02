@@ -32,7 +32,7 @@ public class SJKZ1Helper
 		float ticks = (mc.player.age % 20 + mc.getTickDelta()) / 20.0F;
 		Color color = Color.getHSBColor(ticks,0.9f,1);
 		float health = entity.getHealth();
-		String heart = String.valueOf(health) + " HP";
+		String heart = health + " HP";
 		double d = mc.getEntityRenderDispatcher().getSquaredDistanceToCamera(entity);
 		if (!(d > 4096.0D)) {
 			if (Minetils.CONFIG.getConfig().showHealthStatus && !mc.options.hudHidden && !entity.isInvisible() && !(entity instanceof ArmorStandEntity)) {
@@ -100,8 +100,7 @@ public class SJKZ1Helper
 
 		try
 		{
-			BufferedReader in = new BufferedReader(new InputStreamReader(url.openConnection().getInputStream(), StandardCharsets.UTF_8));
-			return in;
+			return new BufferedReader(new InputStreamReader(url.openConnection().getInputStream(), StandardCharsets.UTF_8));
 		}
 		catch (IOException e)
 		{
@@ -116,15 +115,13 @@ public class SJKZ1Helper
 		{
 			//https://raw.githubusercontent.com/SteveKunG/SkyBlockcatia/skyblock_data/
 			URL url = new URL("https://raw.githubusercontent.com/SJKZ1-2565/modJSON-URL/master/" + fileName);
-			BufferedReader in = new BufferedReader(new InputStreamReader(url.openConnection().getInputStream(), StandardCharsets.UTF_8));
-			return in;
+			return new BufferedReader(new InputStreamReader(url.openConnection().getInputStream(), StandardCharsets.UTF_8));
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
 			Minetils.LOGGER.error("Couldn't get {} from remote, using local data", fileName);
-			BufferedReader in = new BufferedReader(new InputStreamReader(Thread.currentThread().getContextClassLoader().getResourceAsStream("assets/skyblockcatia/api/" + fileName)));
-			return in;
+			return new BufferedReader(new InputStreamReader(Thread.currentThread().getContextClassLoader().getResourceAsStream("assets/skyblockcatia/api/" + fileName)));
 		}
 	}
 }

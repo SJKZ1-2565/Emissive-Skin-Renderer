@@ -76,8 +76,7 @@ public class NameChecker {
         String decodedMime = new String(decodedBytes);
         JsonObject property1 = new JsonParser().parse(decodedMime).getAsJsonObject().get("textures").getAsJsonObject();
         JsonObject texture1 = property1.get("SKIN").getAsJsonObject();
-        String url = texture1.get("url").getAsString();
-        return url;
+        return texture1.get("url").getAsString();
     }
 
 
@@ -85,11 +84,10 @@ public class NameChecker {
 
         ArrayList<Color> colors = new ArrayList<>();
         while (color.size() > 0) {
-            ArrayList<Color> copyColor = color;
-            copyColor.remove(0);
+            color.remove(0);
             double min = 10000;
             Color save = null;
-            for (Color element : copyColor) {
+            for (Color element : color) {
                 double calculate = DeltaE.getDelta(element, color.get(0));
                 if (calculate < min) {
                     save = element;
@@ -122,8 +120,7 @@ public class NameChecker {
     private static String getName(String uuid) throws JsonSyntaxException, IOException {
         URL url = new URL("https://api.mojang.com/user/profiles/" + uuid.replace("-", "") + "/names");
         JsonArray array = new JsonParser().parse(IOUtils.toString(url.openConnection().getInputStream(), StandardCharsets.UTF_8)).getAsJsonArray();
-        String name = array.get(array.size() - 1).getAsJsonObject().get("name").getAsString();
-        return name;
+        return array.get(array.size() - 1).getAsJsonObject().get("name").getAsString();
     }
 
 
@@ -132,8 +129,7 @@ public class NameChecker {
         URL url1 = new URL("https://sessionserver.mojang.com/session/minecraft/profile/46448e1b402e42e0ad0e8a51ca5abe6a");
         InputStreamReader reader1 = new InputStreamReader(url1.openStream());
         JsonObject property = new JsonParser().parse(reader1).getAsJsonObject().get("properties").getAsJsonArray().get(0).getAsJsonObject();
-        String texture = property.get("value").getAsString();
-        return texture;
+        return property.get("value").getAsString();
     }
 
 
@@ -151,8 +147,8 @@ public class NameChecker {
     {
         private static ThreadDownloadPlayerSkin instance;
         private static final String SKIN_LOCATION = "http://skins.minecraft.net/MinecraftSkins/%s.png";
-        private ArrayList<String> queuedUsernames;
-        private Map<String, BufferedImage> skinImages;
+        private final ArrayList<String> queuedUsernames;
+        private final Map<String, BufferedImage> skinImages;
         public final Object obj;
 
         private ThreadDownloadPlayerSkin() {

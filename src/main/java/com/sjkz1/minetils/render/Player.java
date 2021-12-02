@@ -25,11 +25,6 @@ public class Player extends AbstractClientPlayerEntity {
     }
 
     @Override
-    public void tick() {
-        super.tick();
-    }
-
-    @Override
     public ItemStack getStackInHand(Hand hand) {
         return ItemStack.EMPTY;
     }

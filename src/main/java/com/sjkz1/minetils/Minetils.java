@@ -31,8 +31,8 @@ public class Minetils implements ModInitializer
 	public static KeyBinding showPost;
 	public static KeyBinding openModScreen;
 
-	public static String MOD_ID = "minetils";
-	public static Logger LOGGER = LogManager.getLogger(MOD_ID);
+	public static final String MOD_ID = "minetils";
+	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
 
 	public static final ConFigIN CONFIG = new ConFigIN();

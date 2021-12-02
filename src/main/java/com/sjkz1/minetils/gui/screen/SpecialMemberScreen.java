@@ -31,7 +31,7 @@ import net.minecraft.util.math.Vec3f;
 public class SpecialMemberScreen extends Screen {
 
 
-	public Identifier BG = new Identifier(Minetils.MOD_ID + ":textures/gui/background.png");
+	public final Identifier BG = new Identifier(Minetils.MOD_ID + ":textures/gui/background.png");
 
 	private float playerXRot = 0;
 	private float ticks = 0;
@@ -40,8 +40,8 @@ public class SpecialMemberScreen extends Screen {
 	protected int x;
 
 	private final List<String> list = new CopyOnWriteArrayList<>();
-	protected int backgroundWidth = 256;
-	protected int backgroundHeight = 166;
+	protected final int backgroundWidth = 256;
+	protected final int backgroundHeight = 166;
 	private boolean err = false;
 
 	public SpecialMemberScreen(Text text) {
@@ -57,11 +57,9 @@ public class SpecialMemberScreen extends Screen {
 			Minetils.CONFIG.getConfig().darkTheme = !Minetils.CONFIG.getConfig().darkTheme;
 			try {
 				Minetils.CONFIG.saveConfig();
-			} catch (IOException e) {}
+			} catch (IOException ignored) {}
 		}));
-		this.addDrawableChild(new ButtonWidget(this.width / 2-50, j - 15, 98, 20, Text.of("Skin Editor"), button -> {
-			client.setScreen(new SkinEditorScreen(Text.of("")));
-		}
+		this.addDrawableChild(new ButtonWidget(this.width / 2-50, j - 15, 98, 20, Text.of("Skin Editor"), button -> client.setScreen(new SkinEditorScreen(Text.of("")))
 				));
 		list.clear();
 		list.add("Special Member Wardrobe");
