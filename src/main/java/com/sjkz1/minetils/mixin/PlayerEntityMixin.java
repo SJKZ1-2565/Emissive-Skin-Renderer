@@ -26,8 +26,6 @@ public abstract class PlayerEntityMixin extends LivingEntity
 	@Override
 	@Shadow public abstract Text getName();
 
-	@Shadow public abstract GameProfile getGameProfile();
-
 	MinecraftClient mc = MinecraftClient.getInstance();
 
 	PlayerEntityMixin() {
@@ -40,17 +38,6 @@ public abstract class PlayerEntityMixin extends LivingEntity
 			if (Minetils.CONFIG.getConfig().IgnoreHittingVillager) {
 				ci.cancel();
 			}
-		} else if (target instanceof ItemFrameEntity itemFrameEntity) {
-			if (itemFrameEntity.fixed) {
-				ci.cancel();
-			}
 		}
-	}
-	@Inject(method = "tick",at = @At("HEAD"), cancellable = true)
-	public void attack(CallbackInfo ci) {
-//		if(this != null)
-//		{
-//			this.sendSystemMessage(Text.of(String.valueOf(AbstractClientPlayerEntity.getSkinId(this.getGameProfile().getName()))), UUID.randomUUID());
-//		}
 	}
 }

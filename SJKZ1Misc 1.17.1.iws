@@ -314,15 +314,15 @@
       <module name="SJKZ1Misc 1.17.1.main"/>
       <option name="MAIN_CLASS_NAME" value="net.fabricmc.devlaunchinjector.Main"/>
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/run"/>
-      <option name="VM_PARAMETERS" value="-XX:+ShowCodeDetailsInExceptionMessages -Dfabric.dli.config=C:\Users\USER\Desktop\Modding\SJKZ1misc\SJKZ1Misc@@00201.17.1\.gradle\loom-cache\launch.cfg -Dfabric.dli.env=client -Dfabric.dli.main=net.fabricmc.loader.impl.launch.knot.KnotClient"/>
+      <option name="VM_PARAMETERS" value="&quot;-Dfabric.dli.config=C:\Users\USER\Desktop\Modding\SJKZ1misc\SJKZ1Misc@@00201.17.1\.gradle\loom-cache\launch.cfg&quot; &quot;-Dfabric.dli.env=client&quot; &quot;-Dfabric.dli.main=net.fabricmc.loader.impl.launch.knot.KnotClient&quot;"/>
     </configuration>
     <component name="ProjectRunConfigurationManager"/>
     <configuration default="false" factoryName="Application" name="Minecraft Server" type="Application">
       <module name="SJKZ1Misc 1.17.1.main"/>
       <option name="MAIN_CLASS_NAME" value="net.fabricmc.devlaunchinjector.Main"/>
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/run"/>
-      <option name="VM_PARAMETERS" value="-XX:+ShowCodeDetailsInExceptionMessages -Dfabric.dli.config=C:\Users\USER\Desktop\Modding\SJKZ1misc\SJKZ1Misc@@00201.17.1\.gradle\loom-cache\launch.cfg -Dfabric.dli.env=server -Dfabric.dli.main=net.fabricmc.loader.impl.launch.knot.KnotServer"/>
-      <option name="PROGRAM_PARAMETERS" value="nogui"/>
+      <option name="VM_PARAMETERS" value="&quot;-Dfabric.dli.config=C:\Users\USER\Desktop\Modding\SJKZ1misc\SJKZ1Misc@@00201.17.1\.gradle\loom-cache\launch.cfg&quot; &quot;-Dfabric.dli.env=server&quot; &quot;-Dfabric.dli.main=net.fabricmc.loader.impl.launch.knot.KnotServer&quot;"/>
+      <option name="PROGRAM_PARAMETERS" value="&quot;nogui&quot;"/>
     </configuration>
   </component>
     

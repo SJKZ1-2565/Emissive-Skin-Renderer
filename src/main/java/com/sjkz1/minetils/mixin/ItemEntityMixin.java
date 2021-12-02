@@ -1,9 +1,6 @@
 package com.sjkz1.minetils.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.sjkz1.minetils.command.EntityDetector;
 
@@ -21,10 +18,10 @@ public abstract class ItemEntityMixin extends Entity {
         super(entityType, world);
     }
 
-    @Inject(method = "tick",at = @At("HEAD"))
-    public void tick(CallbackInfo ci)
-    {
-        this.setGlowing(EntityDetector.glow);
+    @Override
+    public void tick() {
+    	 this.setGlowing(EntityDetector.glow);
+    	 super.tick();
     }
 
 }

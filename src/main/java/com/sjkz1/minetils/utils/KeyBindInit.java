@@ -11,8 +11,8 @@ import net.minecraft.client.util.InputUtil;
 public class KeyBindInit {
     public static void init()
     {
-        Minetils.danceKey = KeyBindingHelper.registerKeyBinding(new KeyBinding ("key.sjkz1misc.start_dance", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_R, Minetils.MOD_ID));
-        Minetils.showPost = KeyBindingHelper.registerKeyBinding(new KeyBinding ("key.sjkz1misc.showPost", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_G, Minetils.MOD_ID));
-        Minetils.openModScreen = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.sjkz1misc.open_mod_screen", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_F7,  Minetils.MOD_ID));
+        Minetils.danceKey = KeyBindingHelper.registerKeyBinding(new KeyBinding ("key.sjkz1misc.start_dance", InputUtil.Type.field_1668, GLFW.GLFW_KEY_R, Minetils.MOD_ID));
+        Minetils.showPost = KeyBindingHelper.registerKeyBinding(new KeyBinding ("key.sjkz1misc.showPost", InputUtil.Type.field_1668, GLFW.GLFW_KEY_G, Minetils.MOD_ID));
+        Minetils.openModScreen = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.sjkz1misc.open_mod_screen", InputUtil.Type.field_1668, GLFW.GLFW_KEY_F7,  Minetils.MOD_ID));
     }
 }

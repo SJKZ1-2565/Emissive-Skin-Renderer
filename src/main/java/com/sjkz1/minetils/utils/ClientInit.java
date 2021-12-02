@@ -21,9 +21,9 @@ public class ClientInit {
         }
         if (Minetils.danceKey.wasPressed()) {
             dance = !dance;
-            client.getSoundManager().stopSounds(SoundInits.DRAGONBALL_ID, SoundCategory.PLAYERS);
+            client.getSoundManager().stopSounds(SoundInits.DRAGONBALL_ID, SoundCategory.field_15248);
             if (dance) {
-                client.player.playSound(SoundInits.DRAGONBALL_SOUND_EVENT, SoundCategory.PLAYERS, 1, 1);
+                client.player.playSound(SoundInits.DRAGONBALL_SOUND_EVENT, SoundCategory.field_15248, 1, 1);
             }
         }
         if (Minetils.openModScreen.wasPressed()) {

@@ -1,9 +1,6 @@
 package com.sjkz1.minetils.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.sjkz1.minetils.utils.SJKZ1Helper;
 
@@ -16,6 +13,9 @@ import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.HorseBaseEntity;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 ;
 
@@ -26,7 +26,7 @@ public abstract class LivingRendererMixin <T extends LivingEntity, M extends Ent
 		super(context);
 	}
 
-	@Inject(method = "render",at = @At("HEAD"))
+	@Inject(method = "render(Lnet/minecraft/entity/LivingEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V",at = @At("HEAD"))
 	public void render(T livingEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo ci)
 	{
 		SJKZ1Helper.renderLabel(livingEntity,matrixStack,vertexConsumerProvider,i);

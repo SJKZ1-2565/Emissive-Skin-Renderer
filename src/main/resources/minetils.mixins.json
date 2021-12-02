@@ -2,7 +2,7 @@
   "required": true,
   "minVersion": "0.8",
   "package": "com.sjkz1.minetils.mixin",
-  "compatibilityLevel": "JAVA_16",
+  "compatibilityLevel": "JAVA_17",
   "mixins": [
     "ArmorItemMixin",
     "ElytraItemMixin",
@@ -15,11 +15,9 @@
     "ParticleEngineMixin",
     "PlayerRenderMixin",
     "ItemEntityMixin",
-    "ExperienceOrbEntityMixin",
-    "SkinProcessorMixin"
+    "ExperienceOrbEntityMixin"
   ],
   "client": [
-    "SkyPropertiesMixin",
     "AbstractPlayerMixin",
     "InventoryScreenMixin",
     "ParticleEngineMixin",

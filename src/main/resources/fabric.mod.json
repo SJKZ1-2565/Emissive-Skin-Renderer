@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "minetils",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "name": "minetils",
   "description": "",
   "authors": [
@@ -27,11 +27,10 @@
   "mixins": [
     "minetils.mixins.json"
   ],
-  "accessWidener": "minetils.accesswidener",
   "depends": {
-    "fabricloader": ">=0.12.2",
+    "fabricloader": ">=0.12",
     "fabric": "*",
-    "minecraft": "1.17.x",
-    "java": ">=16"
+    "minecraft": "1.18",
+    "java": ">=17"
   }
 }

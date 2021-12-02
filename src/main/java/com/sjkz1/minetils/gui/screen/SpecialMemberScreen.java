@@ -52,10 +52,10 @@ public class SpecialMemberScreen extends Screen {
 	protected void init() {
 		super.init();
 		int j = this.height / 4 + 48;
-		String OnOf = isDarkTheme() ? Formatting.GREEN + "ON" : Formatting.RED+"OFF";
+		String OnOf = isDarkTheme() ? Formatting.field_1060 + "ON" : Formatting.field_1061+"OFF";
 		this.addDrawableChild(new ButtonWidget(this.width/2+140,j-94,20,20,Text.of(OnOf),buttonWidget -> {
+			Minetils.CONFIG.getConfig().darkTheme = !Minetils.CONFIG.getConfig().darkTheme;
 			try {
-				Minetils.CONFIG.getConfig().darkTheme = !Minetils.CONFIG.getConfig().darkTheme;
 				Minetils.CONFIG.saveConfig();
 			} catch (IOException e) {}
 		}));
@@ -73,7 +73,6 @@ public class SpecialMemberScreen extends Screen {
 			err = true;
 			list.add("Couldn't get Discord Member!");
 		}
-		list.add("Member for ### months");
 	}
 
 	@Override
@@ -182,6 +181,8 @@ public class SpecialMemberScreen extends Screen {
 			e.printStackTrace();
 		}
 	}
+
+
 
 
 }

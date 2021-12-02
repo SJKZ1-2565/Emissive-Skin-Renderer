@@ -41,7 +41,7 @@ public class SJKZ1Helper
 				matrixStack.translate(0.0D, f, 0.0D);
 				matrixStack.multiply(mc.getEntityRenderDispatcher().camera.getRotation());
 				matrixStack.scale(-0.025F, -0.025F, 0.025F);
-				Matrix4f matrix4f = matrixStack.peek().getModel();
+				Matrix4f matrix4f = matrixStack.peek().getPositionMatrix();
 				float g = mc.options.getTextBackgroundOpacity(0.25F);
 				int k = (int) (g * 255.0F) << 24;
 				TextRenderer textRenderer = mc.textRenderer;
@@ -55,7 +55,7 @@ public class SJKZ1Helper
 		float ticks = (mc.player.age % 20 + mc.getTickDelta()) / 20.0F;
 		Color color = Color.getHSBColor(ticks,0.9f,1);
 		boolean tamed = entity.isTame();
-		String tamedHorseText = tamed ? Formatting.GREEN + "Tamed" :  Formatting.RED + "Untamed";
+		String tamedHorseText = tamed ? Formatting.field_1060 + "Tamed" :  Formatting.field_1061 + "Untamed";
 		double d = mc.getEntityRenderDispatcher().getSquaredDistanceToCamera(entity);
 		if (!(d > 4096.0D)) {
 			if (Minetils.CONFIG.getConfig().showTamedHorse && !mc.options.hudHidden && !entity.isInvisible()) {
@@ -64,7 +64,7 @@ public class SJKZ1Helper
 				matrixStack.translate(0.0D, f, 0.0D);
 				matrixStack.multiply(mc.getEntityRenderDispatcher().camera.getRotation());
 				matrixStack.scale(-0.025F, -0.025F, 0.025F);
-				Matrix4f matrix4f = matrixStack.peek().getModel();
+				Matrix4f matrix4f = matrixStack.peek().getPositionMatrix();
 				float g = mc.options.getTextBackgroundOpacity(0.25F);
 				int k = (int) (g * 255.0F) << 24;
 				TextRenderer textRenderer = mc.textRenderer;

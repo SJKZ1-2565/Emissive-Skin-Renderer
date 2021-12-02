@@ -54,10 +54,10 @@ public class PlayerModelMixin<T extends LivingEntity> extends BipedEntityModel<T
     private  void eatingAnimationRightHand(ModelPart rightArm, ModelPart rightSleeve, int ticks) {
 
        if(client.player != null) {
-           ItemStack itemstack = client.player.getStackInHand(Hand.MAIN_HAND);
+           ItemStack itemstack = client.player.getStackInHand(Hand.field_5808);
            float deltas = ticks + client.getTickDelta();
-           boolean drinkingoreating = itemstack.getUseAction() == UseAction.EAT || itemstack.getUseAction() == UseAction.DRINK;
-           if (client.player.getItemUseTimeLeft() > 0 && drinkingoreating && client.player.getActiveHand() == Hand.MAIN_HAND) {
+           boolean drinkingoreating = itemstack.getUseAction() == UseAction.field_8950 || itemstack.getUseAction() == UseAction.field_8946;
+           if (client.player.getItemUseTimeLeft() > 0 && drinkingoreating && client.player.getActiveHand() == Hand.field_5808) {
                rightArm.pitch  = (0.25F * MathHelper.sin(deltas) + 5F);
                rightArm.yaw = -6.75F;
                rightSleeve.copyTransform(rightArm);
@@ -67,10 +67,10 @@ public class PlayerModelMixin<T extends LivingEntity> extends BipedEntityModel<T
 
     private  void eatingAnimationLeftHand(ModelPart lefttArm, ModelPart leftSleeve, int ticks) {
         if(client.player != null) {
-            ItemStack itemstack = client.player.getStackInHand(Hand.OFF_HAND);
+            ItemStack itemstack = client.player.getStackInHand(Hand.field_5810);
             float deltas = ticks + client.getTickDelta();
-            boolean drinkingoreating = itemstack.getUseAction() == UseAction.EAT || itemstack.getUseAction() == UseAction.DRINK;
-            if (client.player.getItemUseTimeLeft() > 0 && drinkingoreating && client.player.getActiveHand() == Hand.OFF_HAND) {
+            boolean drinkingoreating = itemstack.getUseAction() == UseAction.field_8950 || itemstack.getUseAction() == UseAction.field_8946;
+            if (client.player.getItemUseTimeLeft() > 0 && drinkingoreating && client.player.getActiveHand() == Hand.field_5810) {
                 lefttArm.pitch = (0.25F * MathHelper.sin(deltas) + 5F);
                 lefttArm.yaw = 6.75F;
                 leftSleeve.copyTransform(lefttArm);

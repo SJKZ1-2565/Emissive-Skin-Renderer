@@ -3,6 +3,7 @@ package test;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -10,6 +11,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -32,8 +34,52 @@ public class NameChecker {
     public static final ScheduledExecutorService SCHEDULED_EXECUTOR_SERVICE = Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors());
 
     public static void main(String[] args) throws IOException {
-
+        createGlowingSkinImage();
     }
+    public static void createGlowingSkinImage() {
+        try {
+            String url = getSkin();
+            BufferedImage image = ImageIO.read(new URL(url).openStream());
+            BufferedImage resizedImage = resize(image, 3, 3);
+            ArrayList<Color> colors = new ArrayList<>();
+
+            for (int y = 0; y < resizedImage.getHeight(); y++) {
+                for (int x = 0; x < resizedImage.getWidth(); x++) {
+                    colors.add(new Color(resizedImage.getRGB(x, y), false));
+                }
+            }
+            ArrayList<Color> pallets = find(colors);
+            for (int y = 0; y < image.getHeight(); y++) {
+                for (int x = 0; x < image.getWidth(); x++) {
+                    if (DeltaE.getDelta(new Color(image.getRGB(x, y)), pallets.get(0)) < 96.55) {
+                        image.setRGB(x, y, Transparency.TRANSLUCENT);
+                    }
+                }
+            }
+
+
+            ImageIO.write(image,"png", new File("C:\\Users\\USER\\Desktop\\Modding\\glow.png"));
+
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String getSkin() throws IOException {
+        URL url1 = new URL("https://sessionserver.mojang.com/session/minecraft/profile/46448e1b402e42e0ad0e8a51ca5abe6a");
+        InputStreamReader reader1 = new InputStreamReader(url1.openStream());
+        JsonObject property = new JsonParser().parse(reader1).getAsJsonObject().get("properties").getAsJsonArray().get(0).getAsJsonObject();
+        String texture = property.get("value").getAsString();
+        byte[] decodedBytes = Base64.getMimeDecoder().decode(texture);
+        String decodedMime = new String(decodedBytes);
+        JsonObject property1 = new JsonParser().parse(decodedMime).getAsJsonObject().get("textures").getAsJsonObject();
+        JsonObject texture1 = property1.get("SKIN").getAsJsonObject();
+        String url = texture1.get("url").getAsString();
+        return url;
+    }
+
 
     public static ArrayList<Color> find(ArrayList<Color> color) {
 

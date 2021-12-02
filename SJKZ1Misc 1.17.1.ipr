@@ -13,7 +13,7 @@
       <entry name="!?*.java"/>
     </wildcardResourcePatterns>
     <annotationProcessing enabled="false" useClasspath="true"/>
-    <bytecodeTargetLevel target="16"/>
+    <bytecodeTargetLevel target="17"/>
   </component>
   <component name="CopyrightManager" default="">
     <module2copyright/>
@@ -51,7 +51,7 @@
       <module fileurl="file://$PROJECT_DIR$/SJKZ1Misc 1.17.1.iml" filepath="$PROJECT_DIR$/SJKZ1Misc 1.17.1.iml"/>
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" assert-keyword="true" jdk-15="true" project-jdk-type="JavaSDK" assert-jdk-15="true" project-jdk-name="16">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" assert-keyword="true" jdk-15="true" project-jdk-type="JavaSDK" assert-jdk-15="true" project-jdk-name="17">
     <output url="file://$PROJECT_DIR$/out"/>
   </component>
   <component name="SvnBranchConfigurationManager">
