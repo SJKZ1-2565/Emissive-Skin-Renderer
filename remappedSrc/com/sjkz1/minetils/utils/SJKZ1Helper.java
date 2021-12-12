@@ -44,6 +44,8 @@ public class SJKZ1Helper
 				matrixStack.multiply(mc.getEntityRenderDispatcher().camera.getRotation());
 				matrixStack.scale(-0.025F, -0.025F, 0.025F);
 				Matrix4f matrix4f = matrixStack.peek().getPositionMatrix();
+				float g = mc.options.getTextBackgroundOpacity(0.25F);
+				int k = (int) (g * 255.0F) << 24;
 				TextRenderer textRenderer = mc.textRenderer;
 				float l = -textRenderer.getWidth(heart) / 2;
 				textRenderer.draw(heart, l, -15, Minetils.CONFIG.getConfig().healthStatusRainbowColor ? color.getRGB() : Minetils.CONFIG.getConfig().healthStatusColor, true, matrix4f, vertexConsumerProvider, false, 0, i);
@@ -55,7 +57,7 @@ public class SJKZ1Helper
 		float ticks = (Objects.requireNonNull(mc.player).age % 20 + mc.getTickDelta()) / 20.0F;
 		Color color = Color.getHSBColor(ticks,0.9f,1);
 		boolean tamed = entity.isTame();
-		String tamedHorseText = tamed ? Formatting.GREEN + "Tamed" :  Formatting.RED + "Untamed";
+		String tamedHorseText = tamed ? Formatting.field_1060 + "Tamed" :  Formatting.field_1061 + "Untamed";
 		double d = mc.getEntityRenderDispatcher().getSquaredDistanceToCamera(entity);
 		if (!(d > 4096.0D)) {
 			if (Minetils.CONFIG.getConfig().showTamedHorse && !mc.options.hudHidden && !entity.isInvisible()) {
@@ -65,6 +67,8 @@ public class SJKZ1Helper
 				matrixStack.multiply(mc.getEntityRenderDispatcher().camera.getRotation());
 				matrixStack.scale(-0.025F, -0.025F, 0.025F);
 				Matrix4f matrix4f = matrixStack.peek().getPositionMatrix();
+				float g = mc.options.getTextBackgroundOpacity(0.25F);
+				int k = (int) (g * 255.0F) << 24;
 				TextRenderer textRenderer = mc.textRenderer;
 				float l = -textRenderer.getWidth(tamedHorseText) / 2;
 				textRenderer.draw(tamedHorseText, l, -15, Minetils.CONFIG.getConfig().healthStatusRainbowColor ? color.getRGB() : Minetils.CONFIG.getConfig().healthStatusColor, true, matrix4f, vertexConsumerProvider, false, 0, i);
@@ -105,6 +109,22 @@ public class SJKZ1Helper
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public static BufferedReader getData(String fileName)
+	{
+		try
+		{
+			//https://raw.githubusercontent.com/SteveKunG/SkyBlockcatia/skyblock_data/
+			URL url = new URL("https://raw.githubusercontent.com/SJKZ1-2565/modJSON-URL/master/" + fileName);
+			return new BufferedReader(new InputStreamReader(url.openConnection().getInputStream(), StandardCharsets.UTF_8));
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+			Minetils.LOGGER.error("Couldn't get {} from remote, using local data", fileName);
+			return new BufferedReader(new InputStreamReader(Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResourceAsStream("assets/skyblockcatia/api/" + fileName))));
+		}
 	}
 }
 

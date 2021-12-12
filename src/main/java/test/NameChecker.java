@@ -33,7 +33,7 @@ import boon4681.ColorUtils.DeltaE;
 public class NameChecker {
     public static final ScheduledExecutorService SCHEDULED_EXECUTOR_SERVICE = Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors());
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         createGlowingSkinImage();
     }
     public static void createGlowingSkinImage() {

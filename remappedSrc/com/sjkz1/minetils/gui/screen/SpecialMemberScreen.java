@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
-
+import I;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.sjkz1.minetils.Minetils;
@@ -53,7 +53,7 @@ public class SpecialMemberScreen extends Screen {
 	protected void init() {
 		super.init();
 		int j = this.height / 4 + 48;
-		String OnOf = isDarkTheme() ? Formatting.GREEN+ "ON" : Formatting.RED+"OFF";
+		String OnOf = isDarkTheme() ? Formatting.field_1060 + "ON" : Formatting.field_1061+"OFF";
 		this.addDrawableChild(new ButtonWidget(this.width/2+140,j-94,20,20,Text.of(OnOf),buttonWidget -> {
 			Minetils.CONFIG.getConfig().darkTheme = !Minetils.CONFIG.getConfig().darkTheme;
 			try {
