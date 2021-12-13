@@ -15,4 +15,7 @@ run
 .metadata
 .classpath
 .project
+.iml
+.ipr
+.iws
 !gradlew.bat
