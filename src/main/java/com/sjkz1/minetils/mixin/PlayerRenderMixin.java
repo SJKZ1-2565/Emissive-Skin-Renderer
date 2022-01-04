@@ -1,15 +1,18 @@
 package com.sjkz1.minetils.mixin;
 
-import net.minecraft.client.MinecraftClient;
+import java.awt.Color;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.sjkz1.minetils.Minetils;
 import com.sjkz1.minetils.render.GlowingLayer;
 import com.sjkz1.minetils.utils.SpecialMember;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.OverlayTexture;
@@ -21,8 +24,7 @@ import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
-
-import java.awt.*;
+import net.minecraft.util.Identifier;
 
 @Mixin(PlayerEntityRenderer.class)
 public abstract class PlayerRenderMixin extends LivingEntityRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>>
@@ -62,4 +64,13 @@ public abstract class PlayerRenderMixin extends LivingEntityRenderer<AbstractCli
         }
 
      }
+
+    @Inject(method = "Lnet/minecraft/client/render/entity/PlayerEntityRenderer;getTexture(Lnet/minecraft/client/network/AbstractClientPlayerEntity;)Lnet/minecraft/util/Identifier;",at = @At(value = "RETURN"),cancellable = true)
+	private void render(AbstractClientPlayerEntity abstractClientPlayerEntity,CallbackInfoReturnable<Identifier> info)
+	{
+		if(abstractClientPlayerEntity.age % 100 == 0 && abstractClientPlayerEntity.getName().getString().equals("SJKZ1"))
+		{
+			info.setReturnValue(new Identifier("minetils:textures/entity/skin/blink.png"));
+		}
+	}
 }

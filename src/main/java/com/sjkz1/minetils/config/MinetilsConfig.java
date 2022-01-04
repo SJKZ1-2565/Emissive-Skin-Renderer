@@ -15,6 +15,7 @@ public class MinetilsConfig {
 	  public boolean darkTheme;
 	  public boolean disableHurtCamera;
 	  public boolean manualSkinEditor;
+	  public boolean hightlightProvince;
 	  public int healthStatusColor;
 	  public int IdentifierOrdinal;
 	  public int yPositionHorseDisplay;
@@ -22,6 +23,8 @@ public class MinetilsConfig {
 	  public double palletsRate;
 	  public int deleteRateX;
 	  public int deleteRateY;
+	  public String provinceName =  "ไม่ระบุ";
+
 
 
 

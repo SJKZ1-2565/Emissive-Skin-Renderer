@@ -22,16 +22,16 @@ public class ClientInit {
         }
         if (Minetils.danceKey.wasPressed()) {
             dance = !dance;
-            client.getSoundManager().stopSounds(SoundInits.DRAGONBALL_ID, SoundCategory.field_15248);
+            client.getSoundManager().stopSounds(SoundInits.DRAGONBALL_ID, SoundCategory.PLAYERS);
             if (dance) {
-                client.player.playSound(SoundInits.DRAGONBALL_SOUND_EVENT, SoundCategory.field_15248, 1, 1);
+                client.player.playSound(SoundInits.DRAGONBALL_SOUND_EVENT, SoundCategory.PLAYERS, 1, 1);
             }
         }
         if (Minetils.openModScreen.wasPressed()) {
             if (!Minetils.CONFIG.getConfig().manualSkinEditor) {
                 client.setScreen(new SpecialMemberScreen(Text.of("")));
             } else {
-                client.player.sendMessage(Text.of(Formatting.field_1061 + "You must have to disable manual skin editor first!"), false);
+                client.player.sendMessage(Text.of(Formatting.RED + "You must have to disable manual skin editor first!"), false);
             }
 
             if (Minetils.showPost.wasPressed()) {
@@ -56,8 +56,8 @@ public class ClientInit {
     }
 
     public static void join(ClientPlayNetworkHandler clientPlayNetworkHandler, PacketSender packetSender, MinecraftClient minecraftClient) {
-        if(!Minetils.CONFIG.getConfig().manualSkinEditor) {
-            SJKZ1Helper.runAsync(ColorMatching::createGlowingSkinImage);
+        if(!Minetils.CONFIG.getConfig().manualSkinEditor && minecraftClient != null) {
+            ColorMatching.createGlowingSkinImage();
         }
     }
 }

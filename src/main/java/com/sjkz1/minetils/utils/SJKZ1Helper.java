@@ -13,6 +13,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.jetbrains.annotations.NotNull;
+
 import com.sjkz1.minetils.Minetils;
 
 import net.minecraft.client.MinecraftClient;
@@ -24,7 +26,6 @@ import net.minecraft.entity.decoration.ArmorStandEntity;
 import net.minecraft.entity.passive.HorseBaseEntity;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Matrix4f;
-import org.jetbrains.annotations.NotNull;
 
 public class SJKZ1Helper
 {

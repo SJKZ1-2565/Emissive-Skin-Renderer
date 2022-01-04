@@ -38,6 +38,7 @@ public class MinetilscModMenuScreen implements ModMenuApi
 
 	        ConfigEntryBuilder entry = ConfigEntryBuilder.create();
 	        ConfigCategory generalCategory = builder.getOrCreateCategory(Text.of("General Settings"));
+	        ConfigCategory generalCategory2 = builder.getOrCreateCategory(Text.of("General 2 Settings"));
 	        ConfigCategory singlePlayerCategory = builder.getOrCreateCategory(Text.of("Single player Settings"));
 	        ConfigCategory specialMemberCategory = builder.getOrCreateCategory(Text.of("Special member Settings"));
 	        ConfigCategory colorCategory = builder.getOrCreateCategory(Text.of("Color Settings"));
@@ -52,6 +53,9 @@ public class MinetilscModMenuScreen implements ModMenuApi
 			generalCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.display_mending"), config.displayMendingRepairAmount).setTooltip(Text.of("Display Mending Repair Amount.")).setSaveConsumer(value -> config.displayMendingRepairAmount = value).setDefaultValue(true).build());
 			generalCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.disableHurtCamera"), config.disableHurtCamera).setTooltip(Text.of("Disable shake camera when hurting.")).setSaveConsumer(value -> config.disableHurtCamera = value).setDefaultValue(false).build());
 			generalCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.manual_skin"), config.manualSkinEditor).setTooltip(Text.of("")).setSaveConsumer(value -> config.manualSkinEditor = value).setDefaultValue(true).build());
+			generalCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.hightlightProvince"), config.hightlightProvince).setTooltip(Text.of("")).setSaveConsumer(value -> config.hightlightProvince = value).setDefaultValue(false).build());
+			generalCategory2.addEntry(entry.startStringDropdownMenu(new TranslatableText("minetils.config.provinceName"), config.provinceName).setTooltip(Text.of("")).setSaveConsumer(value -> config.provinceName = value).setDefaultValue("ไม่ระบุ").setSaveConsumer(String -> config.provinceName = String).build());
+
 
 			colorCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.rainbow_health"), config.healthStatusRainbowColor).setTooltip(Text.of("Set rainbow color text.")).setSaveConsumer(value -> config.healthStatusRainbowColor = value).setDefaultValue(false).build());
 			colorCategory.addEntry(entry.startColorField(new TranslatableText("minetils.config.health_color"), config.healthStatusColor).setTooltip(Text.of("Text color.")).setSaveConsumer(value -> config.healthStatusColor = value).setDefaultValue(0x4dff52).build());

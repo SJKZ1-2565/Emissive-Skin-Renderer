@@ -30,13 +30,13 @@ public abstract class ExperienceOrbEntityMixin {
     @Inject(method = "repairPlayerGears",at = @At("HEAD"))
     public void renderExp(PlayerEntity playerEntity, int i, CallbackInfoReturnable<Integer> cir)
     {
-        Map.Entry<EquipmentSlot, ItemStack> entry = EnchantmentHelper.chooseEquipmentWith(Enchantments.field_9101, playerEntity, ItemStack::isDamaged);
+        Map.Entry<EquipmentSlot, ItemStack> entry = EnchantmentHelper.chooseEquipmentWith(Enchantments.MENDING, playerEntity, ItemStack::isDamaged);
         if (entry != null && Minetils.CONFIG.getConfig().displayMendingRepairAmount)
         {
             ItemStack itemStack = entry.getValue();
             int j = Math.min(this.getMendingRepairAmount(this.amount), itemStack.getDamage());
-            String amount = Formatting.field_1054 + String.valueOf(j);
-            playerEntity.sendMessage(Text.of(Formatting.field_1067.toString() + Formatting.field_1060 + "Mending Repair amount "  + amount),true);
+            String amount = Formatting.GREEN + String.valueOf(j);
+            playerEntity.sendMessage(Text.of(Formatting.BOLD.toString() + Formatting.YELLOW + "Mending Repair amount "  + amount),true);
         }
 
     }

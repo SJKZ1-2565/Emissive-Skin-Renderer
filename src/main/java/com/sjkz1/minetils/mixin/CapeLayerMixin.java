@@ -1,5 +1,7 @@
 package com.sjkz1.minetils.mixin;
 
+import java.util.Objects;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -14,7 +16,8 @@ import net.minecraft.util.Identifier;
 @Mixin(CapeFeatureRenderer.class)
 public class CapeLayerMixin {
 
-    @Redirect(method = "render",at = @At(value = "INVOKE",target = "Lnet/minecraft/client/render/RenderLayer;getEntitySolid(Lnet/minecraft/util/Identifier;)Lnet/minecraft/client/render/RenderLayer;"))
+    @SuppressWarnings("resource")
+	@Redirect(method = "render",at = @At(value = "INVOKE",target = "Lnet/minecraft/client/render/RenderLayer;getEntitySolid(Lnet/minecraft/util/Identifier;)Lnet/minecraft/client/render/RenderLayer;"))
     public RenderLayer a(Identifier identifier)
     {
         RenderLayer renderLayer = null;
@@ -22,8 +25,7 @@ public class CapeLayerMixin {
         {
             for(String name : Minetils.SPECIAL_MEMBER)
             {
-                assert MinecraftClient.getInstance().player != null;
-                if(MinecraftClient.getInstance().player.getName().getString().contains(name))
+                if(Objects.requireNonNull(MinecraftClient.getInstance().player).getName().getString().contains(name))
                 {
                     renderLayer = RenderLayer.getEntityAlpha(identifier);
                 }

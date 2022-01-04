@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
+import com.sjkz1.minetils.command.CovidThailandCommand;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -54,6 +55,7 @@ public class Minetils implements ModInitializer
 		SoundInits.init();
 		new OpenFolderCommand(ClientCommandManager.DISPATCHER);
 		new EntityDetector(ClientCommandManager.DISPATCHER);
+		new CovidThailandCommand(ClientCommandManager.DISPATCHER);
 	}
 
 

@@ -26,6 +26,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.texture.NativeImageBackedTexture;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 public class ColorMatching {
 

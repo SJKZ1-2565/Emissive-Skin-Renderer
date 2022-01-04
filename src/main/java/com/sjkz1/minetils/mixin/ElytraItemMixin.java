@@ -1,6 +1,7 @@
 package com.sjkz1.minetils.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 
 import com.sjkz1.minetils.Minetils;
 
@@ -16,7 +17,6 @@ import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
-import org.spongepowered.asm.mixin.Overwrite;
 
 
 @Mixin(ElytraItem.class)
@@ -29,7 +29,8 @@ public class ElytraItemMixin extends Item implements Wearable {
     /**
      * @author SJKZ1
      */
-    @Overwrite
+    @Override
+	@Overwrite
     public TypedActionResult<ItemStack> use(World world, PlayerEntity playerEntity, Hand hand) {
         ItemStack itemStack = playerEntity.getStackInHand(hand);
         EquipmentSlot equipmentSlot = LivingEntity.getPreferredEquipmentSlot(itemStack);
@@ -37,7 +38,7 @@ public class ElytraItemMixin extends Item implements Wearable {
         if ((itemStack2.isEmpty() || (itemStack2.getItem() instanceof ArmorItem || itemStack2.getItem() instanceof ElytraItem) && Minetils.CONFIG.getConfig().SwapArmorAndElytra)) {
             playerEntity.equipStack(equipmentSlot, itemStack.copy());
             if (!world.isClient()) {
-                playerEntity.incrementStat(Stats.field_15372.getOrCreateStat(this));
+                playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
             }
 
             playerEntity.setStackInHand(hand,itemStack2);

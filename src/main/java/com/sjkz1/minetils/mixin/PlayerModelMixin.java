@@ -1,5 +1,7 @@
 package com.sjkz1.minetils.mixin;
 
+import com.sjkz1.minetils.render.GlowingLayer;
+import net.minecraft.client.render.OverlayTexture;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -22,6 +24,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.UseAction;
 import net.minecraft.util.math.MathHelper;
+
+import java.awt.*;
 
 @Mixin(PlayerEntityModel.class)
 @Environment(EnvType.CLIENT)
@@ -54,10 +58,10 @@ public class PlayerModelMixin<T extends LivingEntity> extends BipedEntityModel<T
     private  void eatingAnimationRightHand(ModelPart rightArm, ModelPart rightSleeve, int ticks) {
 
        if(client.player != null) {
-           ItemStack itemstack = client.player.getStackInHand(Hand.field_5808);
+           ItemStack itemstack = client.player.getStackInHand(Hand.MAIN_HAND);
            float deltas = ticks + client.getTickDelta();
-           boolean drinkingoreating = itemstack.getUseAction() == UseAction.field_8950 || itemstack.getUseAction() == UseAction.field_8946;
-           if (client.player.getItemUseTimeLeft() > 0 && drinkingoreating && client.player.getActiveHand() == Hand.field_5808) {
+           boolean drinkingoreating = itemstack.getUseAction() == UseAction.EAT || itemstack.getUseAction() == UseAction.DRINK;
+           if (client.player.getItemUseTimeLeft() > 0 && drinkingoreating && client.player.getActiveHand() == Hand.MAIN_HAND) {
                rightArm.pitch  = (0.25F * MathHelper.sin(deltas) + 5F);
                rightArm.yaw = -6.75F;
                rightSleeve.copyTransform(rightArm);
@@ -67,10 +71,10 @@ public class PlayerModelMixin<T extends LivingEntity> extends BipedEntityModel<T
 
     private  void eatingAnimationLeftHand(ModelPart lefttArm, ModelPart leftSleeve, int ticks) {
         if(client.player != null) {
-            ItemStack itemstack = client.player.getStackInHand(Hand.field_5810);
+            ItemStack itemstack = client.player.getStackInHand(Hand.OFF_HAND);
             float deltas = ticks + client.getTickDelta();
-            boolean drinkingoreating = itemstack.getUseAction() == UseAction.field_8950 || itemstack.getUseAction() == UseAction.field_8946;
-            if (client.player.getItemUseTimeLeft() > 0 && drinkingoreating && client.player.getActiveHand() == Hand.field_5810) {
+            boolean drinkingoreating = itemstack.getUseAction() == UseAction.EAT || itemstack.getUseAction() == UseAction.DRINK;
+            if (client.player.getItemUseTimeLeft() > 0 && drinkingoreating && client.player.getActiveHand() == Hand.OFF_HAND) {
                 lefttArm.pitch = (0.25F * MathHelper.sin(deltas) + 5F);
                 lefttArm.yaw = 6.75F;
                 leftSleeve.copyTransform(lefttArm);
