@@ -7,13 +7,11 @@ import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.UUID;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -21,14 +19,10 @@ import java.util.concurrent.ScheduledExecutorService;
 import javax.imageio.ImageIO;
 
 import com.google.gson.*;
-import com.google.gson.stream.JsonWriter;
-import com.sjkz1.minetils.utils.Text;
-import io.netty.util.CharsetUtil;
 import org.apache.commons.io.IOUtils;
 
 import boon4681.ColorUtils.ColorMixer;
 import boon4681.ColorUtils.DeltaE;
-import io.netty.util.internal.StringUtil;
 
 public class NameChecker {
 	public static final ScheduledExecutorService SCHEDULED_EXECUTOR_SERVICE = Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors());

@@ -1,7 +1,5 @@
 package com.sjkz1.minetils.mixin;
 
-import com.sjkz1.minetils.render.GlowingLayer;
-import net.minecraft.client.render.OverlayTexture;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -24,8 +22,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.UseAction;
 import net.minecraft.util.math.MathHelper;
-
-import java.awt.*;
 
 @Mixin(PlayerEntityModel.class)
 @Environment(EnvType.CLIENT)

@@ -10,7 +10,6 @@ public class MinetilsConfig {
 	  public boolean showTamedHorse;
 	  public boolean disableBlockParticle;
 	  public boolean enableEatingAnim;
-	  public boolean displayMendingRepairAmount;
 	  public boolean SpecialCape;
 	  public boolean darkTheme;
 	  public boolean disableHurtCamera;
@@ -23,7 +22,6 @@ public class MinetilsConfig {
 	  public double palletsRate;
 	  public int deleteRateX;
 	  public int deleteRateY;
-	  public String provinceName =  "ไม่ระบุ";
 
 
 

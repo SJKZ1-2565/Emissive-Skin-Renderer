@@ -2,15 +2,13 @@ package com.sjkz1.minetils;
 
 
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 
 import com.sjkz1.minetils.command.CovidThailandCommand;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.google.common.collect.Lists;
-import com.sjkz1.minetils.command.EntityDetector;
 import com.sjkz1.minetils.command.OpenFolderCommand;
 import com.sjkz1.minetils.config.ConFigIN;
 import com.sjkz1.minetils.utils.ClientInit;
@@ -21,20 +19,17 @@ import com.sjkz1.minetils.utils.SpecialMember;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.minecraft.client.option.KeyBinding;
 
 
 public class Minetils implements ModInitializer
 {
-	public static final ScheduledExecutorService SCHEDULED_EXECUTOR_SERVICE = Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors());
 	public static KeyBinding danceKey;
 	public static KeyBinding showPost;
 	public static KeyBinding openModScreen;
 
 	public static final String MOD_ID = "minetils";
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
-
 
 	public static final ConFigIN CONFIG = new ConFigIN();
 
@@ -51,10 +46,9 @@ public class Minetils implements ModInitializer
 	{
 		KeyBindInit.init();
 		ClientTickEvents.END_CLIENT_TICK.register(ClientInit::tick);
-		ClientPlayConnectionEvents.JOIN.register(ClientInit::join);
+		ServerPlayConnectionEvents.JOIN.register(ClientInit::join);
 		SoundInits.init();
 		new OpenFolderCommand(ClientCommandManager.DISPATCHER);
-		new EntityDetector(ClientCommandManager.DISPATCHER);
 		new CovidThailandCommand(ClientCommandManager.DISPATCHER);
 	}
 

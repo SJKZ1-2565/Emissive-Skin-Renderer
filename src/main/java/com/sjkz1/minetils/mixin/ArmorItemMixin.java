@@ -24,7 +24,6 @@ public class ArmorItemMixin extends Item implements Wearable {
         super(null);
     }
 
-    @Override
 	@Overwrite
     public TypedActionResult<ItemStack> use(World world, PlayerEntity playerEntity, Hand hand) {
         ItemStack itemStack = playerEntity.getStackInHand(hand);

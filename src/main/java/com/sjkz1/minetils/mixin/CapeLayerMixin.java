@@ -16,9 +16,9 @@ import net.minecraft.util.Identifier;
 @Mixin(CapeFeatureRenderer.class)
 public class CapeLayerMixin {
 
-    @SuppressWarnings("resource")
+
 	@Redirect(method = "render",at = @At(value = "INVOKE",target = "Lnet/minecraft/client/render/RenderLayer;getEntitySolid(Lnet/minecraft/util/Identifier;)Lnet/minecraft/client/render/RenderLayer;"))
-    public RenderLayer a(Identifier identifier)
+    public RenderLayer render(Identifier identifier)
     {
         RenderLayer renderLayer = null;
         if(Minetils.CONFIG.getConfig().SpecialCape)

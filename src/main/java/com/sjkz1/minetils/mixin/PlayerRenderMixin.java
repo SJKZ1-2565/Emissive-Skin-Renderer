@@ -65,7 +65,7 @@ public abstract class PlayerRenderMixin extends LivingEntityRenderer<AbstractCli
 
      }
 
-    @Inject(method = "Lnet/minecraft/client/render/entity/PlayerEntityRenderer;getTexture(Lnet/minecraft/client/network/AbstractClientPlayerEntity;)Lnet/minecraft/util/Identifier;",at = @At(value = "RETURN"),cancellable = true)
+    @Inject(method = "getTexture(Lnet/minecraft/client/network/AbstractClientPlayerEntity;)Lnet/minecraft/util/Identifier;",at = @At(value = "RETURN"),cancellable = true)
 	private void render(AbstractClientPlayerEntity abstractClientPlayerEntity,CallbackInfoReturnable<Identifier> info)
 	{
 		if(abstractClientPlayerEntity.age % 100 == 0 && abstractClientPlayerEntity.getName().getString().equals("SJKZ1"))

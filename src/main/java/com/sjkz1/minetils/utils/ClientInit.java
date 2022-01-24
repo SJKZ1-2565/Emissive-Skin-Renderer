@@ -5,11 +5,11 @@ import com.sjkz1.minetils.gui.screen.SpecialMemberScreen;
 
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-
 
 public class ClientInit {
 
@@ -31,7 +31,7 @@ public class ClientInit {
             if (!Minetils.CONFIG.getConfig().manualSkinEditor) {
                 client.setScreen(new SpecialMemberScreen(Text.of("")));
             } else {
-                client.player.sendMessage(Text.of(Formatting.RED + "You must have to disable manual skin editor first!"), false);
+                client.inGameHud.getChatHud().addMessage(Text.of(Formatting.RED + "You must have to disable manual skin editor!"));
             }
 
             if (Minetils.showPost.wasPressed()) {
@@ -44,19 +44,17 @@ public class ClientInit {
                 String OverWorldPose = "OverWorld position X:" + i * 8 + " Y:" + j + " Z:" + k * 8;
 
 
+                client.inGameHud.getChatHud().addMessage(Text.of(pos));
                 if (client.player.world.getDimension().isPiglinSafe()) {
-                    client.player.sendChatMessage(pos);
-                    client.player.sendChatMessage(OverWorldPose);
+                    client.inGameHud.getChatHud().addMessage(Text.of(OverWorldPose));
                 } else {
-                    client.player.sendChatMessage(pos);
-                    client.player.sendChatMessage(NetherPos);
+                    client.inGameHud.getChatHud().addMessage(Text.of(NetherPos));
                 }
             }
         }
     }
-
-    public static void join(ClientPlayNetworkHandler clientPlayNetworkHandler, PacketSender packetSender, MinecraftClient minecraftClient) {
-        if(!Minetils.CONFIG.getConfig().manualSkinEditor && minecraftClient != null) {
+    public static void join(ServerPlayNetworkHandler serverPlayNetworkHandler, PacketSender packetSender, MinecraftServer minecraftServer) {
+        if (!Minetils.CONFIG.getConfig().manualSkinEditor && minecraftServer != null) {
             ColorMatching.createGlowingSkinImage();
         }
     }

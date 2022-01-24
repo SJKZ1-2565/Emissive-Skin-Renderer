@@ -32,7 +32,7 @@ public abstract class PlayerEntityMixin extends LivingEntity
 
 	@Inject(method = "attack",at = @At("HEAD"), cancellable = true)
 	public void attack(Entity target, CallbackInfo ci) {
-		if (target instanceof VillagerEntity && !Objects.requireNonNull(mc.player).getAbilities().flying) {
+		if (target instanceof VillagerEntity && !Objects.requireNonNull(mc.player.isCreative())) {
 			if (Minetils.CONFIG.getConfig().IgnoreHittingVillager) {
 				ci.cancel();
 			}
