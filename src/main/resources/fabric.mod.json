@@ -8,8 +8,9 @@
     "SJKZ1"
   ],
   "contact": {
-    "homepage": "https://discord.gg/bKpzTVGYbEs",
-    "issues": "https://discord.gg/7E9pvDuSMy"
+    "homepage": "https://github.com/SJKZ1-2565",
+    "sources": "https://github.com/SJKZ1-2565/Minetils",
+    "issues": "https://github.com/SJKZ1-2565/Minetils/issues"
   },
 
   "license": "MIT-LICENSE",
@@ -30,7 +31,7 @@
   "depends": {
     "fabricloader": ">=0.12",
     "fabric": "*",
-    "minecraft": "1.18.1",
+    "minecraft": "1.18.*",
     "java": ">=17"
   }
 }
