@@ -43,15 +43,14 @@ public class MinetilscModMenuScreen implements ModMenuApi
 	        ConfigCategory colorCategory = builder.getOrCreateCategory(Text.of("Color Settings"));
 
 
-			generalCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.hp_detector"), config.showHealthStatus).setTooltip(Text.of("Render entity HP, on their name tag.")).setSaveConsumer(value -> config.showHealthStatus = value).setDefaultValue(true).build());
+			generalCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.hp_detector"), config.showHealthStatus).setTooltip(Text.of("Render entity HP, on their name tag.")).setSaveConsumer(value -> config.showHealthStatus = value).setDefaultValue(false).build());
 			generalCategory.addEntry(entry.startIntSlider(new TranslatableText("minetils.config.y_hp_detector"), config.yPositionHealthStatus,1,3).setTooltip(Text.of("Y position of health status.")).setSaveConsumer(value -> config.yPositionHealthStatus = value).setDefaultValue(1).build());
-			generalCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.tamed_horse_detector"), config.showTamedHorse).setTooltip(Text.of("Show tame data.")).setSaveConsumer(value -> config.showTamedHorse = value).setDefaultValue(false).build());
+			generalCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.tamed_horse_detector"), config.showTamedHorse).setTooltip(Text.of("Show tame horses.")).setSaveConsumer(value -> config.showTamedHorse = value).setDefaultValue(false).build());
 			generalCategory.addEntry(entry.startIntSlider(new TranslatableText("minetils.config.y_tamed_horse_detector"), config.yPositionHorseDisplay,1,3).setTooltip(Text.of("Y position of display tamed horse")).setSaveConsumer(value -> config.yPositionHorseDisplay = value).setDefaultValue(2).build());
 			generalCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.ignore_villager"), config.IgnoreHittingVillager).setTooltip(Text.of("Ignore attack village.")).setSaveConsumer(value -> config.IgnoreHittingVillager = value).setDefaultValue(true).build());
 			generalCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.eating_anim"), config.enableEatingAnim).setTooltip(Text.of("Enable Eating Animation.")).setSaveConsumer(value -> config.enableEatingAnim = value).setDefaultValue(true).build());
 			generalCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.disableHurtCamera"), config.disableHurtCamera).setTooltip(Text.of("Disable shake camera when hurting.")).setSaveConsumer(value -> config.disableHurtCamera = value).setDefaultValue(false).build());
 			generalCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.manual_skin"), config.manualSkinEditor).setTooltip(Text.of("")).setSaveConsumer(value -> config.manualSkinEditor = value).setDefaultValue(true).build());
-			generalCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.hightlightProvince"), config.hightlightProvince).setTooltip(Text.of("")).setSaveConsumer(value -> config.hightlightProvince = value).setDefaultValue(false).build());
 
 
 			colorCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.rainbow_health"), config.healthStatusRainbowColor).setTooltip(Text.of("Set rainbow color text.")).setSaveConsumer(value -> config.healthStatusRainbowColor = value).setDefaultValue(false).build());

@@ -2,19 +2,18 @@ package com.sjkz1.minetils.config;
 
 public class MinetilsConfig {
 
-	  public boolean showHealthStatus;
-	  public boolean glowingSkin;
-	  public boolean IgnoreHittingVillager;
-	  public boolean SwapArmorAndElytra;
-	  public boolean healthStatusRainbowColor;
-	  public boolean showTamedHorse;
-	  public boolean disableBlockParticle;
-	  public boolean enableEatingAnim;
-	  public boolean SpecialCape;
-	  public boolean darkTheme;
-	  public boolean disableHurtCamera;
-	  public boolean manualSkinEditor;
-	  public boolean hightlightProvince;
+	  public boolean showHealthStatus = false;
+	  public boolean glowingSkin = true;
+	  public boolean IgnoreHittingVillager = true;
+	  public boolean SwapArmorAndElytra = true;
+	  public boolean healthStatusRainbowColor = false;
+	  public boolean showTamedHorse = false;
+	  public boolean disableBlockParticle =false;
+	  public boolean enableEatingAnim = true;
+	  public boolean SpecialCape = false;
+	  public boolean darkTheme = false;
+	  public boolean disableHurtCamera = false;
+	  public boolean manualSkinEditor = true;
 	  public int healthStatusColor;
 	  public int IdentifierOrdinal;
 	  public int yPositionHorseDisplay;
