@@ -19,6 +19,7 @@
     "AbstractPlayerMixin",
     "ParticleEngineMixin",
     "CapeLayerMixin",
+    "AxolotleRendererMixin",
     "GameRendererMixin"
   ],
   "injectors": {
