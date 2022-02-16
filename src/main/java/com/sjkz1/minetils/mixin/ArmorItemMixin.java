@@ -1,5 +1,8 @@
 package com.sjkz1.minetils.mixin;
 
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.item.*;
+import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
@@ -8,11 +11,6 @@ import com.sjkz1.minetils.Minetils;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ElytraItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Wearable;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -24,7 +22,10 @@ public class ArmorItemMixin extends Item implements Wearable {
         super(null);
     }
 
-	@Overwrite
+	/**
+     * @author
+     */
+    @Overwrite
     public TypedActionResult<ItemStack> use(World world, PlayerEntity playerEntity, Hand hand) {
         ItemStack itemStack = playerEntity.getStackInHand(hand);
         EquipmentSlot equipmentSlot = LivingEntity.getPreferredEquipmentSlot(itemStack);
@@ -36,6 +37,9 @@ public class ArmorItemMixin extends Item implements Wearable {
             }
 
             playerEntity.setStackInHand(hand,itemStack2);
+            if(!world.isClient && !itemStack2.getItem().equals(Items.AIR)) {
+                MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.of("Switching from " + itemStack.getItem().getName().getString() + " to " + itemStack2.getItem().getName().getString()));
+            }
             return TypedActionResult.success(itemStack, world.isClient());
         } else {
             return TypedActionResult.fail(itemStack);
