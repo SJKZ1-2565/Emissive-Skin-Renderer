@@ -28,4 +28,9 @@ public class Player extends AbstractClientPlayerEntity {
     public ItemStack getStackInHand(Hand hand) {
         return ItemStack.EMPTY;
     }
+
+    @Override
+    public boolean shouldRenderName() {
+        return true;
+    }
 }

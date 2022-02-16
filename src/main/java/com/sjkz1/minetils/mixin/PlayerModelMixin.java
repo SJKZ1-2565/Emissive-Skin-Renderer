@@ -1,5 +1,9 @@
 package com.sjkz1.minetils.mixin;
 
+import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementsProvider;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.minecraft.advancement.Advancement;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -23,6 +27,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.UseAction;
 import net.minecraft.util.math.MathHelper;
 
+import java.util.function.Consumer;
+
 @Mixin(PlayerEntityModel.class)
 @Environment(EnvType.CLIENT)
 public class PlayerModelMixin<T extends LivingEntity> extends BipedEntityModel<T> {
@@ -41,11 +47,11 @@ public class PlayerModelMixin<T extends LivingEntity> extends BipedEntityModel<T
     @Inject(method = "setAngles",at = @At("TAIL"))
     public void injectAnim(T livingEntity, float f, float g, float h, float i, float j, CallbackInfo ci)
     {
-        if(livingEntity instanceof AbstractClientPlayerEntity && Minetils.CONFIG.getConfig().enableEatingAnim) {
+        if(livingEntity instanceof AbstractClientPlayerEntity && Minetils.CONFIG.getConfig().enableEatingAnim && livingEntity.getUuid().equals(MinecraftClient.getInstance().player.getUuid())) {
             eatingAnimationRightHand(rightArm, rightSleeve, livingEntity.age);
             eatingAnimationLeftHand(leftArm, leftSleeve, livingEntity.age);
         }
-        if(livingEntity instanceof AbstractClientPlayerEntity)
+        if(livingEntity instanceof AbstractClientPlayerEntity && livingEntity.getUuid().equals(MinecraftClient.getInstance().player.getUuid()))
         {
             ModelHelper.playerDance(head,rightArm,leftArm,body,hat,rightSleeve,leftSleeve,jacket, livingEntity.age);
         }
@@ -65,16 +71,19 @@ public class PlayerModelMixin<T extends LivingEntity> extends BipedEntityModel<T
        }
     }
 
-    private  void eatingAnimationLeftHand(ModelPart lefttArm, ModelPart leftSleeve, int ticks) {
+    private  void eatingAnimationLeftHand(ModelPart leftArm, ModelPart leftSleeve, int ticks) {
         if(client.player != null) {
             ItemStack itemstack = client.player.getStackInHand(Hand.OFF_HAND);
             float deltas = ticks + client.getTickDelta();
             boolean drinkingoreating = itemstack.getUseAction() == UseAction.EAT || itemstack.getUseAction() == UseAction.DRINK;
             if (client.player.getItemUseTimeLeft() > 0 && drinkingoreating && client.player.getActiveHand() == Hand.OFF_HAND) {
-                lefttArm.pitch = (0.25F * MathHelper.sin(deltas) + 5F);
-                lefttArm.yaw = 6.75F;
-                leftSleeve.copyTransform(lefttArm);
+                leftArm.pitch = (0.25F * MathHelper.sin(deltas) + 5F);
+                leftArm.yaw = 6.75F;
+                leftSleeve.copyTransform(leftArm);
             }
         }
     }
+
+
 }
+

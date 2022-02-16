@@ -1,11 +1,6 @@
 package com.sjkz1.minetils.utils;
 
 import java.awt.Color;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
@@ -84,28 +79,24 @@ public class SJKZ1Helper
 			return new Thread(runnable, String.format("Thread %s", this.counter.incrementAndGet()));
 		}
 	});
+	private static final ExecutorService POOL2 = Executors.newFixedThreadPool(1000000, new ThreadFactory()
+	{
+		private final AtomicInteger counter = new AtomicInteger(0);
+
+		@Override
+		public Thread newThread(@NotNull Runnable runnable)
+		{
+			return new Thread(runnable, String.format("Thread %s", this.counter.incrementAndGet()));
+		}
+	});
 
 	public static void runAsync(Runnable runnable)
 	{
 		CompletableFuture.runAsync(runnable, SJKZ1Helper.POOL);
 	}
-
-
-
-	@Deprecated
-	public static BufferedReader get(String path) throws Exception
+	public static void runSlowAsync(Runnable runnable)
 	{
-		URL url = new URL("https://raw.githubusercontent.com/SJKZ1-2565/modJSON-URL/master/" + path);
-
-		try
-		{
-			return new BufferedReader(new InputStreamReader(url.openConnection().getInputStream(), StandardCharsets.UTF_8));
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-		return null;
+		CompletableFuture.runAsync(runnable, SJKZ1Helper.POOL2);
 	}
 }
 

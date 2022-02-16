@@ -11,7 +11,9 @@
     "PlayerEntityMixin",
     "PlayerModelMixin",
     "ParticleEngineMixin",
-    "PlayerRenderMixin"
+    "PlayerRenderMixin",
+    "DebugHudMixin"
+
   ],
   "client": [
     "AbstractPlayerMixin",

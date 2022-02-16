@@ -3,6 +3,7 @@ package com.sjkz1.minetils.command;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import com.mojang.brigadier.CommandDispatcher;
+import com.sjkz1.minetils.utils.SJKZ1Helper;
 import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v1.FabricClientCommandSource;
 import net.minecraft.client.MinecraftClient;
@@ -21,6 +22,8 @@ public class CovidThailandCommand {
 }
     private static int print()
 {
+    SJKZ1Helper.runSlowAsync(() ->
+            {
     URL url;
     try {
         url = new URL("https://covid19.ddc.moph.go.th/api/Cases/today-cases-by-provinces");
@@ -28,11 +31,11 @@ public class CovidThailandCommand {
         JsonArray obj = JsonParser.parseReader(reader1).getAsJsonArray();
         for (int k = 0; k < obj.size(); k++) {
             int finalK = k;
-            Stream.of(obj).filter(covid -> covid.get(finalK).getAsJsonObject().get("new_case").getAsInt() != 0).forEach(covid -> MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.of(Formatting.RED + covid.getAsJsonArray().get(finalK).getAsJsonObject().get("province").getAsString() + ": " + covid.getAsJsonArray().get(finalK).getAsJsonObject().get("new_case").getAsInt())));
+            Stream.of(obj).filter(covid -> covid.get(finalK).getAsJsonObject().get("new_case").getAsInt() != 0).forEach(covid -> MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.of(Formatting.RED + String.valueOf(finalK+1) + ". " + covid.getAsJsonArray().get(finalK).getAsJsonObject().get("province").getAsString() + ": " + covid.getAsJsonArray().get(finalK).getAsJsonObject().get("new_case").getAsInt())));
         }
     } catch (IOException e) {
         e.printStackTrace();
-    }
+    }});
     return 1;
 }
 

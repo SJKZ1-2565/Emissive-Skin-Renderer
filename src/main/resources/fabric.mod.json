@@ -16,6 +16,7 @@
   "license": "MIT-LICENSE",
   "icon": "assets/minetils/icon.png",
 
+
   "environment": "client",
   "entrypoints": {
     "main": [

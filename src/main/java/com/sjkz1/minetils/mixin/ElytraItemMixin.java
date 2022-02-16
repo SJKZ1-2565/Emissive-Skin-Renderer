@@ -29,7 +29,6 @@ public class ElytraItemMixin extends Item implements Wearable {
     /**
      * @author SJKZ1
      */
-    @Override
 	@Overwrite
     public TypedActionResult<ItemStack> use(World world, PlayerEntity playerEntity, Hand hand) {
         ItemStack itemStack = playerEntity.getStackInHand(hand);
