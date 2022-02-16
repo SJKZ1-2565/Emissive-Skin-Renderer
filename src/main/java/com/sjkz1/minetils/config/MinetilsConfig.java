@@ -1,6 +1,6 @@
 package com.sjkz1.minetils.config;
 
-import me.shedaniel.autoconfig.annotation.Config;
+
 
 
 public class MinetilsConfig {

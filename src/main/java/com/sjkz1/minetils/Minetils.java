@@ -1,10 +1,6 @@
 package com.sjkz1.minetils;
 
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 
 import com.sjkz1.minetils.command.CovidThailandCommand;
