@@ -2,8 +2,8 @@ package com.sjkz1.minetils.utils;
 
 import com.sjkz1.minetils.Minetils;
 import com.sjkz1.minetils.gui.screen.SpecialMemberScreen;
+import com.sjkz1.minetils.render.GlowingLayer;
 
-import com.sjkz1.minetils.gui.widget.LogINToasts;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
@@ -23,7 +23,6 @@ public class ClientInit {
         if (client.player != null) {
             SJKZ1Helper.runAsync(() ->
                     new DiscordMemberThread().start());
-            SJKZ1Helper.runSlowAsync(()->new HTTPSCodeThread().start());
         }
         if (Minetils.danceKey.wasPressed()) {
             dance = !dance;
@@ -57,17 +56,6 @@ public class ClientInit {
                 }
             }
         }
-    }
-
-
-    public static void join(ServerPlayNetworkHandler serverPlayNetworkHandler, PacketSender packetSender, MinecraftServer minecraftServer) {
-        if (!Minetils.CONFIG.getConfig().manualSkinEditor && minecraftServer != null) {
-            ColorMatching.createGlowingSkinImage();
-        }
-    }
-
-    public static void join(ClientPlayNetworkHandler clientPlayNetworkHandler, PacketSender packetSender, MinecraftClient minecraftClient) {
-        SJKZ1Helper.runSlowAsync(()->minecraftClient.getToastManager().add(new LogINToasts()));
     }
 }
 

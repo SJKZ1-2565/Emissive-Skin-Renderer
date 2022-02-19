@@ -29,56 +29,69 @@ import net.minecraft.util.Identifier;
 @Mixin(PlayerEntityRenderer.class)
 public abstract class PlayerRenderMixin extends LivingEntityRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>>
 {
-    PlayerRenderMixin()
-    {
-        super(null, null, 0);
-    }
+	private int closeEyeTicks = 20;
+	PlayerRenderMixin()
+	{
+		super(null, null, 0);
+	}
 
-    @Inject(method = "<init>",at = @At("RETURN"))
-   public void init(EntityRendererFactory.Context context, boolean bl, CallbackInfo ci)
-   {
-       this.addFeature(new GlowingLayer<>((PlayerEntityRenderer) (Object) this));
-   }
+	@Inject(method = "<init>",at = @At("RETURN"))
+	public void init(EntityRendererFactory.Context context, boolean bl, CallbackInfo ci)
+	{
+		this.addFeature(new GlowingLayer<>((PlayerEntityRenderer) (Object) this));
+	}
 
 
-    @Inject(method = "renderArm", at = @At("TAIL"))
-    private void renderArm(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, AbstractClientPlayerEntity abstractClientPlayerEntity, ModelPart mainHand, ModelPart sleeve, CallbackInfo ci) {
+	@Inject(method = "renderArm", at = @At("TAIL"))
+	private void renderArm(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, AbstractClientPlayerEntity abstractClientPlayerEntity, ModelPart mainHand, ModelPart sleeve, CallbackInfo ci) {
 
-        float time = abstractClientPlayerEntity.age;
-        mainHand.render(matrixStack, vertexConsumerProvider.getBuffer(RenderLayer.getEntitySolid(abstractClientPlayerEntity.getSkinTexture())), i, OverlayTexture.DEFAULT_UV);
-        for(SpecialMember values : SpecialMember.VALUES)
-        {
-            RenderLayer GLOWING_LAYER = RenderLayer.getEyes(GlowingLayer.getPath());
-            VertexConsumer inveterate = vertexConsumerProvider.getBuffer(GLOWING_LAYER);
+		float time = abstractClientPlayerEntity.age;
+		mainHand.render(matrixStack, vertexConsumerProvider.getBuffer(RenderLayer.getEntitySolid(abstractClientPlayerEntity.getSkinTexture())), i, OverlayTexture.DEFAULT_UV);
+		for(SpecialMember values : SpecialMember.VALUES)
+		{
+			RenderLayer GLOWING_LAYER = RenderLayer.getEyes(GlowingLayer.getPath() != null ? GlowingLayer.getPath() : abstractClientPlayerEntity.getSkinTexture());
+			VertexConsumer inveterate = vertexConsumerProvider.getBuffer(GLOWING_LAYER);
 
-            if (!abstractClientPlayerEntity.isInvisible() && abstractClientPlayerEntity.getName().getString().equals(values.getName()) && Minetils.CONFIG.getConfig().glowingSkin) {
-                sleeve.render(matrixStack, inveterate, i, OverlayTexture.DEFAULT_UV,GlowingLayer.makeFade(time),GlowingLayer.makeFade(time),GlowingLayer.makeFade(time),GlowingLayer.makeFade(time));
-                mainHand.render(matrixStack, inveterate, i, OverlayTexture.DEFAULT_UV,GlowingLayer.makeFade(time),GlowingLayer.makeFade(time),GlowingLayer.makeFade(time),GlowingLayer.makeFade(time));
-            }
-            if (!abstractClientPlayerEntity.isInvisible() && abstractClientPlayerEntity.getName().getString().equals("SJKZ1") && Minetils.CONFIG.getConfig().glowingSkin) {
-                float ticks = (time % 360 + MinecraftClient.getInstance().getTickDelta()) / 360.0F;
-                Color color = Color.getHSBColor(ticks,0.9f,1);
-                sleeve.render(matrixStack, inveterate, i, OverlayTexture.DEFAULT_UV,color.getRed(),color.getGreen(),color.getBlue(),GlowingLayer.makeFade(time));
-                mainHand.render(matrixStack, inveterate, i, OverlayTexture.DEFAULT_UV,color.getRed(),color.getGreen(),color.getBlue(),GlowingLayer.makeFade(time));
-            }
-        }
+			if (!abstractClientPlayerEntity.isInvisible() && abstractClientPlayerEntity.getName().getString().equals(values.getName()) && Minetils.CONFIG.getConfig().glowingSkin) {
+				sleeve.render(matrixStack, inveterate, i, OverlayTexture.DEFAULT_UV,GlowingLayer.makeFade(time),GlowingLayer.makeFade(time),GlowingLayer.makeFade(time),GlowingLayer.makeFade(time));
+				mainHand.render(matrixStack, inveterate, i, OverlayTexture.DEFAULT_UV,GlowingLayer.makeFade(time),GlowingLayer.makeFade(time),GlowingLayer.makeFade(time),GlowingLayer.makeFade(time));
+			}
+			if (!abstractClientPlayerEntity.isInvisible() && abstractClientPlayerEntity.getName().getString().equals("SJKZ1") && Minetils.CONFIG.getConfig().glowingSkin) {
+				float ticks = (time % 360 + MinecraftClient.getInstance().getTickDelta()) / 360.0F;
+				Color color = Color.getHSBColor(ticks,0.9f,1);
+				sleeve.render(matrixStack, inveterate, i, OverlayTexture.DEFAULT_UV,color.getRed(),color.getGreen(),color.getBlue(),GlowingLayer.makeFade(time));
+				mainHand.render(matrixStack, inveterate, i, OverlayTexture.DEFAULT_UV,color.getRed(),color.getGreen(),color.getBlue(),GlowingLayer.makeFade(time));
+			}
+		}
 
-     }
+	}
 
-    @Inject(method = "getTexture(Lnet/minecraft/client/network/AbstractClientPlayerEntity;)Lnet/minecraft/util/Identifier;",at = @At(value = "RETURN"),cancellable = true)
+	@Inject(method = "getTexture(Lnet/minecraft/client/network/AbstractClientPlayerEntity;)Lnet/minecraft/util/Identifier;",at = @At(value = "RETURN"),cancellable = true)
 	private void render(AbstractClientPlayerEntity abstractClientPlayerEntity,CallbackInfoReturnable<Identifier> info)
 	{
-		if(abstractClientPlayerEntity.getRandom().nextInt(20) == 0 && abstractClientPlayerEntity.getName().getString().equals("SJKZ1"))
+		this.closeEyeTicks = Math.max(0, this.closeEyeTicks - 1);
+		if(abstractClientPlayerEntity.getName().getString().equals("SJKZ1"))
 		{
-            int i=0;
-            while (i < 5) {
-                i++;
-                info.setReturnValue(new Identifier("minetils:textures/entity/skin/blink.png"));
-                if(i >= 5)
-                {
-                    break;
-                }
-            }
+			if(isCloseEye()) {
+				info.setReturnValue(new Identifier("minetils:textures/entity/skin/blink.png"));
+			}
+			else
+			{
+				if(abstractClientPlayerEntity.age % 100 == 0)
+				{
+					reset();
+				}
+			}
 		}
+	}
+
+	private boolean isCloseEye()
+	{
+		return this.closeEyeTicks > 0;
+	}
+
+	private void reset()
+	{
+		this.closeEyeTicks = 20;
 	}
 }

@@ -40,7 +40,7 @@ public class GlowingLayer<T extends AbstractClientPlayerEntity, M extends Player
         float time = MinecraftClient.getInstance().getTickDelta() + entity.age;
         for(SpecialMember values : SpecialMember.VALUES)
         {
-            RenderLayer GLOWING_LAYER = RenderLayer.getEyes(getPath());
+            RenderLayer GLOWING_LAYER = RenderLayer.getEyes(GlowingLayer.getPath() != null ? GlowingLayer.getPath() : entity.getSkinTexture());
             if (!entity.isInvisible() && entity.getName().getString().equals(values.getName()) && Minetils.CONFIG.getConfig().glowingSkin) {
                 VertexConsumer inveterate = vertexConsumers.getBuffer(GLOWING_LAYER);
                 this.getContextModel().render(matrixStack, inveterate, light, OverlayTexture.DEFAULT_UV, makeFade(time), makeFade(time), makeFade(time),  makeFade(time));

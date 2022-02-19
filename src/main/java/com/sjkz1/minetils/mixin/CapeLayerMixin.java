@@ -27,7 +27,7 @@ public class CapeLayerMixin {
             {
                 if(Objects.requireNonNull(MinecraftClient.getInstance().player).getName().getString().contains(name))
                 {
-                    renderLayer = RenderLayer.getEntityAlpha(identifier);
+                    renderLayer = RenderLayer.getArmorCutoutNoCull(identifier);
                 }
                 else {
                     renderLayer = RenderLayer.getEntitySolid(identifier);
