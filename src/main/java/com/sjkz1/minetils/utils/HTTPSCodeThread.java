@@ -1,11 +1,11 @@
 package com.sjkz1.minetils.utils;
 
-import com.sjkz1.minetils.Minetils;
-
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import com.sjkz1.minetils.Minetils;
 
 public class HTTPSCodeThread extends Thread{
     @Override

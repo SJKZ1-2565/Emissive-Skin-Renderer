@@ -16,6 +16,7 @@
   "minetils.config.tamed_horse_detector" : "Enable tamed horse display",
   "minetils.config.y_tamed_horse_detector" : "Y position of tamed horse text",
   "minetils.config.glowing_skin" : "§6Render Glowing skin",
+  "minetils.config.manual_skin" : "Manual Skin",
   "minetils.config.SpecialCape" : "§6Render Special cape",
   "minetils.config.disableHurtCamera" : "Disable hurt camera shaking"
 }

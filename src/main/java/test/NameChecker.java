@@ -5,7 +5,12 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Transparency;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -18,8 +23,12 @@ import java.util.concurrent.ScheduledExecutorService;
 
 import javax.imageio.ImageIO;
 
-import com.google.gson.*;
 import org.apache.commons.io.IOUtils;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 
 import boon4681.ColorUtils.ColorMixer;
 import boon4681.ColorUtils.DeltaE;

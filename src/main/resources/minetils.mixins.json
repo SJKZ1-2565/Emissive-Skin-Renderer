@@ -7,19 +7,18 @@
     "ArmorItemMixin",
     "ElytraItemMixin",
     "LivingRendererMixin",
-    "MinecraftClientMixin",
     "PlayerEntityMixin",
     "PlayerModelMixin",
     "ParticleEngineMixin",
-    "PlayerRenderMixin",
-    "DebugHudMixin"
-
+    "PlayerRenderMixin"
   ],
   "client": [
     "AbstractPlayerMixin",
     "ParticleEngineMixin",
     "CapeLayerMixin",
     "AxolotleRendererMixin",
+    "InGameOverlayRenderMixin",
+    "EntityRendererDispatcherMixin",
     "GameRendererMixin"
   ],
   "injectors": {

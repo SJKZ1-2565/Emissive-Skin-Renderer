@@ -1,17 +1,22 @@
 package com.sjkz1.minetils.mixin;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.item.*;
-import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
 import com.sjkz1.minetils.Minetils;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ArmorItem;
+import net.minecraft.item.ElytraItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.item.Wearable;
 import net.minecraft.stat.Stats;
+import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
@@ -27,6 +32,7 @@ public class ElytraItemMixin extends Item implements Wearable {
     /**
      * @author SJKZ1
      */
+	@Override
 	@Overwrite
     public TypedActionResult<ItemStack> use(World world, PlayerEntity playerEntity, Hand hand) {
         ItemStack itemStack = playerEntity.getStackInHand(hand);

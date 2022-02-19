@@ -1,9 +1,5 @@
 package com.sjkz1.minetils.mixin;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementsProvider;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.minecraft.advancement.Advancement;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -26,8 +22,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.UseAction;
 import net.minecraft.util.math.MathHelper;
-
-import java.util.function.Consumer;
 
 @Mixin(PlayerEntityModel.class)
 @Environment(EnvType.CLIENT)
