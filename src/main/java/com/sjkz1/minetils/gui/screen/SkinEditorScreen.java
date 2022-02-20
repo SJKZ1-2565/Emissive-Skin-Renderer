@@ -8,6 +8,7 @@ import com.sjkz1.minetils.gui.widget.ColorSliderWidget;
 import com.sjkz1.minetils.render.Player;
 import com.sjkz1.minetils.utils.ColorMatching;
 
+import com.sjkz1.minetils.utils.SJKZ1Helper;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
@@ -71,7 +72,7 @@ public class SkinEditorScreen extends Screen {
                 }
             }
         });
-            this.addDrawableChild(new ButtonWidget(this.width / 2 + 20, j + 52 + 12, 98, 20, Text.of("Create Skin"), (buttonWidget) -> ColorMatching.createGlowingSkinImage()));
+            this.addDrawableChild(new ButtonWidget(this.width / 2 + 20, j + 52 + 12, 98, 20, Text.of("Create Skin"), (buttonWidget) -> SJKZ1Helper.runAsync(ColorMatching::createGlowingSkinImage)));
     }
 
 
