@@ -1,7 +1,5 @@
 package com.sjkz1.minetils.mixin;
 
-import java.util.Objects;
-
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -32,7 +30,7 @@ public abstract class PlayerEntityMixin extends LivingEntity
 
 	@Inject(method = "attack",at = @At("HEAD"), cancellable = true)
 	public void attack(Entity target, CallbackInfo ci) {
-		if (target instanceof VillagerEntity && !Objects.requireNonNull(mc.player.isCreative())) {
+		if (target instanceof VillagerEntity && !mc.player.isCreative()) {
 			if (Minetils.CONFIG.getConfig().IgnoreHittingVillager) {
 				ci.cancel();
 			}
