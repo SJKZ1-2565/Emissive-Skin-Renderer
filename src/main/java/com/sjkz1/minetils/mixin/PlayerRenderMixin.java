@@ -10,7 +10,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.sjkz1.minetils.Minetils;
 import com.sjkz1.minetils.render.GlowingLayer;
-import com.sjkz1.minetils.utils.SpecialMember;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.model.ModelPart;
@@ -47,23 +46,21 @@ public abstract class PlayerRenderMixin extends LivingEntityRenderer<AbstractCli
 
 		float time = abstractClientPlayerEntity.age;
 		mainHand.render(matrixStack, vertexConsumerProvider.getBuffer(RenderLayer.getEntitySolid(abstractClientPlayerEntity.getSkinTexture())), i, OverlayTexture.DEFAULT_UV);
-		for(SpecialMember values : SpecialMember.VALUES)
-		{
-			RenderLayer GLOWING_LAYER = RenderLayer.getEyes(GlowingLayer.getPath() != null ? GlowingLayer.getPath() : abstractClientPlayerEntity.getSkinTexture());
-			VertexConsumer inveterate = vertexConsumerProvider.getBuffer(GLOWING_LAYER);
+			for (String id : Minetils.SPECIAL_MEMBER) {
+					RenderLayer GLOWING_LAYER = RenderLayer.getEyes(GlowingLayer.getPath() != null ? GlowingLayer.getPath() : abstractClientPlayerEntity.getSkinTexture());
+					VertexConsumer inveterate = vertexConsumerProvider.getBuffer(GLOWING_LAYER);
 
-			if (!abstractClientPlayerEntity.isInvisible() && abstractClientPlayerEntity.getName().getString().equals(values.getName()) && Minetils.CONFIG.getConfig().glowingSkin) {
-				sleeve.render(matrixStack, inveterate, i, OverlayTexture.DEFAULT_UV,GlowingLayer.makeFade(time),GlowingLayer.makeFade(time),GlowingLayer.makeFade(time),GlowingLayer.makeFade(time));
-				mainHand.render(matrixStack, inveterate, i, OverlayTexture.DEFAULT_UV,GlowingLayer.makeFade(time),GlowingLayer.makeFade(time),GlowingLayer.makeFade(time),GlowingLayer.makeFade(time));
+					if (!abstractClientPlayerEntity.isInvisible() && abstractClientPlayerEntity.getName().getString().contains(id) && Minetils.CONFIG.getConfig().glowingSkin) {
+						sleeve.render(matrixStack, inveterate, i, OverlayTexture.DEFAULT_UV,GlowingLayer.makeFade(time),GlowingLayer.makeFade(time),GlowingLayer.makeFade(time),GlowingLayer.makeFade(time));
+						mainHand.render(matrixStack, inveterate, i, OverlayTexture.DEFAULT_UV,GlowingLayer.makeFade(time),GlowingLayer.makeFade(time),GlowingLayer.makeFade(time),GlowingLayer.makeFade(time));
+					}
+					if (!abstractClientPlayerEntity.isInvisible() && abstractClientPlayerEntity.getName().getString().equals("TornNgern") && Minetils.CONFIG.getConfig().glowingSkin) {
+						float ticks = (time % 360 + MinecraftClient.getInstance().getTickDelta()) / 360.0F;
+						Color color = Color.getHSBColor(ticks,0.9f,1);
+						sleeve.render(matrixStack, inveterate, i, OverlayTexture.DEFAULT_UV,color.getRed(),color.getGreen(),color.getBlue(),GlowingLayer.makeFade(time));
+						mainHand.render(matrixStack, inveterate, i, OverlayTexture.DEFAULT_UV,color.getRed(),color.getGreen(),color.getBlue(),GlowingLayer.makeFade(time));
+					}
 			}
-			if (!abstractClientPlayerEntity.isInvisible() && abstractClientPlayerEntity.getName().getString().equals("SJKZ1") && Minetils.CONFIG.getConfig().glowingSkin) {
-				float ticks = (time % 360 + MinecraftClient.getInstance().getTickDelta()) / 360.0F;
-				Color color = Color.getHSBColor(ticks,0.9f,1);
-				sleeve.render(matrixStack, inveterate, i, OverlayTexture.DEFAULT_UV,color.getRed(),color.getGreen(),color.getBlue(),GlowingLayer.makeFade(time));
-				mainHand.render(matrixStack, inveterate, i, OverlayTexture.DEFAULT_UV,color.getRed(),color.getGreen(),color.getBlue(),GlowingLayer.makeFade(time));
-			}
-		}
-
 	}
 
 	@Inject(method = "getTexture(Lnet/minecraft/client/network/AbstractClientPlayerEntity;)Lnet/minecraft/util/Identifier;",at = @At(value = "RETURN"),cancellable = true)

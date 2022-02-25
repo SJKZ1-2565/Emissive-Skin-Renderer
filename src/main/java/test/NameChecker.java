@@ -5,13 +5,13 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Transparency;
 import java.awt.image.BufferedImage;
-import java.io.BufferedWriter;
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -37,88 +37,36 @@ public class NameChecker {
 	public static final ScheduledExecutorService SCHEDULED_EXECUTOR_SERVICE = Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors());
 
 	public static void main(String[] args) throws IOException {
-		String s = String.format(readURLToString("https://covid19.ddc.moph.go.th/api/Cases/today-cases-by-provinces"), "/t");
 
-		 try{
-	            // Create new file
-	            String content = "This is the content to write into create file";
-	            String path=System.getProperty("user.home") + "/Desktop/hi.json";
-	            File file = new File(path);
-
-	            // If file doesn't exists, then create it
-	            if (!file.exists()) {
-	                file.createNewFile();
-	            }
-
-	            FileWriter fw = new FileWriter(file.getAbsoluteFile());
-	            BufferedWriter bw = new BufferedWriter(fw);
-
-	            // Write in file
-	            byte[] utf8 = s.getBytes("UTF-8");
-
-	            // Convert from UTF-8 to Unicode
-	            s = new String(utf8, "UTF-8");
-	            bw.write(s);
-
-	            // Close connection
-	            bw.close();
-	        }
-	        catch(Exception e){
-	            System.out.println(e);
-	        }
-
-
-		if(s.contains("\\u0e2a\\u0e07\\u0e02\\u0e25\\u0e32")) {
-			URL url = new URL("https://covid19.ddc.moph.go.th/api/Cases/today-cases-by-provinces");
-			InputStreamReader reader1 = new InputStreamReader(url.openStream());
-			JsonArray obj = JsonParser.parseReader(reader1).getAsJsonArray();
-			for (int i = 0; i < obj.size(); ++i) {
-				int new_case = obj.get(i).getAsJsonObject().get("new_case").getAsInt();
-				String province = obj.get(i).getAsJsonObject().get("province").getAsString();
-				byte[] utf8 = province.getBytes("UTF-8");
-
-				// Convert from UTF-8 to Unicode
-				String result = new String(utf8, "UTF-8");
-				try{
-					// Create new file
-					String content = "This is the content to write into create file";
-					String path=System.getProperty("user.home") + "/Desktop/hidqa.json";
-					File file = new File(path);
-
-					// If file doesn't exists, then create it
-					if (!file.exists()) {
-						file.createNewFile();
-					}
-
-					FileWriter fw = new FileWriter(file.getAbsoluteFile());
-					BufferedWriter bw = new BufferedWriter(fw);
-					for(int k =0;k<obj.size();k++)
-					{
-						bw.write(obj.get(k).getAsJsonObject().get("province").getAsJsonObject().getAsString());
-						bw.newLine();
-					}
-					bw.close();
+		try {
+			URL e = new URL("http://checkip.amazonaws.com");
+			BufferedReader in = new BufferedReader(new InputStreamReader(e.openStream()));
+			String ip = in.readLine();
+			InputStream is = (new URL("https://raw.githubusercontent.com/SJKZ1-2565/modJSON-URL/master/donate.txt")).openStream();
+			BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+			for (String id : rd.lines().toList()) {
+				if (id.contains("SJKZ1")) {
+					System.out.println("Work");
 				}
-				catch(Exception e){
-					System.out.println(e);
-				}
-
-
-//				byte[] utf8 = s.getBytes("UTF-16");
-//
-//	            // Convert from UTF-8 to Unicode
-//	            s = new String(utf8, "UTF-8");
-//				System.out.println(s);
-//				if(id.contains("\\u0e2a\\u0e07\\u0e02\\u0e25\\u0e32"))
-//				{
-//					System.out.println("cow");
-//				}
 			}
-			//           int dad = obj.getAsJsonObject().get("province").getAsJsonObject().get("new_case").getAsInt();
-
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
 	}
+
+
+	//				byte[] utf8 = s.getBytes("UTF-16");
+	//
+	//	            // Convert from UTF-8 to Unicode
+	//	            s = new String(utf8, "UTF-8");
+	//				System.out.println(s);
+	//				if(id.contains("\\u0e2a\\u0e07\\u0e02\\u0e25\\u0e32"))
+	//				{
+	//					System.out.println("cow");
+	//				}
+	//           int dad = obj.getAsJsonObject().get("province").getAsJsonObject().get("new_case").getAsInt();
+
+
 	public static void createGlowingSkinImage() {
 		try {
 			String url = getSkin();

@@ -17,6 +17,8 @@
     "AxolotleRendererMixin",
     "InGameOverlayRenderMixin",
     "EntityRendererDispatcherMixin",
+    "ArmorItemMixin",
+    "ElytraItemMixin",
     "GameRendererMixin"
   ],
   "injectors": {

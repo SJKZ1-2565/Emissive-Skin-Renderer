@@ -4,20 +4,9 @@ import com.sjkz1.minetils.Minetils;
 import com.sjkz1.minetils.gui.screen.SpecialMemberScreen;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ElytraItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.world.World;
 
 public class ClientInit {
 
@@ -61,25 +50,6 @@ public class ClientInit {
                     client.inGameHud.getChatHud().addMessage(Text.of(NetherPos));
                 }
             }
-        }
-    }
-
-    public static TypedActionResult<ItemStack> test(PlayerEntity playerEntity, World world, Hand hand) {
-        ItemStack itemStack = playerEntity.getStackInHand(hand);
-        EquipmentSlot equipmentSlot = LivingEntity.getPreferredEquipmentSlot(itemStack);
-        ItemStack itemStack2 = playerEntity.getEquippedStack(equipmentSlot);
-        if ((itemStack2.isEmpty() || (itemStack2.getItem() instanceof ArmorItem || itemStack2.getItem() instanceof ElytraItem) && Minetils.CONFIG.getConfig().SwapArmorAndElytra)) {
-            playerEntity.equipStack(equipmentSlot, itemStack.copy());
-            if (!world.isClient()) {
-                playerEntity.incrementStat(Stats.USED.getOrCreateStat(itemStack.getItem()));
-            }
-
-            playerEntity.setStackInHand(hand,itemStack2);
-            if(!world.isClient() && !itemStack2.getItem().equals(Items.AIR)) {
-                MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.of("Switching from " + itemStack.getItem().getName().getString() + " to " + itemStack2.getItem().getName().getString()));
-            }            return TypedActionResult.success(itemStack, world.isClient());
-        } else {
-            return TypedActionResult.fail(itemStack);
         }
     }
 }

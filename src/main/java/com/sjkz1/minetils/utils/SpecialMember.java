@@ -1,7 +1,7 @@
 package com.sjkz1.minetils.utils;
 
 public enum SpecialMember {
-    SJKZ1("SJKZ1","46448e1b402e42e0ad0e8a51ca5abe6a"),
+    TornNgern("TornNgern","46448e1b402e42e0ad0e8a51ca5abe6a"),
     ToastKung("ToastKung","49d9c08b9a7940d3a35f95e1d3f2edbb");
 
     private final String name;
