@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 
 import com.sjkz1.minetils.Minetils;
-import com.sjkz1.minetils.utils.Text;
+import com.sjkz1.minetils.utils.TextUtils;
 public class ConFigIN extends ConfigHandler{
 	 private MinetilsConfig config;
 
@@ -53,7 +53,7 @@ public class ConFigIN extends ConfigHandler{
 	    {
 	        this.configFile.getParentFile().mkdirs();
 	        FileWriter writer = new FileWriter(this.configFile);
-	        Text.toJson(this.config, writer);
+	        TextUtils.toJson(this.config, writer);
 	        writer.close();
 	    }
 }

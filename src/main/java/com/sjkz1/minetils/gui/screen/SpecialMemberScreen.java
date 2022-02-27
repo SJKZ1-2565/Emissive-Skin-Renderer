@@ -10,7 +10,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.sjkz1.minetils.Minetils;
+import com.sjkz1.minetils.gui.widget.ColorSliderWidget;
 import com.sjkz1.minetils.render.Player;
+import com.sjkz1.minetils.utils.ColorMatching;
+import com.sjkz1.minetils.utils.SJKZ1Helper;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
@@ -23,7 +26,6 @@ import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Quaternion;
@@ -52,16 +54,23 @@ public class SpecialMemberScreen extends Screen {
 	@Override
 	protected void init() {
 		super.init();
-		int j = this.height / 4 + 48;
-		String OnOf = isDarkTheme() ? Formatting.GREEN+ "ON" : Formatting.RED+"OFF";
-		this.addDrawableChild(new ButtonWidget(this.width/2+140,j-94,20,20,Text.of(OnOf),buttonWidget -> {
-			Minetils.CONFIG.getConfig().darkTheme = !Minetils.CONFIG.getConfig().darkTheme;
-			try {
-				Minetils.CONFIG.saveConfig();
-			} catch (IOException ignored) {}
-		}));
-		this.addDrawableChild(new ButtonWidget(this.width / 2-50, j - 15, 98, 20, Text.of("Skin Editor"), button -> Objects.requireNonNull(client).setScreen(new SkinEditorScreen(Text.of("")))
-				));
+	    this.addDrawableChild(new ColorSliderWidget((this.width / 2) - 120, 130, 98, 20, Text.of("Delete Rate: " + Minetils.CONFIG.getConfig().palletsRate), Minetils.CONFIG.getConfig().palletsRate) {
+            @Override
+            protected void updateMessage() {
+                setMessage(Text.of("Delete Rate: " + Minetils.CONFIG.getConfig().palletsRate));
+            }
+
+            @Override
+            protected void applyValue() {
+                Minetils.CONFIG.getConfig().palletsRate = MathHelper.floor(MathHelper.clampedLerp(0.0D, 100.0D, this.value));
+                try {
+                    Minetils.CONFIG.saveConfig();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+	    this.addDrawableChild(new ButtonWidget((this.width / 2) + 20, 130, 98, 20, Text.of("Create Skin"), (buttonWidget) -> SJKZ1Helper.runAsync(ColorMatching::createGlowingSkinImage)));
 		list.clear();
 		list.add("Special Member Wardrobe");
 		try {
@@ -89,16 +98,16 @@ public class SpecialMemberScreen extends Screen {
 		{
 			if(string.contains("Special Member Wardrobe"))
 			{
-				DrawableHelper.drawStringWithShadow(mat, this.textRenderer, string, this.width / 2 - 60, 35 + height, color.getRGB());
+				DrawableHelper.drawStringWithShadow(mat, this.textRenderer, string, (this.width / 2) - 60, 35 + height, color.getRGB());
 			}
 			else
 			{
-				DrawableHelper.drawStringWithShadow(mat, this.textRenderer, string, this.width / 2 - 60, 35 + height,16777215);
+				DrawableHelper.drawStringWithShadow(mat, this.textRenderer, string, (this.width / 2) - 60, 35 + height,16777215);
 			}
 
 			if(err)
 			{
-				DrawableHelper.drawStringWithShadow(mat, this.textRenderer, string, this.width / 2 - 60, 35 + height, 16733525);
+				DrawableHelper.drawStringWithShadow(mat, this.textRenderer, string, (this.width / 2) - 60, 35 + height, 16733525);
 			}
 			height += 12;
 		}
@@ -107,7 +116,7 @@ public class SpecialMemberScreen extends Screen {
 
 	public void renderBackgroundGG(MatrixStack matrixStack) {
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
-		float shade = isDarkTheme() ? 0.5f : 1.0f;
+		float shade = 1.0f;
 		RenderSystem.setShaderColor(shade, shade, shade, shade);
 		RenderSystem.setShaderTexture(0, BG);
 		RenderSystem.enableBlend();
@@ -119,7 +128,7 @@ public class SpecialMemberScreen extends Screen {
 		matrixStack.scale(0.75F,0.75F,0.75F);
 		matrixStack.pop();
 		assert this.client != null;
-		renderEntityInInventory(this.width / 2 - 114,67,  25,playerXRot,0,new Player(this.client.world, Objects.requireNonNull(this.client.player).getGameProfile()));
+		renderEntityInInventory((this.width / 2)-114,67,  25,playerXRot,0,new Player(this.client.world, Objects.requireNonNull(this.client.player).getGameProfile()));
 	}
 
 	//Taken from https://github.com/Intro-Dev/Osmium/blob/fabric/1.17.x/src/main/java/com/intro/client/render/screen/OsmiumCapeOptionsScreen.java
@@ -167,10 +176,6 @@ public class SpecialMemberScreen extends Screen {
 		DiffuseLighting.enableGuiDepthLighting();
 	}
 
-	public boolean isDarkTheme() {
-		return Minetils.CONFIG.getConfig().darkTheme;
-	}
-
 	@Override
 	public void onClose() {
 		super.onClose();
@@ -180,6 +185,10 @@ public class SpecialMemberScreen extends Screen {
 			e.printStackTrace();
 		}
 	}
+
+
+
+
 
 
 

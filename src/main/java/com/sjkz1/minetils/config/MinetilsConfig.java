@@ -14,7 +14,6 @@ public class MinetilsConfig {
 	  public boolean disableBlockParticle =false;
 	  public boolean enableEatingAnim = true;
 	  public boolean SpecialCape = false;
-	  public boolean darkTheme = false;
 	  public boolean disableHurtCamera = false;
 	  public boolean manualSkinEditor = true;
 	  public int healthStatusColor;
@@ -22,11 +21,5 @@ public class MinetilsConfig {
 	  public int yPositionHorseDisplay;
 	  public int yPositionHealthStatus;
 	  public double palletsRate;
-	  public int deleteRateX;
-	  public int deleteRateY;
-
-
-
-
 
 }

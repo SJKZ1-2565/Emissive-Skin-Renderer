@@ -23,7 +23,6 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.option.KeyBinding;
-import net.minecraft.util.Formatting;
 
 
 public class Minetils implements ModInitializer
@@ -44,13 +43,12 @@ public class Minetils implements ModInitializer
 			InputStream is = (new URL("https://raw.githubusercontent.com/SJKZ1-2565/modJSON-URL/master/donate.txt")).openStream();
 			BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
 			for (String id : rd.lines().toList()) {
-					SPECIAL_MEMBER.add(id);
+				SPECIAL_MEMBER.add(id);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
 
 	@Override
 	public void onInitialize()
@@ -61,11 +59,4 @@ public class Minetils implements ModInitializer
 		new OpenFolderCommand(ClientCommandManager.DISPATCHER);
 		new CovidThailandCommand(ClientCommandManager.DISPATCHER);
 	}
-
-	public static void getRightText(List<String> list) {
-		list.add(Formatting.GREEN + "Response code from the Covid API: " + RESPONSE_CODE);
-	}
-
-
-
 }

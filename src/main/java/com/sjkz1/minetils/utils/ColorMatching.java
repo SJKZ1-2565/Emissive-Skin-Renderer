@@ -30,100 +30,105 @@ import net.minecraft.util.Identifier;
 
 public class ColorMatching {
 
-    public static final File GLOWSKIN_DIR = new File(MinecraftClient.getInstance().runDirectory, "glow");
-    public static Identifier identifier =  null;
-    public static void createGlowingSkinImage() {
-        try {
-            String url = getSkin();
-            BufferedImage image = ImageIO.read(new URL(url).openStream());
-            BufferedImage resizedImage = resize(image,  Minetils.CONFIG.getConfig().deleteRateX, Minetils.CONFIG.getConfig().deleteRateY);
-            ArrayList<Color> colors = new ArrayList<>();
+	private static MinecraftClient client = MinecraftClient.getInstance();
 
-            for (int y = 0; y < resizedImage.getHeight(); y++) {
-                for (int x = 0; x < resizedImage.getWidth(); x++) {
-                    colors.add(new Color(resizedImage.getRGB(x, y), false));
-                }
-            }
-            ArrayList<Color> pallets = find(colors);
-            for (int y = 0; y < image.getHeight(); y++) {
-                for (int x = 0; x < image.getWidth(); x++) {
-                    if (DeltaE.getDelta(new Color(image.getRGB(x, y)), pallets.get(0)) < Minetils.CONFIG.getConfig().palletsRate) {
-                        image.setRGB(x, y, Transparency.TRANSLUCENT);
-                    }
-                }
-            }
+	public static final File GLOWSKIN_DIR = new File(MinecraftClient.getInstance().runDirectory, "glow");
+	public static Identifier identifier =  null;
+	public static void createGlowingSkinImage() {
+		try {
+			String url = getSkin();
+			BufferedImage image = ImageIO.read(new URL(url).openStream());
+			BufferedImage resizedImage = resize(image,  2,2);
+			ArrayList<Color> colors = new ArrayList<>();
 
-            if(!GLOWSKIN_DIR.exists())
-            {
-                GLOWSKIN_DIR.mkdirs();
-            }
+			for (int y = 0; y < resizedImage.getHeight(); y++) {
+				for (int x = 0; x < resizedImage.getWidth(); x++) {
+					colors.add(new Color(resizedImage.getRGB(x, y), false));
+				}
+			}
+			ArrayList<Color> pallets = find(colors);
+			for (int y = 0; y < image.getHeight(); y++) {
+				for (int x = 0; x < image.getWidth(); x++) {
+					if (DeltaE.getDelta(new Color(image.getRGB(x, y)), pallets.get(0)) < Minetils.CONFIG.getConfig().palletsRate) {
+						image.setRGB(x, y, Transparency.TRANSLUCENT);
+					}
+				}
+			}
 
-           ImageIO.write(image,"png", new File(GLOWSKIN_DIR,"glow.png"));
-           SJKZ1Helper.runAsync(ColorMatching::MoveToResourceLoc);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+			if(!GLOWSKIN_DIR.exists())
+			{
+				GLOWSKIN_DIR.mkdirs();
+			}
+
+			ImageIO.write(image,"png", new File(GLOWSKIN_DIR,"glow.png"));
+			SJKZ1Helper.runAsync(ColorMatching::MoveToResourceLoc);
+			if(GLOWSKIN_DIR.exists())
+			{
+				GLOWSKIN_DIR.delete();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 
-    public static void MoveToResourceLoc()
-    {
-        final NativeImage nativeImage;
-        try {
-            File imageFile = new File(GLOWSKIN_DIR,"glow.png");
-            InputStream in = new FileInputStream(imageFile);
+	public static void MoveToResourceLoc()
+	{
+		final NativeImage nativeImage;
+		try {
+			File imageFile = new File(GLOWSKIN_DIR,"glow.png");
+			InputStream in = new FileInputStream(imageFile);
 
-            nativeImage = NativeImage.read(in);
-            final NativeImageBackedTexture dynamicTexture = new NativeImageBackedTexture(nativeImage);
-            identifier = MinecraftClient.getInstance().getTextureManager().registerDynamicTexture("textures/entity/", dynamicTexture);
+			nativeImage = NativeImage.read(in);
+			final NativeImageBackedTexture dynamicTexture = new NativeImageBackedTexture(nativeImage);
+			identifier = MinecraftClient.getInstance().getTextureManager().registerDynamicTexture("textures/entity/skin/glow.png", dynamicTexture);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+	public static ArrayList<Color> find(ArrayList<Color> color) {
 
-    public static ArrayList<Color> find(ArrayList<Color> color) {
+		ArrayList<Color> colors = new ArrayList<>();
+		while (color.size() > 0) {
+			color.remove(0);
+			double min = 10000;
+			Color save = null;
+			for (Color element : color) {
+				double calculate = DeltaE.getDelta(element, color.get(0));
+				if (calculate < min) {
+					save = element;
+					min = calculate;
+				}
+			}
+			if (save == null) {
+				break;
+			}
+			colors.add(ColorMixer.mix(color.get(0), save));
+			color.remove(save);
+			color.remove(0);
+		}
+		return colors;
+	}
 
-        ArrayList<Color> colors = new ArrayList<>();
-        while (color.size() > 0) {
-            color.remove(0);
-            double min = 10000;
-            Color save = null;
-            for (Color element : color) {
-                double calculate = DeltaE.getDelta(element, color.get(0));
-                if (calculate < min) {
-                    save = element;
-                    min = calculate;
-                }
-            }
-            if (save == null) {
-                break;
-            }
-            colors.add(ColorMixer.mix(color.get(0), save));
-            color.remove(save);
-            color.remove(0);
-        }
-        return colors;
-    }
+	public static BufferedImage resize(BufferedImage img, int newW, int newH) {
+		Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
+		BufferedImage dimg = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_RGB);
+		Graphics2D g2d = dimg.createGraphics();
+		g2d.drawImage(tmp, 0, 0, null);
+		g2d.dispose();
+		return dimg;
+	}
 
-    public static BufferedImage resize(BufferedImage img, int newW, int newH) {
-        Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
-        BufferedImage dimg = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_RGB);
-        Graphics2D g2d = dimg.createGraphics();
-        g2d.drawImage(tmp, 0, 0, null);
-        g2d.dispose();
-        return dimg;
-    }
-
-    public static String getSkin() throws IOException {
-        URL url1 = new URL("https://sessionserver.mojang.com/session/minecraft/profile/" + Objects.requireNonNull(MinecraftClient.getInstance().player).getUuidAsString().replace("-",""));
-        InputStreamReader reader1 = new InputStreamReader(url1.openStream());
-        JsonObject property = JsonParser.parseReader(reader1).getAsJsonObject().get("properties").getAsJsonArray().get(0).getAsJsonObject();
-        String texture = property.get("value").getAsString();
-        byte[] decodedBytes = Base64.getMimeDecoder().decode(texture);
-        String decodedMime = new String(decodedBytes);
-        JsonObject property1 = JsonParser.parseString(decodedMime).getAsJsonObject().get("textures").getAsJsonObject();
-        JsonObject texture1 = property1.get("SKIN").getAsJsonObject();
-        return texture1.get("url").getAsString();
-    }
+	public static String getSkin() throws IOException {
+		URL url1 = new URL("https://sessionserver.mojang.com/session/minecraft/profile/" + Objects.requireNonNull(client.player).getUuidAsString().replace("-",""));
+		InputStreamReader reader1 = new InputStreamReader(url1.openStream());
+		JsonObject property = JsonParser.parseReader(reader1).getAsJsonObject().get("properties").getAsJsonArray().get(0).getAsJsonObject();
+		String texture = property.get("value").getAsString();
+		byte[] decodedBytes = Base64.getMimeDecoder().decode(texture);
+		String decodedMime = new String(decodedBytes);
+		JsonObject property1 = JsonParser.parseString(decodedMime).getAsJsonObject().get("textures").getAsJsonObject();
+		JsonObject texture1 = property1.get("SKIN").getAsJsonObject();
+		return texture1.get("url").getAsString();
+	}
 }

@@ -10,7 +10,7 @@ import com.google.gson.JsonNull;
 import com.google.gson.internal.Streams;
 import com.google.gson.stream.JsonWriter;
 
-public class Text {
+public class TextUtils {
 
 	public static final Gson GSON = new Gson();
     private static final Gson GSON_BUILDER = new GsonBuilder().setPrettyPrinting().create();
