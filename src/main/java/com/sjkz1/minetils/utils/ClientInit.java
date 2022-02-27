@@ -32,24 +32,23 @@ public class ClientInit {
             } else {
                 client.inGameHud.getChatHud().addMessage(Text.of(Formatting.RED + "You must have to disable manual skin editor!"));
             }
+        }
+        if (Minetils.showPost.wasPressed()) {
+        	assert client.player != null;
+        	int i = (int) client.player.getX();
+        	int j = (int) client.player.getY();
+        	int k = (int) client.player.getZ();
+        	String pos = "X:" + i + " Y:" + j + " Z:" + k;
+        	String NetherPos = "Nether position X:" + i / 8 + " Y:" + j + " Z:" + k / 8;
+        	String OverWorldPose = "OverWorld position X:" + i * 8 + " Y:" + j + " Z:" + k * 8;
 
-            if (Minetils.showPost.wasPressed()) {
-                assert client.player != null;
-                int i = (int) client.player.getX();
-                int j = (int) client.player.getY();
-                int k = (int) client.player.getZ();
-                String pos = "X:" + i + " Y:" + j + " Z:" + k;
-                String NetherPos = "Nether position X:" + i / 8 + " Y:" + j + " Z:" + k / 8;
-                String OverWorldPose = "OverWorld position X:" + i * 8 + " Y:" + j + " Z:" + k * 8;
 
-
-                client.inGameHud.getChatHud().addMessage(Text.of(pos));
-                if (client.player.world.getDimension().isPiglinSafe()) {
-                    client.inGameHud.getChatHud().addMessage(Text.of(OverWorldPose));
-                } else {
-                    client.inGameHud.getChatHud().addMessage(Text.of(NetherPos));
-                }
-            }
+        	client.inGameHud.getChatHud().addMessage(Text.of(pos));
+        	if (client.player.world.getDimension().isPiglinSafe()) {
+        		client.inGameHud.getChatHud().addMessage(Text.of(OverWorldPose));
+        	} else {
+        		client.inGameHud.getChatHud().addMessage(Text.of(NetherPos));
+        	}
         }
     }
 }
