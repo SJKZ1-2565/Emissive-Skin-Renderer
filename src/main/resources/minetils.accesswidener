@@ -1,0 +1,2 @@
+accessWidener	v1	named
+accessible method net/minecraft/client/font/TextRenderer draw (Lnet/minecraft/text/OrderedText;FFILnet/minecraft/util/math/Matrix4f;Z)I

@@ -14,6 +14,7 @@ import com.sjkz1.minetils.gui.widget.ColorSliderWidget;
 import com.sjkz1.minetils.render.Player;
 import com.sjkz1.minetils.utils.ColorMatching;
 import com.sjkz1.minetils.utils.SJKZ1Helper;
+import com.sjkz1.minetils.utils.enums.SlotType;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
@@ -54,6 +55,7 @@ public class SpecialMemberScreen extends Screen {
 	@Override
 	protected void init() {
 		super.init();
+		SlotType slot = new SlotType();
 	    this.addDrawableChild(new ColorSliderWidget((this.width / 2) - 120, 130, 98, 20, Text.of("Delete Rate: " + Minetils.CONFIG.getConfig().palletsRate), Minetils.CONFIG.getConfig().palletsRate) {
             @Override
             protected void updateMessage() {
@@ -69,8 +71,16 @@ public class SpecialMemberScreen extends Screen {
                     e.printStackTrace();
                 }
             }
+
+            @Override
+            public void renderButton(MatrixStack matrixStack, int i, int j, float f) {
+            	super.renderButton(matrixStack, i, j, f);
+            }
         });
 	    this.addDrawableChild(new ButtonWidget((this.width / 2) + 20, 130, 98, 20, Text.of("Create Skin"), (buttonWidget) -> SJKZ1Helper.runAsync(ColorMatching::createGlowingSkinImage)));
+	    this.addDrawableChild(new ButtonWidget((this.width / 2) - 200, 70, 50, 20, Text.of("Hat"), (buttonWidget) -> {
+	    	slot.setType("hat");
+	    }));
 		list.clear();
 		list.add("Special Member Wardrobe");
 		try {
@@ -90,7 +100,7 @@ public class SpecialMemberScreen extends Screen {
 		if (playerXRot <= -179.85) {
 			playerXRot = 180;
 		}
-
+		SlotType slot = new SlotType();
 		Color color = Color.getHSBColor(ticks, 0.9f, 1);
 		renderBackgroundGG(mat);
 		var height = 0;

@@ -26,6 +26,8 @@ import boon4681.ColorUtils.DeltaE;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.texture.NativeImageBackedTexture;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
 public class ColorMatching {
@@ -33,7 +35,7 @@ public class ColorMatching {
 	private static MinecraftClient client = MinecraftClient.getInstance();
 
 	public static final File GLOWSKIN_DIR = new File(MinecraftClient.getInstance().runDirectory, "glow");
-	public static Identifier identifier =  null;
+	public static Identifier identifier = new Identifier(Minetils.MOD_ID + ":textures/entity/skin/");
 	public static void createGlowingSkinImage() {
 		try {
 			String url = getSkin();
@@ -60,29 +62,30 @@ public class ColorMatching {
 				GLOWSKIN_DIR.mkdirs();
 			}
 
-			ImageIO.write(image,"png", new File(GLOWSKIN_DIR,"glow.png"));
+			ImageIO.write(image,"png", new File(GLOWSKIN_DIR,"glow_layer.png"));
 			SJKZ1Helper.runAsync(ColorMatching::MoveToResourceLoc);
-			if(GLOWSKIN_DIR.exists())
-			{
-				GLOWSKIN_DIR.delete();
-			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 
+	@SuppressWarnings("resource")
 	public static void MoveToResourceLoc()
 	{
-		final NativeImage nativeImage;
 		try {
-			File imageFile = new File(GLOWSKIN_DIR,"glow.png");
+			final NativeImage nativeImage;
+			File imageFile = new File(GLOWSKIN_DIR,"glow_layer.png");
 			InputStream in = new FileInputStream(imageFile);
-
 			nativeImage = NativeImage.read(in);
 			final NativeImageBackedTexture dynamicTexture = new NativeImageBackedTexture(nativeImage);
-			identifier = MinecraftClient.getInstance().getTextureManager().registerDynamicTexture("textures/entity/skin/glow.png", dynamicTexture);
-		} catch (IOException e) {
+			NativeImageBackedTexture icon = dynamicTexture;
+			if (icon != null) {
+				MinecraftClient.getInstance().getTextureManager().registerTexture(identifier, icon);
+			}
+			MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.of(Formatting.YELLOW.toString() + Formatting.BOLD + "[GLOWING_SKIN]: " + Formatting.RESET + "Successfully create image to path " + identifier + imageFile.getName()));
+		}
+		catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

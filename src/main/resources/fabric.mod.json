@@ -29,6 +29,7 @@
   "mixins": [
     "minetils.mixins.json"
   ],
+  "accessWidener": "minetils.accesswidener",
   "depends": {
     "fabricloader": ">=0.12",
     "fabric": "*",
