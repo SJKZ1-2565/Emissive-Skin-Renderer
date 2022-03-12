@@ -25,11 +25,9 @@ implements Wearable{
 		super(settings);
 	}
 
-
 	/**
 	 * @author
 	 */
-	@Override
 	@Overwrite
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity playerEntity, Hand hand) {
 		ItemStack itemStack = playerEntity.getStackInHand(hand);
@@ -39,7 +37,6 @@ implements Wearable{
 			playerEntity.equipStack(equipmentSlot, itemStack.copy());
 			playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
 			playerEntity.setStackInHand(hand,itemStack2);
-			playerEntity.playSound(this.getEquipSound(),1.0f,1.0f);
 			return TypedActionResult.success(itemStack, world.isClient());
 		} else {
 			return TypedActionResult.fail(itemStack);
