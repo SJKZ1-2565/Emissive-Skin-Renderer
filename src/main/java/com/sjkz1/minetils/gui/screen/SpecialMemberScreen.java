@@ -75,7 +75,7 @@ public class SpecialMemberScreen extends Screen {
 				super.renderButton(matrixStack, i, j, f);
 			}
 		});
-		this.addDrawableChild(new ButtonWidget((this.width / 2) + 20, 130, 98, 20, Text.of("Create Skin"), (buttonWidget) -> SJKZ1Helper.runAsync(ColorMatching::createGlowingSkinImage)));
+		this.addDrawableChild(new ButtonWidget((this.width / 2) + 20, 130, 98, 20, Text.of("Create Skin"), (buttonWidget) -> ColorMatching.createGlowingSkinImageWithCustomUV()));
 		list.clear();
 		list.add("Special Member Wardrobe");
 		try {

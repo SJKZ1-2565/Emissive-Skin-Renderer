@@ -59,7 +59,7 @@ public class ClientInit {
 
     public static void login(ClientPlayNetworkHandler clientPlayNetworkHandler, PacketSender packetSender, MinecraftClient minecraftClient) {
         if(minecraftClient.world != null && !Minetils.CONFIG.getConfig().manualSkinEditor) {
-           SJKZ1Helper.runAsync(ColorMatching::createGlowingSkinImage);
+           SJKZ1Helper.runAsync(ColorMatching::createGlowingSkinImageWithCustomUV);
         }
     }
 }

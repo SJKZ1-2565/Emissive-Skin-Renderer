@@ -26,8 +26,6 @@ import boon4681.ColorUtils.DeltaE;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.texture.NativeImageBackedTexture;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
 public class ColorMatching {
@@ -69,6 +67,51 @@ public class ColorMatching {
 		}
 	}
 
+	public static void createGlowingSkinImageWithCustomUV() {
+		try {
+			String url = getSkin();
+			BufferedImage image = ImageIO.read(new URL(url).openStream());
+			BufferedImage resizedImage = resize(image,  2,2);
+			ArrayList<Color> colors = new ArrayList<>();
+
+			for (int y = 0; y < resizedImage.getHeight(); y++) {
+				for (int x = 0; x < resizedImage.getWidth(); x++) {
+					colors.add(new Color(resizedImage.getRGB(x, y), false));
+				}
+			}
+			ArrayList<Color> pallets = find(colors);
+			for (int y = 0; y < image.getHeight(); y++) {
+
+				if( y > 16)
+				{
+					break;
+				}
+				for (int x = 0; x < image.getWidth(); x++)  {
+
+					if(x > 32)
+					{
+						break;
+					}
+					System.out.println("X: "+x +" Y: "+y);
+
+					if (DeltaE.getDelta(new Color(image.getRGB(x, y)), pallets.get(0)) < Minetils.CONFIG.getConfig().palletsRate && x < 32 && y < 16) {
+							image.setRGB(x, y, Color.TRANSLUCENT);
+					}
+				}
+			}
+
+			if(!GLOWSKIN_DIR.exists())
+			{
+				GLOWSKIN_DIR.mkdirs();
+			}
+
+			ImageIO.write(image,"png", new File(GLOWSKIN_DIR,"glow_layer.png"));
+			SJKZ1Helper.runAsync(ColorMatching::MoveToResourceLoc);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	@SuppressWarnings("resource")
 	public static void MoveToResourceLoc()
 	{
@@ -82,7 +125,6 @@ public class ColorMatching {
 			if (icon != null) {
 				MinecraftClient.getInstance().getTextureManager().registerTexture(identifier, icon);
 			}
-			MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.of(Formatting.YELLOW.toString() + Formatting.BOLD + "[GLOWING_SKIN]: " + Formatting.RESET + "Successfully create image to path " + identifier + imageFile.getName()));
 		}
 		catch (IOException e) {
 			e.printStackTrace();
