@@ -17,7 +17,7 @@
   "icon": "assets/minetils/icon.png",
 
 
-  "environment": "client",
+  "environment": "*",
   "entrypoints": {
     "main": [
       "com.sjkz1.minetils.Minetils"

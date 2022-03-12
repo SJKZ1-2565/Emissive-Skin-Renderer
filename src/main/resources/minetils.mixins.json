@@ -8,6 +8,8 @@
     "PlayerEntityMixin",
     "PlayerModelMixin",
     "ParticleEngineMixin",
+    "ElytraItemMixin",
+    "ArmorItemMixin",
     "PlayerRenderMixin"
   ],
   "client": [
@@ -17,8 +19,6 @@
     "AxolotleRendererMixin",
     "InGameOverlayRenderMixin",
     "EntityRendererDispatcherMixin",
-    "ArmorItemMixin",
-    "ElytraItemMixin",
     "GameRendererMixin"
   ],
   "injectors": {

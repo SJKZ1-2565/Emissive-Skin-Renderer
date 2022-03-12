@@ -20,7 +20,7 @@ public abstract class AxolotleRendererMixin extends MobEntityRenderer<AxolotlEnt
         super(context, entityModel, f);
     }
 
-    @Inject(method = "<init>" ,at = @At("RETURN"))
+    @Inject(method = "<init>" ,at = @At("TAIL"))
     public void render(EntityRendererFactory.Context context, CallbackInfo ci)
     {
         this.addFeature(new RainBowAxolotl<>( this));

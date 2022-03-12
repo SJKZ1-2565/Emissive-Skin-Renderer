@@ -1,7 +1,5 @@
 package com.sjkz1.minetils.render;
 
-import java.awt.Color;
-
 import com.sjkz1.minetils.Minetils;
 import com.sjkz1.minetils.utils.ColorMatching;
 
@@ -42,12 +40,6 @@ public class GlowingLayer<T extends AbstractClientPlayerEntity, M extends Player
 				if (!entity.isInvisible() && entity.getName().getString().contains(id) && Minetils.CONFIG.getConfig().glowingSkin) {
 					VertexConsumer inveterate = vertexConsumers.getBuffer(GLOWING_LAYER);
 					this.getContextModel().render(matrixStack, inveterate, light, OverlayTexture.DEFAULT_UV, makeFade(time), makeFade(time), makeFade(time),  makeFade(time));
-				}
-				else if (!entity.isInvisible() && entity.getName().getString().equals("TornNgern") && Minetils.CONFIG.getConfig().glowingSkin) {
-					float ticks = (time % 360 + MinecraftClient.getInstance().getTickDelta()) / 360.0F;
-					Color color = Color.getHSBColor(ticks,0.9f,1);
-					VertexConsumer inveterate = vertexConsumers.getBuffer(GLOWING_LAYER);
-					this.getContextModel().render(matrixStack, inveterate, light, OverlayTexture.DEFAULT_UV,color.getRed(),color.getGreen(),color.getBlue(), GlowingLayer.makeFade(time));
 				}
 			}
 		}

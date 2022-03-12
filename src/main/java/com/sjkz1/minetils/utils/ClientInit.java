@@ -3,7 +3,10 @@ package com.sjkz1.minetils.utils;
 import com.sjkz1.minetils.Minetils;
 import com.sjkz1.minetils.gui.screen.SpecialMemberScreen;
 
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -49,6 +52,12 @@ public class ClientInit {
         	} else {
         		client.inGameHud.getChatHud().addMessage(Text.of(NetherPos));
         	}
+        }
+    }
+
+    public static void login(ClientPlayNetworkHandler clientPlayNetworkHandler, PacketSender packetSender, MinecraftClient minecraftClient) {
+        if(minecraftClient.world != null) {
+            minecraftClient.inGameHud.getChatHud().addMessage(Text.of(FabricLoader.getInstance().getAllMods().toString()));
         }
     }
 }

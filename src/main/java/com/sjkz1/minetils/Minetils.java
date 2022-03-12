@@ -22,6 +22,7 @@ import com.sjkz1.minetils.utils.SoundInits;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.minecraft.client.option.KeyBinding;
 
 
@@ -55,6 +56,7 @@ public class Minetils implements ModInitializer
 	{
 		KeyBindInit.init();
 		ClientTickEvents.END_CLIENT_TICK.register(ClientInit::tick);
+		ClientPlayConnectionEvents.JOIN.register(ClientInit::login);
 		SoundInits.init();
 		new OpenFolderCommand(ClientCommandManager.DISPATCHER);
 		new CovidThailandCommand(ClientCommandManager.DISPATCHER);
