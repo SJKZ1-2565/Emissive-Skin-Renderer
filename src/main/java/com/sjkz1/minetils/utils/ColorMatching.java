@@ -69,7 +69,6 @@ public class ColorMatching {
 		}
 	}
 
-
 	@SuppressWarnings("resource")
 	public static void MoveToResourceLoc()
 	{

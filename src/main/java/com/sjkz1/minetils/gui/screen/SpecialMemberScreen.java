@@ -14,7 +14,6 @@ import com.sjkz1.minetils.gui.widget.ColorSliderWidget;
 import com.sjkz1.minetils.render.Player;
 import com.sjkz1.minetils.utils.ColorMatching;
 import com.sjkz1.minetils.utils.SJKZ1Helper;
-import com.sjkz1.minetils.utils.enums.SlotType;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
@@ -55,29 +54,28 @@ public class SpecialMemberScreen extends Screen {
 	@Override
 	protected void init() {
 		super.init();
-		SlotType slot = new SlotType();
-	    this.addDrawableChild(new ColorSliderWidget((this.width / 2) - 120, 130, 98, 20, Text.of("Delete Rate: " + Minetils.CONFIG.getConfig().palletsRate), Minetils.CONFIG.getConfig().palletsRate) {
-            @Override
-            protected void updateMessage() {
-                setMessage(Text.of("Delete Rate: " + Minetils.CONFIG.getConfig().palletsRate));
-            }
+		this.addDrawableChild(new ColorSliderWidget((this.width / 2) - 120, 130, 98, 20, Text.of("Delete Rate: " + Minetils.CONFIG.getConfig().palletsRate), Minetils.CONFIG.getConfig().palletsRate) {
+			@Override
+			protected void updateMessage() {
+				setMessage(Text.of("Delete Rate: " + Minetils.CONFIG.getConfig().palletsRate));
+			}
 
-            @Override
-            protected void applyValue() {
-                Minetils.CONFIG.getConfig().palletsRate = MathHelper.floor(MathHelper.clampedLerp(0.0D, 100.0D, this.value));
-                try {
-                    Minetils.CONFIG.saveConfig();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+			@Override
+			protected void applyValue() {
+				Minetils.CONFIG.getConfig().palletsRate = MathHelper.floor(MathHelper.clampedLerp(0.0D, 100.0D, this.value));
+				try {
+					Minetils.CONFIG.saveConfig();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 
-            @Override
-            public void renderButton(MatrixStack matrixStack, int i, int j, float f) {
-            	super.renderButton(matrixStack, i, j, f);
-            }
-        });
-	    this.addDrawableChild(new ButtonWidget((this.width / 2) + 20, 130, 98, 20, Text.of("Create Skin"), (buttonWidget) -> SJKZ1Helper.runAsync(ColorMatching::createGlowingSkinImage)));
+			@Override
+			public void renderButton(MatrixStack matrixStack, int i, int j, float f) {
+				super.renderButton(matrixStack, i, j, f);
+			}
+		});
+		this.addDrawableChild(new ButtonWidget((this.width / 2) + 20, 130, 98, 20, Text.of("Create Skin"), (buttonWidget) -> SJKZ1Helper.runAsync(ColorMatching::createGlowingSkinImage)));
 		list.clear();
 		list.add("Special Member Wardrobe");
 		try {
@@ -97,7 +95,6 @@ public class SpecialMemberScreen extends Screen {
 		if (playerXRot <= -179.85) {
 			playerXRot = 180;
 		}
-		SlotType slot = new SlotType();
 		Color color = Color.getHSBColor(ticks, 0.9f, 1);
 		renderBackgroundGG(mat);
 		var height = 0;
@@ -130,11 +127,6 @@ public class SpecialMemberScreen extends Screen {
 		RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
 		renderBackground(matrixStack);
 		this.drawTexture(matrixStack, (this.width/2)-130, 15, 0, 0, this.backgroundWidth, this.backgroundHeight);
-		matrixStack.push();
-		matrixStack.translate(this.width/2-127,15,100);
-		matrixStack.scale(0.75F,0.75F,0.75F);
-		matrixStack.pop();
-		assert this.client != null;
 		renderEntityInInventory((this.width / 2)-114,67,  25,playerXRot,0,new Player(this.client.world, Objects.requireNonNull(this.client.player).getGameProfile()));
 	}
 

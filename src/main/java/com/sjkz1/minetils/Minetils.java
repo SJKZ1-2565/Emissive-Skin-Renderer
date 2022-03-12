@@ -17,7 +17,6 @@ import com.sjkz1.minetils.command.OpenFolderCommand;
 import com.sjkz1.minetils.config.ConFigIN;
 import com.sjkz1.minetils.utils.ClientInit;
 import com.sjkz1.minetils.utils.KeyBindInit;
-import com.sjkz1.minetils.utils.SoundInits;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
@@ -57,7 +56,6 @@ public class Minetils implements ModInitializer
 		KeyBindInit.init();
 		ClientTickEvents.END_CLIENT_TICK.register(ClientInit::tick);
 		ClientPlayConnectionEvents.JOIN.register(ClientInit::login);
-		SoundInits.init();
 		new OpenFolderCommand(ClientCommandManager.DISPATCHER);
 		new CovidThailandCommand(ClientCommandManager.DISPATCHER);
 	}

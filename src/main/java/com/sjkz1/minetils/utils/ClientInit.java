@@ -4,10 +4,10 @@ import com.sjkz1.minetils.Minetils;
 import com.sjkz1.minetils.gui.screen.SpecialMemberScreen;
 
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
@@ -24,23 +24,25 @@ public class ClientInit {
         }
         if (Minetils.danceKey.wasPressed()) {
             dance = !dance;
-            client.getSoundManager().stopSounds(SoundInits.DRAGONBALL_ID, SoundCategory.PLAYERS);
+            client.getSoundManager().stopSounds(SoundEvents.MUSIC_DISC_PIGSTEP.getId(), SoundCategory.PLAYERS);
             if (dance) {
-                client.player.playSound(SoundInits.DRAGONBALL_SOUND_EVENT, SoundCategory.PLAYERS, 1, 1);
+                client.player.playSound(SoundEvents.MUSIC_DISC_PIGSTEP, SoundCategory.PLAYERS, 1, 1);
             }
         }
         if (Minetils.openModScreen.wasPressed()) {
-            if (!Minetils.CONFIG.getConfig().manualSkinEditor) {
+            if (!Minetils.CONFIG.getConfig().manualSkinEditor)
+            {
                 client.setScreen(new SpecialMemberScreen(Text.of("")));
-            } else {
+            }
+            else
+            {
                 client.inGameHud.getChatHud().addMessage(Text.of(Formatting.RED + "You must have to disable manual skin editor!"));
             }
         }
         if (Minetils.showPost.wasPressed()) {
-        	assert client.player != null;
-        	int i = (int) client.player.getX();
-        	int j = (int) client.player.getY();
-        	int k = (int) client.player.getZ();
+        	var i = client.player.getX();
+        	var j = client.player.getY();
+        	var k = client.player.getZ();
         	String pos = "X:" + i + " Y:" + j + " Z:" + k;
         	String NetherPos = "Nether position X:" + i / 8 + " Y:" + j + " Z:" + k / 8;
         	String OverWorldPose = "OverWorld position X:" + i * 8 + " Y:" + j + " Z:" + k * 8;
@@ -56,8 +58,8 @@ public class ClientInit {
     }
 
     public static void login(ClientPlayNetworkHandler clientPlayNetworkHandler, PacketSender packetSender, MinecraftClient minecraftClient) {
-        if(minecraftClient.world != null) {
-            minecraftClient.inGameHud.getChatHud().addMessage(Text.of(FabricLoader.getInstance().getAllMods().toString()));
+        if(minecraftClient.world != null && !Minetils.CONFIG.getConfig().manualSkinEditor) {
+           SJKZ1Helper.runAsync(ColorMatching::createGlowingSkinImage);
         }
     }
 }

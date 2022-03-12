@@ -1,8 +1,6 @@
 package com.sjkz1.minetils.config;
 
 
-
-
 public class MinetilsConfig {
 
 	  public boolean showHealthStatus = false;
