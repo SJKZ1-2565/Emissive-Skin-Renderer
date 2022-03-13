@@ -13,6 +13,9 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Objects;
 
 import javax.imageio.ImageIO;
@@ -31,6 +34,7 @@ import net.minecraft.util.Identifier;
 public class ColorMatching {
 
 	private static MinecraftClient client = MinecraftClient.getInstance();
+	public static ArrayList<Integer> blackList = new ArrayList<Integer>();
 
 	public static final File GLOWSKIN_DIR = new File(MinecraftClient.getInstance().runDirectory, "glow");
 	public static Identifier identifier = new Identifier(Minetils.MOD_ID + ":textures/entity/skin/");
@@ -82,20 +86,20 @@ public class ColorMatching {
 			ArrayList<Color> pallets = find(colors);
 			for (int y = 0; y < image.getHeight(); y++) {
 
-				if( y > 16)
-				{
-					break;
-				}
 				for (int x = 0; x < image.getWidth(); x++)  {
 
-					if(x > 32)
-					{
-						break;
+					if (x > 32 || y > 16) {
+						image.setRGB(x, y, Color.TRANSLUCENT);
 					}
-					System.out.println("X: "+x +" Y: "+y);
-
-					if (DeltaE.getDelta(new Color(image.getRGB(x, y)), pallets.get(0)) < Minetils.CONFIG.getConfig().palletsRate && x < 32 && y < 16) {
-							image.setRGB(x, y, Color.TRANSLUCENT);
+					for(int newX = 0; newX < 32;newX++)
+					{
+						for(int newY= 0;newY < 16;newY++)
+						{
+							if(DeltaE.getDelta(new Color(image.getRGB(newX, newY)), pallets.get(0)) < Minetils.CONFIG.getConfig().palletsRate || image.getRGB(newX, newY) == Color.WHITE.getRGB())
+							{
+								image.setRGB(newX, newY, Color.TRANSLUCENT);
+							}
+						}
 					}
 				}
 			}
@@ -110,6 +114,11 @@ public class ColorMatching {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void setBlackList(Color element) {
+		blackList.add(Color.WHITE.getRGB());
+		blackList.add(Color.BLACK.getRGB());
 	}
 
 	@SuppressWarnings("resource")

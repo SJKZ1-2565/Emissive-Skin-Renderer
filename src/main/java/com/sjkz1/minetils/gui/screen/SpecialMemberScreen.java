@@ -62,7 +62,7 @@ public class SpecialMemberScreen extends Screen {
 
 			@Override
 			protected void applyValue() {
-				Minetils.CONFIG.getConfig().palletsRate = MathHelper.floor(MathHelper.clampedLerp(0.0D, 100.0D, this.value));
+				Minetils.CONFIG.getConfig().palletsRate = MathHelper.floor(MathHelper.clampedLerp(100.0D, 150.0D, this.value));
 				try {
 					Minetils.CONFIG.saveConfig();
 				} catch (IOException e) {
