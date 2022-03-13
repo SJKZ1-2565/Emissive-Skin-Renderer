@@ -13,9 +13,6 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
 import java.util.Objects;
 
 import javax.imageio.ImageIO;
@@ -71,7 +68,7 @@ public class ColorMatching {
 		}
 	}
 
-	public static void createGlowingSkinImageWithCustomUV() {
+	public static void createGlowingSkinImageWithCustomUV(int maxX,int maxY) {
 		try {
 			String url = getSkin();
 			BufferedImage image = ImageIO.read(new URL(url).openStream());
@@ -88,12 +85,12 @@ public class ColorMatching {
 
 				for (int x = 0; x < image.getWidth(); x++)  {
 
-					if (x > 32 || y > 16) {
+					if (x > maxX || y > maxY) {
 						image.setRGB(x, y, Color.TRANSLUCENT);
 					}
-					for(int newX = 0; newX < 32;newX++)
+					for(int newX = 0; newX < maxX;newX++)
 					{
-						for(int newY= 0;newY < 16;newY++)
+						for(int newY= 0;newY < maxY;newY++)
 						{
 							if(DeltaE.getDelta(new Color(image.getRGB(newX, newY)), pallets.get(0)) < Minetils.CONFIG.getConfig().palletsRate || image.getRGB(newX, newY) == Color.WHITE.getRGB())
 							{

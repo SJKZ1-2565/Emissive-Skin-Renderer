@@ -69,7 +69,7 @@ public class SJKZ1Helper
 		}
 	}
 
-	private static final ExecutorService POOL = Executors.newFixedThreadPool(100, new ThreadFactory()
+	public static final ExecutorService POOL = Executors.newFixedThreadPool(100, new ThreadFactory()
 	{
 		private final AtomicInteger counter = new AtomicInteger(0);
 

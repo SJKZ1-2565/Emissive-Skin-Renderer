@@ -13,6 +13,5 @@ public class KeyBindInit {
     {
         Minetils.danceKey = KeyBindingHelper.registerKeyBinding(new KeyBinding ("key.sjkz1misc.start_dance", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_R, Minetils.MOD_ID));
         Minetils.showPost = KeyBindingHelper.registerKeyBinding(new KeyBinding ("key.sjkz1misc.showPost", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_G, Minetils.MOD_ID));
-        Minetils.openModScreen = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.sjkz1misc.open_mod_screen", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_F7,  Minetils.MOD_ID));
     }
 }

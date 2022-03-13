@@ -37,7 +37,7 @@ public class GlowingLayer<T extends AbstractClientPlayerEntity, M extends Player
 		for (String id : Minetils.SPECIAL_MEMBER) {
 			{
 				RenderLayer GLOWING_LAYER = RenderLayer.getEyes(GlowingLayer.getPath() != null ? GlowingLayer.getPath() : entity.getSkinTexture());
-				if (!entity.isInvisible() && entity.getName().getString().contains(id) && Minetils.CONFIG.getConfig().glowingSkin) {
+				if (!entity.isInvisible() && entity.getName().getString().equals(id) && Minetils.CONFIG.getConfig().glowingSkin) {
 					VertexConsumer inveterate = vertexConsumers.getBuffer(GLOWING_LAYER);
 					this.getContextModel().render(matrixStack, inveterate, light, OverlayTexture.DEFAULT_UV, makeFade(time), makeFade(time), makeFade(time),  makeFade(time));
 				}

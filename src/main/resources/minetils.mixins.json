@@ -19,6 +19,7 @@
     "AxolotleRendererMixin",
     "InGameOverlayRenderMixin",
     "EntityRendererDispatcherMixin",
+    "InventoryScreenMixin",
     "GameRendererMixin"
   ],
   "injectors": {

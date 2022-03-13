@@ -29,7 +29,6 @@ public class Minetils implements ModInitializer
 {
 	public static KeyBinding danceKey;
 	public static KeyBinding showPost;
-	public static KeyBinding openModScreen;
 	public static int RESPONSE_CODE;
 
 	public static final String MOD_ID = "minetils";

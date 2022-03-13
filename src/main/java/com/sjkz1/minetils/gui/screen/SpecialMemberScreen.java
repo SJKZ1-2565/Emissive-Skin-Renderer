@@ -14,6 +14,7 @@ import com.sjkz1.minetils.gui.widget.ColorSliderWidget;
 import com.sjkz1.minetils.render.Player;
 import com.sjkz1.minetils.utils.ColorMatching;
 import com.sjkz1.minetils.utils.SJKZ1Helper;
+import com.sjkz1.minetils.utils.enums.SkinPart;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
@@ -23,8 +24,11 @@ import net.minecraft.client.render.DiffuseLighting;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
@@ -75,7 +79,45 @@ public class SpecialMemberScreen extends Screen {
 				super.renderButton(matrixStack, i, j, f);
 			}
 		});
-		this.addDrawableChild(new ButtonWidget((this.width / 2) + 20, 130, 98, 20, Text.of("Create Skin"), (buttonWidget) -> ColorMatching.createGlowingSkinImageWithCustomUV()));
+		this.addDrawableChild(new ButtonWidget((this.width / 2) + 20, 130, 98, 20, Text.of("Create Skin"), (buttonWidget) -> {
+			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImage());
+		}));
+		this.addDrawableChild(new ButtonWidget((this.width / 2) - 211, 20, 80, 20, Text.of("Head"), (buttonWidget) -> {
+			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
+		}));
+		this.addDrawableChild(new ButtonWidget((this.width / 2) - 211, 50, 80, 20, Text.of("Hat"), (buttonWidget) -> {
+			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
+		}));
+		this.addDrawableChild(new ButtonWidget((this.width / 2) - 211, 80, 80, 20, Text.of("Body"), (buttonWidget) -> {
+			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
+		}));
+		this.addDrawableChild(new ButtonWidget((this.width / 2) - 211, 110, 80, 20, Text.of("Jacket"), (buttonWidget) -> {
+			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
+		}));
+		this.addDrawableChild(new ButtonWidget((this.width / 2) - 211, 140, 80, 20, Text.of("Right-Arm"), (buttonWidget) -> {
+			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
+		}));
+		this.addDrawableChild(new ButtonWidget((this.width / 2) - 211, 170, 80, 20, Text.of("Right-Sleeve"), (buttonWidget) -> {
+			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
+		}));
+		this.addDrawableChild(new ButtonWidget((this.width / 2) + 127, 20, 80, 20, Text.of("Left-Arm"), (buttonWidget) -> {
+			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
+		}));
+		this.addDrawableChild(new ButtonWidget((this.width / 2) + 127, 50, 80, 20, Text.of("Left-Sleeve"), (buttonWidget) -> {
+			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
+		}));
+		this.addDrawableChild(new ButtonWidget((this.width / 2) + 127, 80, 80, 20, Text.of("Left-Leg"), (buttonWidget) -> {
+			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
+		}));
+		this.addDrawableChild(new ButtonWidget((this.width / 2) + 127, 110, 80, 20, Text.of("Left-Pant"), (buttonWidget) -> {
+			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
+		}));
+		this.addDrawableChild(new ButtonWidget((this.width / 2) + 127, 140, 80, 20, Text.of("Right-Leg"), (buttonWidget) -> {
+			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
+		}));
+		this.addDrawableChild(new ButtonWidget((this.width / 2) + 127, 170, 80, 20, Text.of("Right-Pant"), (buttonWidget) -> {
+			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
+		}));
 		list.clear();
 		list.add("Special Member Wardrobe");
 		try {
@@ -85,6 +127,10 @@ public class SpecialMemberScreen extends Screen {
 		catch (Exception e) {
 			err = true;
 			list.add("Couldn't get Discord Member!");
+		}
+		for(String listName : Minetils.SPECIAL_MEMBER)
+		{
+			list.add(listName);
 		}
 	}
 
@@ -100,20 +146,38 @@ public class SpecialMemberScreen extends Screen {
 		var height = 0;
 		for(String string : list)
 		{
-			if(string.contains("Special Member Wardrobe"))
+			if(string.equals("Special Member Wardrobe"))
 			{
 				DrawableHelper.drawStringWithShadow(mat, this.textRenderer, string, (this.width / 2) - 60, 35 + height, color.getRGB());
 			}
 			else
 			{
-				DrawableHelper.drawStringWithShadow(mat, this.textRenderer, string, (this.width / 2) - 60, 35 + height,16777215);
+				for(String listName : Minetils.SPECIAL_MEMBER)
+				{
+					if(string.equals(listName))
+					{
+						DrawableHelper.drawStringWithShadow(mat, this.textRenderer, "Member: " + string, (this.width / 2) - 60, 140 + height,  0x4254f5);
+					}
+					if(string.contains("Discord Online member :"))
+					{
+						DrawableHelper.drawStringWithShadow(mat, this.textRenderer, string, (this.width / 2) - 60, 35 + height,  0xFFFFFF);
+					}
+					if(string.contains(listName))
+					{
+
+						ItemRenderer itemRenderer = client.getItemRenderer();
+						itemRenderer.zOffset = 100.0F;
+						itemRenderer.renderInGui(new ItemStack(Items.NETHERITE_PICKAXE),(this.width / 2) + 60, 135 + height);
+						itemRenderer.zOffset = 0.0F;
+					}
+				}
 			}
 
 			if(err)
 			{
 				DrawableHelper.drawStringWithShadow(mat, this.textRenderer, string, (this.width / 2) - 60, 35 + height, 16733525);
 			}
-			height += 12;
+			height += 15;
 		}
 		super.render(mat, mouseX, mouseY, partialTicks);
 	}
