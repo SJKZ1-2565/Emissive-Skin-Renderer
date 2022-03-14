@@ -51,6 +51,7 @@ public class MinetilscModMenuScreen implements ModMenuApi
 			generalCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.eating_anim"), config.enableEatingAnim).setTooltip(Text.of("Enable Eating Animation.")).setSaveConsumer(value -> config.enableEatingAnim = value).setDefaultValue(true).build());
 			generalCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.disableHurtCamera"), config.disableHurtCamera).setTooltip(Text.of("Disable shake camera when hurting.")).setSaveConsumer(value -> config.disableHurtCamera = value).setDefaultValue(false).build());
 			generalCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.manual_skin"), config.manualSkinEditor).setTooltip(Text.of("")).setSaveConsumer(value -> config.manualSkinEditor = value).setDefaultValue(true).build());
+			generalCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.enableMobSpawnerDelay"), config.enableMobSpawnerDelay).setTooltip(Text.of("Enable Mob Spawner Block Delay")).setSaveConsumer(value -> config.enableMobSpawnerDelay = value).setDefaultValue(true).build());
 
 
 			colorCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.rainbow_health"), config.healthStatusRainbowColor).setTooltip(Text.of("Set rainbow color text.")).setSaveConsumer(value -> config.healthStatusRainbowColor = value).setDefaultValue(false).build());

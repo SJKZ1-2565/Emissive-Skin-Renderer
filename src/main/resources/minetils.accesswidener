@@ -1,2 +1,5 @@
 accessWidener	v1	named
 accessible method net/minecraft/client/font/TextRenderer draw (Lnet/minecraft/text/OrderedText;FFILnet/minecraft/util/math/Matrix4f;Z)I
+accessible field net/minecraft/world/MobSpawnerLogic spawnDelay I
+accessible field net/minecraft/block/entity/MobSpawnerBlockEntity logic Lnet/minecraft/world/MobSpawnerLogic;
+accessible field net/minecraft/client/gui/hud/InGameHud overlayRemaining I

@@ -9,10 +9,9 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 
-public class ClientInit {
+public abstract class ClientInit {
 
 	public static boolean dance = false;
-
 
 	public static void tick(MinecraftClient client) {
 
@@ -42,6 +41,7 @@ public class ClientInit {
 			} else {
 				client.inGameHud.getChatHud().addMessage(Text.of(NetherPos));
 			}
+
 		}
 	}
 
@@ -50,5 +50,6 @@ public class ClientInit {
 			SJKZ1Helper.runAsync(ColorMatching::createGlowingSkinImage);
 		}
 	}
+
 }
 

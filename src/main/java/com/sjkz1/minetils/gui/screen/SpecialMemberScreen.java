@@ -319,12 +319,12 @@ public class SpecialMemberScreen extends Screen {
 	}
 
 	@Override
-	public void onClose() {
-		super.onClose();
+	public void close() {
 		try {
 			Minetils.CONFIG.saveConfig();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		super.close();
 	}
 }

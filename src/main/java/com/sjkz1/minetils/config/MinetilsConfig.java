@@ -14,6 +14,7 @@ public class MinetilsConfig {
 	  public boolean SpecialCape = false;
 	  public boolean disableHurtCamera = false;
 	  public boolean manualSkinEditor = true;
+	  public boolean enableMobSpawnerDelay = true;
 	  public int healthStatusColor;
 	  public int IdentifierOrdinal;
 	  public int yPositionHorseDisplay;

@@ -16,11 +16,13 @@
     "AbstractPlayerMixin",
     "ParticleEngineMixin",
     "CapeLayerMixin",
+    "SignBlockMixin",
     "AxolotleRendererMixin",
     "InGameOverlayRenderMixin",
     "EntityRendererDispatcherMixin",
     "InventoryScreenMixin",
     "EntityRendererMixin",
+    "MobSpawnerLogicMixin",
     "GameRendererMixin"
   ],
   "injectors": {
