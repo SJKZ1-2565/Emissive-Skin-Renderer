@@ -4,9 +4,22 @@ public class SkinPart {
 	public enum Part
 	{
 		//TODO Add all skin part
-		HEAD(16,32);
+		HEAD(0,0,31,15),
+		HAT(32,0,63,15);
 
 		private int maxUvX;
+		private int minUvX;
+		public int getMinUvX() {
+			return minUvX;
+		}
+
+
+		public int getMinUvY() {
+			return minUvY;
+		}
+
+
+		private int minUvY;
 		public int getMaxUvX() {
 			return maxUvX;
 		}
@@ -20,10 +33,12 @@ public class SkinPart {
 		private int maxUvY;
 
 
-		Part(int maxUvY, int maxUvX)
+		Part(int minUvX,int minUvY,int maxUvX, int maxUvY)
 		{
 			this.maxUvX = maxUvX;
 			this.maxUvY = maxUvY;
+			this.minUvX = minUvX;
+			this.minUvY = minUvY;
 		}
 	}
 }

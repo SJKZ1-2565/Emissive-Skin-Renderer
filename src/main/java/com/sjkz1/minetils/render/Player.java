@@ -31,6 +31,6 @@ public class Player extends AbstractClientPlayerEntity {
 
     @Override
     public boolean shouldRenderName() {
-        return true;
+    	return false;
     }
 }

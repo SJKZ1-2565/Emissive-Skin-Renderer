@@ -3,6 +3,8 @@ package com.sjkz1.minetils.render;
 import com.sjkz1.minetils.Minetils;
 import com.sjkz1.minetils.utils.ColorMatching;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.OverlayTexture;
@@ -16,6 +18,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
+@Environment(EnvType.CLIENT)
 public class GlowingLayer<T extends AbstractClientPlayerEntity, M extends PlayerEntityModel<T>> extends FeatureRenderer<T, M> {
 	public GlowingLayer(FeatureRendererContext<T, M> featureRendererContext) {
 		super(featureRendererContext);
@@ -37,9 +40,9 @@ public class GlowingLayer<T extends AbstractClientPlayerEntity, M extends Player
 		for (String id : Minetils.SPECIAL_MEMBER) {
 			{
 				RenderLayer GLOWING_LAYER = RenderLayer.getEyes(GlowingLayer.getPath() != null ? GlowingLayer.getPath() : entity.getSkinTexture());
-				if (!entity.isInvisible() && entity.getName().getString().equals(id) && Minetils.CONFIG.getConfig().glowingSkin) {
+				if (!entity.isInvisible() && entity.getName().getString().equals(id) && Minetils.CONFIG.getConfig().glowingSkin && entity.getUuid().equals(MinecraftClient.getInstance().player.getUuid())) {
 					VertexConsumer inveterate = vertexConsumers.getBuffer(GLOWING_LAYER);
-					this.getContextModel().render(matrixStack, inveterate, light, OverlayTexture.DEFAULT_UV, makeFade(time), makeFade(time), makeFade(time),  makeFade(time));
+					this.getContextModel().render(matrixStack, inveterate, light, OverlayTexture.DEFAULT_UV, makeFade(time), makeFade(time), makeFade(time), 1.0F);
 				}
 			}
 		}

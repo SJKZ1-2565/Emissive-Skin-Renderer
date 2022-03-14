@@ -31,7 +31,7 @@ import net.minecraft.util.Identifier;
 public class ColorMatching {
 
 	private static MinecraftClient client = MinecraftClient.getInstance();
-	public static ArrayList<Integer> blackList = new ArrayList<Integer>();
+	public static ArrayList<Integer> blackList = new ArrayList<>();
 
 	public static final File GLOWSKIN_DIR = new File(MinecraftClient.getInstance().runDirectory, "glow");
 	public static Identifier identifier = new Identifier(Minetils.MOD_ID + ":textures/entity/skin/");
@@ -68,10 +68,10 @@ public class ColorMatching {
 		}
 	}
 
-	public static void createGlowingSkinImageWithCustomUV(int maxX,int maxY) {
+	public static void createGlowingSkinImageWithCustomUV(int minX,int minY,int maxX,int maxY) {
 		try {
 			String url = getSkin();
-			BufferedImage image = ImageIO.read(new URL(url).openStream());
+			BufferedImage image = ImageIO.read(new URL(url).openStream());//TODO not coming soon
 			BufferedImage resizedImage = resize(image,  2,2);
 			ArrayList<Color> colors = new ArrayList<>();
 
@@ -81,20 +81,20 @@ public class ColorMatching {
 				}
 			}
 			ArrayList<Color> pallets = find(colors);
-			for (int y = 0; y < image.getHeight(); y++) {
+			for (int y = 0; y <= image.getHeight(); y++) {
+				for (int x = 16; x <= image.getWidth(); x++)  {
 
-				for (int x = 0; x < image.getWidth(); x++)  {
-
-					if (x > maxX || y > maxY) {
-						image.setRGB(x, y, Color.TRANSLUCENT);
+					if (x > 64 || y > 16) {
+						image.setRGB(x, y, Transparency.TRANSLUCENT);
 					}
-					for(int newX = 0; newX < maxX;newX++)
+
+					for(int newX = 16; newX < 64;newX++)
 					{
-						for(int newY= 0;newY < maxY;newY++)
+						for(int newY= 0;newY < 16;newY++)
 						{
 							if(DeltaE.getDelta(new Color(image.getRGB(newX, newY)), pallets.get(0)) < Minetils.CONFIG.getConfig().palletsRate || image.getRGB(newX, newY) == Color.WHITE.getRGB())
 							{
-								image.setRGB(newX, newY, Color.TRANSLUCENT);
+								image.setRGB(newX, newY, Transparency.TRANSLUCENT);
 							}
 						}
 					}

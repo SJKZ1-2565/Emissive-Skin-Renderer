@@ -2,11 +2,17 @@ package com.sjkz1.minetils.gui.screen;
 
 
 import java.awt.Color;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.CopyOnWriteArrayList;
 
+import com.google.common.collect.Lists;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.sjkz1.minetils.Minetils;
@@ -14,7 +20,6 @@ import com.sjkz1.minetils.gui.widget.ColorSliderWidget;
 import com.sjkz1.minetils.render.Player;
 import com.sjkz1.minetils.utils.ColorMatching;
 import com.sjkz1.minetils.utils.SJKZ1Helper;
-import com.sjkz1.minetils.utils.enums.SkinPart;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
@@ -26,8 +31,11 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemStack.TooltipSection;
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -44,12 +52,27 @@ public class SpecialMemberScreen extends Screen {
 	private float ticks = 0;
 	public static int ONLINE_USER;
 
+
 	protected int x;
 
-	private final List<String> list = new CopyOnWriteArrayList<>();
+	private final List<String> list = Lists.newCopyOnWriteArrayList();
+	private final HashMap<String,Item> memberList = new HashMap<>();
 	protected final int backgroundWidth = 256;
 	protected final int backgroundHeight = 166;
 	private boolean err = false;
+	private boolean enable = true;
+	private ButtonWidget buttonSkin1;
+	private ButtonWidget buttonSkin2;
+	private ButtonWidget buttonSkin3;
+	private ButtonWidget buttonSkin4;
+	private ButtonWidget buttonSkin5;
+	private ButtonWidget buttonSkin6;
+	private ButtonWidget buttonSkin7;
+	private ButtonWidget buttonSkin8;
+	private ButtonWidget buttonSkin9;
+	private ButtonWidget buttonSkin10;
+	private ButtonWidget buttonSkin11;
+	private ButtonWidget buttonSkin12;
 
 	public SpecialMemberScreen(Text text) {
 		super(text);
@@ -57,6 +80,8 @@ public class SpecialMemberScreen extends Screen {
 
 	@Override
 	protected void init() {
+		memberList.put("TornNgern", Items.IRON_PICKAXE);
+		memberList.put("ToastKung", Items.IRON_PICKAXE);
 		super.init();
 		this.addDrawableChild(new ColorSliderWidget((this.width / 2) - 120, 130, 98, 20, Text.of("Delete Rate: " + Minetils.CONFIG.getConfig().palletsRate), Minetils.CONFIG.getConfig().palletsRate) {
 			@Override
@@ -80,46 +105,57 @@ public class SpecialMemberScreen extends Screen {
 			}
 		});
 		this.addDrawableChild(new ButtonWidget((this.width / 2) + 20, 130, 98, 20, Text.of("Create Skin"), (buttonWidget) -> {
-			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImage());
+			SJKZ1Helper.runAsync(ColorMatching::createGlowingSkinImage);
 		}));
-		this.addDrawableChild(new ButtonWidget((this.width / 2) - 211, 20, 80, 20, Text.of("Head"), (buttonWidget) -> {
-			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
+		buttonSkin1 = this.addDrawableChild(new ButtonWidget((this.width / 2) - 211, 20, 80, 20, Text.of("Coming soon..."), (buttonWidget) -> {
+			buttonWidget.active = false;
+			//			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
 		}));
-		this.addDrawableChild(new ButtonWidget((this.width / 2) - 211, 50, 80, 20, Text.of("Hat"), (buttonWidget) -> {
-			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
+		buttonSkin2 = this.addDrawableChild(new ButtonWidget((this.width / 2) - 211, 50, 80, 20, Text.of("Coming soon..."), (buttonWidget) -> {
+			//			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HAT.getMinUvX(),SkinPart.Part.HAT.getMinUvY(),SkinPart.Part.HAT.getMaxUvX(),SkinPart.Part.HAT.getMaxUvY()));
+			buttonWidget.active = true;
 		}));
-		this.addDrawableChild(new ButtonWidget((this.width / 2) - 211, 80, 80, 20, Text.of("Body"), (buttonWidget) -> {
-			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
+		buttonSkin3 = this.addDrawableChild(new ButtonWidget((this.width / 2) - 211, 80, 80, 20, Text.of("Coming soon..."), (buttonWidget) -> {
+			//			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
+			buttonWidget.active = true;
 		}));
-		this.addDrawableChild(new ButtonWidget((this.width / 2) - 211, 110, 80, 20, Text.of("Jacket"), (buttonWidget) -> {
-			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
+		buttonSkin4 = this.addDrawableChild(new ButtonWidget((this.width / 2) - 211, 110, 80, 20, Text.of("Coming soon..."), (buttonWidget) -> {
+			//			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
+			buttonWidget.active = true;
 		}));
-		this.addDrawableChild(new ButtonWidget((this.width / 2) - 211, 140, 80, 20, Text.of("Right-Arm"), (buttonWidget) -> {
-			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
+		buttonSkin5 = this.addDrawableChild(new ButtonWidget((this.width / 2) - 211, 140, 80, 20, Text.of("Coming soon..."), (buttonWidget) -> {
+			//		SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
+			buttonWidget.active = true;
 		}));
-		this.addDrawableChild(new ButtonWidget((this.width / 2) - 211, 170, 80, 20, Text.of("Right-Sleeve"), (buttonWidget) -> {
-			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
+		buttonSkin6 = this.addDrawableChild(new ButtonWidget((this.width / 2) - 211, 170, 80, 20, Text.of("Coming soon..."), (buttonWidget) -> {
+			//			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
+			buttonWidget.active = true;}));
+		buttonSkin7 = this.addDrawableChild(new ButtonWidget((this.width / 2) + 132, 20, 80, 20, Text.of("Coming soon..."), (buttonWidget) -> {
+			//			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
+			buttonWidget.active = true;}));
+		buttonSkin8 = this.addDrawableChild(new ButtonWidget((this.width / 2) + 132, 50, 80, 20, Text.of("Coming soon..."), (buttonWidget) -> {
+			//			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
+			buttonWidget.active = true;
 		}));
-		this.addDrawableChild(new ButtonWidget((this.width / 2) + 127, 20, 80, 20, Text.of("Left-Arm"), (buttonWidget) -> {
-			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
+		buttonSkin9 = this.addDrawableChild(new ButtonWidget((this.width / 2) + 132, 80, 80, 20, Text.of("Coming soon..."), (buttonWidget) -> {
+			//			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
+			buttonWidget.active = true;
 		}));
-		this.addDrawableChild(new ButtonWidget((this.width / 2) + 127, 50, 80, 20, Text.of("Left-Sleeve"), (buttonWidget) -> {
-			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
+		buttonSkin10 = this.addDrawableChild(new ButtonWidget((this.width / 2) + 132, 110, 80, 20, Text.of("Coming soon..."), (buttonWidget) -> {
+			//			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
+			buttonWidget.active = true;
 		}));
-		this.addDrawableChild(new ButtonWidget((this.width / 2) + 127, 80, 80, 20, Text.of("Left-Leg"), (buttonWidget) -> {
-			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
+		buttonSkin11 = this.addDrawableChild(new ButtonWidget((this.width / 2) + 132, 140, 80, 20, Text.of("Coming soon..."), (buttonWidget) -> {
+			//			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
+			buttonWidget.active = true;
 		}));
-		this.addDrawableChild(new ButtonWidget((this.width / 2) + 127, 110, 80, 20, Text.of("Left-Pant"), (buttonWidget) -> {
-			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
+		buttonSkin12 = this.addDrawableChild(new ButtonWidget((this.width / 2) + 132, 170, 80, 20, Text.of("Coming soon..."), (buttonWidget) -> {
+			//		SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
+			buttonWidget.active = true;
 		}));
-		this.addDrawableChild(new ButtonWidget((this.width / 2) + 127, 140, 80, 20, Text.of("Right-Leg"), (buttonWidget) -> {
-			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
-		}));
-		this.addDrawableChild(new ButtonWidget((this.width / 2) + 127, 170, 80, 20, Text.of("Right-Pant"), (buttonWidget) -> {
-			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
-		}));
+
 		list.clear();
-		list.add("Special Member Wardrobe");
+		list.add("Special Member");
 		try {
 			int online = ONLINE_USER;
 			list.add("Discord Online member :" + online);
@@ -146,9 +182,9 @@ public class SpecialMemberScreen extends Screen {
 		var height = 0;
 		for(String string : list)
 		{
-			if(string.equals("Special Member Wardrobe"))
+			if(string.equals("Special Member"))
 			{
-				DrawableHelper.drawStringWithShadow(mat, this.textRenderer, string, (this.width / 2) - 60, 35 + height, color.getRGB());
+				DrawableHelper.drawStringWithShadow(mat, this.textRenderer, string, (this.width / 2), 35 + height, color.getRGB());
 			}
 			else
 			{
@@ -156,18 +192,30 @@ public class SpecialMemberScreen extends Screen {
 				{
 					if(string.equals(listName))
 					{
-						DrawableHelper.drawStringWithShadow(mat, this.textRenderer, "Member: " + string, (this.width / 2) - 60, 140 + height,  0x4254f5);
+						DrawableHelper.drawStringWithShadow(mat, this.textRenderer, string, (this.width / 2) - 25, 140 + height,  0x4254f5);
 					}
 					if(string.contains("Discord Online member :"))
 					{
-						DrawableHelper.drawStringWithShadow(mat, this.textRenderer, string, (this.width / 2) - 60, 35 + height,  0xFFFFFF);
+						DrawableHelper.drawStringWithShadow(mat, this.textRenderer, string, (this.width / 2) - 25, 35 + height,  0xFFFFFF);
 					}
 					if(string.contains(listName))
 					{
-
 						ItemRenderer itemRenderer = client.getItemRenderer();
 						itemRenderer.zOffset = 100.0F;
-						itemRenderer.renderInGui(new ItemStack(Items.NETHERITE_PICKAXE),(this.width / 2) + 60, 135 + height);
+						ItemStack itemStack = ItemStack.EMPTY;
+						for(String i : memberList.keySet())
+						{
+							if(listName.equals(i) && (memberList.get(i).equals(memberList.get(i).asItem())))
+							{
+								itemStack = memberList.get(i).getDefaultStack();
+								itemStack.addEnchantment(Enchantments.MENDING, 1);
+								itemStack.addHideFlag(TooltipSection.ENCHANTMENTS);
+							}
+
+						}
+						itemStack.addEnchantment(Enchantments.AQUA_AFFINITY, 1);
+						itemStack.addHideFlag(TooltipSection.ENCHANTMENTS);
+						itemRenderer.renderInGui(itemStack,(this.width / 2) - 60, 135 + height);
 						itemRenderer.zOffset = 0.0F;
 					}
 				}
@@ -178,6 +226,37 @@ public class SpecialMemberScreen extends Screen {
 				DrawableHelper.drawStringWithShadow(mat, this.textRenderer, string, (this.width / 2) - 60, 35 + height, 16733525);
 			}
 			height += 15;
+		}
+		try {
+			InputStream is = (new URL("https://raw.githubusercontent.com/SJKZ1-2565/modJSON-URL/master/glowing_skin_feature.txt")).openStream();
+			BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+			for (String id : rd.lines().toList()) {
+				if(id.equals("disable"))
+				{
+					enable = false;
+				}
+				if(id.equals("enable"))
+				{
+					enable = true;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(!enable)
+		{
+			buttonSkin1.active  = false;
+			buttonSkin2.active = false;
+			buttonSkin3.active = false;
+			buttonSkin4.active = false;
+			buttonSkin5.active = false;
+			buttonSkin6.active = false;
+			buttonSkin7.active = false;
+			buttonSkin8.active = false;
+			buttonSkin9.active = false;
+			buttonSkin10.active = false;
+			buttonSkin11.active = false;
+			buttonSkin12.active = false;
 		}
 		super.render(mat, mouseX, mouseY, partialTicks);
 	}
@@ -190,8 +269,8 @@ public class SpecialMemberScreen extends Screen {
 		RenderSystem.enableBlend();
 		RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
 		renderBackground(matrixStack);
-		this.drawTexture(matrixStack, (this.width/2)-130, 15, 0, 0, this.backgroundWidth, this.backgroundHeight);
-		renderEntityInInventory((this.width / 2)-114,67,  25,playerXRot,0,new Player(this.client.world, Objects.requireNonNull(this.client.player).getGameProfile()));
+		this.drawTexture(matrixStack, (this.width/2)-128, 15, 0, 0, this.backgroundWidth, this.backgroundHeight);
+		renderEntityInInventory((this.width / 2)-95,123,  55,playerXRot,0,new Player(this.client.world, Objects.requireNonNull(this.client.player).getGameProfile()));
 	}
 
 	//Taken from https://github.com/Intro-Dev/Osmium/blob/fabric/1.17.x/src/main/java/com/intro/client/render/screen/OsmiumCapeOptionsScreen.java
@@ -248,12 +327,4 @@ public class SpecialMemberScreen extends Screen {
 			e.printStackTrace();
 		}
 	}
-
-
-
-
-
-
-
-
 }

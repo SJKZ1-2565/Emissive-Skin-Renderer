@@ -20,6 +20,7 @@
     "InGameOverlayRenderMixin",
     "EntityRendererDispatcherMixin",
     "InventoryScreenMixin",
+    "EntityRendererMixin",
     "GameRendererMixin"
   ],
   "injectors": {
