@@ -4,7 +4,7 @@
   "minetils.config.title" : "Minetils Config...",
   "minetils.config.ignore_villager" : "Enable ignore attacking Villager",
   "minetils.config.rainbow" : "Enable rainbow text color",
-  "minetils.config.swap" : "Enable swap armor while wearing elytra",
+  "minetils.config.swap" : "Enable switch armor , elytra",
   "minetils.config.particle" : "Disable block particle",
   "minetils.config.eating_anim" : "Enable Eating Animation",
   "minetils.config.hp_detector" : "Enable entity hp",

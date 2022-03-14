@@ -6,7 +6,7 @@ public class MinetilsConfig {
 	  public boolean showHealthStatus = false;
 	  public boolean glowingSkin = true;
 	  public boolean IgnoreHittingVillager = true;
-	  public boolean SwapArmorAndElytra = true;
+	  public boolean switchingArmorElytra = true;
 	  public boolean healthStatusRainbowColor = false;
 	  public boolean showTamedHorse = false;
 	  public boolean disableBlockParticle =false;

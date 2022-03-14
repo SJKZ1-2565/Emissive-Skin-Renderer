@@ -56,7 +56,7 @@ public class MinetilscModMenuScreen implements ModMenuApi
 			colorCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.rainbow_health"), config.healthStatusRainbowColor).setTooltip(Text.of("Set rainbow color text.")).setSaveConsumer(value -> config.healthStatusRainbowColor = value).setDefaultValue(false).build());
 			colorCategory.addEntry(entry.startColorField(new TranslatableText("minetils.config.health_color"), config.healthStatusColor).setTooltip(Text.of("Text color.")).setSaveConsumer(value -> config.healthStatusColor = value).setDefaultValue(0x4dff52).build());
 
-			singlePlayerCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.swap"), config.SwapArmorAndElytra).setTooltip(Text.of("Swap armor and elytra.")).setSaveConsumer(value -> config.SwapArmorAndElytra = value).setDefaultValue(true).build());
+			singlePlayerCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.swap"), config.switchingArmorElytra).setTooltip(Text.of("Swintch armor , elytra.")).setSaveConsumer(value -> config.switchingArmorElytra = value).setDefaultValue(true).build());
 			singlePlayerCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.particle"), config.disableBlockParticle).setTooltip(Text.of("Disable block particle.")).setSaveConsumer(value -> config.disableBlockParticle = value).setDefaultValue(false).build());
 
 			specialMemberCategory.addEntry(entry.startBooleanToggle(new TranslatableText("minetils.config.glowing_skin"), config.glowingSkin).setTooltip(Text.of("Render glowing skin!")).setSaveConsumer(value -> config.glowingSkin = value).setDefaultValue(true).build());
