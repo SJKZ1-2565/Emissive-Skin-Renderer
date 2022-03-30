@@ -26,7 +26,7 @@ public class GlowingLayer<T extends AbstractClientPlayerEntity, M extends Player
 
 
 	public static Identifier getPath() {
-		return Minetils.CONFIG.getConfig().manualSkinEditor ? MinecraftClient.getInstance().player.getName().getString().equals("TornNgern") ? new Identifier(Minetils.MOD_ID + ":textures/entity/skin/glow.png") : MinecraftClient.getInstance().player.getSkinTexture() : ColorMatching.identifier;
+		return Minetils.CONFIG.getConfig().manualSkinEditor ? MinecraftClient.getInstance().player.getName().getString().equals("SJKZ1") ? new Identifier(Minetils.MOD_ID + ":textures/entity/skin/glow.png") : MinecraftClient.getInstance().player.getSkinTexture() : ColorMatching.identifier;
 	}
 
 
