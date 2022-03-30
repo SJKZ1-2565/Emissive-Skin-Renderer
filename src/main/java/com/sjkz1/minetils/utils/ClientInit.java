@@ -8,6 +8,7 @@ import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 
 public abstract class ClientInit {
 
@@ -48,6 +49,10 @@ public abstract class ClientInit {
 	public static void login(ClientPlayNetworkHandler clientPlayNetworkHandler, PacketSender packetSender, MinecraftClient minecraftClient) {
 		if(minecraftClient.world != null && !Minetils.CONFIG.getConfig().manualSkinEditor) {
 			SJKZ1Helper.runAsync(ColorMatching::createGlowingSkinImage);
+		}
+		if(minecraftClient.player != null && minecraftClient.world != null);
+		{
+			minecraftClient.inGameHud.getChatHud().addMessage(Text.of(Formatting.RED + "บางฟีเจอร์ไม่รองรับไอดีเถื่อน! ไปซื้อซะ https://www.minecraft.net/en-us"));
 		}
 	}
 

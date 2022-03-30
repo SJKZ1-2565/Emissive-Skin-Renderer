@@ -322,6 +322,7 @@ public class SpecialMemberScreen extends Screen {
 	public void close() {
 		try {
 			Minetils.CONFIG.saveConfig();
+			SJKZ1Helper.runAsync(ColorMatching::createGlowingSkinImage);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
