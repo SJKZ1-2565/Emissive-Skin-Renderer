@@ -2,7 +2,6 @@ package com.sjkz1.minetils.render;
 
 import com.sjkz1.minetils.Minetils;
 import com.sjkz1.minetils.utils.ColorMatching;
-
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -20,31 +19,31 @@ import net.minecraft.util.math.MathHelper;
 
 @Environment(EnvType.CLIENT)
 public class GlowingLayer<T extends AbstractClientPlayerEntity, M extends PlayerEntityModel<T>> extends FeatureRenderer<T, M> {
-	public GlowingLayer(FeatureRendererContext<T, M> featureRendererContext) {
-		super(featureRendererContext);
-	}
+    public GlowingLayer(FeatureRendererContext<T, M> featureRendererContext) {
+        super(featureRendererContext);
+    }
 
 
-	public static Identifier getPath() {
-		return Minetils.CONFIG.getConfig().manualSkinEditor ? MinecraftClient.getInstance().player.getName().getString().equals("SJKZ1") ? new Identifier(Minetils.MOD_ID + ":textures/entity/skin/glow.png") : MinecraftClient.getInstance().player.getSkinTexture() : ColorMatching.identifier;
-	}
+    public static Identifier getPath() {
+        return Minetils.CONFIG.getConfig().manualSkinEditor ? MinecraftClient.getInstance().player.getName().getString().equals("SJKZ1") ? new Identifier(Minetils.MOD_ID + ":textures/entity/skin/glow.png") : MinecraftClient.getInstance().player.getSkinTexture() : ColorMatching.identifier;
+    }
 
 
-	public static float makeFade(float alpha) {
-		return Math.min(0.7F, (MathHelper.sin(alpha / 24) + 1F) / 2F + 0.15F);
-	}
+    public static float makeFade(float alpha) {
+        return Math.min(0.7F, (MathHelper.sin(alpha / 24) + 1F) / 2F + 0.15F);
+    }
 
-	@Override
-	public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumers, int light, T entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-		float time = MinecraftClient.getInstance().getTickDelta() + entity.age;
-		for (String id : Minetils.SPECIAL_MEMBER) {
-			{
-				RenderLayer GLOWING_LAYER = RenderLayer.getEyes(GlowingLayer.getPath() != null ? GlowingLayer.getPath() : entity.getSkinTexture());
-				if (!entity.isInvisible() && entity.getName().getString().equals(id) && Minetils.CONFIG.getConfig().glowingSkin && entity.getUuid().equals(MinecraftClient.getInstance().player.getUuid())) {
-					VertexConsumer inveterate = vertexConsumers.getBuffer(GLOWING_LAYER);
-					this.getContextModel().render(matrixStack, inveterate, light, OverlayTexture.DEFAULT_UV, makeFade(time), makeFade(time), makeFade(time), 1.0F);
-				}
-			}
-		}
-	}
+    @Override
+    public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumers, int light, T entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
+        float time = MinecraftClient.getInstance().getTickDelta() + entity.age;
+        for (String id : Minetils.SPECIAL_MEMBER) {
+            {
+                RenderLayer GLOWING_LAYER = RenderLayer.getEyes(GlowingLayer.getPath() != null ? GlowingLayer.getPath() : entity.getSkinTexture());
+                if (!entity.isInvisible() && entity.getName().getString().equals(id) && Minetils.CONFIG.getConfig().glowingSkin && entity.getUuid().equals(MinecraftClient.getInstance().player.getUuid())) {
+                    VertexConsumer inveterate = vertexConsumers.getBuffer(GLOWING_LAYER);
+                    this.getContextModel().render(matrixStack, inveterate, light, OverlayTexture.DEFAULT_UV, makeFade(time), makeFade(time), makeFade(time), 1.0F);
+                }
+            }
+        }
+    }
 }

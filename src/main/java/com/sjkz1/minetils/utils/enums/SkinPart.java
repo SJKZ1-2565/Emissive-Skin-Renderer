@@ -7,8 +7,8 @@ public class SkinPart {
 		HEAD(0,0,31,15),
 		HAT(32,0,63,15);
 
-		private int maxUvX;
-		private int minUvX;
+		private final int maxUvX;
+		private final int minUvX;
 		public int getMinUvX() {
 			return minUvX;
 		}
@@ -19,7 +19,7 @@ public class SkinPart {
 		}
 
 
-		private int minUvY;
+		private final int minUvY;
 		public int getMaxUvX() {
 			return maxUvX;
 		}
@@ -30,7 +30,7 @@ public class SkinPart {
 		}
 
 
-		private int maxUvY;
+		private final int maxUvY;
 
 
 		Part(int minUvX,int minUvY,int maxUvX, int maxUvY)

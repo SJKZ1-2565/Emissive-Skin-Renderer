@@ -1,7 +1,6 @@
 package com.sjkz1.minetils.render;
 
 import com.mojang.authlib.GameProfile;
-
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
@@ -31,6 +30,6 @@ public class Player extends AbstractClientPlayerEntity {
 
     @Override
     public boolean shouldRenderName() {
-    	return false;
+        return false;
     }
 }
