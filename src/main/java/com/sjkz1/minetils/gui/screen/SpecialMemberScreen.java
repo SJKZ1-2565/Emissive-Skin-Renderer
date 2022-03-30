@@ -24,6 +24,7 @@ import com.sjkz1.minetils.utils.SJKZ1Helper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.ScreenTexts;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.render.DiffuseLighting;
 import net.minecraft.client.render.GameRenderer;
@@ -80,7 +81,7 @@ public class SpecialMemberScreen extends Screen {
 
 	@Override
 	protected void init() {
-		memberList.put("TornNgern", Items.IRON_PICKAXE);
+		memberList.put("SJKZ1", Items.IRON_PICKAXE);
 		memberList.put("ToastKung", Items.IRON_PICKAXE);
 		super.init();
 		this.addDrawableChild(new ColorSliderWidget((this.width / 2) - 120, 130, 98, 20, Text.of("Delete Rate: " + Minetils.CONFIG.getConfig().palletsRate), Minetils.CONFIG.getConfig().palletsRate) {
@@ -104,9 +105,8 @@ public class SpecialMemberScreen extends Screen {
 				super.renderButton(matrixStack, i, j, f);
 			}
 		});
-		this.addDrawableChild(new ButtonWidget((this.width / 2) + 20, 130, 98, 20, Text.of("Create Skin"), (buttonWidget) -> {
-			SJKZ1Helper.runAsync(ColorMatching::createGlowingSkinImage);
-		}));
+		this.addDrawableChild(new ButtonWidget((this.width / 2) + 20, 130, 98, 20, ScreenTexts.DONE, buttonWidget -> this.client.setScreen(this)));
+
 		buttonSkin1 = this.addDrawableChild(new ButtonWidget((this.width / 2) - 211, 20, 80, 20, Text.of("Coming soon..."), (buttonWidget) -> {
 			buttonWidget.active = false;
 			//			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
