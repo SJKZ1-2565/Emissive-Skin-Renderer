@@ -35,8 +35,6 @@ public class InGameOverlayRenderMixin {
 	@Overwrite
 	public static void renderFireOverlay(MinecraftClient minecraftClient, MatrixStack matrixStack)
 	{
-
-
 			if(minecraftClient.player.getBlockStateAtPos().isIn(BlockTags.SOUL_FIRE_BASE_BLOCKS) && minecraftClient.player.getUuid().equals(minecraftClient.player.getUuid()))
 			{
 				BufferBuilder bufferBuilder = Tessellator.getInstance().getBuffer();
