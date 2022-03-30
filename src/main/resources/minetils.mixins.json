@@ -17,7 +17,6 @@
     "ParticleEngineMixin",
     "CapeLayerMixin",
     "SignBlockMixin",
-    "InGameOverlayRenderMixin",
     "EntityRendererDispatcherMixin",
     "InventoryScreenMixin",
     "EntityRendererMixin",
