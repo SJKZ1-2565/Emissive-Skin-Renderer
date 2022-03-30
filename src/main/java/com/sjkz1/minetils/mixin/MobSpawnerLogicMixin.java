@@ -1,5 +1,7 @@
 package com.sjkz1.minetils.mixin;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -14,6 +16,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.MobSpawnerLogic;
 import net.minecraft.world.World;
 
+@Environment(EnvType.CLIENT)
 @Mixin(MobSpawnerLogic.class)
 public abstract class MobSpawnerLogicMixin {
 

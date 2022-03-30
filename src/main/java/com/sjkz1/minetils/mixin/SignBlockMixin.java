@@ -1,5 +1,7 @@
 package com.sjkz1.minetils.mixin;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -15,6 +17,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+@Environment(EnvType.CLIENT)
 @Mixin(AbstractSignBlock.class)
 public class SignBlockMixin {
 

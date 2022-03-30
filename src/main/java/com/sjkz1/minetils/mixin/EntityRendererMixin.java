@@ -1,5 +1,7 @@
 package com.sjkz1.minetils.mixin;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -13,6 +15,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.text.Text;
 
+@Environment(EnvType.CLIENT)
 @Mixin(EntityRenderer.class)
 public class EntityRendererMixin<T extends Entity> {
 
