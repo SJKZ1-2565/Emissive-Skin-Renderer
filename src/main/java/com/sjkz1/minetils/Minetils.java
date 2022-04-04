@@ -6,6 +6,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import com.sjkz1.minetils.config.MinetilsConfig;
 import com.sjkz1.minetils.utils.ClientInit;
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -55,6 +57,9 @@ public class Minetils implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        AutoConfig.register(MinetilsConfig.class, GsonConfigSerializer::new);
+        CONFIG = AutoConfig.getConfigHolder(MinetilsConfig.class).getConfig();
+
         danceKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.sjkz1misc.start_dance", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_R, Minetils.MOD_ID));
         showPost = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.sjkz1misc.showPost", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_G, Minetils.MOD_ID));
         ClientTickEvents.END_CLIENT_TICK.register(ClientInit::tick);

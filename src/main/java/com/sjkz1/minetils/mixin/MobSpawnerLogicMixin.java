@@ -30,7 +30,7 @@ public abstract class MobSpawnerLogicMixin {
         if (isPlayerInRange(world, blockPos) && this.spawnDelay >= -1) {
             MinecraftClient.getInstance().inGameHud.setOverlayMessage(Text.of(Formatting.DARK_RED + "Spawn Delay: " + StringHelper.formatTicks(this.spawnDelay) + "s"), false);
             if (this.spawnDelay <= -1) {
-                MinecraftClient.getInstance().inGameHud.overlayRemaining = 0;
+                MinecraftClient.getInstance().inGameHud.overlayRemaining = -100;
             }
 
         }

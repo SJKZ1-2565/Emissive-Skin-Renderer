@@ -6,7 +6,6 @@ import com.google.common.collect.Maps;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.sjkz1.minetils.Minetils;
-import com.sjkz1.minetils.config.MinetilsConfig;
 import com.sjkz1.minetils.gui.widget.ColorSliderWidget;
 import com.sjkz1.minetils.render.Player;
 import com.sjkz1.minetils.utils.ColorMatching;
@@ -23,13 +22,10 @@ import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemStack.TooltipSection;
 import net.minecraft.item.Items;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
@@ -39,13 +35,10 @@ import net.minecraft.util.math.Vec3f;
 
 import java.awt.*;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -103,7 +96,7 @@ public class SpecialMemberScreen extends Screen {
                 super.renderButton(matrixStack, i, j, f);
             }
         });
-        this.addDrawableChild(new ButtonWidget((this.width / 2) + 20, 130, 98, 20, ScreenTexts.DONE, buttonWidget -> this.client.setScreen(this)));
+        this.addDrawableChild(new ButtonWidget((this.width / 2) + 20, 130, 98, 20, ScreenTexts.DONE, buttonWidget -> SJKZ1Helper.runAsync(ColorMatching::createGlowingSkinImage)));
 
         buttonSkin1 = this.addDrawableChild(new ButtonWidget((this.width / 2) - 211, 20, 80, 20, Text.of("Coming soon..."), (buttonWidget) -> {
             buttonWidget.active = false;
