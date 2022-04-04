@@ -18,7 +18,7 @@ public class CapeLayerMixin {
     @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/RenderLayer;getEntitySolid(Lnet/minecraft/util/Identifier;)Lnet/minecraft/client/render/RenderLayer;"))
     public RenderLayer render(Identifier identifier) {
         RenderLayer renderLayer = null;
-        if (Minetils.CONFIG.getConfig().SpecialCape) {
+        if (Minetils.CONFIG.main.SpecialCape) {
             for (String name : Minetils.SPECIAL_MEMBER) {
                 if (Objects.requireNonNull(MinecraftClient.getInstance().player).getName().getString().contains(name)) {
                     renderLayer = RenderLayer.getArmorCutoutNoCull(identifier);

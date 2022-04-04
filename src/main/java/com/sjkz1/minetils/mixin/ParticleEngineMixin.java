@@ -15,14 +15,14 @@ public class ParticleEngineMixin {
 
     @Inject(method = "addBlockBreakingParticles", at = @At("HEAD"), cancellable = true)
     public void crackParticle(BlockPos blockPos, Direction direction, CallbackInfo ci) {
-        if (Minetils.CONFIG.getConfig().disableBlockParticle) {
+        if (Minetils.CONFIG.main.disableBlockParticle) {
             ci.cancel();
         }
     }
 
     @Inject(method = "addBlockBreakParticles", at = @At("HEAD"), cancellable = true)
     public void destroyParticle(BlockPos blockPos, BlockState blockState, CallbackInfo ci) {
-        if (Minetils.CONFIG.getConfig().disableBlockParticle) {
+        if (Minetils.CONFIG.main.disableBlockParticle) {
             ci.cancel();
         }
     }

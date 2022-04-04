@@ -16,7 +16,7 @@ public class GameRendererMixin {
 
     @Inject(method = "bobViewWhenHurt", at = @At("HEAD"), cancellable = true)
     public void setNoHurtTime(MatrixStack matrixStack, float f, CallbackInfo ci) {
-        if (Minetils.CONFIG.getConfig().disableHurtCamera) {
+        if (Minetils.CONFIG.main.disableHurtCamera) {
             ci.cancel();
         }
     }

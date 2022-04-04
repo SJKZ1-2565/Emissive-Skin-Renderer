@@ -2,33 +2,44 @@ package com.sjkz1.minetils;
 
 
 import com.google.common.collect.Lists;
-import com.sjkz1.minetils.command.CovidThailandCommand;
-import com.sjkz1.minetils.command.OpenFolderCommand;
-import com.sjkz1.minetils.config.ConFigIN;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
+import com.sjkz1.minetils.config.MinetilsConfig;
 import com.sjkz1.minetils.utils.ClientInit;
-import com.sjkz1.minetils.utils.KeyBindInit;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
+import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.util.InputUtil;
+import net.minecraft.server.command.CommandManager;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.lwjgl.glfw.GLFW;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.stream.Stream;
 
 
 public class Minetils implements ModInitializer {
     public static final String MOD_ID = "minetils";
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
-
-    public static final ConFigIN CONFIG = new ConFigIN();
-
+    public static MinetilsConfig CONFIG;
     public static final List<String> SPECIAL_MEMBER = Lists.newCopyOnWriteArrayList();
+
+    public static KeyBinding danceKey;
+    public static KeyBinding showPost;
 
     static {
         try {
@@ -44,10 +55,32 @@ public class Minetils implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        KeyBindInit.init();
+        danceKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.sjkz1misc.start_dance", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_R, Minetils.MOD_ID));
+        showPost = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.sjkz1misc.showPost", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_G, Minetils.MOD_ID));
         ClientTickEvents.END_CLIENT_TICK.register(ClientInit::tick);
         ClientPlayConnectionEvents.JOIN.register(ClientInit::login);
-        new OpenFolderCommand(ClientCommandManager.DISPATCHER);
-        new CovidThailandCommand(ClientCommandManager.DISPATCHER);
+
+        //Command
+        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> dispatcher.register(CommandManager.literal("folder").executes(context -> {
+            Util.getOperatingSystem().open(MinecraftClient.getInstance().getLevelStorage().getSavesDirectory().toFile());
+            MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.of(Formatting.BOLD.toString() + Formatting.YELLOW + "Open " + MinecraftClient.getInstance().getLevelStorage().getSavesDirectory().toFile()));
+            return 1;
+        })));
+
+        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> dispatcher.register(CommandManager.literal("covid-th").executes(context -> {
+            URL url;
+            try {
+                url = new URL("https://covid19.ddc.moph.go.th/api/Cases/today-cases-by-provinces");
+                InputStreamReader reader1 = new InputStreamReader(url.openStream());
+                JsonArray obj = JsonParser.parseReader(reader1).getAsJsonArray();
+                for (int k = 0; k < obj.size(); k++) {
+                    int finalK = k;
+                    Stream.of(obj).filter(covid -> covid.get(finalK).getAsJsonObject().get("new_case").getAsInt() != 0).forEach(covid -> MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.of(Formatting.RED + String.valueOf(finalK + 1) + ". " + covid.getAsJsonArray().get(finalK).getAsJsonObject().get("province").getAsString() + ": " + covid.getAsJsonArray().get(finalK).getAsJsonObject().get("new_case").getAsInt())));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return 1;
+        })));
     }
 }

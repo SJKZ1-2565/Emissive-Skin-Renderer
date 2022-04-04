@@ -25,7 +25,7 @@ public class GlowingLayer<T extends AbstractClientPlayerEntity, M extends Player
 
 
     public static Identifier getPath() {
-        return Minetils.CONFIG.getConfig().manualSkinEditor ? MinecraftClient.getInstance().player.getName().getString().equals("SJKZ1") ? new Identifier(Minetils.MOD_ID + ":textures/entity/skin/glow.png") : MinecraftClient.getInstance().player.getSkinTexture() : ColorMatching.identifier;
+        return Minetils.CONFIG.main.manualSkinEditor ? MinecraftClient.getInstance().player.getName().getString().equals("SJKZ1") ? new Identifier(Minetils.MOD_ID + ":textures/entity/skin/glow.png") : MinecraftClient.getInstance().player.getSkinTexture() : ColorMatching.identifier;
     }
 
 
@@ -39,7 +39,7 @@ public class GlowingLayer<T extends AbstractClientPlayerEntity, M extends Player
         for (String id : Minetils.SPECIAL_MEMBER) {
             {
                 RenderLayer GLOWING_LAYER = RenderLayer.getEyes(GlowingLayer.getPath() != null ? GlowingLayer.getPath() : entity.getSkinTexture());
-                if (!entity.isInvisible() && entity.getName().getString().equals(id) && Minetils.CONFIG.getConfig().glowingSkin && entity.getUuid().equals(MinecraftClient.getInstance().player.getUuid())) {
+                if (!entity.isInvisible() && entity.getName().getString().equals(id) && Minetils.CONFIG.main.glowingSkin && entity.getUuid().equals(MinecraftClient.getInstance().player.getUuid())) {
                     VertexConsumer inveterate = vertexConsumers.getBuffer(GLOWING_LAYER);
                     this.getContextModel().render(matrixStack, inveterate, light, OverlayTexture.DEFAULT_UV, makeFade(time), makeFade(time), makeFade(time), 1.0F);
                 }

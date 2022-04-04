@@ -2,7 +2,6 @@ package com.sjkz1.minetils.mixin;
 
 import com.mojang.authlib.GameProfile;
 import com.sjkz1.minetils.Minetils;
-import com.sjkz1.minetils.utils.IdentifierUtils;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.entity.player.PlayerEntity;
@@ -24,10 +23,10 @@ public abstract class AbstractPlayerMixin extends PlayerEntity {
     @Redirect(method = "getCapeTexture", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/PlayerListEntry;getCapeTexture()Lnet/minecraft/util/Identifier;"))
     public Identifier getCapeTexture(PlayerListEntry playerListEntry) {
         Identifier identifier = null;
-        if (Minetils.CONFIG.getConfig().SpecialCape) {
+        if (Minetils.CONFIG.main.SpecialCape) {
             for (String name : Minetils.SPECIAL_MEMBER) {
                 if (this.getName().getString().contains(name)) {
-                    identifier = IdentifierUtils.getSpeCapeTexture();
+                    identifier = new Identifier(Minetils.MOD_ID + ":textures/entity/cape_" + Minetils.CONFIG.main.IdentifierOrdinal + ".png");
                 } else {
                     identifier = playerListEntry.getCapeTexture();
                 }

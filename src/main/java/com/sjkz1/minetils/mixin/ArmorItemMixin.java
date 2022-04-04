@@ -28,7 +28,7 @@ public class ArmorItemMixin extends Item
         ItemStack itemStack = playerEntity.getStackInHand(hand);
         EquipmentSlot equipmentSlot = LivingEntity.getPreferredEquipmentSlot(itemStack);
         ItemStack itemStack2 = playerEntity.getEquippedStack(equipmentSlot);
-        if ((itemStack2.isEmpty() || (itemStack2.getItem() instanceof ArmorItem || itemStack2.getItem() instanceof ElytraItem) && Minetils.CONFIG.getConfig().switchingArmorElytra)) {
+        if ((itemStack2.isEmpty() || (itemStack2.getItem() instanceof ArmorItem || itemStack2.getItem() instanceof ElytraItem) && Minetils.CONFIG.main.switchingArmorElytra)) {
             playerEntity.equipStack(equipmentSlot, itemStack.copy());
             playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
             playerEntity.setStackInHand(hand, itemStack2);

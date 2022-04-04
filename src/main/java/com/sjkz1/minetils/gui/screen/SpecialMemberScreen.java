@@ -2,9 +2,11 @@ package com.sjkz1.minetils.gui.screen;
 
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.sjkz1.minetils.Minetils;
+import com.sjkz1.minetils.config.MinetilsConfig;
 import com.sjkz1.minetils.gui.widget.ColorSliderWidget;
 import com.sjkz1.minetils.render.Player;
 import com.sjkz1.minetils.utils.ColorMatching;
@@ -21,13 +23,16 @@ import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemStack.TooltipSection;
 import net.minecraft.item.Items;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Quaternion;
 import net.minecraft.util.math.Vec3f;
@@ -42,6 +47,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class SpecialMemberScreen extends Screen {
@@ -57,7 +63,6 @@ public class SpecialMemberScreen extends Screen {
     protected int x;
 
     private final List<String> list = Lists.newCopyOnWriteArrayList();
-    private final HashMap<String, Item> memberList = new HashMap<>();
     protected final int backgroundWidth = 256;
     protected final int backgroundHeight = 166;
     private boolean err = false;
@@ -81,23 +86,16 @@ public class SpecialMemberScreen extends Screen {
 
     @Override
     protected void init() {
-        memberList.put("SJKZ1", Items.IRON_PICKAXE);
-        memberList.put("ToastKung", Items.IRON_PICKAXE);
         super.init();
-        this.addDrawableChild(new ColorSliderWidget((this.width / 2) - 120, 130, 98, 20, Text.of("Delete Rate: " + Minetils.CONFIG.getConfig().palletsRate), Minetils.CONFIG.getConfig().palletsRate) {
+        this.addDrawableChild(new ColorSliderWidget((this.width / 2) - 120, 130, 98, 20, Text.of("Delete Rate: " + Minetils.CONFIG.main.palletsRate), Minetils.CONFIG.main.palletsRate) {
             @Override
             protected void updateMessage() {
-                setMessage(Text.of("Delete Rate: " + Minetils.CONFIG.getConfig().palletsRate));
+                setMessage(Text.of("Delete Rate: " + Minetils.CONFIG.main.palletsRate));
             }
 
             @Override
             protected void applyValue() {
-                Minetils.CONFIG.getConfig().palletsRate = MathHelper.floor(MathHelper.clampedLerp(100.0D, 150.0D, this.value));
-                try {
-                    Minetils.CONFIG.saveConfig();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                Minetils.CONFIG.main.palletsRate = MathHelper.floor(MathHelper.clampedLerp(100.0D, 150.0D, this.value));
             }
 
             @Override
@@ -177,6 +175,10 @@ public class SpecialMemberScreen extends Screen {
         if (playerXRot <= -179.85) {
             playerXRot = 180;
         }
+        Map<String, ItemStack> MEMBER_LIST = Util.make(Maps.newHashMap(), hashMap -> {
+            hashMap.put("SJKZ1", Items.IRON_PICKAXE.getDefaultStack());
+            hashMap.put("ToastKung", Items.IRON_PICKAXE.getDefaultStack());
+        });
         Color color = Color.getHSBColor(ticks, 0.9f, 1);
         renderBackgroundGG(mat);
         var height = 0;
@@ -195,9 +197,9 @@ public class SpecialMemberScreen extends Screen {
                         ItemRenderer itemRenderer = client.getItemRenderer();
                         itemRenderer.zOffset = 100.0F;
                         ItemStack itemStack = ItemStack.EMPTY;
-                        for (String i : memberList.keySet()) {
-                            if (listName.equals(i) && (memberList.get(i).equals(memberList.get(i).asItem()))) {
-                                itemStack = memberList.get(i).getDefaultStack();
+                        for (String i : MEMBER_LIST.keySet()) {
+                            if (listName.equals(i) && (MEMBER_LIST.get(i).equals(MEMBER_LIST.get(i).getItem()))) {
+                                itemStack = MEMBER_LIST.get(i);
                                 itemStack.addEnchantment(Enchantments.MENDING, 1);
                                 itemStack.addHideFlag(TooltipSection.ENCHANTMENTS);
                             }
@@ -306,12 +308,6 @@ public class SpecialMemberScreen extends Screen {
 
     @Override
     public void close() {
-        try {
-            Minetils.CONFIG.saveConfig();
-            SJKZ1Helper.runAsync(ColorMatching::createGlowingSkinImage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         super.close();
     }
 }

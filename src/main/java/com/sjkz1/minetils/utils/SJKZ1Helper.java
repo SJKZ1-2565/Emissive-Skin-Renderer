@@ -1,6 +1,7 @@
 package com.sjkz1.minetils.utils;
 
 import com.sjkz1.minetils.Minetils;
+import com.sjkz1.minetils.config.MinetilsConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -30,8 +31,8 @@ public class SJKZ1Helper {
         String heart = health + " HP";
         double d = mc.getEntityRenderDispatcher().getSquaredDistanceToCamera(entity);
         if (!(d > 4096.0D)) {
-            if (Minetils.CONFIG.getConfig().showHealthStatus && !mc.options.hudHidden && !entity.isInvisible() && !(entity instanceof ArmorStandEntity)) {
-                float f = Minetils.CONFIG.getConfig().yPositionHealthStatus + 0.5F;
+            if (Minetils.CONFIG.main.showTamedHorse && !mc.options.hudHidden && !entity.isInvisible() && !(entity instanceof ArmorStandEntity)) {
+                float f = Minetils.CONFIG.main.yPositionHealthStatus + 0.5F;
                 matrixStack.push();
                 matrixStack.translate(0.0D, f, 0.0D);
                 matrixStack.multiply(mc.getEntityRenderDispatcher().camera.getRotation());
@@ -39,7 +40,7 @@ public class SJKZ1Helper {
                 Matrix4f matrix4f = matrixStack.peek().getPositionMatrix();
                 TextRenderer textRenderer = mc.textRenderer;
                 float l = -textRenderer.getWidth(heart) / 2;
-                textRenderer.draw(heart, l, -15, Minetils.CONFIG.getConfig().healthStatusRainbowColor ? color.getRGB() : Minetils.CONFIG.getConfig().healthStatusColor, true, matrix4f, vertexConsumerProvider, false, 0, i);
+                textRenderer.draw(heart, l, -15, Minetils.CONFIG.main.healthStatusRainbowColor ? color.getRGB() : Minetils.CONFIG.main.healthStatusColor, true, matrix4f, vertexConsumerProvider, false, 0, i);
                 matrixStack.pop();
             }
         }
@@ -52,8 +53,8 @@ public class SJKZ1Helper {
         String tamedHorseText = tamed ? Formatting.GREEN + "Tamed" : Formatting.RED + "Untamed";
         double d = mc.getEntityRenderDispatcher().getSquaredDistanceToCamera(entity);
         if (!(d > 4096.0D)) {
-            if (Minetils.CONFIG.getConfig().showTamedHorse && !mc.options.hudHidden && !entity.isInvisible()) {
-                float f = Minetils.CONFIG.getConfig().yPositionHorseDisplay + 0.5F;
+            if (Minetils.CONFIG.main.showTamedHorse && !mc.options.hudHidden && !entity.isInvisible()) {
+                float f = Minetils.CONFIG.main.yPositionHorseDisplay + 0.5F;
                 matrixStack.push();
                 matrixStack.translate(0.0D, f, 0.0D);
                 matrixStack.multiply(mc.getEntityRenderDispatcher().camera.getRotation());
@@ -61,7 +62,7 @@ public class SJKZ1Helper {
                 Matrix4f matrix4f = matrixStack.peek().getPositionMatrix();
                 TextRenderer textRenderer = mc.textRenderer;
                 float l = -textRenderer.getWidth(tamedHorseText) / 2;
-                textRenderer.draw(tamedHorseText, l, -15, Minetils.CONFIG.getConfig().healthStatusRainbowColor ? color.getRGB() : Minetils.CONFIG.getConfig().healthStatusColor, true, matrix4f, vertexConsumerProvider, false, 0, i);
+                textRenderer.draw(tamedHorseText, l, -15, Minetils.CONFIG.main.healthStatusRainbowColor ? color.getRGB() : Minetils.CONFIG.main.healthStatusColor, true, matrix4f, vertexConsumerProvider, false, 0, i);
                 matrixStack.pop();
             }
         }

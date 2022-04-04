@@ -41,7 +41,7 @@ public abstract class InventoryScreenMixin extends AbstractInventoryScreen<Playe
         itemRenderer.zOffset = 0.0f;
         this.newX = this.getRecipeBookWidget().findLeftEdge(this.width, this.backgroundWidth);
         this.addDrawableChild(new ButtonWidget(newX + 140, (this.height / 2) - 24, 20, 20, Text.of(""), (buttonWidget) -> {
-            if (!Minetils.CONFIG.getConfig().manualSkinEditor) {
+            if (!Minetils.CONFIG.main.manualSkinEditor) {
                 client.setScreen(new SpecialMemberScreen(Text.of("")));
             } else {
                 client.inGameHud.getChatHud().addMessage(Text.of(Formatting.RED + "You must have to disable manual skin editor!"));

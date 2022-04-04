@@ -19,14 +19,14 @@ public abstract class ClientInit {
             SJKZ1Helper.runAsync(() ->
                     new DiscordMemberThread().start());
         }
-        if (KeyBindInit.danceKey.wasPressed()) {
+        if (Minetils.danceKey.wasPressed()) {
             dance = !dance;
             client.getSoundManager().stopSounds(SoundEvents.MUSIC_DISC_PIGSTEP.getId(), SoundCategory.PLAYERS);
             if (dance) {
                 client.player.playSound(SoundEvents.MUSIC_DISC_PIGSTEP, SoundCategory.PLAYERS, 1, 1);
             }
         }
-        if (KeyBindInit.showPost.wasPressed()) {
+        if (Minetils.showPost.wasPressed()) {
             var i = client.player.getX();
             var j = client.player.getY();
             var k = client.player.getZ();
@@ -46,7 +46,7 @@ public abstract class ClientInit {
     }
 
     public static void login(ClientPlayNetworkHandler clientPlayNetworkHandler, PacketSender packetSender, MinecraftClient minecraftClient) {
-        if (minecraftClient.world != null && !Minetils.CONFIG.getConfig().manualSkinEditor) {
+        if (minecraftClient.world != null && !Minetils.CONFIG.main.manualSkinEditor) {
             SJKZ1Helper.runAsync(ColorMatching::createGlowingSkinImage);
         }
         minecraftClient.inGameHud.getChatHud().addMessage(Text.of(Formatting.RED + "บางฟีเจอร์ไม่รองรับไอดีเถื่อน! ไปซื้อซะ https://www.minecraft.net/en-us"));

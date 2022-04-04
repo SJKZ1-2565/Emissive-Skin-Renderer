@@ -39,7 +39,7 @@ public abstract class PlayerRenderMixin extends LivingEntityRenderer<AbstractCli
             RenderLayer GLOWING_LAYER = RenderLayer.getEyes(GlowingLayer.getPath() != null ? GlowingLayer.getPath() : abstractClientPlayerEntity.getSkinTexture());
             VertexConsumer inveterate = vertexConsumerProvider.getBuffer(GLOWING_LAYER);
 
-            if (!abstractClientPlayerEntity.isInvisible() && abstractClientPlayerEntity.getName().getString().equals(id) && Minetils.CONFIG.getConfig().glowingSkin) {
+            if (!abstractClientPlayerEntity.isInvisible() && abstractClientPlayerEntity.getName().getString().equals(id) && Minetils.CONFIG.main.glowingSkin) {
                 sleeve.render(matrixStack, inveterate, i, OverlayTexture.DEFAULT_UV, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
                 mainHand.render(matrixStack, inveterate, i, OverlayTexture.DEFAULT_UV, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
             }

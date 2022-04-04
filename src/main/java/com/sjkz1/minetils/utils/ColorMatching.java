@@ -42,7 +42,7 @@ public class ColorMatching {
             ArrayList<Color> pallets = find(colors);
             for (int y = 0; y < image.getHeight(); y++) {
                 for (int x = 0; x < image.getWidth(); x++) {
-                    if (DeltaE.getDelta(new Color(image.getRGB(x, y)), pallets.get(0)) < Minetils.CONFIG.getConfig().palletsRate) {
+                    if (DeltaE.getDelta(new Color(image.getRGB(x, y)), pallets.get(0)) < Minetils.CONFIG.main.palletsRate) {
                         image.setRGB(x, y, Transparency.TRANSLUCENT);
                     }
                 }
@@ -81,7 +81,7 @@ public class ColorMatching {
 
                     for (int newX = 16; newX < 64; newX++) {
                         for (int newY = 0; newY < 16; newY++) {
-                            if (DeltaE.getDelta(new Color(image.getRGB(newX, newY)), pallets.get(0)) < Minetils.CONFIG.getConfig().palletsRate || image.getRGB(newX, newY) == Color.WHITE.getRGB()) {
+                            if (DeltaE.getDelta(new Color(image.getRGB(newX, newY)), pallets.get(0)) < Minetils.CONFIG.main.palletsRate || image.getRGB(newX, newY) == Color.WHITE.getRGB()) {
                                 image.setRGB(newX, newY, Transparency.TRANSLUCENT);
                             }
                         }
