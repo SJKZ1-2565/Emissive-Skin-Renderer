@@ -39,9 +39,9 @@ public abstract class ClientInit {
             }
         }
         if (Minetils.showPost.wasPressed()) {
-            var i = client.player.getX();
-            var j = client.player.getY();
-            var k = client.player.getZ();
+            var i =(int) client.player.getX();
+            var j =(int) client.player.getY();
+            var k =(int) client.player.getZ();
             String pos = "X:" + i + " Y:" + j + " Z:" + k;
             String NetherPos = "Nether position X:" + i / 8 + " Y:" + j + " Z:" + k / 8;
             String OverWorldPose = "OverWorld position X:" + i * 8 + " Y:" + j + " Z:" + k * 8;
