@@ -16,6 +16,7 @@ import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -30,6 +31,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -40,8 +43,9 @@ public class Minetils implements ModInitializer {
     public static MinetilsConfig CONFIG;
     public static final List<String> SPECIAL_MEMBER = Lists.newCopyOnWriteArrayList();
 
-    public static KeyBinding danceKey;
     public static KeyBinding showPost;
+    public static KeyBinding danceKey;
+
 
     static {
         try {
@@ -60,16 +64,20 @@ public class Minetils implements ModInitializer {
         AutoConfig.register(MinetilsConfig.class, GsonConfigSerializer::new);
         CONFIG = AutoConfig.getConfigHolder(MinetilsConfig.class).getConfig();
 
-        danceKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.sjkz1misc.start_dance", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_R, Minetils.MOD_ID));
-        showPost = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.sjkz1misc.showPost", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_G, Minetils.MOD_ID));
+        danceKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.minetils.start_dance", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_R, Minetils.MOD_ID));
+        showPost = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.minetils.showPost", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_G, Minetils.MOD_ID));
         ClientTickEvents.END_CLIENT_TICK.register(ClientInit::tick);
         ClientPlayConnectionEvents.JOIN.register(ClientInit::login);
 
         //Command
-        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> dispatcher.register(CommandManager.literal("folder").executes(context -> {
-            Util.getOperatingSystem().open(MinecraftClient.getInstance().getLevelStorage().getSavesDirectory().toFile());
-            MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.of(Formatting.BOLD.toString() + Formatting.YELLOW + "Open " + MinecraftClient.getInstance().getLevelStorage().getSavesDirectory().toFile()));
-            return 1;
+        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> dispatcher.register(CommandManager.literal("server-folder").executes(context -> {
+            if(!dedicated) {
+                String path = MinecraftClient.getInstance().getLevelStorage().getSavesDirectory().toFile() + "\\" + MinecraftClient.getInstance().getServer().getSaveProperties().getLevelName();
+                Path paths = Path.of(path);
+                Util.getOperatingSystem().open(paths.toFile());
+                return 1;
+            }
+            return 0;
         })));
 
         CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> dispatcher.register(CommandManager.literal("covid-th").executes(context -> {

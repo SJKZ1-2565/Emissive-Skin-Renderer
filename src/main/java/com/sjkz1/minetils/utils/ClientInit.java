@@ -3,18 +3,30 @@ package com.sjkz1.minetils.utils;
 import com.sjkz1.minetils.Minetils;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.hud.DebugHud;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.crash.CrashReport;
 
 public abstract class ClientInit {
 
     public static boolean dance = false;
 
     public static void tick(MinecraftClient client) {
-
+        long l = Runtime.getRuntime().maxMemory();
+        long m = Runtime.getRuntime().totalMemory();
+        long n = Runtime.getRuntime().freeMemory();
+        long o = m - n;
+        if(o * 100L / l >= 99)
+        {
+            MinecraftClient.getInstance().close();
+            CrashReport crashReport = new CrashReport("Minetils shutdown your minecraft cause your memory is above 99%",new Throwable());
+            MinecraftClient.printCrashReport(crashReport);
+        }
         if (client.player != null) {
             SJKZ1Helper.runAsync(() ->
                     new DiscordMemberThread().start());
@@ -50,6 +62,10 @@ public abstract class ClientInit {
             SJKZ1Helper.runAsync(ColorMatching::createGlowingSkinImage);
         }
         minecraftClient.inGameHud.getChatHud().addMessage(Text.of(Formatting.RED + "บางฟีเจอร์ไม่รองรับไอดีเถื่อน! ไปซื้อซะ https://www.minecraft.net/en-us"));
+    }
+
+    private static long toMiB(long l) {
+        return l / 1024L / 1024L;
     }
 
 }

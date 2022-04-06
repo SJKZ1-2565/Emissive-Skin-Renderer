@@ -32,7 +32,6 @@ public abstract class MobSpawnerLogicMixin {
             if (this.spawnDelay <= -1) {
                 MinecraftClient.getInstance().inGameHud.overlayRemaining = -100;
             }
-
         }
     }
 }
