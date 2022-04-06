@@ -1,6 +1,6 @@
 {
-  "key.sjkz1misc.start_dance": "Start dancing",
-  "key.sjkz1misc.showPost": "Send current position in chat",
+  "key.minetils.start_dance": "Start dancing",
+  "key.minetils.showPost": "Send current position in chat",
   "text.autoconfig.minetils.title": "Minetils Config...",
   "text.autoconfig.minetils.option.main.showHealthStatus": "Display health status",
   "text.autoconfig.minetils.option.main.glowingSkin": "Glowing skin",
