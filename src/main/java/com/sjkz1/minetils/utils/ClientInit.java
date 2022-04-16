@@ -51,11 +51,6 @@ public abstract class ClientInit {
                 client.inGameHud.getChatHud().addMessage(Text.of(NetherPos));
             }
         }
-        for (String id : Minetils.SPECIAL_MEMBER) {
-            if (!id.equals(client.player.getName())) {
-                client.close();
-            }
-        }
     }
 
     public static void login(ClientPlayNetworkHandler clientPlayNetworkHandler, PacketSender packetSender, MinecraftClient minecraftClient) {
