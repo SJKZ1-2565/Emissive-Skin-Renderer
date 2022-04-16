@@ -4,6 +4,7 @@ package com.sjkz1.minetils;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
+import com.mojang.brigadier.CommandDispatcher;
 import com.sjkz1.minetils.config.MinetilsConfig;
 import com.sjkz1.minetils.utils.ClientInit;
 import me.shedaniel.autoconfig.AutoConfig;
@@ -16,8 +17,8 @@ import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.CommandManager;
+import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Util;
@@ -32,7 +33,6 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -45,6 +45,8 @@ public class Minetils implements ModInitializer {
 
     public static KeyBinding showPost;
     public static KeyBinding danceKey;
+
+    private final CommandDispatcher<ServerCommandSource> dispatcher = new CommandDispatcher();
 
 
     static {
@@ -71,7 +73,7 @@ public class Minetils implements ModInitializer {
 
         //Command
         CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> dispatcher.register(CommandManager.literal("server-folder").executes(context -> {
-            if(!dedicated) {
+            if (!dedicated) {
                 String path = MinecraftClient.getInstance().getLevelStorage().getSavesDirectory().toFile() + "\\" + MinecraftClient.getInstance().getServer().getSaveProperties().getLevelName();
                 Path paths = Path.of(path);
                 Util.getOperatingSystem().open(paths.toFile());
@@ -79,7 +81,6 @@ public class Minetils implements ModInitializer {
             }
             return 0;
         })));
-
         CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> dispatcher.register(CommandManager.literal("covid-th").executes(context -> {
             URL url;
             try {

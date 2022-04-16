@@ -9,11 +9,9 @@ import com.sjkz1.minetils.Minetils;
 import com.sjkz1.minetils.gui.widget.ColorSliderWidget;
 import com.sjkz1.minetils.render.Player;
 import com.sjkz1.minetils.utils.ColorMatching;
-import com.sjkz1.minetils.utils.SJKZ1Helper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.ScreenTexts;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.render.DiffuseLighting;
 import net.minecraft.client.render.GameRenderer;
@@ -52,7 +50,6 @@ public class SpecialMemberScreen extends Screen {
     private float ticks = 0;
     public static int ONLINE_USER;
 
-
     protected int x;
 
     private final List<String> list = Lists.newCopyOnWriteArrayList();
@@ -80,7 +77,7 @@ public class SpecialMemberScreen extends Screen {
     @Override
     protected void init() {
         super.init();
-        this.addDrawableChild(new ColorSliderWidget((this.width / 2) - 120, 130, 98, 20, Text.of("Delete Rate: " + Minetils.CONFIG.main.palletsRate), Minetils.CONFIG.main.palletsRate) {
+        this.addDrawableChild(new ColorSliderWidget((this.width / 2) - 120, 130, 98, 20, Text.of("Delete Rates: " + Minetils.CONFIG.main.palletsRate), Minetils.CONFIG.main.palletsRate) {
             @Override
             protected void updateMessage() {
                 setMessage(Text.of("Delete Rate: " + Minetils.CONFIG.main.palletsRate));
@@ -96,7 +93,7 @@ public class SpecialMemberScreen extends Screen {
                 super.renderButton(matrixStack, i, j, f);
             }
         });
-        this.addDrawableChild(new ButtonWidget((this.width / 2) + 20, 130, 98, 20, ScreenTexts.DONE, buttonWidget -> SJKZ1Helper.runAsync(ColorMatching::createGlowingSkinImage)));
+        this.addDrawableChild(new ButtonWidget((this.width / 2) + 20, 130, 98, 20, Text.of("Create Skin"), buttonWidget -> ColorMatching.createGlowingSkinImage()));
 
         buttonSkin1 = this.addDrawableChild(new ButtonWidget((this.width / 2) - 211, 20, 80, 20, Text.of("Coming soon..."), (buttonWidget) -> {
             buttonWidget.active = false;
@@ -196,10 +193,7 @@ public class SpecialMemberScreen extends Screen {
                                 itemStack.addEnchantment(Enchantments.MENDING, 1);
                                 itemStack.addHideFlag(TooltipSection.ENCHANTMENTS);
                             }
-
                         }
-                        itemStack.addEnchantment(Enchantments.AQUA_AFFINITY, 1);
-                        itemStack.addHideFlag(TooltipSection.ENCHANTMENTS);
                         itemRenderer.renderInGui(itemStack, (this.width / 2) - 60, 135 + height);
                         itemRenderer.zOffset = 0.0F;
                     }

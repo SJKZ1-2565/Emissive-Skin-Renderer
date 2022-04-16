@@ -22,7 +22,7 @@ public class SignBlockMixin {
 
     @Inject(method = "onUse", at = @At("HEAD"))
     public void use(BlockState blockState, World world, BlockPos blockPos, PlayerEntity playerEntity, Hand hand, BlockHitResult blockHitResult, CallbackInfoReturnable<ActionResult> cir) {
-        if (playerEntity.isSneaking() && playerEntity.getStackInHand(hand).isEmpty()) {
+        if (!playerEntity.isSneaking() && playerEntity.getMainHandStack().isEmpty()) {
             playerEntity.openEditSignScreen((SignBlockEntity) world.getBlockEntity(blockPos));
         }
     }

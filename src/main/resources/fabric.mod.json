@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "minetils",
-  "version": "2.0.0",
+  "version": "${version}",
   "name": "minetils",
   "description": "",
   "authors": [

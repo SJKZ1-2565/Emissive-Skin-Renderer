@@ -1,7 +1,6 @@
 package com.sjkz1.minetils.utils;
 
 import com.sjkz1.minetils.Minetils;
-import com.sjkz1.minetils.config.MinetilsConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.VertexConsumerProvider;
