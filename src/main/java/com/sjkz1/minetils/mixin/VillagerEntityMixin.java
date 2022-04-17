@@ -2,6 +2,7 @@ package com.sjkz1.minetils.mixin;
 
 import com.sjkz1.minetils.Minetils;
 import com.sjkz1.minetils.utils.SJKZ1Helper;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.InteractionObserver;
 import net.minecraft.entity.ai.TargetPredicate;
@@ -11,8 +12,9 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.particle.ParticleTypes;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.village.VillagerDataContainer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -53,13 +55,8 @@ public abstract class VillagerEntityMixin extends MerchantEntity
                     Brain<VillagerEntity> brain = this.getBrain();
                     brain.getOptionalMemory(MemoryModuleType.JOB_SITE).ifPresent(globalPos -> {
                         if (globalPos != null) {
-                            if(Minetils.showPost.wasPressed())
-                            {
-                                SJKZ1Helper.sendChat("This Villager Job Block Position");
-                            }
-                            for (int i = 0; i < random.nextInt(1) + 1; ++i) {
-                                world.addParticle(ParticleTypes.LAVA, (double) globalPos.getPos().getX() + 0.5, (double) globalPos.getPos().getY() + 0.5, (double) globalPos.getPos().getZ() + 0.5, random.nextFloat() / 2.0f, 5.0E-5, random.nextFloat() / 2.0f);
-                            }
+                            BlockState blockState = this.world.getBlockState(globalPos.getPos());
+                            SJKZ1Helper.sendHotBarText(Formatting.GREEN + "This Villager Job Block Position " + globalPos.getPos() + " {" + Registry.BLOCK.getId(blockState.getBlock()) + "}");
                         }
                     });
                 }

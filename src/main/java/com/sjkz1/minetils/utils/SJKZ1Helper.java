@@ -92,5 +92,9 @@ public class SJKZ1Helper {
     public static void sendChat(String string) {
         MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.of(string));
     }
+
+    public static void sendHotBarText(String string) {
+        MinecraftClient.getInstance().inGameHud.setOverlayMessage(Text.of(string),false);
+    }
 }
 
