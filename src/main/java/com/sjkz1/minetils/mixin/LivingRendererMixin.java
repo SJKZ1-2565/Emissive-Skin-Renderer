@@ -1,5 +1,6 @@
 package com.sjkz1.minetils.mixin;
 
+import com.sjkz1.minetils.Minetils;
 import com.sjkz1.minetils.utils.SJKZ1Helper;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -30,9 +31,11 @@ public abstract class LivingRendererMixin<T extends LivingEntity, M extends Enti
 
     @Inject(method = "render(Lnet/minecraft/entity/LivingEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V", at = @At("HEAD"))
     public void render(T livingEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo ci) {
-        SJKZ1Helper.renderLabel(livingEntity, matrixStack, vertexConsumerProvider, i);
-        if (livingEntity instanceof HorseBaseEntity abstractHorse) {
-            SJKZ1Helper.renderLabelTamed(abstractHorse, matrixStack, vertexConsumerProvider, i);
+        if (Minetils.CONFIG.main.showHealthStatus) {
+            SJKZ1Helper.renderLabel(livingEntity, matrixStack, vertexConsumerProvider, i);
+            if (livingEntity instanceof HorseBaseEntity abstractHorse) {
+                SJKZ1Helper.renderLabelTamed(abstractHorse, matrixStack, vertexConsumerProvider, i);
+            }
         }
     }
 }

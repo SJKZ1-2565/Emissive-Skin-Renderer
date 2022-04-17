@@ -28,7 +28,6 @@ public class MinetilsConfig implements ConfigData {
         public boolean switchingArmorElytra = true;
         public boolean healthStatusRainbowColor = false;
         public boolean showTamedHorse = false;
-        public boolean disableBlockParticle = false;
         public boolean enableEatingAnim = true;
         public boolean SpecialCape = false;
         public boolean disableHurtCamera = false;

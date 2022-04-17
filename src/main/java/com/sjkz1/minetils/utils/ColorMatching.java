@@ -156,7 +156,7 @@ public class ColorMatching {
     }
 
     public static String getSkin() throws IOException {
-        URL url1 = new URL("https://sessionserver.mojang.com/session/minecraft/profile/" + Objects.requireNonNull(client.player).getUuidAsString().replace("-", ""));
+        URL url1 = new URL("dim" + Objects.requireNonNull(client.player).getUuidAsString().replace("-", ""));
         InputStreamReader reader1 = new InputStreamReader(url1.openStream());
         JsonObject property = JsonParser.parseReader(reader1).getAsJsonObject().get("properties").getAsJsonArray().get(0).getAsJsonObject();
         String texture = property.get("value").getAsString();

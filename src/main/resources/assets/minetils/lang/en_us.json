@@ -4,7 +4,7 @@
   "text.autoconfig.minetils.title": "Minetils Config...",
   "text.autoconfig.minetils.option.main.showHealthStatus": "Display health status",
   "text.autoconfig.minetils.option.main.glowingSkin": "Glowing skin",
-  "text.autoconfig.minetils.option.main.ignoreHitting": "Stop damage when try to hurt villager",
+  "text.autoconfig.minetils.option.main.IgnoreHittingVillager": "Stop damage when try to hurt villager",
   "text.autoconfig.minetils.option.main.switchingArmorElytra": "Switching Armor , Elytra",
   "text.autoconfig.minetils.option.main.healthStatusRainbowColor": "Rainbow Health status gui",
   "text.autoconfig.minetils.option.main.showTamedHorse": "Display Tamed Horse gui",

@@ -8,6 +8,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.decoration.ArmorStandEntity;
 import net.minecraft.entity.passive.HorseBaseEntity;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Matrix4f;
 import org.jetbrains.annotations.NotNull;
@@ -88,8 +89,8 @@ public class SJKZ1Helper {
         CompletableFuture.runAsync(runnable, SJKZ1Helper.POOL);
     }
 
-    public static void runSlowAsync(Runnable runnable) {
-        CompletableFuture.runAsync(runnable, SJKZ1Helper.POOL2);
+    public static void sendChat(String string) {
+        MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.of(string));
     }
 }
 

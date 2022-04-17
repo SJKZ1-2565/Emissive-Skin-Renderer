@@ -2,6 +2,7 @@ package com.sjkz1.minetils.mixin;
 
 import com.sjkz1.minetils.Minetils;
 import com.sjkz1.minetils.gui.screen.SpecialMemberScreen;
+import com.sjkz1.minetils.utils.SJKZ1Helper;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -44,7 +45,7 @@ public abstract class InventoryScreenMixin extends AbstractInventoryScreen<Playe
             if (!Minetils.CONFIG.main.manualSkinEditor) {
                 client.setScreen(new SpecialMemberScreen(Text.of("")));
             } else {
-                client.inGameHud.getChatHud().addMessage(Text.of(Formatting.RED + "You must have to disable manual skin editor!"));
+                SJKZ1Helper.sendChat(Formatting.RED + "You must have disable manual skin editor!");
             }
         }));
     }

@@ -170,7 +170,7 @@ public class NameChecker {
 
         public static ThreadDownloadPlayerSkin getInstance() {
             if (ThreadDownloadPlayerSkin.instance == null) {
-                (ThreadDownloadPlayerSkin.instance = new ThreadDownloadPlayerSkin()).setName("Energetic Player Skin Downloader");
+                (ThreadDownloadPlayerSkin.instance = new ThreadDownloadPlayerSkin()).setName("Energetic PlayerForRender Skin Downloader");
                 ThreadDownloadPlayerSkin.instance.setPriority(3);
                 ThreadDownloadPlayerSkin.instance.start();
             }

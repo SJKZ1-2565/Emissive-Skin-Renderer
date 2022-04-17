@@ -6,6 +6,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import com.mojang.brigadier.CommandDispatcher;
 import com.sjkz1.minetils.config.MinetilsConfig;
+import com.sjkz1.minetils.mixin.VillagerEntityMixin;
 import com.sjkz1.minetils.utils.ClientInit;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;

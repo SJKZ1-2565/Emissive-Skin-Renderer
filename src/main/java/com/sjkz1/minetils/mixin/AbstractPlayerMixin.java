@@ -12,6 +12,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
+import java.util.Iterator;
+
 @Mixin(AbstractClientPlayerEntity.class)
 public abstract class AbstractPlayerMixin extends PlayerEntity {
 
@@ -24,13 +26,14 @@ public abstract class AbstractPlayerMixin extends PlayerEntity {
     public Identifier getCapeTexture(PlayerListEntry playerListEntry) {
         Identifier identifier = null;
         if (Minetils.CONFIG.main.SpecialCape) {
-            for (String name : Minetils.SPECIAL_MEMBER) {
+            Iterator memberListIterator = Minetils.SPECIAL_MEMBER.iterator();
+            if (memberListIterator.hasNext()) {
+                String name = (String)memberListIterator.next();
                 if (this.getName().getString().contains(name)) {
-                    identifier = new Identifier(Minetils.MOD_ID + ":textures/entity/cape_" + Minetils.CONFIG.main.IdentifierOrdinal + ".png");
+                    identifier = new Identifier("minetils:textures/entity/cape_" + Minetils.CONFIG.main.IdentifierOrdinal + ".png");
                 } else {
                     identifier = playerListEntry.getCapeTexture();
                 }
-                break;
             }
         } else {
             identifier = playerListEntry.getCapeTexture();

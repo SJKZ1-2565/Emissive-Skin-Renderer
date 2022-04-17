@@ -8,8 +8,8 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 
-public class Player extends AbstractClientPlayerEntity {
-    public Player(ClientWorld clientWorld, GameProfile gameProfile) {
+public class PlayerForRender extends AbstractClientPlayerEntity {
+    public PlayerForRender(ClientWorld clientWorld, GameProfile gameProfile) {
         super(clientWorld, gameProfile);
     }
 

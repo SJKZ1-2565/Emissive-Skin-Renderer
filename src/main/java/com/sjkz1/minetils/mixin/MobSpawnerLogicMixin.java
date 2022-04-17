@@ -1,5 +1,7 @@
 package com.sjkz1.minetils.mixin;
 
+import com.sjkz1.minetils.Minetils;
+import com.sjkz1.minetils.config.MinetilsConfig;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -27,7 +29,7 @@ public abstract class MobSpawnerLogicMixin {
 
     @Inject(method = "clientTick(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V", at = @At("TAIL"))
     public void clientTick(World world, BlockPos blockPos, CallbackInfo ci) {
-        if (isPlayerInRange(world, blockPos) && this.spawnDelay >= -1) {
+        if (isPlayerInRange(world, blockPos) && this.spawnDelay >= -1 && Minetils.CONFIG.main.enableMobSpawnerDelay) {
             MinecraftClient.getInstance().inGameHud.setOverlayMessage(Text.of(Formatting.DARK_RED + "Spawn Delay: " + StringHelper.formatTicks(this.spawnDelay) + "s"), false);
             if (this.spawnDelay <= -1) {
                 MinecraftClient.getInstance().inGameHud.overlayRemaining = -100;

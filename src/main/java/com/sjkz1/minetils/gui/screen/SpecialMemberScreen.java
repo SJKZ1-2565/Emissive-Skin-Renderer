@@ -7,7 +7,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.sjkz1.minetils.Minetils;
 import com.sjkz1.minetils.gui.widget.ColorSliderWidget;
-import com.sjkz1.minetils.render.Player;
+import com.sjkz1.minetils.render.PlayerForRender;
 import com.sjkz1.minetils.utils.ColorMatching;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
@@ -245,7 +245,7 @@ public class SpecialMemberScreen extends Screen {
         RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
         renderBackground(matrixStack);
         this.drawTexture(matrixStack, (this.width / 2) - 128, 15, 0, 0, this.backgroundWidth, this.backgroundHeight);
-        renderEntityInInventory((this.width / 2) - 95, 123, 55, playerXRot, 0, new Player(this.client.world, Objects.requireNonNull(this.client.player).getGameProfile()));
+        renderEntityInInventory((this.width / 2) - 95, 123, 55, playerXRot, 0, new PlayerForRender(this.client.world, Objects.requireNonNull(this.client.player).getGameProfile()));
     }
 
     //Taken from https://github.com/Intro-Dev/Osmium/blob/fabric/1.17.x/src/main/java/com/intro/client/render/screen/OsmiumCapeOptionsScreen.java

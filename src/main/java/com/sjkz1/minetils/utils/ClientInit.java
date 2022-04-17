@@ -6,8 +6,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.crash.CrashReport;
 
 public abstract class ClientInit {
@@ -43,12 +41,11 @@ public abstract class ClientInit {
             String NetherPos = "Nether position X:" + i / 8 + " Y:" + j + " Z:" + k / 8;
             String OverWorldPose = "OverWorld position X:" + i * 8 + " Y:" + j + " Z:" + k * 8;
 
-
-            client.inGameHud.getChatHud().addMessage(Text.of(pos));
+            SJKZ1Helper.sendChat(pos);
             if (client.player.world.getDimension().isPiglinSafe()) {
-                client.inGameHud.getChatHud().addMessage(Text.of(OverWorldPose));
+                SJKZ1Helper.sendChat(OverWorldPose);
             } else {
-                client.inGameHud.getChatHud().addMessage(Text.of(NetherPos));
+                SJKZ1Helper.sendChat(NetherPos);
             }
         }
     }
@@ -57,12 +54,6 @@ public abstract class ClientInit {
         if (minecraftClient.world != null && !Minetils.CONFIG.main.manualSkinEditor) {
             SJKZ1Helper.runAsync(ColorMatching::createGlowingSkinImage);
         }
-        minecraftClient.inGameHud.getChatHud().addMessage(Text.of(Formatting.RED + "บางฟีเจอร์ไม่รองรับไอดีเถื่อน! ไปซื้อซะ https://www.minecraft.net/en-us"));
     }
-
-    private static long toMiB(long l) {
-        return l / 1024L / 1024L;
-    }
-
 }
 

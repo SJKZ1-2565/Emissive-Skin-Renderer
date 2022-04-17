@@ -3,7 +3,6 @@ package com.sjkz1.minetils.utils;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
-import com.sjkz1.minetils.Minetils;
 import com.sjkz1.minetils.gui.screen.SpecialMemberScreen;
 
 import java.io.BufferedReader;
@@ -24,7 +23,6 @@ public class DiscordMemberThread extends Thread {
             SpecialMemberScreen.ONLINE_USER = JsonParser.parseReader(in).getAsJsonObject().get("presence_count").getAsInt();
         } catch (IOException | JsonIOException | JsonSyntaxException e) {
             e.printStackTrace();
-            Minetils.LOGGER.error("Couldn't getting member data from API!");
         }
     }
 }
