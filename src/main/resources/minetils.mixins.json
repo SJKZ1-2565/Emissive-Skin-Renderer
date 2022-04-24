@@ -6,7 +6,7 @@
   "mixins": [
     "ArmorItemMixin",
     "ElytraItemMixin",
-    "PlayerModelMixin",
+    "BipedModelMixin",
     "PlayerRenderMixin"
   ],
   "client": [

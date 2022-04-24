@@ -7,7 +7,7 @@ import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
 
 @Config(name = Minetils.MOD_ID)
-@Config.Gui.Background("minecraft:textures/block/redstone_ore_block.png")
+@Config.Gui.Background("minecraft:textures/block/mushroom_stem.png")
 public class MinetilsConfig implements ConfigData {
 
 
