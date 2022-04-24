@@ -4,9 +4,7 @@ package com.sjkz1.minetils;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
-import com.mojang.brigadier.CommandDispatcher;
 import com.sjkz1.minetils.config.MinetilsConfig;
-import com.sjkz1.minetils.mixin.VillagerEntityMixin;
 import com.sjkz1.minetils.utils.ClientInit;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
@@ -19,7 +17,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.server.command.CommandManager;
-import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Util;
@@ -45,10 +42,6 @@ public class Minetils implements ModInitializer {
     public static final List<String> SPECIAL_MEMBER = Lists.newCopyOnWriteArrayList();
 
     public static KeyBinding showPost;
-    public static KeyBinding danceKey;
-
-    private final CommandDispatcher<ServerCommandSource> dispatcher = new CommandDispatcher();
-
 
     static {
         try {
@@ -67,7 +60,6 @@ public class Minetils implements ModInitializer {
         AutoConfig.register(MinetilsConfig.class, GsonConfigSerializer::new);
         CONFIG = AutoConfig.getConfigHolder(MinetilsConfig.class).getConfig();
 
-        danceKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.minetils.start_dance", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_R, Minetils.MOD_ID));
         showPost = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.minetils.showPost", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_G, Minetils.MOD_ID));
         ClientTickEvents.END_CLIENT_TICK.register(ClientInit::tick);
         ClientPlayConnectionEvents.JOIN.register(ClientInit::login);

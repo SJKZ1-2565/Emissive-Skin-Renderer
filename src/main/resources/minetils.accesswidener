@@ -3,3 +3,6 @@ accessible method net/minecraft/client/font/TextRenderer draw (Lnet/minecraft/te
 accessible field net/minecraft/world/MobSpawnerLogic spawnDelay I
 accessible field net/minecraft/block/entity/MobSpawnerBlockEntity logic Lnet/minecraft/world/MobSpawnerLogic;
 accessible field net/minecraft/client/gui/hud/InGameHud overlayRemaining I
+accessible method net/minecraft/client/render/entity/FishingBobberEntityRenderer vertex (Lnet/minecraft/client/render/VertexConsumer;Lnet/minecraft/util/math/Matrix4f;Lnet/minecraft/util/math/Matrix3f;IFIII)V
+accessible method net/minecraft/client/render/entity/FishingBobberEntityRenderer renderFishingLine (FFFLnet/minecraft/client/render/VertexConsumer;Lnet/minecraft/client/util/math/MatrixStack$Entry;FF)V
+accessible method net/minecraft/client/render/entity/FishingBobberEntityRenderer percentage (II)F

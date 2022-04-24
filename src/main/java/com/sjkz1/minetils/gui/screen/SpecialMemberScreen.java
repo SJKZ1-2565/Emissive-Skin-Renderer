@@ -6,13 +6,13 @@ import com.google.common.collect.Maps;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.sjkz1.minetils.Minetils;
-import com.sjkz1.minetils.gui.widget.ColorSliderWidget;
 import com.sjkz1.minetils.render.PlayerForRender;
 import com.sjkz1.minetils.utils.ColorMatching;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.SliderWidget;
 import net.minecraft.client.render.DiffuseLighting;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -50,8 +50,6 @@ public class SpecialMemberScreen extends Screen {
     private float ticks = 0;
     public static int ONLINE_USER;
 
-    protected int x;
-
     private final List<String> list = Lists.newCopyOnWriteArrayList();
     protected final int backgroundWidth = 256;
     protected final int backgroundHeight = 166;
@@ -77,7 +75,7 @@ public class SpecialMemberScreen extends Screen {
     @Override
     protected void init() {
         super.init();
-        this.addDrawableChild(new ColorSliderWidget((this.width / 2) - 120, 130, 98, 20, Text.of("Delete Rates: " + Minetils.CONFIG.main.palletsRate), Minetils.CONFIG.main.palletsRate) {
+        this.addDrawableChild(new SliderWidget((this.width / 2) - 120, 130, 98, 20, Text.of("Delete Rates: " + Minetils.CONFIG.main.palletsRate), Minetils.CONFIG.main.palletsRate) {
             @Override
             protected void updateMessage() {
                 setMessage(Text.of("Delete Rate: " + Minetils.CONFIG.main.palletsRate));

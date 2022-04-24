@@ -9,6 +9,7 @@
     "LivingRendererMixin",
     "PlayerModelMixin",
     "PlayerRenderMixin",
+    "FishingBobberEntityMixin",
     "VillagerEntityMixin"
   ],
   "client": [

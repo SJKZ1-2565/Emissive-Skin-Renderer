@@ -8,7 +8,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.crash.CrashReport;
 
-public abstract class ClientInit {
+public class ClientInit {
 
     public static boolean dance = false;
 
@@ -18,20 +18,13 @@ public abstract class ClientInit {
         long n = Runtime.getRuntime().freeMemory();
         long o = m - n;
         if (o * 100L / l >= 99) {
-            MinecraftClient.getInstance().close();
             CrashReport crashReport = new CrashReport("Minetils shutdown your minecraft cause your memory is above 99%", new Throwable());
             MinecraftClient.printCrashReport(crashReport);
+            MinecraftClient.getInstance().close();
         }
         if (client.player != null) {
             SJKZ1Helper.runAsync(() ->
                     new DiscordMemberThread().start());
-        }
-        if (Minetils.danceKey.wasPressed()) {
-            dance = !dance;
-            client.getSoundManager().stopSounds(SoundEvents.MUSIC_DISC_PIGSTEP.getId(), SoundCategory.PLAYERS);
-            if (dance) {
-                client.player.playSound(SoundEvents.MUSIC_DISC_PIGSTEP, SoundCategory.PLAYERS, 1, 1);
-            }
         }
         if (Minetils.showPost.wasPressed()) {
             var i = (int) client.player.getX();
