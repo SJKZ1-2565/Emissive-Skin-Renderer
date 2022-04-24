@@ -1,6 +1,6 @@
 package boon4681.ColorUtils;
 
-import java.awt.Color;
+import java.awt.*;
 
 public class LabColor {
     private final Color RGB;

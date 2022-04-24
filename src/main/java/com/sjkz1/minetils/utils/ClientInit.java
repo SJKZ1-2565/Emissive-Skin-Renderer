@@ -4,8 +4,6 @@ import com.sjkz1.minetils.Minetils;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.crash.CrashReport;
 
 public class ClientInit {

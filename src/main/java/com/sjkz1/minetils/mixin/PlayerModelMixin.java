@@ -1,7 +1,6 @@
 package com.sjkz1.minetils.mixin;
 
 import com.sjkz1.minetils.Minetils;
-import com.sjkz1.minetils.utils.ClientInit;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;

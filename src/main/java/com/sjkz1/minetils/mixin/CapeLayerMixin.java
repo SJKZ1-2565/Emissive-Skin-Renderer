@@ -2,7 +2,6 @@ package com.sjkz1.minetils.mixin;
 
 import com.sjkz1.minetils.Minetils;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.feature.CapeFeatureRenderer;
 import net.minecraft.util.Identifier;

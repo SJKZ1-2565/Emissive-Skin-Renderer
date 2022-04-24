@@ -6,19 +6,14 @@
   "mixins": [
     "ArmorItemMixin",
     "ElytraItemMixin",
-    "LivingRendererMixin",
     "PlayerModelMixin",
-    "PlayerRenderMixin",
-    "FishingBobberEntityMixin",
-    "VillagerEntityMixin"
+    "PlayerRenderMixin"
   ],
   "client": [
     "AbstractPlayerMixin",
     "CapeLayerMixin",
     "EntityRendererMixin",
-    "GameRendererMixin",
     "InventoryScreenMixin",
-    "MobSpawnerLogicMixin",
     "SignBlockMixin"
   ],
   "injectors": {
