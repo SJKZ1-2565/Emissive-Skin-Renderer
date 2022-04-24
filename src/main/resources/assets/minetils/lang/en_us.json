@@ -1,22 +1,11 @@
 {
-  "key.minetils.start_dance": "Start dancing",
   "key.minetils.showPost": "Send current position in chat",
   "text.autoconfig.minetils.title": "Minetils Config...",
-  "text.autoconfig.minetils.option.main.showHealthStatus": "Display health status",
   "text.autoconfig.minetils.option.main.glowingSkin": "Glowing skin",
-  "text.autoconfig.minetils.option.main.IgnoreHittingVillager": "Stop damage when try to hurt villager",
   "text.autoconfig.minetils.option.main.switchingArmorElytra": "Switching Armor , Elytra",
-  "text.autoconfig.minetils.option.main.healthStatusRainbowColor": "Rainbow Health status gui",
-  "text.autoconfig.minetils.option.main.showTamedHorse": "Display Tamed Horse gui",
-  "text.autoconfig.minetils.option.main.disableBlockParticle": "Disable Breaking/Destroy block particle",
   "text.autoconfig.minetils.option.main.enableEatingAnim": "Animate player hand when Drinking/Eating",
   "text.autoconfig.minetils.option.main.SpecialCape": "Use special cape",
-  "text.autoconfig.minetils.option.main.disableHurtCamera": "Disable hurting animation",
   "text.autoconfig.minetils.option.main.manualSkinEditor": "Manual skin (WIP,VIP)",
-  "text.autoconfig.minetils.option.main.enableMobSpawnerDelay": "Display Spawner spawning entity delay",
-  "text.autoconfig.minetils.option.main.healthStatusColor": "Health status color",
   "text.autoconfig.minetils.option.main.IdentifierOrdinal": "Cape type",
-  "text.autoconfig.minetils.option.main.yPositionHorseDisplay": "Tamed Horse gui height",
-  "text.autoconfig.minetils.option.main.yPositionHealthStatus": "Tamed Horse gui height",
   "text.autoconfig.minetils.option.main.palletsRate": "Deleting rate of Create Glowing skin"
 }
