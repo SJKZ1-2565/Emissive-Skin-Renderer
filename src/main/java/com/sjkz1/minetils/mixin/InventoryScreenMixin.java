@@ -18,14 +18,22 @@ import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.awt.*;
 
 @Environment(EnvType.CLIENT)
 @Mixin(InventoryScreen.class)
 public abstract class InventoryScreenMixin extends AbstractInventoryScreen<PlayerScreenHandler>
         implements RecipeBookProvider {
+
+    @Unique
+    private static String COLOR_KEY = "color";
+    @Unique
+    private static String DISPLAY_KEY = "display";
 
     public InventoryScreenMixin(PlayerScreenHandler screenHandler, PlayerInventory playerInventory, Text text) {
         super(screenHandler, playerInventory, text);
@@ -35,13 +43,8 @@ public abstract class InventoryScreenMixin extends AbstractInventoryScreen<Playe
 
     @Inject(method = "init()V", at = @At("TAIL"))
     public void init(CallbackInfo ci) {
-        ItemStack itemStack = new ItemStack(Items.LEATHER_CHESTPLATE);
-        ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
-        itemRenderer.zOffset = 100.0f;
-        itemRenderer.renderInGuiWithOverrides(itemStack, (this.width / 2) + 20, (this.height / 2) + 30);
-        itemRenderer.zOffset = 0.0f;
         this.newX = this.getRecipeBookWidget().findLeftEdge(this.width, this.backgroundWidth);
-        this.addDrawableChild(new ButtonWidget(newX + 140, (this.height / 2) - 24, 20, 20, Text.of(""), (buttonWidget) -> {
+        this.addDrawableChild(new ButtonWidget(newX + 140, (this.height / 2) - 24, 21, 21, Text.of(""), (buttonWidget) -> {
             if (!Minetils.CONFIG.main.manualSkinEditor) {
                 client.setScreen(new SpecialMemberScreen(Text.of("")));
             } else {
@@ -49,4 +52,17 @@ public abstract class InventoryScreenMixin extends AbstractInventoryScreen<Playe
             }
         }));
     }
+
+    @Inject(method = "render", at = @At("TAIL"))
+    public void render(CallbackInfo ci) {
+        this.newX = this.getRecipeBookWidget().findLeftEdge(this.width, this.backgroundWidth);
+        ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
+        ItemStack itemStack = Items.LEATHER_CHESTPLATE.getDefaultStack();
+        Color color = Color.getHSBColor(client.getTickDelta(), 0.9f, 1);
+        itemStack.getOrCreateSubNbt(DISPLAY_KEY).putInt(COLOR_KEY, color.getRGB());
+        itemRenderer.zOffset = 300;
+        itemRenderer.renderInGui(itemStack, newX + 142, (this.height / 2) - 22);
+        itemRenderer.zOffset = 0;
+    }
+
 }
