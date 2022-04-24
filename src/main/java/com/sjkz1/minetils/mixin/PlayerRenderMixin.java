@@ -49,6 +49,9 @@ public abstract class PlayerRenderMixin extends LivingEntityRenderer<AbstractCli
             } else if (!abstractClientPlayerEntity.isInvisible() && abstractClientPlayerEntity.getName().getString().equals("UnZygote") && Minetils.CONFIG.main.glowingSkin && Minetils.CONFIG.main.manualSkinEditor) {
                 sleeve.render(matrixStack, vertexConsumerProvider.getBuffer(RenderLayer.getEyes(new Identifier(Minetils.MOD_ID, "textures/entity/skin/unzygote.png"))), i, OverlayTexture.DEFAULT_UV, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
                 mainHand.render(matrixStack, vertexConsumerProvider.getBuffer(RenderLayer.getEyes(new Identifier(Minetils.MOD_ID, "textures/entity/skin/unzygote.png"))), i, OverlayTexture.DEFAULT_UV, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
+            } else if (!abstractClientPlayerEntity.isInvisible() && abstractClientPlayerEntity.getName().getString().equals("lastberries") && Minetils.CONFIG.main.glowingSkin && Minetils.CONFIG.main.manualSkinEditor) {
+                sleeve.render(matrixStack, vertexConsumerProvider.getBuffer(RenderLayer.getEyes(new Identifier(Minetils.MOD_ID, "textures/entity/skin/unzygote.png"))), i, OverlayTexture.DEFAULT_UV, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
+                mainHand.render(matrixStack, vertexConsumerProvider.getBuffer(RenderLayer.getEyes(new Identifier(Minetils.MOD_ID, "textures/entity/skin/lastberries.png"))), i, OverlayTexture.DEFAULT_UV, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
             }
         }
     }
