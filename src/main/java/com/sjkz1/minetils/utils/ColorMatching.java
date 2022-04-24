@@ -54,6 +54,7 @@ public class ColorMatching {
 
             ImageIO.write(image, "png", new File(GLOWSKIN_DIR, "glow_layer.png"));
             SJKZ1Helper.runAsync(ColorMatching::MoveToResourceLoc);
+            Minetils.LOGGER.info("Created Skin Already!");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -148,7 +149,7 @@ public class ColorMatching {
 
     public static BufferedImage resize(BufferedImage img, int newW, int newH) {
         Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
-        BufferedImage dim = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_RGB);
+        BufferedImage dim = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = dim.createGraphics();
         g2d.drawImage(tmp, 0, 0, null);
         g2d.dispose();
@@ -156,7 +157,7 @@ public class ColorMatching {
     }
 
     public static String getSkin() throws IOException {
-        URL url1 = new URL("dim" + Objects.requireNonNull(client.player).getUuidAsString().replace("-", ""));
+        URL url1 = new URL("https://sessionserver.mojang.com/session/minecraft/profile/" + client.player.getUuidAsString().replace("-", ""));
         InputStreamReader reader1 = new InputStreamReader(url1.openStream());
         JsonObject property = JsonParser.parseReader(reader1).getAsJsonObject().get("properties").getAsJsonArray().get(0).getAsJsonObject();
         String texture = property.get("value").getAsString();

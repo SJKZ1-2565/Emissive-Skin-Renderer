@@ -2,12 +2,12 @@ package com.sjkz1.minetils.gui.screen;
 
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.sjkz1.minetils.Minetils;
 import com.sjkz1.minetils.render.PlayerForRender;
 import com.sjkz1.minetils.utils.ColorMatching;
+import com.sjkz1.minetils.utils.SJKZ1Helper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.Screen;
@@ -17,16 +17,10 @@ import net.minecraft.client.render.DiffuseLighting;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
-import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemStack.TooltipSection;
-import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Util;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Quaternion;
 import net.minecraft.util.math.Vec3f;
@@ -38,7 +32,6 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 public class SpecialMemberScreen extends Screen {
@@ -163,10 +156,6 @@ public class SpecialMemberScreen extends Screen {
         if (playerXRot <= -179.85) {
             playerXRot = 180;
         }
-        Map<String, ItemStack> MEMBER_LIST = Util.make(Maps.newHashMap(), hashMap -> {
-            hashMap.put("SJKZ1", Items.IRON_PICKAXE.getDefaultStack());
-            hashMap.put("ToastKung", Items.IRON_PICKAXE.getDefaultStack());
-        });
         Color color = Color.getHSBColor(ticks, 0.9f, 1);
         renderBackgroundGG(mat);
         var height = 0;
@@ -176,24 +165,10 @@ public class SpecialMemberScreen extends Screen {
             } else {
                 for (String listName : Minetils.SPECIAL_MEMBER) {
                     if (string.equals(listName)) {
-                        DrawableHelper.drawStringWithShadow(mat, this.textRenderer, string, (this.width / 2) - 25, 140 + height, 0x4254f5);
+                        DrawableHelper.drawStringWithShadow(mat, this.textRenderer, string, (this.width / 2) - 25, 140 + height, color.getRGB());
                     }
                     if (string.contains("Discord Online member :")) {
                         DrawableHelper.drawStringWithShadow(mat, this.textRenderer, string, (this.width / 2) - 25, 35 + height, 0xFFFFFF);
-                    }
-                    if (string.contains(listName)) {
-                        ItemRenderer itemRenderer = client.getItemRenderer();
-                        itemRenderer.zOffset = 100.0F;
-                        ItemStack itemStack = ItemStack.EMPTY;
-                        for (String i : MEMBER_LIST.keySet()) {
-                            if (listName.equals(i) && (MEMBER_LIST.get(i).equals(MEMBER_LIST.get(i).getItem()))) {
-                                itemStack = MEMBER_LIST.get(i);
-                                itemStack.addEnchantment(Enchantments.MENDING, 1);
-                                itemStack.addHideFlag(TooltipSection.ENCHANTMENTS);
-                            }
-                        }
-                        itemRenderer.renderInGui(itemStack, (this.width / 2) - 60, 135 + height);
-                        itemRenderer.zOffset = 0.0F;
                     }
                 }
             }
@@ -202,34 +177,6 @@ public class SpecialMemberScreen extends Screen {
                 DrawableHelper.drawStringWithShadow(mat, this.textRenderer, string, (this.width / 2) - 60, 35 + height, 16733525);
             }
             height += 15;
-        }
-        try {
-            InputStream is = (new URL("https://raw.githubusercontent.com/SJKZ1-2565/modJSON-URL/master/glowing_skin_feature.txt")).openStream();
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
-            for (String id : rd.lines().toList()) {
-                if (id.equals("disable")) {
-                    enable = false;
-                }
-                if (id.equals("enable")) {
-                    enable = true;
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (!enable) {
-            buttonSkin1.active = false;
-            buttonSkin2.active = false;
-            buttonSkin3.active = false;
-            buttonSkin4.active = false;
-            buttonSkin5.active = false;
-            buttonSkin6.active = false;
-            buttonSkin7.active = false;
-            buttonSkin8.active = false;
-            buttonSkin9.active = false;
-            buttonSkin10.active = false;
-            buttonSkin11.active = false;
-            buttonSkin12.active = false;
         }
         super.render(mat, mouseX, mouseY, partialTicks);
     }
@@ -294,5 +241,37 @@ public class SpecialMemberScreen extends Screen {
     @Override
     public void close() {
         super.close();
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        SJKZ1Helper.runAsync(() -> {
+            try {
+                InputStream is = (new URL("https://raw.githubusercontent.com/SJKZ1-2565/modJSON-URL/master/glowing_skin_feature.txt")).openStream();
+                BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
+                for (String id : rd.lines().toList()) {
+                    if (id.equals("disable")) {
+                        enable = false;
+                    }
+                    if (id.equals("enable")) {
+                        enable = true;
+                    }
+                }
+            } catch (Exception e) {
+            }
+        });
+        buttonSkin1.active = enable;
+        buttonSkin2.active = enable;
+        buttonSkin3.active = enable;
+        buttonSkin4.active = enable;
+        buttonSkin5.active = enable;
+        buttonSkin6.active = enable;
+        buttonSkin7.active = enable;
+        buttonSkin8.active = enable;
+        buttonSkin9.active = enable;
+        buttonSkin10.active = enable;
+        buttonSkin11.active = enable;
+        buttonSkin12.active = enable;
     }
 }
