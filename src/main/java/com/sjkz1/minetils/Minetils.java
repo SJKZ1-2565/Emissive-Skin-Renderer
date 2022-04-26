@@ -13,13 +13,23 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ArmorItem;
+import net.minecraft.item.ElytraItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.network.packet.c2s.play.HandSwingC2SPacket;
 import net.minecraft.server.command.CommandManager;
+import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Util;
+import net.minecraft.util.*;
+import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
@@ -63,6 +73,7 @@ public class Minetils implements ModInitializer {
         showPost = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.minetils.showPost", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_G, Minetils.MOD_ID));
         ClientTickEvents.END_CLIENT_TICK.register(ClientInit::tick);
         ClientPlayConnectionEvents.JOIN.register(ClientInit::login);
+        UseItemCallback.EVENT.register(new Identifier(Minetils.MOD_ID, "switching_item"), this::doSwitchingItem);
 
         //Command
         CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> dispatcher.register(CommandManager.literal("server-folder").executes(context -> {
@@ -89,5 +100,39 @@ public class Minetils implements ModInitializer {
             }
             return 1;
         })));
+    }
+
+    private TypedActionResult<ItemStack> doSwitchingItem(PlayerEntity playerEntity, World world, Hand hand) {
+        ItemStack itemStack = playerEntity.getStackInHand(hand);
+        if (Minetils.CONFIG.main.switchingArmorElytra) {
+            if (itemStack.isItemEqual(Items.ELYTRA.getDefaultStack())) {
+                EquipmentSlot equipmentSlot = LivingEntity.getPreferredEquipmentSlot(itemStack);
+                ItemStack itemStack2 = playerEntity.getEquippedStack(equipmentSlot);
+                if (itemStack2.getItem() instanceof ArmorItem || itemStack2.getItem() instanceof ElytraItem || itemStack2.isEmpty()) {
+                    playerEntity.equipStack(equipmentSlot, itemStack.copy());
+                    if(!world.isClient()) {
+                        playerEntity.incrementStat(Stats.USED.getOrCreateStat(itemStack.getItem()));
+                    }
+                    playerEntity.setStackInHand(hand, itemStack2);
+                    MinecraftClient.getInstance().player.swingHand(hand);
+                    TypedActionResult.success(itemStack);
+                }
+                return TypedActionResult.pass(itemStack);
+            } else if (itemStack.getItem() instanceof ArmorItem) {
+                EquipmentSlot equipmentSlot = LivingEntity.getPreferredEquipmentSlot(itemStack);
+                ItemStack itemStack2 = playerEntity.getEquippedStack(equipmentSlot);
+                if (itemStack2.getItem() instanceof ArmorItem || itemStack2.getItem() instanceof ElytraItem || itemStack2.isEmpty()) {
+                    playerEntity.equipStack(equipmentSlot, itemStack.copy());
+                    if(!world.isClient()) {
+                        playerEntity.incrementStat(Stats.USED.getOrCreateStat(itemStack.getItem()));
+                    }
+                    playerEntity.setStackInHand(hand, itemStack2);
+                    MinecraftClient.getInstance().player.swingHand(hand);
+                    TypedActionResult.success(itemStack);
+                }
+                return TypedActionResult.pass(itemStack);
+            }
+        }
+        return TypedActionResult.pass(itemStack);
     }
 }
