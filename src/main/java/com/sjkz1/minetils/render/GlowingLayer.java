@@ -23,12 +23,6 @@ public class GlowingLayer<T extends AbstractClientPlayerEntity, M extends Player
         super(featureRendererContext);
     }
 
-
-    public static Identifier getPath() {
-        return Minetils.CONFIG.main.manualSkinEditor ? MinecraftClient.getInstance().player.getName().getString().equals("SJKZ1") ? new Identifier(Minetils.MOD_ID + ":textures/entity/skin/glow.png") : MinecraftClient.getInstance().player.getSkinTexture() : ColorMatching.identifier;
-    }
-
-
     public static float makeFade(float alpha) {
         return Math.min(0.7F, (MathHelper.sin(alpha / 24) + 1F) / 2F + 0.15F);
     }
@@ -36,22 +30,17 @@ public class GlowingLayer<T extends AbstractClientPlayerEntity, M extends Player
     @Override
     public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumers, int light, T entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
         float time = MinecraftClient.getInstance().getTickDelta() + entity.age;
-        for (String id : Minetils.SPECIAL_MEMBER) {
-            {
-                RenderLayer GLOWING_LAYER = RenderLayer.getEyes(GlowingLayer.getPath() != null ? GlowingLayer.getPath() : entity.getSkinTexture());
-                if (!entity.isInvisible() && entity.getName().getString().equals(id) && Minetils.CONFIG.main.glowingSkin) {
-                    VertexConsumer inveterate = vertexConsumers.getBuffer(GLOWING_LAYER);
-                    this.getContextModel().render(matrixStack, inveterate, light, OverlayTexture.DEFAULT_UV, makeFade(time), makeFade(time), makeFade(time), 1.0F);
-                }
-                if (!entity.isInvisible() && entity.getName().getString().equals("UnZygote") && Minetils.CONFIG.main.glowingSkin && Minetils.CONFIG.main.manualSkinEditor) {
-                    VertexConsumer inveterate = vertexConsumers.getBuffer(RenderLayer.getEyes(new Identifier(Minetils.MOD_ID, "textures/entity/skin/unzygote.png")));
-                    this.getContextModel().render(matrixStack, inveterate, light, OverlayTexture.DEFAULT_UV, makeFade(time), makeFade(time), makeFade(time), 1.0F);
-                }
-                if (!entity.isInvisible() && entity.getName().getString().equals("lastberries") && Minetils.CONFIG.main.glowingSkin && Minetils.CONFIG.main.manualSkinEditor) {
-                    VertexConsumer inveterate = vertexConsumers.getBuffer(RenderLayer.getEyes(new Identifier(Minetils.MOD_ID, "textures/entity/skin/lastberries.png")));
-                    this.getContextModel().render(matrixStack, inveterate, light, OverlayTexture.DEFAULT_UV, makeFade(time), makeFade(time), makeFade(time), 1.0F);
-                }
-            }
+        if (!entity.isInvisible() && entity.getName().getString().equals("UnZygote") && Minetils.CONFIG.main.glowingSkin) {
+            VertexConsumer inveterate = vertexConsumers.getBuffer(RenderLayer.getEyes(new Identifier(Minetils.MOD_ID, "textures/entity/skin/unzygote.png")));
+            this.getContextModel().render(matrixStack, inveterate, light, OverlayTexture.DEFAULT_UV, makeFade(time), makeFade(time), makeFade(time), 1.0F);
+        }
+        if (!entity.isInvisible() && entity.getName().getString().equals("lastberries") && Minetils.CONFIG.main.glowingSkin) {
+            VertexConsumer inveterate = vertexConsumers.getBuffer(RenderLayer.getEyes(new Identifier(Minetils.MOD_ID, "textures/entity/skin/lastberries.png")));
+            this.getContextModel().render(matrixStack, inveterate, light, OverlayTexture.DEFAULT_UV, makeFade(time), makeFade(time), makeFade(time), 1.0F);
+        }
+        if (!entity.isInvisible() && entity.getName().getString().equals("SJKZ1") && Minetils.CONFIG.main.glowingSkin) {
+            VertexConsumer inveterate = vertexConsumers.getBuffer(RenderLayer.getEyes(new Identifier(Minetils.MOD_ID, "textures/entity/skin/glow.png")));
+            this.getContextModel().render(matrixStack, inveterate, light, OverlayTexture.DEFAULT_UV, makeFade(time), makeFade(time), makeFade(time), 1.0F);
         }
     }
 }

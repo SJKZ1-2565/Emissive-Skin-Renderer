@@ -42,9 +42,9 @@ public class ClientInit {
     }
 
     public static void login(ClientPlayNetworkHandler clientPlayNetworkHandler, PacketSender packetSender, MinecraftClient minecraftClient) {
-        if (minecraftClient.world != null && !Minetils.CONFIG.main.manualSkinEditor) {
-            SJKZ1Helper.runAsync(ColorMatching::createGlowingSkinImage);
-        }
+//        if (minecraftClient.world != null && !Minetils.CONFIG.main.manualSkinEditor) {
+//            SJKZ1Helper.runAsync(ColorMatching::createGlowingSkinImage);
+//        }
     }
 }
 

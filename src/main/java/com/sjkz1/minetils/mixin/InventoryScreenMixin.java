@@ -45,11 +45,6 @@ public abstract class InventoryScreenMixin extends AbstractInventoryScreen<Playe
     public void init(CallbackInfo ci) {
         this.newX = this.getRecipeBookWidget().findLeftEdge(this.width, this.backgroundWidth);
         this.addDrawableChild(new ButtonWidget(newX + 140, (this.height / 2) - 24, 21, 21, Text.of(""), (buttonWidget) -> {
-            if (!Minetils.CONFIG.main.manualSkinEditor) {
-                client.setScreen(new SpecialMemberScreen(Text.of("")));
-            } else {
-                SJKZ1Helper.sendChat(Formatting.RED + "You must have disable manual skin editor!");
-            }
         }));
     }
 

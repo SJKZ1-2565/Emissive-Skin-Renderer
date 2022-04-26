@@ -25,7 +25,6 @@ public class MinetilsConfig implements ConfigData {
         public boolean switchingArmorElytra = true;
         public boolean enableEatingAnim = true;
         public boolean SpecialCape = false;
-        public boolean manualSkinEditor = true;
         public int IdentifierOrdinal = 1;
         public double palletsRate = 100D;
     }
