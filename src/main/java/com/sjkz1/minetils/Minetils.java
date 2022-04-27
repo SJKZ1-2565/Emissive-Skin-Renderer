@@ -17,6 +17,7 @@ import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.command.argument.MessageArgumentType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -24,7 +25,6 @@ import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ElytraItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.network.packet.c2s.play.HandSwingC2SPacket;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
@@ -34,11 +34,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
+import java.io.*;
+import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.List;
@@ -50,7 +47,6 @@ public class Minetils implements ModInitializer {
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
     public static MinetilsConfig CONFIG;
     public static final List<String> SPECIAL_MEMBER = Lists.newCopyOnWriteArrayList();
-
     public static KeyBinding showPost;
 
     static {
@@ -72,6 +68,7 @@ public class Minetils implements ModInitializer {
         ClientTickEvents.END_CLIENT_TICK.register(ClientInit::tick);
         ClientPlayConnectionEvents.JOIN.register(ClientInit::login);
         UseItemCallback.EVENT.register(new Identifier(Minetils.MOD_ID, "switching_item"), this::doSwitchingItem);
+
 
         //Command
         CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> dispatcher.register(CommandManager.literal("server-folder").executes(context -> {
@@ -98,6 +95,23 @@ public class Minetils implements ModInitializer {
             }
             return 1;
         })));
+        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
+            dispatcher.register(CommandManager.literal("google").then(CommandManager.argument("message", MessageArgumentType.message()).executes(context -> {
+                Text text = MessageArgumentType.getMessage(context, "message");
+                String url = "https://www.google.com/search?q=" + text.getString().replace(" ", "+");
+                System.out.println(url);
+                MinecraftClient.getInstance().executeSync(() ->
+                {
+                    try {
+                        Util.getOperatingSystem().open(new URL(url));
+                    } catch (MalformedURLException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+                return 1;
+
+            })));
+        });
     }
 
     private TypedActionResult<ItemStack> doSwitchingItem(PlayerEntity playerEntity, World world, Hand hand) {
