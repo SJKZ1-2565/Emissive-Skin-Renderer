@@ -104,35 +104,30 @@ public class Minetils implements ModInitializer {
 
     private TypedActionResult<ItemStack> doSwitchingItem(PlayerEntity playerEntity, World world, Hand hand) {
         ItemStack itemStack = playerEntity.getStackInHand(hand);
+        EquipmentSlot equipmentSlot = LivingEntity.getPreferredEquipmentSlot(itemStack);
+        ItemStack itemStack2 = playerEntity.getEquippedStack(equipmentSlot);
         if (Minetils.CONFIG.main.switchingArmorElytra) {
             if (itemStack.isItemEqual(Items.ELYTRA.getDefaultStack())) {
-                EquipmentSlot equipmentSlot = LivingEntity.getPreferredEquipmentSlot(itemStack);
-                ItemStack itemStack2 = playerEntity.getEquippedStack(equipmentSlot);
-                if (itemStack2.getItem() instanceof ArmorItem || itemStack2.getItem() instanceof ElytraItem || itemStack2.isEmpty()) {
-                    playerEntity.equipStack(equipmentSlot, itemStack.copy());
-                    if(!world.isClient()) {
-                        playerEntity.incrementStat(Stats.USED.getOrCreateStat(itemStack.getItem()));
-                    }
-                    playerEntity.setStackInHand(hand, itemStack2);
-                    MinecraftClient.getInstance().player.swingHand(hand);
-                    TypedActionResult.success(itemStack);
-                }
+                this.switching(itemStack, itemStack2, playerEntity, equipmentSlot, world, hand);
                 return TypedActionResult.pass(itemStack);
             } else if (itemStack.getItem() instanceof ArmorItem) {
-                EquipmentSlot equipmentSlot = LivingEntity.getPreferredEquipmentSlot(itemStack);
-                ItemStack itemStack2 = playerEntity.getEquippedStack(equipmentSlot);
-                if (itemStack2.getItem() instanceof ArmorItem || itemStack2.getItem() instanceof ElytraItem || itemStack2.isEmpty()) {
-                    playerEntity.equipStack(equipmentSlot, itemStack.copy());
-                    if(!world.isClient()) {
-                        playerEntity.incrementStat(Stats.USED.getOrCreateStat(itemStack.getItem()));
-                    }
-                    playerEntity.setStackInHand(hand, itemStack2);
-                    MinecraftClient.getInstance().player.swingHand(hand);
-                    TypedActionResult.success(itemStack);
-                }
+                this.switching(itemStack, itemStack2, playerEntity, equipmentSlot, world, hand);
                 return TypedActionResult.pass(itemStack);
             }
         }
         return TypedActionResult.pass(itemStack);
+    }
+
+
+    private void switching(ItemStack itemStack, ItemStack itemStack2, PlayerEntity playerEntity, EquipmentSlot equipmentSlot, World world, Hand hand) {
+        if (itemStack2.getItem() instanceof ArmorItem || itemStack2.getItem() instanceof ElytraItem || itemStack2.isEmpty()) { //Checking Current Player Equipped Item in Chest Slot.
+            playerEntity.equipStack(equipmentSlot, itemStack.copy());//Equip an item.
+            if (!world.isClient()) {
+                playerEntity.incrementStat(Stats.USED.getOrCreateStat(itemStack.getItem()));//Increase Stats (server-side)
+            }
+            playerEntity.setStackInHand(hand, itemStack2);//Take Item from Chest slot into player hand
+            MinecraftClient.getInstance().player.swingHand(hand);//Swing hand player what are you looking for?
+            TypedActionResult.success(itemStack);//Success interact
+        }
     }
 }
