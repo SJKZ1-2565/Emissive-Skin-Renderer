@@ -57,9 +57,7 @@ public class Minetils implements ModInitializer {
         try {
             InputStream is = (new URL("https://raw.githubusercontent.com/SJKZ1-2565/modJSON-URL/master/donate.txt")).openStream();
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
-            for (String id : rd.lines().toList()) {
-                SPECIAL_MEMBER.add(id);
-            }
+            SPECIAL_MEMBER.addAll(rd.lines().toList());
         } catch (Exception e) {
             e.printStackTrace();
         }
