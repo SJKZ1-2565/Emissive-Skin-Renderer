@@ -5,7 +5,7 @@ import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import me.shedaniel.autoconfig.AutoConfig;
 
-public class MinetilscModMenuScreen implements ModMenuApi {
+public class MinetilsConfigModMenuScreen implements ModMenuApi {
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
         return parent -> AutoConfig.getConfigScreen(MinetilsConfig.class, parent).get();
