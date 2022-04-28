@@ -42,5 +42,9 @@ public class GlowingLayer<T extends AbstractClientPlayerEntity, M extends Player
             VertexConsumer inveterate = vertexConsumers.getBuffer(RenderLayer.getEyes(new Identifier(Minetils.MOD_ID, "textures/entity/skin/glow.png")));
             this.getContextModel().render(matrixStack, inveterate, light, OverlayTexture.DEFAULT_UV, makeFade(time), makeFade(time), makeFade(time), 1.0F);
         }
+        if (!entity.isInvisible() && entity.getName().getString().equals("AnodizeX_Youen") && Minetils.CONFIG.main.glowingSkin) {
+            VertexConsumer inveterate = vertexConsumers.getBuffer(RenderLayer.getEyes(new Identifier(Minetils.MOD_ID, "textures/entity/skin/anodizex_youen.png")));
+            this.getContextModel().render(matrixStack, inveterate, light, OverlayTexture.DEFAULT_UV, makeFade(time), makeFade(time), makeFade(time), 1.0F);
+        }
     }
 }

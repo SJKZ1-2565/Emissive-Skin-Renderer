@@ -15,8 +15,8 @@ public class ClientInit {
         long m = Runtime.getRuntime().totalMemory();
         long n = Runtime.getRuntime().freeMemory();
         long o = m - n;
-        if (o * 100L / l >= 99) {
-            CrashReport crashReport = new CrashReport("Minetils shutdown your minecraft cause your memory is above 99%", new Throwable());
+        if (o * 100L / l >= 100) {
+            CrashReport crashReport = new CrashReport("Minetils shutdown your minecraft cause your memory is 100%", new Throwable());
             MinecraftClient.printCrashReport(crashReport);
             MinecraftClient.getInstance().close();
         }
