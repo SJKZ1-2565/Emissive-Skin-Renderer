@@ -6,6 +6,7 @@ import net.minecraft.block.AbstractSignBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.SignBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -22,7 +23,7 @@ public class SignBlockMixin {
 
     @Inject(method = "onUse", at = @At("HEAD"))
     public void use(BlockState blockState, World world, BlockPos blockPos, PlayerEntity playerEntity, Hand hand, BlockHitResult blockHitResult, CallbackInfoReturnable<ActionResult> cir) {
-        if (!playerEntity.isSneaking() && playerEntity.getMainHandStack().isEmpty()) {
+        if (playerEntity.isSneaking() && playerEntity.getStackInHand(hand).isEmpty()) {
             playerEntity.openEditSignScreen((SignBlockEntity) world.getBlockEntity(blockPos));
         }
     }
