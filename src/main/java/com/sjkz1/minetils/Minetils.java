@@ -9,6 +9,7 @@ import com.sjkz1.minetils.utils.ClientInit;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientEntityEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
@@ -17,7 +18,9 @@ import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.command.argument.MessageArgumentType;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -68,8 +71,6 @@ public class Minetils implements ModInitializer {
         ClientTickEvents.END_CLIENT_TICK.register(ClientInit::tick);
         ClientPlayConnectionEvents.JOIN.register(ClientInit::login);
         UseItemCallback.EVENT.register(new Identifier(Minetils.MOD_ID, "switching_item"), this::doSwitchingItem);
-
-
         //Command
         CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> dispatcher.register(CommandManager.literal("server-folder").executes(context -> {
             if (!dedicated) {

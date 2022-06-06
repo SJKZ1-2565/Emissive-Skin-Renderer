@@ -24,6 +24,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.awt.*;
+import java.util.Random;
 
 @Environment(EnvType.CLIENT)
 @Mixin(InventoryScreen.class)
@@ -35,6 +36,8 @@ public abstract class InventoryScreenMixin extends AbstractInventoryScreen<Playe
     @Unique
     private static String DISPLAY_KEY = "display";
 
+    private static Color COLOR = null;
+
     public InventoryScreenMixin(PlayerScreenHandler screenHandler, PlayerInventory playerInventory, Text text) {
         super(screenHandler, playerInventory, text);
     }
@@ -43,8 +46,11 @@ public abstract class InventoryScreenMixin extends AbstractInventoryScreen<Playe
 
     @Inject(method = "init()V", at = @At("TAIL"))
     public void init(CallbackInfo ci) {
+        Random random = new Random();
+        COLOR = new Color(random.nextInt(256),random.nextInt(256),random.nextInt(256));
         this.newX = this.getRecipeBookWidget().findLeftEdge(this.width, this.backgroundWidth);
         this.addDrawableChild(new ButtonWidget(newX + 140, (this.height / 2) - 24, 21, 21, Text.of(""), (buttonWidget) -> {
+            this.client.setScreen(new SpecialMemberScreen(Text.of("")));
         }));
     }
 
@@ -53,8 +59,7 @@ public abstract class InventoryScreenMixin extends AbstractInventoryScreen<Playe
         this.newX = this.getRecipeBookWidget().findLeftEdge(this.width, this.backgroundWidth);
         ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
         ItemStack itemStack = Items.LEATHER_CHESTPLATE.getDefaultStack();
-        Color color = Color.getHSBColor(client.getTickDelta(), 0.9f, 1);
-        itemStack.getOrCreateSubNbt(DISPLAY_KEY).putInt(COLOR_KEY, color.getRGB());
+        itemStack.getOrCreateSubNbt(DISPLAY_KEY).putInt(COLOR_KEY, COLOR.getRGB());
         itemRenderer.zOffset = 300;
         itemRenderer.renderInGui(itemStack, newX + 142, (this.height / 2) - 22);
         itemRenderer.zOffset = 0;

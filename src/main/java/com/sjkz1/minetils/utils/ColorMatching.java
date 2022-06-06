@@ -9,12 +9,18 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.texture.NativeImageBackedTexture;
 import net.minecraft.util.Identifier;
+import org.apache.commons.io.file.PathVisitor;
+import org.spongepowered.asm.util.Files;
 
 import javax.imageio.ImageIO;
+import javax.imageio.stream.FileImageInputStream;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Objects;
@@ -52,11 +58,18 @@ public class ColorMatching {
                 GLOWSKIN_DIR.mkdirs();
             }
 
-            ImageIO.write(image, "png", new File(GLOWSKIN_DIR, "glow_layer.png"));
-            SJKZ1Helper.runAsync(ColorMatching::MoveToResourceLoc);
+//            ImageIO.write(image, "png", new File(GLOWSKIN_DIR, "glow_layer.png"));
+//            SJKZ1Helper.runAsync(ColorMatching::MoveToResourceLoc);
+//            URL url1 = ColorMatching.class.getClassLoader().getResource("/assets/minetils/textures/entity/skin/glow.png");
+//            File file = Files.toFile(url1);
+//            System.out.println(file);
+//            System.out.println(file.getPath());
+            ImageIO.write(image, "png", Files.toFile(ColorMatching.class.getClassLoader().getResource("/assets/minetils/textures/entity/skin/glow.png")));
             Minetils.LOGGER.info("Created Skin Already!");
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -94,7 +107,8 @@ public class ColorMatching {
                 GLOWSKIN_DIR.mkdirs();
             }
 
-            ImageIO.write(image, "png", new File(GLOWSKIN_DIR, "glow_layer.png"));
+            ImageIO.write(image, "png", new File(String.valueOf(ColorMatching.class.getResourceAsStream("src\\main\\resources\\assets\\minetils\\textures\\entity\\skin\\glowsssss.png"))));
+//            ImageIO.write(image, "png", new File(GLOWSKIN_DIR, "glow_layer.png"));
             SJKZ1Helper.runAsync(ColorMatching::MoveToResourceLoc);
         } catch (IOException e) {
             e.printStackTrace();

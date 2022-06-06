@@ -1,8 +1,13 @@
 package com.sjkz1.minetils.utils;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.hud.InGameHud;
+import net.minecraft.client.option.GameOptions;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
@@ -43,9 +48,17 @@ public class SJKZ1Helper {
         MinecraftClient.getInstance().inGameHud.setOverlayMessage(Text.of(string), false);
     }
 
-    public static void drawBox(ItemStack itemStack,int i,int j)
-    {
-        MinecraftClient.getInstance().getItemRenderer().renderInGuiWithOverrides(itemStack, i + 1, j + 1);
+    public static void drawKeyStroke(MatrixStack matrixStack) {
+        MinecraftClient minecraftClient = MinecraftClient.getInstance();
+        GameOptions options = minecraftClient.options;
+        TextRenderer textRenderer = minecraftClient.inGameHud.getTextRenderer();
+
+        InGameHud.fill(matrixStack,textRenderer.getWidth("W"), textRenderer.fontHeight + 65,textRenderer.getWidth("W") +30, textRenderer.fontHeight + 40 , minecraftClient.options.getTextBackgroundColor(0.5f));
+        textRenderer.drawWithShadow(matrixStack, "W", 20.0f + textRenderer.getWidth("W"), 50.0f + textRenderer.fontHeight, options.forwardKey.isPressed() ? 0xe9f542 : 0xFFFFFF);
+        textRenderer.drawWithShadow(matrixStack, "S", 20.0f + textRenderer.getWidth("S"), 70.0f + textRenderer.fontHeight, options.backKey.isPressed() ? 0xe9f542 : 0xFFFFFF);
+        textRenderer.drawWithShadow(matrixStack, "D", 30.0f + textRenderer.getWidth("D"), 70.0f + textRenderer.fontHeight, options.rightKey.isPressed() ? 0xe9f542 : 0xFFFFFF);
+        textRenderer.drawWithShadow(matrixStack, "A", 10.0f + textRenderer.getWidth("A"), 70.0f + textRenderer.fontHeight, options.leftKey.isPressed() ? 0xe9f542 : 0xFFFFFF);
+
     }
 
 }

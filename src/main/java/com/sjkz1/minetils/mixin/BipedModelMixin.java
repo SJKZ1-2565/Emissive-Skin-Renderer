@@ -77,8 +77,8 @@ public abstract class BipedModelMixin<T extends LivingEntity>
         if (player != null) {
             ItemStack itemstack = player.getStackInHand(player.getActiveHand());
             float deltas = ticks + client.getTickDelta();
-            boolean drinkingoreating = itemstack.getUseAction() == UseAction.EAT || itemstack.getUseAction() == UseAction.DRINK;
-            if (player.getItemUseTimeLeft() > 0 && drinkingoreating) {
+            boolean drinkingOrEating = itemstack.getUseAction() == UseAction.EAT || itemstack.getUseAction() == UseAction.DRINK;
+            if (player.getItemUseTimeLeft() > 0 && drinkingOrEating) {
                 this.rightArm.pitch = (0.25F * MathHelper.sin(deltas) + 5F);
                 this.rightArm.yaw = -6.75F;
             }
@@ -89,8 +89,8 @@ public abstract class BipedModelMixin<T extends LivingEntity>
         if (player != null) {
             ItemStack itemstack = player.getStackInHand(player.getActiveHand());
             float deltas = ticks + client.getTickDelta();
-            boolean drinkingoreating = itemstack.getUseAction() == UseAction.EAT || itemstack.getUseAction() == UseAction.DRINK;
-            if (player.getItemUseTimeLeft() > 0 && drinkingoreating) {
+            boolean drinkingOrEating = itemstack.getUseAction() == UseAction.EAT || itemstack.getUseAction() == UseAction.DRINK;
+            if (player.getItemUseTimeLeft() > 0 && drinkingOrEating) {
                 this.leftArm.pitch = (0.25F * MathHelper.sin(deltas) + 5F);
                 this.leftArm.yaw = 6.75F;
             }
