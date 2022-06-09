@@ -4,34 +4,29 @@ import boon4681.ColorUtils.ColorMixer;
 import boon4681.ColorUtils.DeltaE;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.mojang.blaze3d.platform.NativeImage;
 import com.sjkz1.minetils.Minetils;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.texture.NativeImage;
-import net.minecraft.client.texture.NativeImageBackedTexture;
-import net.minecraft.util.Identifier;
-import org.apache.commons.io.file.PathVisitor;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.DynamicTexture;
+import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.util.Files;
 
 import javax.imageio.ImageIO;
-import javax.imageio.stream.FileImageInputStream;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.Objects;
 
 public class ColorMatching {
 
-    private static final MinecraftClient client = MinecraftClient.getInstance();
+    private static final Minecraft client = Minecraft.getInstance();
     public static ArrayList<Integer> blackList = new ArrayList<>();
 
-    public static final File GLOWSKIN_DIR = new File(MinecraftClient.getInstance().runDirectory, "glow");
-    public static Identifier identifier = new Identifier(Minetils.MOD_ID + ":textures/entity/skin/");
+    public static final File GLOWSKIN_DIR = new File(Minecraft.getInstance().gameDirectory, "glow");
+    public static ResourceLocation identifier = new ResourceLocation(Minetils.MOD_ID + ":textures/entity/skin/");
 
     public static void createGlowingSkinImage() {
         try {
@@ -127,10 +122,10 @@ public class ColorMatching {
             File imageFile = new File(GLOWSKIN_DIR, "glow_layer.png");
             InputStream in = new FileInputStream(imageFile);
             nativeImage = NativeImage.read(in);
-            final NativeImageBackedTexture dynamicTexture = new NativeImageBackedTexture(nativeImage);
-            NativeImageBackedTexture icon = dynamicTexture;
+            final DynamicTexture dynamicTexture = new DynamicTexture(nativeImage);
+            DynamicTexture icon = dynamicTexture;
             if (icon != null) {
-                MinecraftClient.getInstance().getTextureManager().registerTexture(identifier, icon);
+                client.getTextureManager().register(identifier, icon);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -171,7 +166,7 @@ public class ColorMatching {
     }
 
     public static String getSkin() throws IOException {
-        URL url1 = new URL("https://sessionserver.mojang.com/session/minecraft/profile/" + client.player.getUuidAsString().replace("-", ""));
+        URL url1 = new URL("https://sessionserver.mojang.com/session/minecraft/profile/" + client.player.getStringUUID().replace("-", ""));
         InputStreamReader reader1 = new InputStreamReader(url1.openStream());
         JsonObject property = JsonParser.parseReader(reader1).getAsJsonObject().get("properties").getAsJsonArray().get(0).getAsJsonObject();
         String texture = property.get("value").getAsString();

@@ -1,57 +1,54 @@
 package com.sjkz1.minetils.mixin;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.sjkz1.minetils.Minetils;
 import com.sjkz1.minetils.render.GlowingLayer;
-import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.LivingEntityRenderer;
-import net.minecraft.client.render.entity.PlayerEntityRenderer;
-import net.minecraft.client.render.entity.model.PlayerEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.model.PlayerModel;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.Iterator;
-
-@Mixin(PlayerEntityRenderer.class)
-public abstract class PlayerRenderMixin extends LivingEntityRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> {
+@Mixin(PlayerRenderer.class)
+public abstract class PlayerRenderMixin extends LivingEntityRenderer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> {
     PlayerRenderMixin() {
         super(null, null, 0);
     }
 
     @Inject(method = "<init>", at = @At("TAIL"))
-    public void init(EntityRendererFactory.Context context, boolean bl, CallbackInfo ci) {
-        this.addFeature(new GlowingLayer<>((PlayerEntityRenderer) (Object) this));
+    public void init(EntityRendererProvider.Context context, boolean bl, CallbackInfo ci) {
+        this.addLayer(new GlowingLayer<>((PlayerRenderer) (Object) this));
     }
 
 
-    @Inject(method = "renderArm", at = @At("TAIL"))
-    private void renderArm(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, AbstractClientPlayerEntity abstractClientPlayerEntity, ModelPart mainHand, ModelPart sleeve, CallbackInfo ci) {
+    @Inject(method = "renderHand", at = @At("TAIL"))
+    private void renderArm(PoseStack poseStack, MultiBufferSource multiBufferSource, int i, AbstractClientPlayer abstractClientPlayer, ModelPart modelPart, ModelPart modelPart2, CallbackInfo ci) {
 
-        float time = (float) abstractClientPlayerEntity.age;
-        if (!abstractClientPlayerEntity.isInvisible() && abstractClientPlayerEntity.getName().getString().equals("SJKZ1")) {
-            sleeve.render(matrixStack, vertexConsumerProvider.getBuffer(RenderLayer.getEyes(new Identifier(Minetils.MOD_ID, "textures/entity/skin/glow.png"))), i, OverlayTexture.DEFAULT_UV, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
-            mainHand.render(matrixStack, vertexConsumerProvider.getBuffer(RenderLayer.getEyes(new Identifier(Minetils.MOD_ID, "textures/entity/skin/glow.png"))), i, OverlayTexture.DEFAULT_UV, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
+        float time = (float) abstractClientPlayer.tickCount;
+        if (!abstractClientPlayer.isInvisible() && abstractClientPlayer.getName().getString().equals("SJKZ1")) {
+            modelPart2.render(poseStack, multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(Minetils.MOD_ID, "textures/entity/skin/glow.png"))), i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
+            modelPart.render(poseStack, multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(Minetils.MOD_ID, "textures/entity/skin/glow.png"))), i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
         }
-        if (!abstractClientPlayerEntity.isInvisible() && abstractClientPlayerEntity.getName().getString().equals("UnZygote") && Minetils.CONFIG.main.glowingSkin) {
-            sleeve.render(matrixStack, vertexConsumerProvider.getBuffer(RenderLayer.getEyes(new Identifier(Minetils.MOD_ID, "textures/entity/skina/unzygote.png"))), i, OverlayTexture.DEFAULT_UV, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
-            mainHand.render(matrixStack, vertexConsumerProvider.getBuffer(RenderLayer.getEyes(new Identifier(Minetils.MOD_ID, "textures/entity/skin/unzygote.png"))), i, OverlayTexture.DEFAULT_UV, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
+        if (!abstractClientPlayer.isInvisible() && abstractClientPlayer.getName().getString().equals("UnZygote") && Minetils.CONFIG.main.glowingSkin) {
+            modelPart2.render(poseStack, multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(Minetils.MOD_ID, "textures/entity/skina/unzygote.png"))), i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
+            modelPart.render(poseStack, multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(Minetils.MOD_ID, "textures/entity/skin/unzygote.png"))), i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
         }
-        if (!abstractClientPlayerEntity.isInvisible() && abstractClientPlayerEntity.getName().getString().equals("lastberries") && Minetils.CONFIG.main.glowingSkin) {
-            sleeve.render(matrixStack, vertexConsumerProvider.getBuffer(RenderLayer.getEyes(new Identifier(Minetils.MOD_ID, "textures/entity/skin/lastberries.png"))), i, OverlayTexture.DEFAULT_UV, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
-            mainHand.render(matrixStack, vertexConsumerProvider.getBuffer(RenderLayer.getEyes(new Identifier(Minetils.MOD_ID, "textures/entity/skin/lastberries.png"))), i, OverlayTexture.DEFAULT_UV, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
+        if (!abstractClientPlayer.isInvisible() && abstractClientPlayer.getName().getString().equals("lastberries") && Minetils.CONFIG.main.glowingSkin) {
+            modelPart2.render(poseStack, multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(Minetils.MOD_ID, "textures/entity/skin/lastberries.png"))), i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
+            modelPart.render(poseStack, multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(Minetils.MOD_ID, "textures/entity/skin/lastberries.png"))), i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
         }
-        if (!abstractClientPlayerEntity.isInvisible() && abstractClientPlayerEntity.getName().getString().equals("AnodizeX_Youen") && Minetils.CONFIG.main.glowingSkin) {
-            sleeve.render(matrixStack, vertexConsumerProvider.getBuffer(RenderLayer.getEyes(new Identifier(Minetils.MOD_ID, "textures/entity/skin/anodizex_youen.png"))), i, OverlayTexture.DEFAULT_UV, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
-            mainHand.render(matrixStack, vertexConsumerProvider.getBuffer(RenderLayer.getEyes(new Identifier(Minetils.MOD_ID, "textures/entity/skin/anodizex_youen.png"))), i, OverlayTexture.DEFAULT_UV, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
+        if (!abstractClientPlayer.isInvisible() && abstractClientPlayer.getName().getString().equals("AnodizeX_Youen") && Minetils.CONFIG.main.glowingSkin) {
+            modelPart2.render(poseStack, multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(Minetils.MOD_ID, "textures/entity/skin/anodizex_youen.png"))), i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
+            modelPart.render(poseStack, multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(Minetils.MOD_ID, "textures/entity/skin/anodizex_youen.png"))), i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
         }
     }
 }

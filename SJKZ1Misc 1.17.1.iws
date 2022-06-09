@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0606b149-bcd0-49f9-86f8-7b203023724c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/SJKZ1Misc 1.17.1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/SJKZ1Misc 1.17.1.iml" afterDir="false" />
+    <list default="true" id="0606b149-bcd0-49f9-86f8-7b203023724c" name="Changes" comment="Update to 1.19 (2)">
       <change beforePath="$PROJECT_DIR$/SJKZ1Misc 1.17.1.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/SJKZ1Misc 1.17.1.ipr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SJKZ1Misc 1.17.1.iws" beforeDir="false" afterPath="$PROJECT_DIR$/SJKZ1Misc 1.17.1.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/minetils.accesswidener" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/minetils.accesswidener" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,9 +61,22 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="SJKZ1Misc 1.17.1" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="SJKZ1Misc 1.17.1" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
@@ -199,6 +210,21 @@
       <option name="presentableId" value="Default" />
       <updated>1654686798169</updated>
     </task>
+    <task id="LOCAL-00001" summary="Update to 1.19 (1)">
+      <created>1654687716425</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1654687716425</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Update to 1.19 (2)">
+      <created>1654687739284</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1654687739284</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -214,6 +240,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
+    <MESSAGE value="Update to 1.19 (1)" />
+    <MESSAGE value="Update to 1.19 (2)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update to 1.19 (2)" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
 </project>

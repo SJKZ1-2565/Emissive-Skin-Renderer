@@ -3,17 +3,18 @@ package com.sjkz1.minetils.mixin;
 import com.sjkz1.minetils.Minetils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.render.entity.model.AnimalModel;
-import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.client.render.entity.model.ModelWithArms;
-import net.minecraft.client.render.entity.model.ModelWithHead;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.AgeableListModel;
+import net.minecraft.client.model.ArmedModel;
+import net.minecraft.client.model.HeadedModel;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.UseAction;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -22,12 +23,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(BipedEntityModel.class)
+@Mixin(HumanoidModel.class)
 @Environment(EnvType.CLIENT)
-public abstract class BipedModelMixin<T extends LivingEntity>
-        extends AnimalModel<T>
-        implements ModelWithArms,
-        ModelWithHead {
+public abstract class BipedModelMixin<T extends LivingEntity> extends AgeableListModel<T> implements ArmedModel, HeadedModel {
 
     @Shadow
     @Final
@@ -36,21 +34,21 @@ public abstract class BipedModelMixin<T extends LivingEntity>
     @Final
     public ModelPart leftArm;
     @Unique
-    private final MinecraftClient client = MinecraftClient.getInstance();
+    private final Minecraft client = Minecraft.getInstance();
 
 
-    @Inject(method = "positionRightArm", at = @At("TAIL"))
+    @Inject(method = "poseRightArm", at = @At("TAIL"))
     public void injectAnim(T livingEntity, CallbackInfo ci) {
-        ItemStack itemstack = livingEntity.getStackInHand(livingEntity.getActiveHand());
-        switch (itemstack.getUseAction()) {
+        ItemStack itemstack = livingEntity.getItemInHand(livingEntity.getUsedItemHand());
+        switch (itemstack.getUseAnimation()) {
             case EAT: {
-                if (livingEntity instanceof PlayerEntity && Minetils.CONFIG.main.enableEatingAnim) {
-                    animateRightArmEatingAnimation((PlayerEntity) livingEntity, livingEntity.age % 20);
+                if (livingEntity instanceof Player && Minetils.CONFIG.main.enableEatingAnim) {
+                    animateRightArmEatingAnimation((Player) livingEntity, livingEntity.tickCount % 20);
                 }
             }
             case DRINK: {
-                if (livingEntity instanceof PlayerEntity && Minetils.CONFIG.main.enableEatingAnim) {
-                    animateRightArmEatingAnimation((PlayerEntity) livingEntity, livingEntity.age % 20);
+                if (livingEntity instanceof Player && Minetils.CONFIG.main.enableEatingAnim) {
+                    animateRightArmEatingAnimation((Player) livingEntity, livingEntity.tickCount % 20);
                 }
             }
         }
@@ -58,41 +56,41 @@ public abstract class BipedModelMixin<T extends LivingEntity>
 
     @Inject(method = "positionLeftArm", at = @At("TAIL"))
     public void injectAnim2(T livingEntity, CallbackInfo ci) {
-        ItemStack itemstack = livingEntity.getStackInHand(livingEntity.getActiveHand());
-        switch (itemstack.getUseAction()) {
+        ItemStack itemstack = livingEntity.getItemInHand(livingEntity.getUsedItemHand());
+        switch (itemstack.getUseAnimation()) {
             case EAT: {
-                if (livingEntity instanceof PlayerEntity && Minetils.CONFIG.main.enableEatingAnim) {
-                    animateLeftArmEatingAnimation((PlayerEntity) livingEntity, livingEntity.age % 20);
+                if (livingEntity instanceof Player && Minetils.CONFIG.main.enableEatingAnim) {
+                    animateLeftArmEatingAnimation((Player) livingEntity, livingEntity.tickCount % 20);
                 }
             }
             case DRINK: {
                 if (livingEntity instanceof PlayerEntity && Minetils.CONFIG.main.enableEatingAnim) {
-                    animateLeftArmEatingAnimation((PlayerEntity) livingEntity, livingEntity.age % 20);
+                    animateLeftArmEatingAnimation((Player) livingEntity, livingEntity.tickCount % 20);
                 }
             }
         }
     }
 
-    private void animateRightArmEatingAnimation(PlayerEntity player, int ticks) {
+    private void animateRightArmEatingAnimation(Player player, int ticks) {
         if (player != null) {
-            ItemStack itemstack = player.getStackInHand(player.getActiveHand());
-            float deltas = ticks + client.getTickDelta();
-            boolean drinkingOrEating = itemstack.getUseAction() == UseAction.EAT || itemstack.getUseAction() == UseAction.DRINK;
-            if (player.getItemUseTimeLeft() > 0 && drinkingOrEating) {
-                this.rightArm.pitch = (0.25F * MathHelper.sin(deltas) + 5F);
-                this.rightArm.yaw = -6.75F;
+            ItemStack itemstack = player.getItemInHand(player.getUsedItemHand());
+            float deltas = ticks + client.getDeltaFrameTime();
+            boolean drinkingOrEating = itemstack.getUseAnimation() == UseAnim.EAT || itemstack.getUseAnimation() == UseAnim.DRINK;
+            if (player.getUseItemRemainingTicks() > 0 && drinkingOrEating) {
+                this.rightArm.xRot = (0.25F * Mth.sin(deltas) + 5F);
+                this.rightArm.yRot = -6.75F;
             }
         }
     }
 
-    private void animateLeftArmEatingAnimation(PlayerEntity player, int ticks) {
+    private void animateLeftArmEatingAnimation(Player player, int ticks) {
         if (player != null) {
-            ItemStack itemstack = player.getStackInHand(player.getActiveHand());
-            float deltas = ticks + client.getTickDelta();
-            boolean drinkingOrEating = itemstack.getUseAction() == UseAction.EAT || itemstack.getUseAction() == UseAction.DRINK;
-            if (player.getItemUseTimeLeft() > 0 && drinkingOrEating) {
-                this.leftArm.pitch = (0.25F * MathHelper.sin(deltas) + 5F);
-                this.leftArm.yaw = 6.75F;
+            ItemStack itemstack = player.getItemInHand(player.getUsedItemHand());
+            float deltas = ticks + client.getDeltaFrameTime();
+            boolean drinkingOrEating = itemstack.getUseAnimation() == UseAnim.EAT || itemstack.getUseAnimation() == UseAnim.DRINK;
+            if (player.getUseItemRemainingTicks() > 0 && drinkingOrEating) {
+                this.leftArm.xRot = (0.25F * Mth.sin(deltas) + 5F);
+                this.leftArm.yRot = 6.75F;
             }
         }
     }

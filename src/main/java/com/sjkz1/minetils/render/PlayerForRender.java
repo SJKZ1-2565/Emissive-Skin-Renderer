@@ -1,35 +1,42 @@
 package com.sjkz1.minetils.render;
 
 import com.mojang.authlib.GameProfile;
-import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.ProfilePublicKey;
+import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
-public class PlayerForRender extends AbstractClientPlayerEntity {
-    public PlayerForRender(ClientWorld clientWorld, GameProfile gameProfile) {
-        super(clientWorld, gameProfile);
+public class PlayerForRender extends AbstractClientPlayer {
+
+
+    public PlayerForRender(ClientLevel clientLevel, GameProfile gameProfile, @Nullable ProfilePublicKey profilePublicKey) {
+        super(clientLevel, gameProfile, profilePublicKey);
     }
 
     @Override
-    protected boolean canStartRiding(Entity entity) {
+    protected boolean canAddPassenger(Entity entity) {
         return false;
     }
 
+
     @Override
-    public ItemStack getEquippedStack(EquipmentSlot equipmentSlot) {
+    public ItemStack getItemBySlot(EquipmentSlot equipmentSlot) {
         return ItemStack.EMPTY;
     }
 
+
     @Override
-    public ItemStack getStackInHand(Hand hand) {
+    public ItemStack getItemInHand(InteractionHand interactionHand) {
         return ItemStack.EMPTY;
     }
 
+
     @Override
-    public boolean shouldRenderName() {
+    public boolean shouldShowName() {
         return false;
     }
 }

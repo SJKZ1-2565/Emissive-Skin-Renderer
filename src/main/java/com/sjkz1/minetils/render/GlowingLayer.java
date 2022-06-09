@@ -1,50 +1,52 @@
 package com.sjkz1.minetils.render;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.sjkz1.minetils.Minetils;
-import com.sjkz1.minetils.utils.ColorMatching;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.feature.FeatureRenderer;
-import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import net.minecraft.client.render.entity.model.PlayerEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
 
 @Environment(EnvType.CLIENT)
-public class GlowingLayer<T extends AbstractClientPlayerEntity, M extends PlayerEntityModel<T>> extends FeatureRenderer<T, M> {
-    public GlowingLayer(FeatureRendererContext<T, M> featureRendererContext) {
-        super(featureRendererContext);
+public class GlowingLayer<T extends Entity, M extends EntityModel<T>> extends RenderLayer<T, M> {
+
+
+    public GlowingLayer(RenderLayerParent<T, M> renderLayerParent) {
+        super(renderLayerParent);
     }
 
     public static float makeFade(float alpha) {
-        return Math.min(0.7F, (MathHelper.sin(alpha / 24) + 1F) / 2F + 0.15F);
+        return Math.min(0.7F, (Mth.sin(alpha / 24) + 1F) / 2F + 0.15F);
     }
 
+
     @Override
-    public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumers, int light, T entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-        float time = MinecraftClient.getInstance().getTickDelta() + entity.age;
+    public void render(PoseStack poseStack, MultiBufferSource multiBufferSource, int i, T entity, float f, float g, float h, float j, float k, float l) {
+        float time = Minecraft.getInstance().getDeltaFrameTime() + entity.tickCount;
         if (!entity.isInvisible() && entity.getName().getString().equals("UnZygote") && Minetils.CONFIG.main.glowingSkin) {
-            VertexConsumer inveterate = vertexConsumers.getBuffer(RenderLayer.getEyes(new Identifier(Minetils.MOD_ID, "textures/entity/skin/unzygote.png")));
-            this.getContextModel().render(matrixStack, inveterate, light, OverlayTexture.DEFAULT_UV, makeFade(time), makeFade(time), makeFade(time), 1.0F);
+            VertexConsumer inveterate = multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(Minetils.MOD_ID, "textures/entity/skin/unzygote.png")));
+            this.getParentModel().renderToBuffer(poseStack, inveterate, i, OverlayTexture.NO_OVERLAY, makeFade(time), makeFade(time), makeFade(time), 1.0F);
         }
         if (!entity.isInvisible() && entity.getName().getString().equals("lastberries") && Minetils.CONFIG.main.glowingSkin) {
-            VertexConsumer inveterate = vertexConsumers.getBuffer(RenderLayer.getEyes(new Identifier(Minetils.MOD_ID, "textures/entity/skin/lastberries.png")));
-            this.getContextModel().render(matrixStack, inveterate, light, OverlayTexture.DEFAULT_UV, makeFade(time), makeFade(time), makeFade(time), 1.0F);
+            VertexConsumer inveterate = multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(Minetils.MOD_ID, "textures/entity/skin/lastberries.png")));
+            this.getParentModel().renderToBuffer(poseStack, inveterate, i, OverlayTexture.NO_OVERLAY, makeFade(time), makeFade(time), makeFade(time), 1.0F);
         }
         if (!entity.isInvisible() && entity.getName().getString().equals("SJKZ1") && Minetils.CONFIG.main.glowingSkin) {
-            VertexConsumer inveterate = vertexConsumers.getBuffer(RenderLayer.getEyes(new Identifier(Minetils.MOD_ID, "textures/entity/skin/glow.png")));
-            this.getContextModel().render(matrixStack, inveterate, light, OverlayTexture.DEFAULT_UV, makeFade(time), makeFade(time), makeFade(time), 1.0F);
+            VertexConsumer inveterate = multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(Minetils.MOD_ID, "textures/entity/skin/glow.png")));
+            this.getParentModel().renderToBuffer(poseStack, inveterate, i, OverlayTexture.NO_OVERLAY, makeFade(time), makeFade(time), makeFade(time), 1.0F);
         }
         if (!entity.isInvisible() && entity.getName().getString().equals("AnodizeX_Youen") && Minetils.CONFIG.main.glowingSkin) {
-            VertexConsumer inveterate = vertexConsumers.getBuffer(RenderLayer.getEyes(new Identifier(Minetils.MOD_ID, "textures/entity/skin/anodizex_youen.png")));
-            this.getContextModel().render(matrixStack, inveterate, light, OverlayTexture.DEFAULT_UV, makeFade(time), makeFade(time), makeFade(time), 1.0F);
+            VertexConsumer inveterate = multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(Minetils.MOD_ID, "textures/entity/skin/anodizex_youen.png")));
+            this.getParentModel().renderToBuffer(poseStack, inveterate, i, OverlayTexture.NO_OVERLAY, makeFade(time), makeFade(time), makeFade(time), 1.0F);
         }
     }
 }

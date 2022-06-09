@@ -1,23 +1,23 @@
 package com.sjkz1.minetils.mixin;
 
-import com.sjkz1.minetils.Minetils;
 import com.sjkz1.minetils.gui.screen.SpecialMemberScreen;
-import com.sjkz1.minetils.utils.SJKZ1Helper;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.ingame.AbstractInventoryScreen;
-import net.minecraft.client.gui.screen.ingame.InventoryScreen;
-import net.minecraft.client.gui.screen.recipebook.RecipeBookProvider;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.screen.PlayerScreenHandler;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import net.minecraft.client.gui.screens.recipebook.RecipeBookComponent;
+import net.minecraft.client.gui.screens.recipebook.RecipeUpdateListener;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -28,9 +28,11 @@ import java.util.Random;
 
 @Environment(EnvType.CLIENT)
 @Mixin(InventoryScreen.class)
-public abstract class InventoryScreenMixin extends AbstractInventoryScreen<PlayerScreenHandler>
-        implements RecipeBookProvider {
+public abstract class InventoryScreenMixin extends EffectRenderingInventoryScreen<InventoryMenu> implements RecipeUpdateListener {
 
+    @Shadow public abstract RecipeBookComponent getRecipeBookComponent();
+
+    @Shadow @Final private RecipeBookComponent recipeBookComponent;
     @Unique
     private static String COLOR_KEY = "color";
     @Unique
@@ -38,31 +40,33 @@ public abstract class InventoryScreenMixin extends AbstractInventoryScreen<Playe
 
     private static Color COLOR = null;
 
-    public InventoryScreenMixin(PlayerScreenHandler screenHandler, PlayerInventory playerInventory, Text text) {
-        super(screenHandler, playerInventory, text);
-    }
+
 
     public int newX;
+
+    public InventoryScreenMixin(InventoryMenu abstractContainerMenu, Inventory inventory, Component component) {
+        super(abstractContainerMenu, inventory, component);
+    }
 
     @Inject(method = "init()V", at = @At("TAIL"))
     public void init(CallbackInfo ci) {
         Random random = new Random();
         COLOR = new Color(random.nextInt(256),random.nextInt(256),random.nextInt(256));
-        this.newX = this.getRecipeBookWidget().findLeftEdge(this.width, this.backgroundWidth);
-        this.addDrawableChild(new ButtonWidget(newX + 140, (this.height / 2) - 24, 21, 21, Text.of(""), (buttonWidget) -> {
-            this.client.setScreen(new SpecialMemberScreen(Text.of("")));
+        this.newX = this.recipeBookComponent.updateScreenPosition(this.width, this.imageWidth);
+        this.addWidget(new Button(newX + 140, (this.height / 2) - 24, 21, 21, Component.empty(), (buttonWidget) -> {
+            this.minecraft.setScreen(new SpecialMemberScreen(Component.empty()));
         }));
     }
 
     @Inject(method = "render", at = @At("TAIL"))
     public void render(CallbackInfo ci) {
-        this.newX = this.getRecipeBookWidget().findLeftEdge(this.width, this.backgroundWidth);
-        ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
-        ItemStack itemStack = Items.LEATHER_CHESTPLATE.getDefaultStack();
-        itemStack.getOrCreateSubNbt(DISPLAY_KEY).putInt(COLOR_KEY, COLOR.getRGB());
-        itemRenderer.zOffset = 300;
-        itemRenderer.renderInGui(itemStack, newX + 142, (this.height / 2) - 22);
-        itemRenderer.zOffset = 0;
+        this.newX = this.recipeBookComponent.updateScreenPosition(this.width, this.imageWidth);
+        ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
+        ItemStack itemStack = Items.LEATHER_CHESTPLATE.getDefaultInstance();
+        itemStack.getOrCreateTagElement(DISPLAY_KEY).putInt(COLOR_KEY, COLOR.getRGB());
+        itemRenderer.blitOffset = 300;
+        itemRenderer.renderGuiItem(itemStack, newX + 142, (this.height / 2) - 22);
+        itemRenderer.blitOffset = 0;
     }
 
 }

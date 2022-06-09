@@ -2,29 +2,28 @@ package com.sjkz1.minetils.mixin;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.AbstractSignBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.SignBlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.SignBlock;
+import net.minecraft.world.level.block.entity.SignBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
-@Mixin(AbstractSignBlock.class)
+@Mixin(SignBlock.class)
 public class SignBlockMixin {
 
-    @Inject(method = "onUse", at = @At("HEAD"))
-    public void use(BlockState blockState, World world, BlockPos blockPos, PlayerEntity playerEntity, Hand hand, BlockHitResult blockHitResult, CallbackInfoReturnable<ActionResult> cir) {
-        if (playerEntity.isSneaking() && playerEntity.getStackInHand(hand).isEmpty()) {
-            playerEntity.openEditSignScreen((SignBlockEntity) world.getBlockEntity(blockPos));
+    @Inject(method = "use", at = @At("HEAD"))
+    public void use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult, CallbackInfoReturnable<InteractionResult> cir) {
+        if (player.isCrouching() && player.getItemInHand(interactionHand).isEmpty()) {
+            player.openTextEdit((SignBlockEntity) level.getBlockEntity(blockPos));
         }
     }
 }

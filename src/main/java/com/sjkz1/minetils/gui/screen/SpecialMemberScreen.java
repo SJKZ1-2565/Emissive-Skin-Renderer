@@ -2,28 +2,26 @@ package com.sjkz1.minetils.gui.screen;
 
 
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Quaternion;
+import com.mojang.math.Vector3f;
 import com.sjkz1.minetils.Minetils;
 import com.sjkz1.minetils.render.PlayerForRender;
 import com.sjkz1.minetils.utils.ColorMatching;
 import com.sjkz1.minetils.utils.SJKZ1Helper;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.SliderWidget;
-import net.minecraft.client.render.DiffuseLighting;
-import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Quaternion;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.LivingEntity;
 
 import java.awt.*;
 import java.io.BufferedReader;
@@ -37,7 +35,7 @@ import java.util.Objects;
 public class SpecialMemberScreen extends Screen {
 
 
-    public final Identifier BG = new Identifier(Minetils.MOD_ID + ":textures/gui/background.png");
+    public final ResourceLocation BG = new ResourceLocation(Minetils.MOD_ID + ":textures/gui/background.png");
 
     private float playerXRot = 0;
     private float ticks = 0;
@@ -48,91 +46,76 @@ public class SpecialMemberScreen extends Screen {
     protected final int backgroundHeight = 166;
     private boolean err = false;
     private boolean enable = true;
-    private ButtonWidget buttonSkin1;
-    private ButtonWidget buttonSkin2;
-    private ButtonWidget buttonSkin3;
-    private ButtonWidget buttonSkin4;
-    private ButtonWidget buttonSkin5;
-    private ButtonWidget buttonSkin6;
-    private ButtonWidget buttonSkin7;
-    private ButtonWidget buttonSkin8;
-    private ButtonWidget buttonSkin9;
-    private ButtonWidget buttonSkin10;
-    private ButtonWidget buttonSkin11;
-    private ButtonWidget buttonSkin12;
+    private Button buttonSkin1;
+    private Button buttonSkin2;
+    private Button buttonSkin3;
+    private Button buttonSkin4;
+    private Button buttonSkin5;
+    private Button buttonSkin6;
+    private Button buttonSkin7;
+    private Button buttonSkin8;
+    private Button buttonSkin9;
+    private Button buttonSkin10;
+    private Button buttonSkin11;
+    private Button buttonSkin12;
 
-    public SpecialMemberScreen(Text text) {
-        super(text);
+    public SpecialMemberScreen(Component component) {
+        super(component);
     }
+
 
     @Override
     protected void init() {
         super.init();
-        this.addDrawableChild(new SliderWidget((this.width / 2) - 120, 130, 98, 20, Text.of("Delete Rates: " + Minetils.CONFIG.main.palletsRate), Minetils.CONFIG.main.palletsRate) {
-            @Override
-            protected void updateMessage() {
-                setMessage(Text.of("Delete Rate: " + Minetils.CONFIG.main.palletsRate));
-            }
+        this.addWidget(new Button((this.width / 2) + 20, 130, 98, 20, Component.literal("Create Skin"), Button -> ColorMatching.createGlowingSkinImage()));
 
-            @Override
-            protected void applyValue() {
-                Minetils.CONFIG.main.palletsRate = MathHelper.floor(MathHelper.clampedLerp(100.0D, 150.0D, this.value));
-            }
-
-            @Override
-            public void renderButton(MatrixStack matrixStack, int i, int j, float f) {
-                super.renderButton(matrixStack, i, j, f);
-            }
-        });
-        this.addDrawableChild(new ButtonWidget((this.width / 2) + 20, 130, 98, 20, Text.of("Create Skin"), buttonWidget -> ColorMatching.createGlowingSkinImage()));
-
-        buttonSkin1 = this.addDrawableChild(new ButtonWidget((this.width / 2) - 211, 20, 80, 20, Text.of("Coming soon..."), (buttonWidget) -> {
-            buttonWidget.active = false;
+        buttonSkin1 = this.addWidget(new Button((this.width / 2) - 211, 20, 80, 20, Component.literal("Coming soon..."), (Button) -> {
+            Button.active = false;
             //			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
         }));
-        buttonSkin2 = this.addDrawableChild(new ButtonWidget((this.width / 2) - 211, 50, 80, 20, Text.of("Coming soon..."), (buttonWidget) -> {
+        buttonSkin2 = this.addWidget(new Button((this.width / 2) - 211, 50, 80, 20, Component.literal("Coming soon..."), (Button) -> {
             //			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HAT.getMinUvX(),SkinPart.Part.HAT.getMinUvY(),SkinPart.Part.HAT.getMaxUvX(),SkinPart.Part.HAT.getMaxUvY()));
-            buttonWidget.active = true;
+            Button.active = true;
         }));
-        buttonSkin3 = this.addDrawableChild(new ButtonWidget((this.width / 2) - 211, 80, 80, 20, Text.of("Coming soon..."), (buttonWidget) -> {
+        buttonSkin3 = this.addWidget(new Button((this.width / 2) - 211, 80, 80, 20, Component.literal("Coming soon..."), (Button) -> {
             //			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
-            buttonWidget.active = true;
+            Button.active = true;
         }));
-        buttonSkin4 = this.addDrawableChild(new ButtonWidget((this.width / 2) - 211, 110, 80, 20, Text.of("Coming soon..."), (buttonWidget) -> {
+        buttonSkin4 = this.addWidget(new Button((this.width / 2) - 211, 110, 80, 20, Component.literal("Coming soon..."), (Button) -> {
             //			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
-            buttonWidget.active = true;
+            Button.active = true;
         }));
-        buttonSkin5 = this.addDrawableChild(new ButtonWidget((this.width / 2) - 211, 140, 80, 20, Text.of("Coming soon..."), (buttonWidget) -> {
+        buttonSkin5 = this.addWidget(new Button((this.width / 2) - 211, 140, 80, 20, Component.literal("Coming soon..."), (Button) -> {
             //		SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
-            buttonWidget.active = true;
+            Button.active = true;
         }));
-        buttonSkin6 = this.addDrawableChild(new ButtonWidget((this.width / 2) - 211, 170, 80, 20, Text.of("Coming soon..."), (buttonWidget) -> {
+        buttonSkin6 = this.addWidget(new Button((this.width / 2) - 211, 170, 80, 20, Component.literal("Coming soon..."), (Button) -> {
             //			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
-            buttonWidget.active = true;
+            Button.active = true;
         }));
-        buttonSkin7 = this.addDrawableChild(new ButtonWidget((this.width / 2) + 132, 20, 80, 20, Text.of("Coming soon..."), (buttonWidget) -> {
+        buttonSkin7 = this.addWidget(new Button((this.width / 2) + 132, 20, 80, 20, Component.literal("Coming soon..."), (Button) -> {
             //			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
-            buttonWidget.active = true;
+            Button.active = true;
         }));
-        buttonSkin8 = this.addDrawableChild(new ButtonWidget((this.width / 2) + 132, 50, 80, 20, Text.of("Coming soon..."), (buttonWidget) -> {
+        buttonSkin8 = this.addWidget(new Button((this.width / 2) + 132, 50, 80, 20, Component.literal("Coming soon..."), (Button) -> {
             //			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
-            buttonWidget.active = true;
+            Button.active = true;
         }));
-        buttonSkin9 = this.addDrawableChild(new ButtonWidget((this.width / 2) + 132, 80, 80, 20, Text.of("Coming soon..."), (buttonWidget) -> {
+        buttonSkin9 = this.addWidget(new Button((this.width / 2) + 132, 80, 80, 20, Component.literal("Coming soon..."), (Button) -> {
             //			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
-            buttonWidget.active = true;
+            Button.active = true;
         }));
-        buttonSkin10 = this.addDrawableChild(new ButtonWidget((this.width / 2) + 132, 110, 80, 20, Text.of("Coming soon..."), (buttonWidget) -> {
+        buttonSkin10 = this.addWidget(new Button((this.width / 2) + 132, 110, 80, 20, Component.literal("Coming soon..."), (Button) -> {
             //			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
-            buttonWidget.active = true;
+            Button.active = true;
         }));
-        buttonSkin11 = this.addDrawableChild(new ButtonWidget((this.width / 2) + 132, 140, 80, 20, Text.of("Coming soon..."), (buttonWidget) -> {
+        buttonSkin11 = this.addWidget(new Button((this.width / 2) + 132, 140, 80, 20, Component.literal("Coming soon..."), (Button) -> {
             //			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
-            buttonWidget.active = true;
+            Button.active = true;
         }));
-        buttonSkin12 = this.addDrawableChild(new ButtonWidget((this.width / 2) + 132, 170, 80, 20, Text.of("Coming soon..."), (buttonWidget) -> {
+        buttonSkin12 = this.addWidget(new Button((this.width / 2) + 132, 170, 80, 20, Component.literal("Coming soon..."), (Button) -> {
             //		SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
-            buttonWidget.active = true;
+            Button.active = true;
         }));
 
         list.clear();
@@ -150,7 +133,7 @@ public class SpecialMemberScreen extends Screen {
     }
 
     @Override
-    public void render(MatrixStack mat, int mouseX, int mouseY, float partialTicks) {
+    public void render(PoseStack mat, int mouseX, int mouseY, float partialTicks) {
         ticks += 0.01F * partialTicks;
         playerXRot -= 0.15 * partialTicks;
         if (playerXRot <= -179.85) {
@@ -161,86 +144,87 @@ public class SpecialMemberScreen extends Screen {
         var height = 0;
         for (String string : list) {
             if (string.equals("Special Member")) {
-                DrawableHelper.drawStringWithShadow(mat, this.textRenderer, string, (this.width / 2), 35 + height, color.getRGB());
+                GuiComponent.drawString(mat, this.font, string, (this.width / 2), 35 + height, color.getRGB());
             } else {
                 for (String listName : Minetils.SPECIAL_MEMBER) {
                     if (string.equals(listName)) {
-                        DrawableHelper.drawStringWithShadow(mat, this.textRenderer, string, (this.width / 2) - 25, 140 + height, color.getRGB());
+                        GuiComponent.drawString(mat, this.font, string, (this.width / 2) - 25, 140 + height, color.getRGB());
                     }
                     if (string.contains("Discord Online member :")) {
-                        DrawableHelper.drawStringWithShadow(mat, this.textRenderer, string, (this.width / 2) - 25, 35 + height, 0xFFFFFF);
+                        GuiComponent.drawString(mat, this.font, string, (this.width / 2) - 25, 35 + height, 0xFFFFFF);
                     }
                 }
             }
 
             if (err) {
-                DrawableHelper.drawStringWithShadow(mat, this.textRenderer, string, (this.width / 2) - 60, 35 + height, 16733525);
+                GuiComponent.drawString(mat, this.font, string, (this.width / 2) - 60, 35 + height, 16733525);
             }
             height += 15;
         }
         super.render(mat, mouseX, mouseY, partialTicks);
     }
 
-    public void renderBackgroundGG(MatrixStack matrixStack) {
+    public void renderBackgroundGG(PoseStack poseStack) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         float shade = 1.0f;
         RenderSystem.setShaderColor(shade, shade, shade, shade);
         RenderSystem.setShaderTexture(0, BG);
         RenderSystem.enableBlend();
-        RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
-        renderBackground(matrixStack);
-        this.drawTexture(matrixStack, (this.width / 2) - 128, 15, 0, 0, this.backgroundWidth, this.backgroundHeight);
-        renderEntityInInventory((this.width / 2) - 95, 123, 55, playerXRot, 0, new PlayerForRender(this.client.world, Objects.requireNonNull(this.client.player).getGameProfile()));
+        renderBackground(poseStack);
+        renderEntityInInventory((this.width / 2) - 95, 123, 55, playerXRot, 0, new PlayerForRender(this.minecraft.level, Objects.requireNonNull(this.minecraft.player).getGameProfile(), null));
     }
 
     //Taken from https://github.com/Intro-Dev/Osmium/blob/fabric/1.17.x/src/main/java/com/intro/client/render/screen/OsmiumCapeOptionsScreen.java
     public static void renderEntityInInventory(int x, int y, int scale, float xRot, float yRot, LivingEntity livingEntity) {
-        float xRotClamped = MathHelper.clamp(xRot, -180, 180);
-        float yRotClamped = MathHelper.clamp(yRot, -180, 180);
-        MatrixStack poseStack = RenderSystem.getModelViewStack();
-        poseStack.push();
+        float xRotClamped = Mth.clamp(xRot, -180, 180);
+        float yRotClamped = Mth.clamp(yRot, -180, 180);
+        PoseStack poseStack = RenderSystem.getModelViewStack();
+        poseStack.pushPose();
         poseStack.translate(x, y, 1050.0D);
         poseStack.scale(1.0F, 1.0F, -1.0F);
         RenderSystem.applyModelViewMatrix();
-        MatrixStack poseStack2 = new MatrixStack();
+        PoseStack poseStack2 = new PoseStack();
         poseStack2.translate(0.0D, 0.0D, 1000);
         poseStack2.scale(scale, scale, scale);
-        Quaternion zRotationQuaternion = Vec3f.POSITIVE_Z.getDegreesQuaternion(180.0F);
-        Quaternion yRotationQuaternion = Vec3f.POSITIVE_X.getDegreesQuaternion(yRotClamped * 20.0F);
-        zRotationQuaternion.hamiltonProduct(yRotationQuaternion);
-        poseStack2.multiply(zRotationQuaternion);
-        float m = livingEntity.bodyYaw;
-        float n = livingEntity.getYaw();
-        float o = livingEntity.getPitch();
-        float p = livingEntity.headYaw;
-        float q = livingEntity.headYaw;
-        livingEntity.bodyYaw = 180.0F + xRotClamped * 20.0F;
-        livingEntity.setYaw(180.0F + xRotClamped * 20.0f);
-        livingEntity.setPitch(-yRotClamped * 20.0F);
-        livingEntity.headYaw = livingEntity.getYaw();
-        livingEntity.headYaw = livingEntity.getYaw();
-        DiffuseLighting.method_34742();
-        EntityRenderDispatcher entityRenderDispatcher = MinecraftClient.getInstance().getEntityRenderDispatcher();
-        yRotationQuaternion.conjugate();
-        entityRenderDispatcher.setRotation(yRotationQuaternion);
-        entityRenderDispatcher.setRenderShadows(false);
-        VertexConsumerProvider.Immediate immediate = MinecraftClient.getInstance().getBufferBuilders().getEntityVertexConsumers();
-        RenderSystem.runAsFancy(() -> entityRenderDispatcher.render(livingEntity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, poseStack2, immediate, 15728880));
-        immediate.draw();
-        entityRenderDispatcher.setRenderShadows(true);
-        livingEntity.bodyYaw = m;
-        livingEntity.setYaw(n);
-        livingEntity.setPitch(o);
-        livingEntity.headYaw = p;
-        livingEntity.prevHeadYaw = q;
-        poseStack.pop();
+        Quaternion zRotationQuaternion = Vector3f.ZP.rotationDegrees(180.0F);
+        Quaternion yRotationQuaternion = Vector3f.XP.rotationDegrees(yRotClamped * 20.0F);
+        zRotationQuaternion.mul(yRotationQuaternion);
+        poseStack2.mulPose(zRotationQuaternion);
+        float m = livingEntity.yBodyRot;
+        float n = livingEntity.getYRot();
+        float o = livingEntity.getXRot();
+        float p = livingEntity.yHeadRot;
+        float q = livingEntity.yHeadRot;
+        livingEntity.yBodyRot = 180.0F + xRotClamped * 20.0F;
+        livingEntity.setYRot(180.0F + xRotClamped * 20.0f);
+        livingEntity.setXRot(-yRotClamped * 20.0F);
+        livingEntity.yHeadRot = livingEntity.getXRot();
+        livingEntity.yHeadRot = livingEntity.getYRot();
+        Lighting.setupForEntityInInventory();
+        Lighting.setupForEntityInInventory();
+        EntityRenderDispatcher entityRenderDispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
+        yRotationQuaternion.conj();
+        entityRenderDispatcher.overrideCameraOrientation(yRotationQuaternion);
+        entityRenderDispatcher.setRenderShadow(false);
+        MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
+        RenderSystem.runAsFancy(() -> {
+            entityRenderDispatcher.render(livingEntity, 0.0, 0.0, 0.0, 0.0F, 1.0F, poseStack2, bufferSource, 15728880);
+        });
+        bufferSource.endBatch();
+        entityRenderDispatcher.setRenderShadow(true);
+        livingEntity.yBodyRot = m;
+        livingEntity.setYRot(n);
+        livingEntity.setXRot(o);
+        livingEntity.yHeadRotO = p;
+        livingEntity.yHeadRot = q;
+        poseStack.popPose();
         RenderSystem.applyModelViewMatrix();
-        DiffuseLighting.enableGuiDepthLighting();
+        Lighting.setupFor3DItems();
     }
 
     @Override
-    public void close() {
-        super.close();
+    public void onClose() {
+        super.onClose();
     }
 
     @Override
