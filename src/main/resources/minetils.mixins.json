@@ -11,8 +11,6 @@
     "AbstractPlayerMixin",
     "CapeLayerMixin",
     "EntityRendererMixin",
-    "InGameHudMixin",
-    "InventoryScreenMixin",
     "SignBlockMixin"
   ],
   "injectors": {

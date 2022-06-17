@@ -30,17 +30,18 @@ import java.util.Random;
 @Mixin(InventoryScreen.class)
 public abstract class InventoryScreenMixin extends EffectRenderingInventoryScreen<InventoryMenu> implements RecipeUpdateListener {
 
-    @Shadow public abstract RecipeBookComponent getRecipeBookComponent();
+    @Shadow
+    public abstract RecipeBookComponent getRecipeBookComponent();
 
-    @Shadow @Final private RecipeBookComponent recipeBookComponent;
+    @Shadow
+    @Final
+    private RecipeBookComponent recipeBookComponent;
     @Unique
     private static String COLOR_KEY = "color";
     @Unique
     private static String DISPLAY_KEY = "display";
 
     private static Color COLOR = null;
-
-
 
     public int newX;
 
@@ -51,7 +52,7 @@ public abstract class InventoryScreenMixin extends EffectRenderingInventoryScree
     @Inject(method = "init()V", at = @At("TAIL"))
     public void init(CallbackInfo ci) {
         Random random = new Random();
-        COLOR = new Color(random.nextInt(256),random.nextInt(256),random.nextInt(256));
+        COLOR = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
         this.newX = this.recipeBookComponent.updateScreenPosition(this.width, this.imageWidth);
         this.addWidget(new Button(newX + 140, (this.height / 2) - 24, 21, 21, Component.empty(), (buttonWidget) -> {
             this.minecraft.setScreen(new SpecialMemberScreen(Component.empty()));

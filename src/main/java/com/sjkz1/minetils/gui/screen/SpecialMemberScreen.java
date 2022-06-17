@@ -2,6 +2,7 @@ package com.sjkz1.minetils.gui.screen;
 
 
 import com.google.common.collect.Lists;
+import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -12,7 +13,9 @@ import com.sjkz1.minetils.render.PlayerForRender;
 import com.sjkz1.minetils.utils.ColorMatching;
 import com.sjkz1.minetils.utils.SJKZ1Helper;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.OptionInstance;
 import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -41,9 +44,10 @@ public class SpecialMemberScreen extends Screen {
     private float ticks = 0;
     public static int ONLINE_USER;
 
+    protected int imageWidth = 176;
+    protected int imageHeight = 166;
+
     private final List<String> list = Lists.newCopyOnWriteArrayList();
-    protected final int backgroundWidth = 256;
-    protected final int backgroundHeight = 166;
     private boolean err = false;
     private boolean enable = true;
     private Button buttonSkin1;
@@ -68,6 +72,17 @@ public class SpecialMemberScreen extends Screen {
     protected void init() {
         super.init();
         this.addWidget(new Button((this.width / 2) + 20, 130, 98, 20, Component.literal("Create Skin"), Button -> ColorMatching.createGlowingSkinImage()));
+        this.addWidget(new AbstractSliderButton((this.width / 2) - 120, 130, 98, 20, Component.literal("Delete Rates: " + Minetils.CONFIG.main.palletsRate), Minetils.CONFIG.main.palletsRate) {
+            @Override
+            protected void updateMessage() {
+                setMessage(Component.literal("Delete Rate: " + Minetils.CONFIG.main.palletsRate));
+            }
+
+            @Override
+            protected void applyValue() {
+                Minetils.CONFIG.main.palletsRate = Mth.floor(Mth.clampedLerp(100.0D, 150.0D, this.value));
+            }
+        });
 
         buttonSkin1 = this.addWidget(new Button((this.width / 2) - 211, 20, 80, 20, Component.literal("Coming soon..."), (Button) -> {
             Button.active = false;
@@ -170,7 +185,9 @@ public class SpecialMemberScreen extends Screen {
         RenderSystem.setShaderColor(shade, shade, shade, shade);
         RenderSystem.setShaderTexture(0, BG);
         RenderSystem.enableBlend();
+        RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_CONSTANT_ALPHA);
         renderBackground(poseStack);
+        this.blit(poseStack, (this.width / 2) - 128, 15, 0, 0, this.imageWidth, this.imageHeight);
         renderEntityInInventory((this.width / 2) - 95, 123, 55, playerXRot, 0, new PlayerForRender(this.minecraft.level, Objects.requireNonNull(this.minecraft.player).getGameProfile(), null));
     }
 

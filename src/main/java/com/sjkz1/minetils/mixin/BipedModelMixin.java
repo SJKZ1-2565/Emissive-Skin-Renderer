@@ -9,7 +9,6 @@ import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.HeadedModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -54,7 +53,7 @@ public abstract class BipedModelMixin<T extends LivingEntity> extends AgeableLis
         }
     }
 
-    @Inject(method = "positionLeftArm", at = @At("TAIL"))
+    @Inject(method = "poseLeftArm", at = @At("TAIL"))
     public void injectAnim2(T livingEntity, CallbackInfo ci) {
         ItemStack itemstack = livingEntity.getItemInHand(livingEntity.getUsedItemHand());
         switch (itemstack.getUseAnimation()) {
@@ -64,7 +63,7 @@ public abstract class BipedModelMixin<T extends LivingEntity> extends AgeableLis
                 }
             }
             case DRINK: {
-                if (livingEntity instanceof PlayerEntity && Minetils.CONFIG.main.enableEatingAnim) {
+                if (livingEntity instanceof Player && Minetils.CONFIG.main.enableEatingAnim) {
                     animateLeftArmEatingAnimation((Player) livingEntity, livingEntity.tickCount % 20);
                 }
             }
