@@ -21,7 +21,6 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -122,7 +121,7 @@ public class Minetils implements ModInitializer {
             }
             playerEntity.setItemInHand(hand, itemStack2);//Take Item from Chest slot into player hand
             playerEntity.swing(hand);//Swing hand player what are you looking for?
-            playerEntity.level.playSound(playerEntity,playerEntity.getOnPos(), itemStack2.getEquipSound(), SoundSource.PLAYERS,1.0f,1.0f);
+            playerEntity.level.playSound(playerEntity, playerEntity.getOnPos(), itemStack2.getEquipSound(), SoundSource.PLAYERS, 1.0f, 1.0f);
             InteractionResultHolder.success(itemStack);//Success interact
         }
     }
