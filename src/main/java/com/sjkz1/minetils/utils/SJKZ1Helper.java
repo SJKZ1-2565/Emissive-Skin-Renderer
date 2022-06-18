@@ -1,7 +1,9 @@
 package com.sjkz1.minetils.utils;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
