@@ -1,8 +1,8 @@
-package com.sjkz1.minetils.mixin;
+package com.sjkz1.emissive_skin_renderer.mixin;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.sjkz1.minetils.render.GlowingLayerSkull;
+import com.sjkz1.emissive_skin_renderer.render.GlowingLayerSkull;
 import net.minecraft.client.model.SkullModelBase;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;

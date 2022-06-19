@@ -1,4 +1,4 @@
-package com.sjkz1.minetils.utils.enums;
+package com.sjkz1.emissive_skin_renderer.utils.enums;
 
 public class SkinPart {
 	public enum Part

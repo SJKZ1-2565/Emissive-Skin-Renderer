@@ -4,9 +4,7 @@
     <facet type="minecraft" name="Minecraft">
       <configuration>
         <autoDetectTypes>
-          <platformType>FABRIC</platformType>
           <platformType>MIXIN</platformType>
-          <platformType>MCP</platformType>
         </autoDetectTypes>
       </configuration>
     </facet>
@@ -134,6 +132,7 @@
     <orderEntry type="library" name="Gradle: loom_mappings_1_19_layered_hash_2198_v2.net.fabricmc.fabric-api:fabric-key-binding-api-v1:1.0.17+9ff28f40a9" level="project" />
     <orderEntry type="library" name="Gradle: loom_mappings_1_19_layered_hash_2198_v2.net.fabricmc.fabric-api:fabric-resource-conditions-api-v1:2.0.8+e62f51a3a9" level="project" />
     <orderEntry type="library" name="Gradle: loom_mappings_1_19_layered_hash_2198_v2.net.fabricmc.fabric-api:fabric-transitive-access-wideners-v1:1.1.0+9e7660c6a9" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jetbrains:annotations:23.0.0" level="project" />
     <orderEntry type="library" name="Gradle: com.google.code.findbugs:jsr305:3.0.2" level="project" />
     <orderEntry type="library" name="Gradle: com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava" level="project" />
     <orderEntry type="library" name="Gradle: org.checkerframework:checker-qual:3.12.0" level="project" />

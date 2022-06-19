@@ -1,9 +1,9 @@
-package com.sjkz1.minetils.render;
+package com.sjkz1.emissive_skin_renderer.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.sjkz1.minetils.Minetils;
-import com.sjkz1.minetils.utils.ColorMatching;
+import com.sjkz1.emissive_skin_renderer.EmissiveSkinRenderer;
+import com.sjkz1.emissive_skin_renderer.utils.ColorMatching;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -16,8 +16,6 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
-
-import java.awt.*;
 
 @Environment(EnvType.CLIENT)
 public class GlowingLayer<T extends Entity, M extends EntityModel<T>> extends RenderLayer<T, M> {
@@ -35,21 +33,21 @@ public class GlowingLayer<T extends Entity, M extends EntityModel<T>> extends Re
     @Override
     public void render(PoseStack poseStack, MultiBufferSource multiBufferSource, int i, T entity, float f, float g, float h, float j, float k, float l) {
         float time = Minecraft.getInstance().getDeltaFrameTime() + entity.tickCount;
-        if (!entity.isInvisible() && Minetils.CONFIG.main.glowingSkin) {
+        if (!entity.isInvisible() && EmissiveSkinRenderer.CONFIG.main.glowingSkin) {
             if (entity.getName().getString().equals("UnZygote")) {
-                VertexConsumer inveterate = multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(Minetils.MOD_ID, "textures/entity/skin/unzygote.png")));
+                VertexConsumer inveterate = multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/unzygote.png")));
                 this.getParentModel().renderToBuffer(poseStack, inveterate, i, OverlayTexture.NO_OVERLAY, makeFade(time), makeFade(time), makeFade(time), 1.0F);
             }
             else if (entity.getName().getString().equals("lastberries")) {
-                VertexConsumer inveterate = multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(Minetils.MOD_ID, "textures/entity/skin/lastberries.png")));
+                VertexConsumer inveterate = multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/lastberries.png")));
                 this.getParentModel().renderToBuffer(poseStack, inveterate, i, OverlayTexture.NO_OVERLAY, makeFade(time), makeFade(time), makeFade(time), 1.0F);
             }
             else if (entity.getName().getString().equals("SJKZ1")) {
-                VertexConsumer inveterate = multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(Minetils.MOD_ID, "textures/entity/skin/glow.png")));
+                VertexConsumer inveterate = multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/glow.png")));
                 this.getParentModel().renderToBuffer(poseStack, inveterate, i, OverlayTexture.NO_OVERLAY, makeFade(time), makeFade(time), makeFade(time), 1.0F);
             }
             else if (entity.getName().getString().equals("AnodizeX_Youen")) {
-                VertexConsumer inveterate = multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(Minetils.MOD_ID, "textures/entity/skin/anodizex_youen.png")));
+                VertexConsumer inveterate = multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/anodizex_youen.png")));
                 this.getParentModel().renderToBuffer(poseStack, inveterate, i, OverlayTexture.NO_OVERLAY, makeFade(time), makeFade(time), makeFade(time), 1.0F);
             }
             else if (entity.getName().getString().equals(entity.getName()) && ColorMatching.identifier != null)

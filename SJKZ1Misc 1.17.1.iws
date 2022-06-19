@@ -5,8 +5,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0606b149-bcd0-49f9-86f8-7b203023724c" name="Changes" comment="Update to 1.19 (2)">
-      <change beforePath="$PROJECT_DIR$/SJKZ1Misc 1.17.1.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/SJKZ1Misc 1.17.1.ipr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SJKZ1Misc 1.17.1.iws" beforeDir="false" afterPath="$PROJECT_DIR$/SJKZ1Misc 1.17.1.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sjkz1/minetils/Minetils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sjkz1/emissive_skin_renderer/EmissiveSkinRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sjkz1/minetils/config/MinetilsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sjkz1/emissive_skin_renderer/config/EmissiveSkinRendererConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sjkz1/minetils/gui/screen/MinetilsConfigModMenuScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sjkz1/emissive_skin_renderer/gui/screen/EmissiveSkinRendererConfigModMenuScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sjkz1/minetils/gui/screen/SpecialMemberScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sjkz1/emissive_skin_renderer/gui/screen/SpecialMemberScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sjkz1/minetils/mixin/BlockEntityWithoutLevelRenderMixin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sjkz1/emissive_skin_renderer/mixin/BlockEntityWithoutLevelRenderMixin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sjkz1/minetils/mixin/CustomHeadLayerMixin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sjkz1/emissive_skin_renderer/mixin/CustomHeadLayerMixin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sjkz1/minetils/mixin/EntityRendererMixin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sjkz1/emissive_skin_renderer/mixin/EntityRendererMixin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sjkz1/minetils/mixin/InventoryScreenMixin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sjkz1/emissive_skin_renderer/mixin/InventoryScreenMixin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sjkz1/minetils/mixin/PlayerRenderMixin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sjkz1/emissive_skin_renderer/mixin/PlayerRenderMixin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sjkz1/minetils/mixin/SkullBlockRendererMixin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sjkz1/emissive_skin_renderer/mixin/SkullBlockRendererMixin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sjkz1/minetils/render/GlowingLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sjkz1/emissive_skin_renderer/render/GlowingLayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sjkz1/minetils/render/GlowingLayerSkull.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sjkz1/emissive_skin_renderer/render/GlowingLayerSkull.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sjkz1/minetils/render/PlayerForRender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sjkz1/emissive_skin_renderer/render/PlayerForRender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sjkz1/minetils/utils/ColorMatching.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sjkz1/emissive_skin_renderer/utils/ColorMatching.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sjkz1/minetils/utils/DiscordMemberThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sjkz1/emissive_skin_renderer/utils/DiscordMemberThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sjkz1/minetils/utils/SJKZ1Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sjkz1/emissive_skin_renderer/utils/SJKZ1Helper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sjkz1/minetils/utils/enums/SkinPart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sjkz1/emissive_skin_renderer/utils/enums/SkinPart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/minetils/icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/minetils/lang/en_us.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/minetils/textures/entity/cape_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/minetils/textures/entity/skin/anodizex_youen.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/minetils/textures/entity/skin/glow.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/minetils/textures/entity/skin/lastberries.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/minetils/textures/entity/skin/unzygote.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/minetils/textures/gui/background.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/minetils/textures/gui/tabs.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fabric.mod.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fabric.mod.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/minetils.accesswidener" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/minetils.mixins.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/emissive-skin-renderer.mixins.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,16 +135,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.5264368&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Users/USER/Desktop/Modding/SJKZ1misc/SJKZ1Misc 1.17.1",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.5264368",
+    "settings.editor.selected.configurable": "vcs.Git"
   }
-}</component>
-  <component name="RunManager" selected="Application.Minecraft Client">
+}]]></component>
+  <component name="RunManager" selected="Gradle.SJKZ1Misc 1.17.1 [genSources]">
     <configuration default="true" factoryName="Applet" type="Applet">
       <module name="" />
       <option name="MAIN_CLASS_NAME" />
@@ -163,6 +193,27 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SJKZ1Misc 1.17.1 [genSources]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="genSources" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" />
@@ -186,6 +237,11 @@
         <option name="BuildArtifacts" enabled="false" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.SJKZ1Misc 1.17.1 [genSources]" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration" maxAnnotateRevisions="500">

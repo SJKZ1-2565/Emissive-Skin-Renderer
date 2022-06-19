@@ -1,10 +1,10 @@
-package com.sjkz1.minetils;
+package com.sjkz1.emissive_skin_renderer;
 
 
 import com.google.common.collect.Lists;
-import com.sjkz1.minetils.config.MinetilsConfig;
-import com.sjkz1.minetils.utils.DiscordMemberThread;
-import com.sjkz1.minetils.utils.SJKZ1Helper;
+import com.sjkz1.emissive_skin_renderer.config.EmissiveSkinRendererConfig;
+import com.sjkz1.emissive_skin_renderer.utils.DiscordMemberThread;
+import com.sjkz1.emissive_skin_renderer.utils.SJKZ1Helper;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
@@ -20,10 +20,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 
-public class Minetils implements ModInitializer {
-    public static final String MOD_ID = "minetils";
+public class EmissiveSkinRenderer implements ModInitializer {
+    public static final String MOD_ID = "emissive-skin-renderer";
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
-    public static MinetilsConfig CONFIG;
+    public static EmissiveSkinRendererConfig CONFIG;
     public static final List<String> SPECIAL_MEMBER = Lists.newCopyOnWriteArrayList();
 
     static {
@@ -38,8 +38,8 @@ public class Minetils implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        AutoConfig.register(MinetilsConfig.class, GsonConfigSerializer::new);
-        CONFIG = AutoConfig.getConfigHolder(MinetilsConfig.class).getConfig();
+        AutoConfig.register(EmissiveSkinRendererConfig.class, GsonConfigSerializer::new);
+        CONFIG = AutoConfig.getConfigHolder(EmissiveSkinRendererConfig.class).getConfig();
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player != null) {
                 SJKZ1Helper.runAsync(() -> {

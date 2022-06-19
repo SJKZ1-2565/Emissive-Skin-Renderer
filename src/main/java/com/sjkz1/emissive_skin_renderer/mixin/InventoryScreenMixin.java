@@ -1,6 +1,6 @@
-package com.sjkz1.minetils.mixin;
+package com.sjkz1.emissive_skin_renderer.mixin;
 
-import com.sjkz1.minetils.gui.screen.SpecialMemberScreen;
+import com.sjkz1.emissive_skin_renderer.gui.screen.SpecialMemberScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;

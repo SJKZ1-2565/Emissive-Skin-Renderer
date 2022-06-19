@@ -1,4 +1,4 @@
-package com.sjkz1.minetils.utils;
+package com.sjkz1.emissive_skin_renderer.utils;
 
 import org.jetbrains.annotations.NotNull;
 

@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.sjkz1.minetils.mixin",
+  "package": "com.sjkz1.emissive_skin_renderer.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "PlayerRenderMixin",

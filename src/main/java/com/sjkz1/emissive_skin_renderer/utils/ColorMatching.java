@@ -1,11 +1,11 @@
-package com.sjkz1.minetils.utils;
+package com.sjkz1.emissive_skin_renderer.utils;
 
 import boon4681.ColorUtils.ColorMixer;
 import boon4681.ColorUtils.DeltaE;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.blaze3d.platform.NativeImage;
-import com.sjkz1.minetils.Minetils;
+import com.sjkz1.emissive_skin_renderer.EmissiveSkinRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.resources.ResourceLocation;
@@ -22,7 +22,7 @@ public class ColorMatching {
     private static final Minecraft client = Minecraft.getInstance();
 
     public static final File GLOWSKIN_DIR = new File(Minecraft.getInstance().gameDirectory, "glow");
-    public static ResourceLocation identifier = new ResourceLocation(Minetils.MOD_ID + ":textures/entity/skin/");
+    public static ResourceLocation identifier = new ResourceLocation(EmissiveSkinRenderer.MOD_ID + ":textures/entity/skin/");
 
     public static void createGlowingSkinImage() {
         try {
@@ -40,7 +40,7 @@ public class ColorMatching {
             ArrayList<Color> pallets = find(colors);
             for (int y = 0; y < image.getHeight(); y++) {
                 for (int x = 0; x < image.getWidth(); x++) {
-                    if (DeltaE.getDelta(new Color(image.getRGB(x, y)), pallets.get(0)) < Minetils.CONFIG.main.palletsRate) {
+                    if (DeltaE.getDelta(new Color(image.getRGB(x, y)), pallets.get(0)) < EmissiveSkinRenderer.CONFIG.main.palletsRate) {
                         image.setRGB(x, y, Transparency.TRANSLUCENT);
                     }
                 }
@@ -52,7 +52,7 @@ public class ColorMatching {
 
             ImageIO.write(image, "png", new File(GLOWSKIN_DIR, "glow_layer.png"));
             SJKZ1Helper.runAsync(ColorMatching::MoveToResourceLoc);
-            Minetils.LOGGER.info("Created Skin Already!");
+            EmissiveSkinRenderer.LOGGER.info("Created Skin Already!");
         } catch (IOException e) {
             e.printStackTrace();
         }

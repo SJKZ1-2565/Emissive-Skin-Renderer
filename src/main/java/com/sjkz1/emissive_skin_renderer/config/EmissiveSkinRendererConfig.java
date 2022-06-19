@@ -1,14 +1,14 @@
-package com.sjkz1.minetils.config;
+package com.sjkz1.emissive_skin_renderer.config;
 
 
-import com.sjkz1.minetils.Minetils;
+import com.sjkz1.emissive_skin_renderer.EmissiveSkinRenderer;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
 
-@Config(name = Minetils.MOD_ID)
+@Config(name = EmissiveSkinRenderer.MOD_ID)
 @Config.Gui.Background("minecraft:textures/block/sculk.png")
-public class MinetilsConfig implements ConfigData {
+public class EmissiveSkinRendererConfig implements ConfigData {
 
 
     @ConfigEntry.Category("general")
@@ -16,7 +16,7 @@ public class MinetilsConfig implements ConfigData {
     public Main main;
 
 
-    public MinetilsConfig() {
+    public EmissiveSkinRendererConfig() {
         this.main = new Main();
     }
 

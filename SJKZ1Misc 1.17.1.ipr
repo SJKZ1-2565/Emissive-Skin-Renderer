@@ -137,9 +137,6 @@
   <component name="SvnBranchConfigurationManager">
     <option name="mySupportsUserInfoFilter" value="true" />
   </component>
-  <component name="VcsDirectoryMappings">
-    <mapping directory="$PROJECT_DIR$" vcs="Git" />
-  </component>
   <component name="libraryTable">
     <library name="Gradle: blue.endless:jankson:1.2.0">
       <CLASSES>

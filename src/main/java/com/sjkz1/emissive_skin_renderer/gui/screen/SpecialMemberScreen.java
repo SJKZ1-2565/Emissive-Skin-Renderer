@@ -1,4 +1,4 @@
-package com.sjkz1.minetils.gui.screen;
+package com.sjkz1.emissive_skin_renderer.gui.screen;
 
 
 import com.google.common.collect.Lists;
@@ -8,10 +8,10 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
-import com.sjkz1.minetils.Minetils;
-import com.sjkz1.minetils.render.PlayerForRender;
-import com.sjkz1.minetils.utils.ColorMatching;
-import com.sjkz1.minetils.utils.SJKZ1Helper;
+import com.sjkz1.emissive_skin_renderer.EmissiveSkinRenderer;
+import com.sjkz1.emissive_skin_renderer.render.PlayerForRender;
+import com.sjkz1.emissive_skin_renderer.utils.ColorMatching;
+import com.sjkz1.emissive_skin_renderer.utils.SJKZ1Helper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.AbstractSliderButton;
@@ -37,7 +37,7 @@ import java.util.Objects;
 public class SpecialMemberScreen extends Screen {
 
 
-    public final ResourceLocation BG = new ResourceLocation(Minetils.MOD_ID + ":textures/gui/background.png");
+    public final ResourceLocation BG = new ResourceLocation(EmissiveSkinRenderer.MOD_ID + ":textures/gui/background.png");
 
     private float playerXRot = 0;
     private float ticks = 0;
@@ -71,15 +71,15 @@ public class SpecialMemberScreen extends Screen {
     protected void init() {
         super.init();
         this.addRenderableWidget(new Button((this.width / 2) + 20, 130, 98, 20, Component.literal("Create Skin"), Button -> ColorMatching.createGlowingSkinImage()));
-        this.addRenderableWidget(new AbstractSliderButton((this.width / 2) - 120, 130, 98, 20, Component.literal("Delete Rates: " + Minetils.CONFIG.main.palletsRate), Minetils.CONFIG.main.palletsRate) {
+        this.addRenderableWidget(new AbstractSliderButton((this.width / 2) - 120, 130, 98, 20, Component.literal("Delete Rates: " + EmissiveSkinRenderer.CONFIG.main.palletsRate), EmissiveSkinRenderer.CONFIG.main.palletsRate) {
             @Override
             protected void updateMessage() {
-                setMessage(Component.literal("Delete Rate: " + Minetils.CONFIG.main.palletsRate));
+                setMessage(Component.literal("Delete Rate: " + EmissiveSkinRenderer.CONFIG.main.palletsRate));
             }
 
             @Override
             protected void applyValue() {
-                Minetils.CONFIG.main.palletsRate = Mth.floor(Mth.clampedLerp(100.0D, 150.0D, this.value));
+                EmissiveSkinRenderer.CONFIG.main.palletsRate = Mth.floor(Mth.clampedLerp(100.0D, 150.0D, this.value));
             }
         });
 
@@ -141,7 +141,7 @@ public class SpecialMemberScreen extends Screen {
             err = true;
             list.add("Couldn't get Discord Member!");
         }
-        for (String listName : Minetils.SPECIAL_MEMBER) {
+        for (String listName : EmissiveSkinRenderer.SPECIAL_MEMBER) {
             list.add(listName);
         }
     }
@@ -161,7 +161,7 @@ public class SpecialMemberScreen extends Screen {
             if (string.equals("Special Member")) {
                 GuiComponent.drawString(mat, this.font, string, (this.width / 2), 35 + height, color.getRGB());
             } else {
-                for (String listName : Minetils.SPECIAL_MEMBER) {
+                for (String listName : EmissiveSkinRenderer.SPECIAL_MEMBER) {
                     if (string.equals(listName)) {
                         GuiComponent.drawString(mat, this.font, string, (this.width / 2) - 25, 140 + height, color.getRGB());
                     }

@@ -1,4 +1,4 @@
-package com.sjkz1.minetils.render;
+package com.sjkz1.emissive_skin_renderer.render;
 
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.multiplayer.ClientLevel;

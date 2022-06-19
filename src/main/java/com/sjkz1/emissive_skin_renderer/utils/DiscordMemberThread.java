@@ -1,9 +1,9 @@
-package com.sjkz1.minetils.utils;
+package com.sjkz1.emissive_skin_renderer.utils;
 
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
-import com.sjkz1.minetils.gui.screen.SpecialMemberScreen;
+import com.sjkz1.emissive_skin_renderer.gui.screen.SpecialMemberScreen;
 
 import java.io.BufferedReader;
 import java.io.IOException;
