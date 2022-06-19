@@ -13,7 +13,6 @@ import com.sjkz1.minetils.render.PlayerForRender;
 import com.sjkz1.minetils.utils.ColorMatching;
 import com.sjkz1.minetils.utils.SJKZ1Helper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.OptionInstance;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.client.gui.components.Button;
@@ -44,7 +43,7 @@ public class SpecialMemberScreen extends Screen {
     private float ticks = 0;
     public static int ONLINE_USER;
 
-    protected int imageWidth = 176;
+    protected int imageWidth = 256;
     protected int imageHeight = 166;
 
     private final List<String> list = Lists.newCopyOnWriteArrayList();
@@ -71,8 +70,8 @@ public class SpecialMemberScreen extends Screen {
     @Override
     protected void init() {
         super.init();
-        this.addWidget(new Button((this.width / 2) + 20, 130, 98, 20, Component.literal("Create Skin"), Button -> ColorMatching.createGlowingSkinImage()));
-        this.addWidget(new AbstractSliderButton((this.width / 2) - 120, 130, 98, 20, Component.literal("Delete Rates: " + Minetils.CONFIG.main.palletsRate), Minetils.CONFIG.main.palletsRate) {
+        this.addRenderableWidget(new Button((this.width / 2) + 20, 130, 98, 20, Component.literal("Create Skin"), Button -> ColorMatching.createGlowingSkinImage()));
+        this.addRenderableWidget(new AbstractSliderButton((this.width / 2) - 120, 130, 98, 20, Component.literal("Delete Rates: " + Minetils.CONFIG.main.palletsRate), Minetils.CONFIG.main.palletsRate) {
             @Override
             protected void updateMessage() {
                 setMessage(Component.literal("Delete Rate: " + Minetils.CONFIG.main.palletsRate));
@@ -84,51 +83,51 @@ public class SpecialMemberScreen extends Screen {
             }
         });
 
-        buttonSkin1 = this.addWidget(new Button((this.width / 2) - 211, 20, 80, 20, Component.literal("Coming soon..."), (Button) -> {
+        buttonSkin1 = this.addRenderableWidget(new Button((this.width / 2) - 211, 20, 80, 20, Component.literal("Coming soon..."), (Button) -> {
             Button.active = false;
             //			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
         }));
-        buttonSkin2 = this.addWidget(new Button((this.width / 2) - 211, 50, 80, 20, Component.literal("Coming soon..."), (Button) -> {
+        buttonSkin2 = this.addRenderableWidget(new Button((this.width / 2) - 211, 50, 80, 20, Component.literal("Coming soon..."), (Button) -> {
             //			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HAT.getMinUvX(),SkinPart.Part.HAT.getMinUvY(),SkinPart.Part.HAT.getMaxUvX(),SkinPart.Part.HAT.getMaxUvY()));
             Button.active = true;
         }));
-        buttonSkin3 = this.addWidget(new Button((this.width / 2) - 211, 80, 80, 20, Component.literal("Coming soon..."), (Button) -> {
+        buttonSkin3 = this.addRenderableWidget(new Button((this.width / 2) - 211, 80, 80, 20, Component.literal("Coming soon..."), (Button) -> {
             //			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
             Button.active = true;
         }));
-        buttonSkin4 = this.addWidget(new Button((this.width / 2) - 211, 110, 80, 20, Component.literal("Coming soon..."), (Button) -> {
+        buttonSkin4 = this.addRenderableWidget(new Button((this.width / 2) - 211, 110, 80, 20, Component.literal("Coming soon..."), (Button) -> {
             //			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
             Button.active = true;
         }));
-        buttonSkin5 = this.addWidget(new Button((this.width / 2) - 211, 140, 80, 20, Component.literal("Coming soon..."), (Button) -> {
+        buttonSkin5 = this.addRenderableWidget(new Button((this.width / 2) - 211, 140, 80, 20, Component.literal("Coming soon..."), (Button) -> {
             //		SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
             Button.active = true;
         }));
-        buttonSkin6 = this.addWidget(new Button((this.width / 2) - 211, 170, 80, 20, Component.literal("Coming soon..."), (Button) -> {
+        buttonSkin6 = this.addRenderableWidget(new Button((this.width / 2) - 211, 170, 80, 20, Component.literal("Coming soon..."), (Button) -> {
             //			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
             Button.active = true;
         }));
-        buttonSkin7 = this.addWidget(new Button((this.width / 2) + 132, 20, 80, 20, Component.literal("Coming soon..."), (Button) -> {
+        buttonSkin7 = this.addRenderableWidget(new Button((this.width / 2) + 132, 20, 80, 20, Component.literal("Coming soon..."), (Button) -> {
             //			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
             Button.active = true;
         }));
-        buttonSkin8 = this.addWidget(new Button((this.width / 2) + 132, 50, 80, 20, Component.literal("Coming soon..."), (Button) -> {
+        buttonSkin8 = this.addRenderableWidget(new Button((this.width / 2) + 132, 50, 80, 20, Component.literal("Coming soon..."), (Button) -> {
             //			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
             Button.active = true;
         }));
-        buttonSkin9 = this.addWidget(new Button((this.width / 2) + 132, 80, 80, 20, Component.literal("Coming soon..."), (Button) -> {
+        buttonSkin9 = this.addRenderableWidget(new Button((this.width / 2) + 132, 80, 80, 20, Component.literal("Coming soon..."), (Button) -> {
             //			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
             Button.active = true;
         }));
-        buttonSkin10 = this.addWidget(new Button((this.width / 2) + 132, 110, 80, 20, Component.literal("Coming soon..."), (Button) -> {
+        buttonSkin10 = this.addRenderableWidget(new Button((this.width / 2) + 132, 110, 80, 20, Component.literal("Coming soon..."), (Button) -> {
             //			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
             Button.active = true;
         }));
-        buttonSkin11 = this.addWidget(new Button((this.width / 2) + 132, 140, 80, 20, Component.literal("Coming soon..."), (Button) -> {
+        buttonSkin11 = this.addRenderableWidget(new Button((this.width / 2) + 132, 140, 80, 20, Component.literal("Coming soon..."), (Button) -> {
             //			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
             Button.active = true;
         }));
-        buttonSkin12 = this.addWidget(new Button((this.width / 2) + 132, 170, 80, 20, Component.literal("Coming soon..."), (Button) -> {
+        buttonSkin12 = this.addRenderableWidget(new Button((this.width / 2) + 132, 170, 80, 20, Component.literal("Coming soon..."), (Button) -> {
             //		SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
             Button.active = true;
         }));
@@ -149,6 +148,7 @@ public class SpecialMemberScreen extends Screen {
 
     @Override
     public void render(PoseStack mat, int mouseX, int mouseY, float partialTicks) {
+        super.render(mat, mouseX, mouseY, partialTicks);
         ticks += 0.01F * partialTicks;
         playerXRot -= 0.15 * partialTicks;
         if (playerXRot <= -179.85) {
@@ -176,7 +176,6 @@ public class SpecialMemberScreen extends Screen {
             }
             height += 15;
         }
-        super.render(mat, mouseX, mouseY, partialTicks);
     }
 
     public void renderBackgroundGG(PoseStack poseStack) {
@@ -186,7 +185,7 @@ public class SpecialMemberScreen extends Screen {
         RenderSystem.setShaderTexture(0, BG);
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_CONSTANT_ALPHA);
-        renderBackground(poseStack);
+        this.renderDirtBackground(0);
         this.blit(poseStack, (this.width / 2) - 128, 15, 0, 0, this.imageWidth, this.imageHeight);
         renderEntityInInventory((this.width / 2) - 95, 123, 55, playerXRot, 0, new PlayerForRender(this.minecraft.level, Objects.requireNonNull(this.minecraft.player).getGameProfile(), null));
     }
@@ -224,9 +223,7 @@ public class SpecialMemberScreen extends Screen {
         entityRenderDispatcher.overrideCameraOrientation(yRotationQuaternion);
         entityRenderDispatcher.setRenderShadow(false);
         MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
-        RenderSystem.runAsFancy(() -> {
-            entityRenderDispatcher.render(livingEntity, 0.0, 0.0, 0.0, 0.0F, 1.0F, poseStack2, bufferSource, 15728880);
-        });
+        RenderSystem.runAsFancy(() -> entityRenderDispatcher.render(livingEntity, 0.0, 0.0, 0.0, 0.0F, 1.0F, poseStack2, bufferSource, 15728880));
         bufferSource.endBatch();
         entityRenderDispatcher.setRenderShadow(true);
         livingEntity.yBodyRot = m;

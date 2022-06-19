@@ -9,21 +9,17 @@ import com.sjkz1.minetils.Minetils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.resources.ResourceLocation;
-import org.spongepowered.asm.util.Files;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Base64;
 
 public class ColorMatching {
-
     private static final Minecraft client = Minecraft.getInstance();
-    public static ArrayList<Integer> blackList = new ArrayList<>();
 
     public static final File GLOWSKIN_DIR = new File(Minecraft.getInstance().gameDirectory, "glow");
     public static ResourceLocation identifier = new ResourceLocation(Minetils.MOD_ID + ":textures/entity/skin/");
@@ -31,6 +27,7 @@ public class ColorMatching {
     public static void createGlowingSkinImage() {
         try {
             String url = getSkin();
+            if (url.isBlank() || url.isEmpty()) return;
             BufferedImage image = ImageIO.read(new URL(url).openStream());
             BufferedImage resizedImage = resize(image, 2, 2);
             ArrayList<Color> colors = new ArrayList<>();
@@ -53,66 +50,12 @@ public class ColorMatching {
                 GLOWSKIN_DIR.mkdirs();
             }
 
-//            ImageIO.write(image, "png", new File(GLOWSKIN_DIR, "glow_layer.png"));
-//            SJKZ1Helper.runAsync(ColorMatching::MoveToResourceLoc);
-//            URL url1 = ColorMatching.class.getClassLoader().getResource("/assets/minetils/textures/entity/skin/glow.png");
-//            File file = Files.toFile(url1);
-//            System.out.println(file);
-//            System.out.println(file.getPath());
-            ImageIO.write(image, "png", Files.toFile(ColorMatching.class.getClassLoader().getResource("/assets/minetils/textures/entity/skin/glow.png")));
+            ImageIO.write(image, "png", new File(GLOWSKIN_DIR, "glow_layer.png"));
+            SJKZ1Helper.runAsync(ColorMatching::MoveToResourceLoc);
             Minetils.LOGGER.info("Created Skin Already!");
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
         }
-    }
-
-    public static void createGlowingSkinImageWithCustomUV(int minX, int minY, int maxX, int maxY) {
-        try {
-            String url = getSkin();
-            BufferedImage image = ImageIO.read(new URL(url).openStream());//TODO not coming soon
-            BufferedImage resizedImage = resize(image, 2, 2);
-            ArrayList<Color> colors = new ArrayList<>();
-
-            for (int y = 0; y < resizedImage.getHeight(); y++) {
-                for (int x = 0; x < resizedImage.getWidth(); x++) {
-                    colors.add(new Color(resizedImage.getRGB(x, y), false));
-                }
-            }
-            ArrayList<Color> pallets = find(colors);
-            for (int y = 0; y <= image.getHeight(); y++) {
-                for (int x = 16; x <= image.getWidth(); x++) {
-
-                    if (x > 64 || y > 16) {
-                        image.setRGB(x, y, Transparency.TRANSLUCENT);
-                    }
-
-                    for (int newX = 16; newX < 64; newX++) {
-                        for (int newY = 0; newY < 16; newY++) {
-                            if (DeltaE.getDelta(new Color(image.getRGB(newX, newY)), pallets.get(0)) < Minetils.CONFIG.main.palletsRate || image.getRGB(newX, newY) == Color.WHITE.getRGB()) {
-                                image.setRGB(newX, newY, Transparency.TRANSLUCENT);
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (!GLOWSKIN_DIR.exists()) {
-                GLOWSKIN_DIR.mkdirs();
-            }
-
-            ImageIO.write(image, "png", new File(String.valueOf(ColorMatching.class.getResourceAsStream("src\\main\\resources\\assets\\minetils\\textures\\entity\\skin\\glowsssss.png"))));
-//            ImageIO.write(image, "png", new File(GLOWSKIN_DIR, "glow_layer.png"));
-            SJKZ1Helper.runAsync(ColorMatching::MoveToResourceLoc);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void setBlackList(Color element) {
-        blackList.add(Color.WHITE.getRGB());
-        blackList.add(Color.BLACK.getRGB());
     }
 
     @SuppressWarnings("resource")
@@ -169,11 +112,14 @@ public class ColorMatching {
         URL url1 = new URL("https://sessionserver.mojang.com/session/minecraft/profile/" + client.player.getStringUUID().replace("-", ""));
         InputStreamReader reader1 = new InputStreamReader(url1.openStream());
         JsonObject property = JsonParser.parseReader(reader1).getAsJsonObject().get("properties").getAsJsonArray().get(0).getAsJsonObject();
-        String texture = property.get("value").getAsString();
-        byte[] decodedBytes = Base64.getMimeDecoder().decode(texture);
-        String decodedMime = new String(decodedBytes);
-        JsonObject property1 = JsonParser.parseString(decodedMime).getAsJsonObject().get("textures").getAsJsonObject();
-        JsonObject texture1 = property1.get("SKIN").getAsJsonObject();
-        return texture1.get("url").getAsString();
+        if (!property.isJsonNull() || property != null) {
+            String texture = property.get("value").getAsString();
+            byte[] decodedBytes = Base64.getMimeDecoder().decode(texture);
+            String decodedMime = new String(decodedBytes);
+            JsonObject property1 = JsonParser.parseString(decodedMime).getAsJsonObject().get("textures").getAsJsonObject();
+            JsonObject texture1 = property1.get("SKIN").getAsJsonObject();
+            return texture1.get("url").getAsString();
+        }
+        return "";
     }
 }
