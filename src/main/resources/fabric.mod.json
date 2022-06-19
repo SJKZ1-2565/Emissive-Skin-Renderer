@@ -5,25 +5,23 @@
   "name": "Emissive Skin Renderer",
   "description": "",
   "authors": [
-    "SJKZ1","boon4681"
+    "SJKZ1",
+    "boon4681"
   ],
   "contact": {
     "homepage": "https://github.com/SJKZ1-2565",
     "sources": "https://github.com/SJKZ1-2565/Minetils",
     "issues": "https://github.com/SJKZ1-2565/Minetils/issues"
   },
-
   "license": "MIT-LICENSE",
-  "icon": "assets/minetils/icon.png",
-
-
+  "icon": "assets/emissive-skin-renderer/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.sjkz1.minetils.Minetils"
+      "com.sjkz1.emissive_skin_renderer.EmissiveSkinRenderer"
     ],
     "modmenu": [
-      "com.sjkz1.minetils.gui.screen.MinetilsConfigModMenuScreen"
+      "com.sjkz1.emissive_skin_renderer.gui.screen.EmissiveSkinRendererConfigModMenuScreen"
     ]
   },
   "mixins": [
