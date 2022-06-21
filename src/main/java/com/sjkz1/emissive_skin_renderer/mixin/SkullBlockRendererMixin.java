@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.sjkz1.emissive_skin_renderer.render.GlowingLayerSkull;
 import net.minecraft.client.model.SkullModelBase;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
 import net.minecraft.core.Direction;
@@ -38,7 +39,8 @@ public abstract class SkullBlockRendererMixin implements BlockEntityRenderer<Sku
             float h = 22.5f * (float) (bl ? (2 + direction.get2DDataValue()) * 4 : blockState.getValue(SkullBlock.ROTATION));
             SkullBlock.Type type = ((AbstractSkullBlock) blockState.getBlock()).getType();
             SkullModelBase skullModelBase = this.modelByType.get(type);
-            GlowingLayerSkull.renderSkull(direction, h, g, poseStack, multiBufferSource, i, skullModelBase,skullBlockEntity.getOwnerProfile());
+            RenderType renderType = GlowingLayerSkull.getRenderType(type, skullBlockEntity.getOwnerProfile());
+            GlowingLayerSkull.renderSkull(direction, h, g, poseStack, multiBufferSource, i, skullModelBase, skullBlockEntity.getOwnerProfile(), renderType);
         }
     }
 }

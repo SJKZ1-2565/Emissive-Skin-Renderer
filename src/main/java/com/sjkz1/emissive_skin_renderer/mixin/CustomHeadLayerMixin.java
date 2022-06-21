@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.sjkz1.emissive_skin_renderer.render.GlowingLayerSkull;
 import net.minecraft.client.model.SkullModelBase;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
@@ -45,8 +46,9 @@ public class CustomHeadLayerMixin<T extends LivingEntity> {
         }
         SkullBlock.Type type = ((AbstractSkullBlock) ((BlockItem) item).getBlock()).getType();
         SkullModelBase skullModelBase = this.skullModels.get(type);
+        RenderType renderType = GlowingLayerSkull.getRenderType(type,gameProfile);
         if (gameProfile != null) {
-            GlowingLayerSkull.renderSkull(null, 180.0f, f, poseStack, multiBufferSource, i, skullModelBase, gameProfile);
+            GlowingLayerSkull.renderSkull(null, 180.0f, f, poseStack, multiBufferSource, i, skullModelBase, gameProfile,renderType);
         }
     }
 
