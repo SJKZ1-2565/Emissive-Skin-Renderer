@@ -52,6 +52,11 @@ public class GlowingLayerSkull {
                 skullModelBase.setupAnim(g, f, 0.0f);
                 skullModelBase.renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, 1.0f, 1.0f, 1.0f, 1.0f);
             }
+            else if (gameProfile.getName().equals("AnodizeX_Youen")) {
+                VertexConsumer vertexConsumer = multiBufferSource.getBuffer(renderType);
+                skullModelBase.setupAnim(g, f, 0.0f);
+                skullModelBase.renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, 1.0f, 1.0f, 1.0f, 1.0f);
+            }
             poseStack.popPose();
         }
     }
@@ -69,6 +74,9 @@ public class GlowingLayerSkull {
             }
             if (gameProfile.getName().equals("lastberries")) {
                 return RenderType.eyes(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/lastberries.png"));
+            }
+            if (gameProfile.getName().equals("AnodizeX_Youen")) {
+                return RenderType.eyes(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/anodizex_youen.png"));
             }
             return RenderType.entityTranslucent(minecraft.getSkinManager().registerTexture(map.get((Object) MinecraftProfileTexture.Type.SKIN), MinecraftProfileTexture.Type.SKIN));
         }
