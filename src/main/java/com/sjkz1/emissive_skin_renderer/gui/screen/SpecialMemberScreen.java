@@ -148,7 +148,7 @@ public class SpecialMemberScreen extends Screen {
 
     @Override
     public void render(PoseStack mat, int mouseX, int mouseY, float partialTicks) {
-        super.render(mat, mouseX, mouseY, partialTicks);
+        this.renderBackground(mat);
         ticks += 0.01F * partialTicks;
         playerXRot -= 0.15 * partialTicks;
         if (playerXRot <= -179.85) {
@@ -176,16 +176,13 @@ public class SpecialMemberScreen extends Screen {
             }
             height += 15;
         }
+        super.render(mat, mouseX, mouseY, partialTicks);
     }
 
     public void renderBackgroundGG(PoseStack poseStack) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        float shade = 1.0f;
-        RenderSystem.setShaderColor(shade, shade, shade, shade);
+        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         RenderSystem.setShaderTexture(0, BG);
-        RenderSystem.enableBlend();
-        RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_CONSTANT_ALPHA);
-        this.renderDirtBackground(0);
         this.blit(poseStack, (this.width / 2) - 128, 15, 0, 0, this.imageWidth, this.imageHeight);
         renderEntityInInventory((this.width / 2) - 95, 123, 55, playerXRot, 0, new PlayerForRender(this.minecraft.level, Objects.requireNonNull(this.minecraft.player).getGameProfile(), null));
     }
