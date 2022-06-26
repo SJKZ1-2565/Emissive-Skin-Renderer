@@ -34,7 +34,7 @@ public class CustomHeadLayerMixin<T extends LivingEntity> {
 
     @Inject(method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/world/entity/LivingEntity;FFFFFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/blockentity/SkullBlockRenderer;renderSkull(Lnet/minecraft/core/Direction;FFLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/client/model/SkullModelBase;Lnet/minecraft/client/renderer/RenderType;)V", shift = At.Shift.AFTER))
     public void render(PoseStack poseStack, MultiBufferSource multiBufferSource, int i, T livingEntity, float f, float g, float h, float j, float k, float l, CallbackInfo ci) {
-        ItemStack itemStack = ((LivingEntity) livingEntity).getItemBySlot(EquipmentSlot.HEAD);
+        ItemStack itemStack = livingEntity.getItemBySlot(EquipmentSlot.HEAD);
         if (itemStack.isEmpty()) {
             return;
         }
