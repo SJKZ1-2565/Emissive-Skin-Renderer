@@ -79,7 +79,7 @@ public class SpecialMemberScreen extends Screen {
 
             @Override
             protected void applyValue() {
-                EmissiveSkinRenderer.CONFIG.main.palletsRate = Mth.floor(Mth.clampedLerp(100.0D, 150.0D, this.value));
+                EmissiveSkinRenderer.CONFIG.main.palletsRate = Mth.floor(Mth.clampedLerp(50.0D, 100.0D, this.value));
             }
         });
 
