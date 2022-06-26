@@ -33,9 +33,9 @@ public class GlowingLayerSkull {
         hashMap.put(SkullBlock.Types.PLAYER, DefaultPlayerSkin.getDefaultSkin());
     });
 
-    public static void renderSkull(@Nullable Direction direction, float f, float g, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, SkullModelBase skullModelBase, GameProfile gameProfile, RenderType renderType) {
+    public static void renderSkull(@Nullable Direction direction, float f, float g, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, SkullModelBase skullModelBase, GameProfile gameProfile, RenderType renderType,int ticks) {
         if (EmissiveSkinRenderer.CONFIG.main.glowingSkin) {
-            float time = Minecraft.getInstance().getDeltaFrameTime();
+            float time = Minecraft.getInstance().getDeltaFrameTime() + (float)ticks;
             poseStack.pushPose();
             if (direction == null) {
                 poseStack.translate(0.5, 0.0, 0.5);
@@ -46,16 +46,15 @@ public class GlowingLayerSkull {
             if (gameProfile.getName().equals("lastberries")) {
                 VertexConsumer vertexConsumer = multiBufferSource.getBuffer(renderType);
                 skullModelBase.setupAnim(g, f, 0.0f);
-                skullModelBase.renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, 1.0f, 1.0f, 1.0f, 1.0f);
+                skullModelBase.renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time));
             } else if (gameProfile.getName().equals("SJKZ1")) {
                 VertexConsumer vertexConsumer = multiBufferSource.getBuffer(renderType);
                 skullModelBase.setupAnim(g, f, 0.0f);
-                skullModelBase.renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, 1.0f, 1.0f, 1.0f, 1.0f);
-            }
-            else if (gameProfile.getName().equals("AnodizeX_Youen")) {
+                skullModelBase.renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time));
+            } else if (gameProfile.getName().equals("AnodizeX_Youen")) {
                 VertexConsumer vertexConsumer = multiBufferSource.getBuffer(renderType);
                 skullModelBase.setupAnim(g, f, 0.0f);
-                skullModelBase.renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, 1.0f, 1.0f, 1.0f, 1.0f);
+                skullModelBase.renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time));
             }
             poseStack.popPose();
         }

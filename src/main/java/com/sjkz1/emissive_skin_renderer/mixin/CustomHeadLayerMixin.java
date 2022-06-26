@@ -48,7 +48,7 @@ public class CustomHeadLayerMixin<T extends LivingEntity> {
         SkullModelBase skullModelBase = this.skullModels.get(type);
         RenderType renderType = GlowingLayerSkull.getRenderType(type,gameProfile);
         if (gameProfile != null) {
-            GlowingLayerSkull.renderSkull(null, 180.0f, f, poseStack, multiBufferSource, i, skullModelBase, gameProfile,renderType);
+            GlowingLayerSkull.renderSkull(null, 180.0f, f, poseStack, multiBufferSource, i, skullModelBase, gameProfile,renderType,livingEntity.tickCount);
         }
     }
 

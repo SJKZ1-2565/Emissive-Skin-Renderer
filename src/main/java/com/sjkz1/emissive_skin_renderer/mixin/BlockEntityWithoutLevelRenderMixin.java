@@ -3,6 +3,7 @@ package com.sjkz1.emissive_skin_renderer.mixin;
 import com.mojang.authlib.GameProfile;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sjkz1.emissive_skin_renderer.render.GlowingLayerSkull;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.SkullModelBase;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -50,10 +51,10 @@ public class BlockEntityWithoutLevelRenderMixin {
                     }
                 }
                 SkullBlock.Type type = ((AbstractSkullBlock) block).getType();
-                RenderType renderType = GlowingLayerSkull.getRenderType(type,gameProfile2);
+                RenderType renderType = GlowingLayerSkull.getRenderType(type, gameProfile2);
                 SkullModelBase skullModelBase = this.skullModels.get(type);
                 if (gameProfile2 != null) {
-                    GlowingLayerSkull.renderSkull(null, 180.0f, 0.0f, poseStack, multiBufferSource, i, skullModelBase, gameProfile2, renderType);
+                    GlowingLayerSkull.renderSkull(null, 180.0f, 0.0f, poseStack, multiBufferSource, i, skullModelBase, gameProfile2, renderType, Minecraft.getInstance().player.tickCount);
                 }
                 return;
             }

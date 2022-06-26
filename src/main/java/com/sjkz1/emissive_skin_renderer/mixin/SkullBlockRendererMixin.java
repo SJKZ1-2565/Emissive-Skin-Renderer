@@ -2,17 +2,21 @@ package com.sjkz1.emissive_skin_renderer.mixin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sjkz1.emissive_skin_renderer.render.GlowingLayerSkull;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.SkullModelBase;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
 import net.minecraft.core.Direction;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.AbstractSkullBlock;
 import net.minecraft.world.level.block.SkullBlock;
 import net.minecraft.world.level.block.WallSkullBlock;
 import net.minecraft.world.level.block.entity.SkullBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -20,6 +24,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import javax.swing.*;
 import java.util.Map;
 
 @Mixin(SkullBlockRenderer.class)
@@ -40,7 +45,7 @@ public abstract class SkullBlockRendererMixin implements BlockEntityRenderer<Sku
             SkullBlock.Type type = ((AbstractSkullBlock) blockState.getBlock()).getType();
             SkullModelBase skullModelBase = this.modelByType.get(type);
             RenderType renderType = GlowingLayerSkull.getRenderType(type, skullBlockEntity.getOwnerProfile());
-            GlowingLayerSkull.renderSkull(direction, h, g, poseStack, multiBufferSource, i, skullModelBase, skullBlockEntity.getOwnerProfile(), renderType);
+            GlowingLayerSkull.renderSkull(direction, h, g, poseStack, multiBufferSource, i, skullModelBase, skullBlockEntity.getOwnerProfile(), renderType, Minecraft.getInstance().player.tickCount);
         }
     }
 }
