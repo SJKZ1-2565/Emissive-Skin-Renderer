@@ -56,7 +56,6 @@ public class BlockEntityWithoutLevelRenderMixin {
                 if (gameProfile2 != null) {
                     GlowingLayerSkull.renderSkull(null, 180.0f, 0.0f, poseStack, multiBufferSource, i, skullModelBase, gameProfile2, renderType, Minecraft.getInstance().player.tickCount);
                 }
-                return;
             }
         }
     }
