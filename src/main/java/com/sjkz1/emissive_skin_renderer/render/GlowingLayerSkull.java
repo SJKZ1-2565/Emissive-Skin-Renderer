@@ -33,9 +33,9 @@ public class GlowingLayerSkull {
         hashMap.put(SkullBlock.Types.PLAYER, DefaultPlayerSkin.getDefaultSkin());
     });
 
-    public static void renderSkull(@Nullable Direction direction, float f, float g, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, SkullModelBase skullModelBase, GameProfile gameProfile, RenderType renderType,int ticks) {
+    public static void renderSkull(@Nullable Direction direction, float f, float g, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, SkullModelBase skullModelBase, GameProfile gameProfile, RenderType renderType, int ticks) {
         if (EmissiveSkinRenderer.CONFIG.main.glowingSkin) {
-            float time = Minecraft.getInstance().getDeltaFrameTime() + (float)ticks;
+            float time = Minecraft.getInstance().getDeltaFrameTime() + (float) ticks;
             poseStack.pushPose();
             if (direction == null) {
                 poseStack.translate(0.5, 0.0, 0.5);
@@ -43,20 +43,26 @@ public class GlowingLayerSkull {
                 poseStack.translate(0.5f - (float) direction.getStepX() * 0.25f, 0.25, 0.5f - (float) direction.getStepZ() * 0.25f);
             }
             poseStack.scale(-1.0f, -1.0f, 1.0f);
-            if (gameProfile.getName().equals("lastberries")) {
-                VertexConsumer vertexConsumer = multiBufferSource.getBuffer(renderType);
-                skullModelBase.setupAnim(g, f, 0.0f);
-                skullModelBase.renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time));
-            } else if (gameProfile.getName().equals("SJKZ1")) {
-                VertexConsumer vertexConsumer = multiBufferSource.getBuffer(renderType);
-                skullModelBase.setupAnim(g, f, 0.0f);
-                skullModelBase.renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time));
-            } else if (gameProfile.getName().equals("AnodizeX_Youen")) {
-                VertexConsumer vertexConsumer = multiBufferSource.getBuffer(renderType);
-                skullModelBase.setupAnim(g, f, 0.0f);
-                skullModelBase.renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time));
+            if (!StringUtil.isNullOrEmpty(gameProfile.getName())) {
+                if (gameProfile.getName().equals("lastberries")) {
+                    VertexConsumer vertexConsumer = multiBufferSource.getBuffer(renderType);
+                    skullModelBase.setupAnim(g, f, 0.0f);
+                    skullModelBase.renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time));
+                } else if (gameProfile.getName().equals("SJKZ1")) {
+                    VertexConsumer vertexConsumer = multiBufferSource.getBuffer(renderType);
+                    skullModelBase.setupAnim(g, f, 0.0f);
+                    skullModelBase.renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time));
+                } else if (gameProfile.getName().equals("AnodizeX_Youen")) {
+                    VertexConsumer vertexConsumer = multiBufferSource.getBuffer(renderType);
+                    skullModelBase.setupAnim(g, f, 0.0f);
+                    skullModelBase.renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time));
+                }
             }
+            VertexConsumer vertexConsumer = multiBufferSource.getBuffer(renderType);
+            skullModelBase.setupAnim(g, f, 0.0f);
+            skullModelBase.renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time));
             poseStack.popPose();
+
         }
     }
 
@@ -68,6 +74,9 @@ public class GlowingLayerSkull {
         Minecraft minecraft = Minecraft.getInstance();
         Map<MinecraftProfileTexture.Type, MinecraftProfileTexture> map = minecraft.getSkinManager().getInsecureSkinInformation(gameProfile);
         if (map.containsKey((Object) MinecraftProfileTexture.Type.SKIN)) {
+            if (StringUtil.isNullOrEmpty(gameProfile.getName())) {
+                return RenderType.entityTranslucent(minecraft.getSkinManager().registerTexture(map.get((Object) MinecraftProfileTexture.Type.SKIN), MinecraftProfileTexture.Type.SKIN));
+            }
             if (gameProfile.getName().equals("SJKZ1")) {
                 return RenderType.eyes(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/glow.png"));
             }
@@ -82,3 +91,4 @@ public class GlowingLayerSkull {
         return RenderType.entityCutoutNoCull(DefaultPlayerSkin.getDefaultSkin(UUIDUtil.getOrCreatePlayerUUID(gameProfile)));
     }
 }
+
