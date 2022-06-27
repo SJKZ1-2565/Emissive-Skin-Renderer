@@ -3,7 +3,7 @@
   "id": "emissive-skin-renderer",
   "version": "${version}",
   "name": "Emissive Skin Renderer",
-  "description": "Fixed weird rendering on Editing Skin Screen\nFixed incorrect delete rate values that exceed 150\nFixed mod icon\nGlowing Skull now has fade like glowing player skin\n",
+  "description": "CHANGE LOG\nFixed game crashed when joining sever that use custom head.\n",
   "authors": [
     "SJKZ1",
     "boon4681"
