@@ -48,5 +48,9 @@ public class EmissiveSkinRenderer implements ModInitializer {
                 });
             }
         });
+        for (String s :
+                SPECIAL_MEMBER) {
+            LOGGER.debug("Special Member " + s + "loaded!");
+        }
     }
 }
