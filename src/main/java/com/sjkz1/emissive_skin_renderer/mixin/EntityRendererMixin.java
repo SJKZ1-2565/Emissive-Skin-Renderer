@@ -15,7 +15,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(EntityRenderer.class)
 public class EntityRendererMixin<T extends Entity> {
 
-
     @Inject(method = "renderNameTag", at = @At("HEAD"), cancellable = true)
     public void render(T entity, Component component, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, CallbackInfo ci) {
         if (entity instanceof PlayerForRender) {
