@@ -39,4 +39,9 @@ public class PlayerForRender extends AbstractClientPlayer {
     public boolean shouldShowName() {
         return false;
     }
+
+    @Override
+    public boolean isSpectator() {
+        return false;
+    }
 }
