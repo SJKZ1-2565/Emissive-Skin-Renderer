@@ -1,11 +1,6 @@
 {
-  "key.minetils.showPost": "Send current position in chat",
-  "text.autoconfig.minetils.title": "Minetils Config...",
-  "text.autoconfig.minetils.option.main.glowingSkin": "Glowing skin",
-  "text.autoconfig.minetils.option.main.switchingArmorElytra": "Switching Armor , Elytra",
-  "text.autoconfig.minetils.option.main.enableEatingAnim": "Animate player hand when Drinking/Eating",
-  "text.autoconfig.minetils.option.main.SpecialCape": "Use special cape",
-  "text.autoconfig.minetils.option.main.manualSkinEditor": "Manual skin (WIP,VIP)",
-  "text.autoconfig.minetils.option.main.IdentifierOrdinal": "Cape type",
-  "text.autoconfig.minetils.option.main.palletsRate": "Deleting rate of Create Glowing skin"
+  "text.autoconfig.emissive-skin-renderer.title": "emissive-skin-renderer Config...",
+  "text.autoconfig.emissive-skin-renderer.option.main.glowingSkin": "Glowing skin",
+  "text.autoconfig.emissive-skin-renderer.option.main.glowingHorseArmor": "Glowing horse armor",
+  "text.autoconfig.emissive-skin-renderer.option.main.palletsRate": "Deleting rate of Create Glowing skin"
 }

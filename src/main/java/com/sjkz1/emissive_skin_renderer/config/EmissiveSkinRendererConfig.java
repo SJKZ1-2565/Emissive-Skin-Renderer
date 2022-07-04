@@ -23,5 +23,6 @@ public class EmissiveSkinRendererConfig implements ConfigData {
     public static class Main {
         public boolean glowingSkin = true;
         public double palletsRate = 100D;
+        public boolean glowingHorseArmor = true;
     }
 }
