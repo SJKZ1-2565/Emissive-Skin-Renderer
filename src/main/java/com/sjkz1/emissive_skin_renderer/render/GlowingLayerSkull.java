@@ -44,18 +44,12 @@ public class GlowingLayerSkull {
             }
             poseStack.scale(-1.0f, -1.0f, 1.0f);
             if (!StringUtil.isNullOrEmpty(gameProfile.getName())) {
-                if (gameProfile.getName().equals("lastberries")) {
-                    VertexConsumer vertexConsumer = multiBufferSource.getBuffer(renderType);
-                    skullModelBase.setupAnim(g, f, 0.0f);
-                    skullModelBase.renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time));
-                } else if (gameProfile.getName().equals("SJKZ1")) {
-                    VertexConsumer vertexConsumer = multiBufferSource.getBuffer(renderType);
-                    skullModelBase.setupAnim(g, f, 0.0f);
-                    skullModelBase.renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time));
-                } else if (gameProfile.getName().equals("AnodizeX_Youen")) {
-                    VertexConsumer vertexConsumer = multiBufferSource.getBuffer(renderType);
-                    skullModelBase.setupAnim(g, f, 0.0f);
-                    skullModelBase.renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time));
+                for (String s : EmissiveSkinRenderer.SPECIAL_MEMBER) {
+                    if (gameProfile.getName().equals(s)) {
+                        VertexConsumer vertexConsumer = multiBufferSource.getBuffer(renderType);
+                        skullModelBase.setupAnim(g, f, 0.0f);
+                        skullModelBase.renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time));
+                    }
                 }
             }
             VertexConsumer vertexConsumer = multiBufferSource.getBuffer(renderType);
@@ -77,14 +71,10 @@ public class GlowingLayerSkull {
             if (StringUtil.isNullOrEmpty(gameProfile.getName())) {
                 return RenderType.entityTranslucent(minecraft.getSkinManager().registerTexture(map.get((Object) MinecraftProfileTexture.Type.SKIN), MinecraftProfileTexture.Type.SKIN));
             }
-            if (gameProfile.getName().equals("SJKZ1")) {
-                return RenderType.eyes(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/glow.png"));
-            }
-            if (gameProfile.getName().equals("lastberries")) {
-                return RenderType.eyes(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/lastberries.png"));
-            }
-            if (gameProfile.getName().equals("AnodizeX_Youen")) {
-                return RenderType.eyes(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/anodizex_youen.png"));
+            for (String s : EmissiveSkinRenderer.SPECIAL_MEMBER) {
+                if (gameProfile.getName().equals(s)) {
+                    return RenderType.eyes(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/" + s.toLowerCase() + ".png"));
+                }
             }
             return RenderType.entityTranslucent(minecraft.getSkinManager().registerTexture(map.get((Object) MinecraftProfileTexture.Type.SKIN), MinecraftProfileTexture.Type.SKIN));
         }

@@ -1,6 +1,7 @@
 package com.sjkz1.emissive_skin_renderer.mixin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.sjkz1.emissive_skin_renderer.EmissiveSkinRenderer;
 import com.sjkz1.emissive_skin_renderer.render.GlowingLayer;
 import net.minecraft.client.model.PlayerModel;
@@ -34,21 +35,11 @@ public abstract class PlayerRenderMixin extends LivingEntityRenderer<AbstractCli
     private void renderArm(PoseStack poseStack, MultiBufferSource multiBufferSource, int i, AbstractClientPlayer abstractClientPlayer, ModelPart modelPart, ModelPart modelPart2, CallbackInfo ci) {
 
         float time = (float) abstractClientPlayer.tickCount;
-        if (!abstractClientPlayer.isInvisible() && abstractClientPlayer.getName().getString().equals("SJKZ1")) {
-            modelPart2.render(poseStack, multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/glow.png"))), i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
-            modelPart.render(poseStack, multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/glow.png"))), i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
-        }
-        if (!abstractClientPlayer.isInvisible() && abstractClientPlayer.getName().getString().equals("UnZygote") && EmissiveSkinRenderer.CONFIG.main.glowingSkin) {
-            modelPart2.render(poseStack, multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skina/unzygote.png"))), i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
-            modelPart.render(poseStack, multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/unzygote.png"))), i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
-        }
-        if (!abstractClientPlayer.isInvisible() && abstractClientPlayer.getName().getString().equals("lastberries") && EmissiveSkinRenderer.CONFIG.main.glowingSkin) {
-            modelPart2.render(poseStack, multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/lastberries.png"))), i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
-            modelPart.render(poseStack, multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/lastberries.png"))), i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
-        }
-        if (!abstractClientPlayer.isInvisible() && abstractClientPlayer.getName().getString().equals("AnodizeX_Youen") && EmissiveSkinRenderer.CONFIG.main.glowingSkin) {
-            modelPart2.render(poseStack, multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/anodizex_youen.png"))), i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
-            modelPart.render(poseStack, multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/anodizex_youen.png"))), i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
+        for (String s : EmissiveSkinRenderer.SPECIAL_MEMBER) {
+            if (!abstractClientPlayer.isInvisible() && abstractClientPlayer.getName().getString().equals(s) && EmissiveSkinRenderer.CONFIG.main.glowingSkin) {
+                modelPart2.render(poseStack, multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/" + s.toLowerCase() + ".png"))), i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
+                modelPart.render(poseStack, multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/" + s.toLowerCase() + ".png"))), i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
+            }
         }
     }
 }

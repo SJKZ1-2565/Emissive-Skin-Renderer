@@ -1,4 +1,4 @@
-package com.sjkz1.emissive_skin_renderer.utils;
+package com.sjkz1.emissive_skin_renderer.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

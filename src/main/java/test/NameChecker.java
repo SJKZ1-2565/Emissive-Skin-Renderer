@@ -66,7 +66,7 @@ public class NameChecker {
             }
 
 
-            ImageIO.write(image, "png", new File("C:\\Users\\USER\\Desktop\\Modding\\glow.png"));
+            ImageIO.write(image, "png", new File("C:\\Users\\USER\\Desktop\\Modding\\sjkz1.png"));
 
 
         } catch (IOException e) {

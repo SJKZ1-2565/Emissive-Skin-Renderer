@@ -1,6 +1,6 @@
 package com.sjkz1.emissive_skin_renderer.mixin;
 
-import com.sjkz1.emissive_skin_renderer.utils.GlowingHorseLayer;
+import com.sjkz1.emissive_skin_renderer.render.GlowingHorseLayer;
 import net.minecraft.client.model.HorseModel;
 import net.minecraft.client.renderer.entity.AbstractHorseRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
