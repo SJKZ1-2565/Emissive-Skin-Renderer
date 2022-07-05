@@ -3,7 +3,7 @@
   "id": "emissive-skin-renderer",
   "version": "${version}",
   "name": "Emissive Skin Renderer",
-  "description": "CHANGE LOG\nFixed game crashed when joining sever that use custom head.\n",
+  "description": "**CHANGE LOG**\nUpdate fabric api\nSpecial thanks to donate\nAdded glowing horse armor\nImprove filter(for glowing rendering) method\n",
   "authors": [
     "SJKZ1",
     "boon4681"
