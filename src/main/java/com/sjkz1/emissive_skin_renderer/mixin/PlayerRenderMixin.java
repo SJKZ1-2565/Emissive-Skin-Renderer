@@ -37,8 +37,11 @@ public abstract class PlayerRenderMixin extends LivingEntityRenderer<AbstractCli
         float time = (float) abstractClientPlayer.tickCount;
         for (String s : EmissiveSkinRenderer.SPECIAL_MEMBER) {
             if (!abstractClientPlayer.isInvisible() && abstractClientPlayer.getName().getString().equals(s) && EmissiveSkinRenderer.CONFIG.main.glowingSkin) {
-                modelPart2.render(poseStack, multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/" + s.toLowerCase() + ".png"))), i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
+                modelPart.xRot = 0.0f;
                 modelPart.render(poseStack, multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/" + s.toLowerCase() + ".png"))), i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
+
+                modelPart2.xRot = 0.0f;
+                modelPart2.render(poseStack, multiBufferSource.getBuffer(RenderType.dragonExplosionAlpha(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/" + s.toLowerCase() + ".png"))), i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
             }
         }
     }
