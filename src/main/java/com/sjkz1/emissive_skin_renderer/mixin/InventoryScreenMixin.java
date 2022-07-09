@@ -65,7 +65,7 @@ public abstract class InventoryScreenMixin extends EffectRenderingInventoryScree
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
         ItemStack itemStack = Items.LEATHER_CHESTPLATE.getDefaultInstance();
         itemStack.getOrCreateTagElement(DISPLAY_KEY).putInt(COLOR_KEY, COLOR.getRGB());
-        itemRenderer.blitOffset = 300;
+        itemRenderer.blitOffset = 100;
         itemRenderer.renderGuiItem(itemStack, newX + 142, (this.height / 2) - 22);
         itemRenderer.blitOffset = 0;
     }
