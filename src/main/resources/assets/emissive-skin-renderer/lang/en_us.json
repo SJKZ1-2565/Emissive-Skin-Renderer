@@ -2,5 +2,8 @@
   "text.autoconfig.emissive-skin-renderer.title": "emissive-skin-renderer Config...",
   "text.autoconfig.emissive-skin-renderer.option.main.glowingSkin": "Glowing skin",
   "text.autoconfig.emissive-skin-renderer.option.main.glowingHorseArmor": "Glowing horse armor",
+  "create_skin": "Create Skin",
+  "delete_rate": "Deleting color rate",
+  "soon": "Coming soon...",
   "text.autoconfig.emissive-skin-renderer.option.main.palletsRate": "Deleting rate of Create Glowing skin"
 }

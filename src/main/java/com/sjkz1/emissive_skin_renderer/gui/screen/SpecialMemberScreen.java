@@ -17,9 +17,11 @@ import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.JigsawBlockEditScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -47,6 +49,7 @@ public class SpecialMemberScreen extends Screen {
     protected int imageHeight = 166;
 
     private final List<String> list = Lists.newCopyOnWriteArrayList();
+    private final List<String> memberList = Lists.newCopyOnWriteArrayList();
     private boolean err = false;
     private boolean enable = true;
     private Button buttonSkin1;
@@ -70,11 +73,15 @@ public class SpecialMemberScreen extends Screen {
     @Override
     protected void init() {
         super.init();
-        this.addRenderableWidget(new Button((this.width / 2) + 20, 130, 98, 20, Component.literal("Create Skin"), Button -> ColorMatching.createGlowingSkinImage()));
-        this.addRenderableWidget(new AbstractSliderButton((this.width / 2) - 120, 130, 98, 20, Component.literal("Delete Rates: " + EmissiveSkinRenderer.CONFIG.main.palletsRate), EmissiveSkinRenderer.CONFIG.main.palletsRate) {
+        this.addRenderableWidget(new Button((this.width / 2) + 20, 130, 98, 20, Component.translatable("create_skin"), Button -> ColorMatching.createGlowingSkinImage()));
+        this.addRenderableWidget(new AbstractSliderButton((this.width / 2) - 120, 130, 100, 20, Component.translatable("delete_rate").append(String.valueOf(EmissiveSkinRenderer.CONFIG.main.palletsRate)), 0.0) {
+            {
+                this.updateMessage();
+            }
+
             @Override
             protected void updateMessage() {
-                setMessage(Component.literal("Delete Rate: " + EmissiveSkinRenderer.CONFIG.main.palletsRate));
+                this.setMessage(Component.translatable("delete_rate").append(String.valueOf(EmissiveSkinRenderer.CONFIG.main.palletsRate)));
             }
 
             @Override
@@ -83,56 +90,56 @@ public class SpecialMemberScreen extends Screen {
             }
         });
 
-        buttonSkin1 = this.addRenderableWidget(new Button((this.width / 2) - 211, 20, 80, 20, Component.literal("Coming soon..."), (Button) -> {
+        buttonSkin1 = this.addRenderableWidget(new Button((this.width / 2) - 211, 20, 80, 20, Component.translatable("soon"), (Button) -> {
             Button.active = false;
             //			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
         }));
-        buttonSkin2 = this.addRenderableWidget(new Button((this.width / 2) - 211, 50, 80, 20, Component.literal("Coming soon..."), (Button) -> {
+        buttonSkin2 = this.addRenderableWidget(new Button((this.width / 2) - 211, 50, 80, 20, Component.translatable("soon"), (Button) -> {
             //			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HAT.getMinUvX(),SkinPart.Part.HAT.getMinUvY(),SkinPart.Part.HAT.getMaxUvX(),SkinPart.Part.HAT.getMaxUvY()));
             Button.active = true;
         }));
-        buttonSkin3 = this.addRenderableWidget(new Button((this.width / 2) - 211, 80, 80, 20, Component.literal("Coming soon..."), (Button) -> {
+        buttonSkin3 = this.addRenderableWidget(new Button((this.width / 2) - 211, 80, 80, 20, Component.translatable("soon"), (Button) -> {
             //			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
             Button.active = true;
         }));
-        buttonSkin4 = this.addRenderableWidget(new Button((this.width / 2) - 211, 110, 80, 20, Component.literal("Coming soon..."), (Button) -> {
+        buttonSkin4 = this.addRenderableWidget(new Button((this.width / 2) - 211, 110, 80, 20, Component.translatable("soon"), (Button) -> {
             //			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
             Button.active = true;
         }));
-        buttonSkin5 = this.addRenderableWidget(new Button((this.width / 2) - 211, 140, 80, 20, Component.literal("Coming soon..."), (Button) -> {
+        buttonSkin5 = this.addRenderableWidget(new Button((this.width / 2) - 211, 140, 80, 20, Component.translatable("soon"), (Button) -> {
             //		SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
             Button.active = true;
         }));
-        buttonSkin6 = this.addRenderableWidget(new Button((this.width / 2) - 211, 170, 80, 20, Component.literal("Coming soon..."), (Button) -> {
+        buttonSkin6 = this.addRenderableWidget(new Button((this.width / 2) - 211, 170, 80, 20, Component.translatable("soon"), (Button) -> {
             //			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
             Button.active = true;
         }));
-        buttonSkin7 = this.addRenderableWidget(new Button((this.width / 2) + 132, 20, 80, 20, Component.literal("Coming soon..."), (Button) -> {
+        buttonSkin7 = this.addRenderableWidget(new Button((this.width / 2) + 132, 20, 80, 20, Component.translatable("soon"), (Button) -> {
             //			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
             Button.active = true;
         }));
-        buttonSkin8 = this.addRenderableWidget(new Button((this.width / 2) + 132, 50, 80, 20, Component.literal("Coming soon..."), (Button) -> {
+        buttonSkin8 = this.addRenderableWidget(new Button((this.width / 2) + 132, 50, 80, 20, Component.translatable("soon"), (Button) -> {
             //			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
             Button.active = true;
         }));
-        buttonSkin9 = this.addRenderableWidget(new Button((this.width / 2) + 132, 80, 80, 20, Component.literal("Coming soon..."), (Button) -> {
+        buttonSkin9 = this.addRenderableWidget(new Button((this.width / 2) + 132, 80, 80, 20, Component.translatable("soon"), (Button) -> {
             //			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
             Button.active = true;
         }));
-        buttonSkin10 = this.addRenderableWidget(new Button((this.width / 2) + 132, 110, 80, 20, Component.literal("Coming soon..."), (Button) -> {
+        buttonSkin10 = this.addRenderableWidget(new Button((this.width / 2) + 132, 110, 80, 20, Component.translatable("soon"), (Button) -> {
             //			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
             Button.active = true;
         }));
-        buttonSkin11 = this.addRenderableWidget(new Button((this.width / 2) + 132, 140, 80, 20, Component.literal("Coming soon..."), (Button) -> {
+        buttonSkin11 = this.addRenderableWidget(new Button((this.width / 2) + 132, 140, 80, 20, Component.translatable("soon"), (Button) -> {
             //			SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
             Button.active = true;
         }));
-        buttonSkin12 = this.addRenderableWidget(new Button((this.width / 2) + 132, 170, 80, 20, Component.literal("Coming soon..."), (Button) -> {
+        buttonSkin12 = this.addRenderableWidget(new Button((this.width / 2) + 132, 170, 80, 20, Component.translatable("soon"), (Button) -> {
             //		SJKZ1Helper.runAsync(() -> ColorMatching.createGlowingSkinImageWithCustomUV(SkinPart.Part.HEAD.getMinUvX(),SkinPart.Part.HEAD.getMinUvY(),SkinPart.Part.HEAD.getMaxUvX(),SkinPart.Part.HEAD.getMaxUvY()));
             Button.active = true;
         }));
-
         list.clear();
+        memberList.clear();
         list.add("Special Member");
         try {
             int online = ONLINE_USER;
@@ -142,12 +149,13 @@ public class SpecialMemberScreen extends Screen {
             list.add("Couldn't get Discord Member!");
         }
         for (String listName : EmissiveSkinRenderer.SPECIAL_MEMBER) {
-            list.add(listName);
+            memberList.add(listName);
         }
     }
 
     @Override
     public void render(PoseStack mat, int mouseX, int mouseY, float partialTicks) {
+        System.out.println(memberList.size());
         this.renderBackground(mat);
         ticks += 0.01F * partialTicks;
         playerXRot -= 0.15 * partialTicks;
@@ -160,19 +168,23 @@ public class SpecialMemberScreen extends Screen {
         for (String string : list) {
             if (string.equals("Special Member")) {
                 GuiComponent.drawString(mat, this.font, string, (this.width / 2), 35 + height, color.getRGB());
-            } else {
-                for (String listName : EmissiveSkinRenderer.SPECIAL_MEMBER) {
-                    if (string.equals(listName)) {
-                        GuiComponent.drawString(mat, this.font, string, (this.width / 2) - 25, 140 + height, color.getRGB());
-                    }
-                    if (string.contains("Discord Online member :")) {
-                        GuiComponent.drawString(mat, this.font, string, (this.width / 2) - 25, 35 + height, 0xFFFFFF);
-                    }
-                }
             }
-
+            if (string.contains("Discord Online member :")) {
+                GuiComponent.drawString(mat, this.font, string, (this.width / 2) - 25, 35 + height, 0xFFFFFF);
+            }
             if (err) {
                 GuiComponent.drawString(mat, this.font, string, (this.width / 2) - 60, 35 + height, 16733525);
+            }
+            height += 15;
+        }
+        for (String string : memberList) {
+            for (String listName : EmissiveSkinRenderer.SPECIAL_MEMBER) {
+                if (string.equals(listName)) {
+                    GuiComponent.drawString(mat, this.font, string, (this.width / 2) - 25, 140 + height, color.getRGB());
+                    if (memberList.size() % 5 == 0) {
+                        GuiComponent.drawString(mat, this.font, string, (this.width / 2) - 30, 140 + height, color.getRGB());
+                    }
+                }
             }
             height += 15;
         }
