@@ -2,22 +2,20 @@ package test;
 
 import boon4681.ColorUtils.ColorMixer;
 import boon4681.ColorUtils.DeltaE;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
+import com.google.gson.*;
+import com.sjkz1.emissive_skin_renderer.gui.screen.SpecialMemberScreen;
 import org.apache.commons.io.IOUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -25,11 +23,24 @@ public class NameChecker {
     public static final ScheduledExecutorService SCHEDULED_EXECUTOR_SERVICE = Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors());
 
     public static void main(String[] args) throws IOException {
-        URL url = new URL("https://raw.githubusercontent.com/SJKZ1-2565/modJSON-URL/master/donate.json");
-        InputStreamReader reader1 = new InputStreamReader(url.openStream());
-        JsonArray property = JsonParser.parseReader(reader1).getAsJsonObject().get("membership").getAsJsonArray();
-        System.out.println(property);
-
+        try {
+            URL url = new URL("https://discord.com/api/guilds/675288690658115588/widget.json");
+            URLConnection connection = url.openConnection();
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8));
+            JsonArray jsonArray = JsonParser.parseReader(in).getAsJsonObject().get("members").getAsJsonArray();
+            jsonArray.forEach(jsonElement -> {
+                JsonObject jsonObject = (JsonObject) jsonElement;
+                String username = jsonObject.get("username").getAsString();
+                String game = "";
+                if (jsonObject.has("game")) {
+                    game = jsonObject.get("game").getAsJsonObject().get("name").getAsString();
+                }
+                String isPlayingString = jsonObject.has("game") ? " is playing " : "";
+                System.out.println(username + isPlayingString + game);
+            });
+        } catch (IOException | JsonIOException | JsonSyntaxException e) {
+            e.printStackTrace();
+        }
     }
 
     //				byte[] utf8 = s.getBytes("UTF-16");
