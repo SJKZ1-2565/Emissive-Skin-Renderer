@@ -1,7 +1,6 @@
 package com.sjkz1.emissive_skin_renderer.mixin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.sjkz1.emissive_skin_renderer.EmissiveSkinRenderer;
 import com.sjkz1.emissive_skin_renderer.render.GlowingLayer;
 import net.minecraft.client.model.PlayerModel;
