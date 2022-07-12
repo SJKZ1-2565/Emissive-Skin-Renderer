@@ -1,0 +1,9 @@
+{
+  "text.autoconfig.emissive-skin-renderer.title": "emissive-skin-renderer Config...",
+  "text.autoconfig.emissive-skin-renderer.option.main.glowingSkin": "สกินเรืองแสง",
+  "text.autoconfig.emissive-skin-renderer.option.main.glowingHorseArmor": "เกราะม้าหนังเรืองแสง",
+  "create_skin": "สร้างสกิน",
+  "delete_rate": "อัตราการหายไปของสี",
+  "soon": "เร็วๆนี้...",
+  "text.autoconfig.emissive-skin-renderer.option.main.palletsRate": "อัตราการหายไปของสี"
+}
