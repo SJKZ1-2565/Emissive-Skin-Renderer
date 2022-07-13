@@ -66,12 +66,6 @@ public class SpecialMemberScreen extends Screen {
             if (string.equals("Special Member")) {
                 GuiComponent.drawString(mat, this.font, string, (this.width / 2) - 45, 160 + height, color.getRGB());
             }
-            if (string.contains("Discord Online member :")) {
-                GuiComponent.drawString(mat, this.font, string, (this.width / 2) - 25, 35 + height, 0xFFFFFF);
-            }
-            if (err) {
-                GuiComponent.drawString(mat, this.font, string, (this.width / 2) - 60, 35 + height, 16733525);
-            }
             height += 15;
         }
         for (String string : memberList) {
