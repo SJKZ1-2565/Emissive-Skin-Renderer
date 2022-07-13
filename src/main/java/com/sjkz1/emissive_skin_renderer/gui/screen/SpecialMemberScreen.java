@@ -5,7 +5,6 @@ import com.google.common.collect.Lists;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sjkz1.emissive_skin_renderer.EmissiveSkinRenderer;
 import com.sjkz1.emissive_skin_renderer.utils.ColorMatching;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.client.gui.components.Button;
@@ -16,15 +15,10 @@ import net.minecraft.util.Mth;
 
 import java.awt.*;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class SpecialMemberScreen extends Screen {
 
     private float ticks = 0;
-    public static int ONLINE_USER;
-    public static List<String> USERNAME = new CopyOnWriteArrayList<>();
-    public static ChatFormatting chatFormatting;
-
     private final List<String> list = Lists.newCopyOnWriteArrayList();
     private final List<String> memberList = Lists.newCopyOnWriteArrayList();
     private boolean err = false;
@@ -55,16 +49,8 @@ public class SpecialMemberScreen extends Screen {
         });
 
         list.clear();
-        USERNAME.clear();
         memberList.clear();
         list.add("Special Member");
-        try {
-            int online = ONLINE_USER;
-            list.add("Discord Online member :" + online);
-        } catch (Exception e) {
-            err = true;
-            list.add("Couldn't get Discord Member!");
-        }
         for (String listName : EmissiveSkinRenderer.SPECIAL_MEMBER) {
             memberList.add(listName);
         }
