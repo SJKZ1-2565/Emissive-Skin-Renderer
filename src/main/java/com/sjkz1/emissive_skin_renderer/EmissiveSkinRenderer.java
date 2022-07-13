@@ -3,12 +3,9 @@ package com.sjkz1.emissive_skin_renderer;
 
 import com.google.common.collect.Lists;
 import com.sjkz1.emissive_skin_renderer.config.EmissiveSkinRendererConfig;
-import com.sjkz1.emissive_skin_renderer.utils.DiscordMemberThread;
-import com.sjkz1.emissive_skin_renderer.utils.SJKZ1Helper;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -40,13 +37,5 @@ public class EmissiveSkinRenderer implements ModInitializer {
     public void onInitialize() {
         AutoConfig.register(EmissiveSkinRendererConfig.class, GsonConfigSerializer::new);
         CONFIG = AutoConfig.getConfigHolder(EmissiveSkinRendererConfig.class).getConfig();
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (client.player != null) {
-                SJKZ1Helper.runAsync(() -> {
-                    DiscordMemberThread discordMemberThread = new DiscordMemberThread();
-                    discordMemberThread.start();
-                });
-            }
-        });
     }
 }

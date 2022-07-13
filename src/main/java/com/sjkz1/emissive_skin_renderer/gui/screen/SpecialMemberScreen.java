@@ -5,8 +5,6 @@ import com.google.common.collect.Lists;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sjkz1.emissive_skin_renderer.EmissiveSkinRenderer;
 import com.sjkz1.emissive_skin_renderer.utils.ColorMatching;
-import com.sjkz1.emissive_skin_renderer.utils.DiscordMemberNameThread;
-import com.sjkz1.emissive_skin_renderer.utils.SJKZ1Helper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.AbstractSliderButton;
@@ -70,10 +68,6 @@ public class SpecialMemberScreen extends Screen {
         for (String listName : EmissiveSkinRenderer.SPECIAL_MEMBER) {
             memberList.add(listName);
         }
-        SJKZ1Helper.runAsync(() -> {
-            DiscordMemberNameThread discordMemberThread = new DiscordMemberNameThread();
-            discordMemberThread.start();
-        });
     }
 
     @Override
@@ -102,13 +96,6 @@ public class SpecialMemberScreen extends Screen {
             }
             height += 15;
         }
-        for (String name : USERNAME) {
-            if (!name.contains("bot") || !name.equals("nSys 2") || !name.equals("MEE6") || !name.equals("Linkie")) {
-                GuiComponent.drawString(mat, this.font, name, (this.width / 4) - 230, -90 + height, SpecialMemberScreen.chatFormatting.GOLD.getColor());
-                height += 15;
-            }
-        }
-
         InventoryScreen.renderEntityInInventory((this.width / 2) - 75, 123, 60, -55, 0, this.minecraft.player);
         super.render(mat, mouseX, mouseY, partialTicks);
     }
