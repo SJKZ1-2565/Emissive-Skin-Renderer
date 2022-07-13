@@ -21,8 +21,6 @@ public class SpecialMemberScreen extends Screen {
     private float ticks = 0;
     private final List<String> list = Lists.newCopyOnWriteArrayList();
     private final List<String> memberList = Lists.newCopyOnWriteArrayList();
-    private boolean err = false;
-
     public SpecialMemberScreen(Component component) {
         super(component);
     }
