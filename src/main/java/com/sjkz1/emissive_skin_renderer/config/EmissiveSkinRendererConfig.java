@@ -7,7 +7,7 @@ import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
 
 @Config(name = EmissiveSkinRenderer.MOD_ID)
-@Config.Gui.Background("minecraft:textures/block/sculk.png")
+@Config.Gui.Background("minecraft:textures/block/sand.png")
 public class EmissiveSkinRendererConfig implements ConfigData {
 
 
