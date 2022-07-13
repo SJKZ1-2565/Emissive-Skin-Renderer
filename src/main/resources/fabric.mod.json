@@ -3,15 +3,15 @@
   "id": "emissive-skin-renderer",
   "version": "${version}",
   "name": "Emissive Skin Renderer",
-  "description": "**CHANGE LOG**\nUpdate fabric api\nSpecial thanks to donate\nAdded glowing horse armor\nImprove filter(for glowing rendering) method\n",
+  "description": "A small mod that make your skin and skull glowing!\nIncluding horse armor!",
   "authors": [
     "SJKZ1",
     "boon4681"
   ],
   "contact": {
-    "homepage": "",
-    "sources": "",
-    "issues": ""
+    "homepage": "https://modrinth.com/mod/emissive-skin-renderer",
+    "sources": "https://github.com/SJKZ1-2565/Emissive-Skin-Renderer",
+    "issues": "https://github.com/SJKZ1-2565/Emissive-Skin-Renderer/issues"
   },
   "license": "MIT-LICENSE",
   "icon": "assets/emissive-skin-renderer/icon.png",
