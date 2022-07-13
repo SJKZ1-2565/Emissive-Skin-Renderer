@@ -9,6 +9,7 @@ import com.sjkz1.emissive_skin_renderer.EmissiveSkinRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.resources.ResourceLocation;
+import org.apache.commons.compress.utils.Lists;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -17,12 +18,16 @@ import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 public class ColorMatching {
     private static final Minecraft client = Minecraft.getInstance();
 
     public static final File GLOWSKIN_DIR = new File(Minecraft.getInstance().gameDirectory, "glow");
     public static ResourceLocation identifier = new ResourceLocation(EmissiveSkinRenderer.MOD_ID + ":textures/entity/skin/");
+
+    public static List<Integer> width = Lists.newArrayList();
+    public static List<Integer> height = Lists.newArrayList();
 
     public static void createGlowingSkinImage() {
         try {
@@ -50,6 +55,29 @@ public class ColorMatching {
                 GLOWSKIN_DIR.mkdirs();
             }
 
+            ImageIO.write(image, "png", new File(GLOWSKIN_DIR, "glow_layer.png"));
+            SJKZ1Helper.runAsync(ColorMatching::MoveToResourceLoc);
+            EmissiveSkinRenderer.LOGGER.info("Created Skin Already!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createInstantlyImage() {
+        try {
+            String url = getSkin();
+            if (url.isBlank() || url.isEmpty()) return;
+            BufferedImage image = ImageIO.read(new URL(url).openStream());
+
+            if (!GLOWSKIN_DIR.exists()) {
+                GLOWSKIN_DIR.mkdirs();
+            }
+
+            for (int height : ColorMatching.height) {
+                for (int width : ColorMatching.width) {
+                    image.setRGB(width, height, Transparency.TRANSLUCENT);
+                }
+            }
             ImageIO.write(image, "png", new File(GLOWSKIN_DIR, "glow_layer.png"));
             SJKZ1Helper.runAsync(ColorMatching::MoveToResourceLoc);
             EmissiveSkinRenderer.LOGGER.info("Created Skin Already!");

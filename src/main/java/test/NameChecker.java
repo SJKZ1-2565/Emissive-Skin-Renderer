@@ -3,7 +3,6 @@ package test;
 import boon4681.ColorUtils.ColorMixer;
 import boon4681.ColorUtils.DeltaE;
 import com.google.gson.*;
-import com.sjkz1.emissive_skin_renderer.gui.screen.SpecialMemberScreen;
 import org.apache.commons.io.IOUtils;
 
 import javax.imageio.ImageIO;
@@ -14,8 +13,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 

@@ -1,6 +1,6 @@
 package com.sjkz1.emissive_skin_renderer.mixin;
 
-import com.sjkz1.emissive_skin_renderer.gui.screen.SpecialMemberScreen;
+import com.sjkz1.emissive_skin_renderer.gui.screen.SkinEditorScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -55,7 +55,7 @@ public abstract class InventoryScreenMixin extends EffectRenderingInventoryScree
         COLOR = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
         this.newX = this.recipeBookComponent.updateScreenPosition(this.width, this.imageWidth);
         this.addRenderableWidget(new Button(newX + 140, (this.height / 2) - 24, 21, 21, Component.empty(), (buttonWidget) -> {
-            this.minecraft.setScreen(new SpecialMemberScreen(Component.empty()));
+            this.minecraft.setScreen(new SkinEditorScreen(Component.empty()));
         }));
     }
 
