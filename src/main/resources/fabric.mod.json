@@ -3,7 +3,7 @@
   "id": "emissive-skin-renderer",
   "version": "${version}",
   "name": "Emissive Skin Renderer",
-  "description": "A small mod that make your skin and skull glowing!\nIncluding horse armor!",
+  "description": "Glow your skin and skull!\nGlow horse armor!",
   "authors": [
     "SJKZ1",
     "boon4681"
@@ -30,7 +30,7 @@
   "depends": {
     "fabricloader": ">=0.14",
     "fabric": "*",
-    "minecraft": "1.19",
+    "minecraft": "1.19.1",
     "java": ">=17"
   }
 }
