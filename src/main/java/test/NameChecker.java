@@ -3,6 +3,8 @@ package test;
 import boon4681.ColorUtils.ColorMixer;
 import boon4681.ColorUtils.DeltaE;
 import com.google.gson.*;
+import com.sjkz1.emissive_skin_renderer.EmissiveSkinRenderer;
+import net.fabricmc.loader.impl.util.LoaderUtil;
 import org.apache.commons.io.IOUtils;
 
 import javax.imageio.ImageIO;
@@ -15,42 +17,18 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.jar.JarFile;
 
 public class NameChecker {
     public static final ScheduledExecutorService SCHEDULED_EXECUTOR_SERVICE = Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors());
 
     public static void main(String[] args) throws IOException {
-        try {
-            URL url = new URL("https://discord.com/api/guilds/675288690658115588/widget.json");
-            URLConnection connection = url.openConnection();
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8));
-            JsonArray jsonArray = JsonParser.parseReader(in).getAsJsonObject().get("members").getAsJsonArray();
-            jsonArray.forEach(jsonElement -> {
-                JsonObject jsonObject = (JsonObject) jsonElement;
-                String username = jsonObject.get("username").getAsString();
-                String game = "";
-                if (jsonObject.has("game")) {
-                    game = jsonObject.get("game").getAsJsonObject().get("name").getAsString();
-                }
-                String isPlayingString = jsonObject.has("game") ? " is playing " : "";
-                System.out.println(username + isPlayingString + game);
-            });
-        } catch (IOException | JsonIOException | JsonSyntaxException e) {
-            e.printStackTrace();
-        }
+        ClassLoader classLoader = NameChecker.class.getClassLoader();
+        String resourceName = "example_resource.txt";
+        File file = new File(classLoader.getResource(resourceName).getFile());
+        String absolutePath = file.getAbsolutePath();
+        System.out.println(absolutePath);
     }
-
-    //				byte[] utf8 = s.getBytes("UTF-16");
-    //
-    //	            // Convert from UTF-8 to Unicode
-    //	            s = new String(utf8, "UTF-8");
-    //				System.out.println(s);
-    //				if(id.contains("\\u0e2a\\u0e07\\u0e02\\u0e25\\u0e32"))
-    //				{
-    //					System.out.println("cow");
-    //				}
-    //           int dad = obj.getAsJsonObject().get("province").getAsJsonObject().get("new_case").getAsInt();
-
 
     public static void createGlowingSkinImage() {
         try {
