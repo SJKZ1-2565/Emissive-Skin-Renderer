@@ -9,8 +9,13 @@ import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientboundSystemChatPacket;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.tools.picocli.CommandLine;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -43,6 +48,7 @@ public class EmissiveSkinRenderer implements ModInitializer {
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
             if (handler.player != null) {
                 SJKZ1Helper.runAsync(ColorMatching::MoveToResourceLoc);
+                handler.player.sendSystemMessage(Component.literal("[WARN] <Emissive Skin Renderer> is not stable 100%!").withStyle(ChatFormatting.RED, ChatFormatting.BOLD));
             }
         });
     }
