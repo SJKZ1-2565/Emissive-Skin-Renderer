@@ -2,7 +2,6 @@ package com.sjkz1.emissive_skin_renderer.gui.screen;
 
 
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sjkz1.emissive_skin_renderer.EmissiveSkinRenderer;
 import com.sjkz1.emissive_skin_renderer.utils.ColorMatching;
@@ -12,7 +11,6 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 import java.awt.*;
@@ -31,10 +29,8 @@ public class SkinEditorScreen extends Screen {
 
     @Override
     protected void init() {
-        ColorMatching.height.clear();
-        ColorMatching.width.clear();
         super.init();
-        this.addRenderableWidget(new Button((this.width / 2) + 20, 130, 98, 20, Component.translatable("create_skin"), Button -> ColorMatching.createGlowingSkinImage()));
+        this.addRenderableWidget(new Button((this.width / 2) + 20, 130, 100, 20, Component.translatable("create_skin"), Button -> ColorMatching.createGlowingSkinImage()));
         this.addRenderableWidget(new AbstractSliderButton((this.width / 2) - 120, 130, 100, 20, Component.translatable("delete_rate").append(String.valueOf(EmissiveSkinRenderer.CONFIG.main.palletsRate)), 0.0) {
             {
                 this.updateMessage();
@@ -54,9 +50,7 @@ public class SkinEditorScreen extends Screen {
         list.clear();
         memberList.clear();
         list.add("Special Member");
-        for (String listName : EmissiveSkinRenderer.SPECIAL_MEMBER) {
-            memberList.add(listName);
-        }
+        memberList.addAll(EmissiveSkinRenderer.SPECIAL_MEMBER);
     }
 
     @Override
@@ -80,33 +74,6 @@ public class SkinEditorScreen extends Screen {
             height += 15;
         }
         InventoryScreen.renderEntityInInventory((this.width / 2) - 75, 123, 60, -55, 0, this.minecraft.player);
-        if (minecraft.getWindow().isFullscreen()) {
-            RenderSystem.setShaderTexture(0, minecraft.player.getSkinTextureLocation());
-            this.blit(mat, (this.width / 4) - 240, 0, 0, 0, 255, 256);
-        }
         super.render(mat, mouseX, mouseY, partialTicks);
-    }
-
-    @Override
-    public boolean mouseClicked(double width, double height, int i) {
-        if (minecraft.getWindow().isFullscreen()) {
-            if ((int) (width / 4) < 63 || (int) (height / 4) < 63) {
-                if (i == 0) {
-                    ColorMatching.width.add((int) (width / 4));
-                    ColorMatching.height.add((int) (height / 4));
-                }
-                if (i == 1) {
-                    ColorMatching.width.remove((int) (width / 4));
-                    ColorMatching.height.remove((int) (height / 4));
-                }
-            }
-        }
-        return super.mouseClicked(width, height, i);
-    }
-
-    @Override
-    public void onClose() {
-        super.onClose();
-        ColorMatching.createInstantlyImage();
     }
 }

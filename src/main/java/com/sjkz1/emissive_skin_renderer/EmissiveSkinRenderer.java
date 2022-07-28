@@ -3,9 +3,12 @@ package com.sjkz1.emissive_skin_renderer;
 
 import com.google.common.collect.Lists;
 import com.sjkz1.emissive_skin_renderer.config.EmissiveSkinRendererConfig;
+import com.sjkz1.emissive_skin_renderer.utils.ColorMatching;
+import com.sjkz1.emissive_skin_renderer.utils.SJKZ1Helper;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -37,5 +40,11 @@ public class EmissiveSkinRenderer implements ModInitializer {
     public void onInitialize() {
         AutoConfig.register(EmissiveSkinRendererConfig.class, GsonConfigSerializer::new);
         CONFIG = AutoConfig.getConfigHolder(EmissiveSkinRendererConfig.class).getConfig();
+        ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
+            if (handler.player != null) {
+                SJKZ1Helper.runAsync(ColorMatching::MoveToResourceLoc);
+            }
+        });
     }
 }
+
