@@ -2,6 +2,7 @@ package com.sjkz1.emissive_skin_renderer;
 
 
 import com.google.common.collect.Lists;
+import com.mojang.logging.LogUtils;
 import com.sjkz1.emissive_skin_renderer.config.EmissiveSkinRendererConfig;
 import com.sjkz1.emissive_skin_renderer.utils.ColorMatching;
 import com.sjkz1.emissive_skin_renderer.utils.SJKZ1Helper;
@@ -11,11 +12,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientboundSystemChatPacket;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.core.tools.picocli.CommandLine;
+import org.slf4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -27,7 +24,7 @@ import java.util.List;
 
 public class EmissiveSkinRenderer implements ModInitializer {
     public static final String MOD_ID = "emissive-skin-renderer";
-    public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
+    public static final Logger LOGGER = LogUtils.getLogger();
     public static EmissiveSkinRendererConfig CONFIG;
     public static final List<String> SPECIAL_MEMBER = Lists.newCopyOnWriteArrayList();
 
@@ -48,7 +45,7 @@ public class EmissiveSkinRenderer implements ModInitializer {
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
             if (handler.player != null) {
                 SJKZ1Helper.runAsync(ColorMatching::MoveToResourceLoc);
-                handler.player.sendSystemMessage(Component.literal("[WARN] <Emissive Skin Renderer> is not stable 100%!").withStyle(ChatFormatting.RED, ChatFormatting.BOLD));
+                handler.player.sendSystemMessage(Component.literal("[WARN] <Emissive Skin Renderer> is not stable 100%!").withStyle(ChatFormatting.DARK_RED, ChatFormatting.BOLD));
             }
         });
     }
