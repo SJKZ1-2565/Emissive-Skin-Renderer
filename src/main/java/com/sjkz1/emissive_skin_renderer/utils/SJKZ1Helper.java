@@ -17,6 +17,7 @@ public class SJKZ1Helper {
             return new Thread(runnable, String.format("Thread %s", this.counter.incrementAndGet()));
         }
     });
+
     public static void runAsync(Runnable runnable) {
         CompletableFuture.runAsync(runnable, SJKZ1Helper.POOL);
     }
