@@ -3,6 +3,7 @@
   "text.autoconfig.emissive-skin-renderer.option.main.glowingSkin": "Glowing skin",
   "text.autoconfig.emissive-skin-renderer.option.main.glowingHorseArmor": "Glowing horse armor",
   "text.autoconfig.emissive-skin-renderer.option.main.palletsRate": "Deleting rate of Create Glowing skin",
+  "text.autoconfig.emissive-skin-renderer.option.main.renderPlayerNameInThirdPerson": "Render name tag in third-person",
   "create_skin": "Create Skin",
   "delete_rate": "Deleting color rate"
 }
