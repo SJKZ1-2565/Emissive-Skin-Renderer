@@ -13,7 +13,6 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import org.slf4j.Logger;
 
@@ -48,9 +47,22 @@ public class EmissiveSkinRenderer implements ModInitializer {
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
             if (handler.player != null) {
                 SJKZ1Helper.runAsync(ColorMatching::MoveToResourceLoc);
-                handler.player.sendSystemMessage(Component.literal("[WARN] <Emissive Skin Renderer> is not stable 100%!").withStyle(ChatFormatting.DARK_RED, ChatFormatting.BOLD));
+                handler.player.sendSystemMessage(Component.literal("[WARN] <Emissive Skin Renderer> is now better than old 20% :)").withStyle(ChatFormatting.GOLD));
+                EmissiveUtils.getImageFromBlock(Blocks.DIAMOND_ORE);
                 EmissiveUtils.getImageFromBlock(Blocks.COAL_ORE);
-                EmissiveUtils.getImageFromItem(Items.FLINT_AND_STEEL);
+                EmissiveUtils.getImageFromBlock(Blocks.REDSTONE_ORE);
+                EmissiveUtils.getImageFromBlock(Blocks.LAPIS_ORE);
+                EmissiveUtils.getImageFromBlock(Blocks.EMERALD_ORE);
+                EmissiveUtils.getImageFromBlock(Blocks.GOLD_ORE);
+                EmissiveUtils.getImageFromBlock(Blocks.COPPER_ORE);
+                EmissiveUtils.getImageFromBlock(Blocks.DEEPSLATE_DIAMOND_ORE);
+                EmissiveUtils.getImageFromBlock(Blocks.DEEPSLATE_REDSTONE_ORE);
+                EmissiveUtils.getImageFromBlock(Blocks.DEEPSLATE_LAPIS_ORE);
+                EmissiveUtils.getImageFromBlock(Blocks.DEEPSLATE_EMERALD_ORE);
+                EmissiveUtils.getImageFromBlock(Blocks.DEEPSLATE_GOLD_ORE);
+                EmissiveUtils.getImageFromBlock(Blocks.DEEPSLATE_COPPER_ORE);
+                EmissiveUtils.getColorWithGreaterThan();
+                EmissiveUtils.getColorWithLessThan();
             }
         });
     }
