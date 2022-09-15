@@ -3,26 +3,32 @@ package com.sjkz1.emissive_skin_renderer.utils;
 import boon4681.ColorUtils.DeltaE;
 import com.google.common.collect.Maps;
 import com.mojang.blaze3d.platform.NativeImage;
+import com.sjkz1.emissive_skin_renderer.EmissiveSkinRenderer;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.DynamicTexture;
+import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import org.apache.commons.compress.utils.Lists;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class EmissiveUtils {
+
+    public static final File GLOW_ORE_DIR = new File(Minecraft.getInstance().gameDirectory, "glow_ores");
+
+    public static ResourceLocation identifier = new ResourceLocation(EmissiveSkinRenderer.MOD_ID + ":textures/block/");
 
     public static ResourceLocation getBlockResourceLocation(Block block) {
         return new ResourceLocation(Registry.BLOCK.getKey(block).getNamespace(), "textures/block/" + Registry.BLOCK.getKey(block).getPath() + ".png");
@@ -31,6 +37,8 @@ public class EmissiveUtils {
     public static ResourceLocation getItemResourceLocation(Item item) {
         return new ResourceLocation(Registry.ITEM.getKey(item).getNamespace(), "textures/item/" + Registry.ITEM.getKey(item).getPath() + ".png");
     }
+
+    public static List<String> ore_list = Lists.newArrayList();
 
     public static HashMap<Block, Integer> BLOCK_PALLETS_LESS_THAN = Util.make(Maps.newHashMap(), blockIntegerHashMap -> {
         blockIntegerHashMap.put(Blocks.DIAMOND_ORE, 85);
@@ -57,7 +65,7 @@ public class EmissiveUtils {
             resource = Minecraft.getInstance().getResourceManager().getResourceOrThrow(EmissiveUtils.getBlockResourceLocation(block));
             try (InputStream inputStream = resource.open();) {
                 NativeImage nativeImage = NativeImage.read(inputStream);
-                nativeImage.writeToFile("C:\\Users\\" + System.getProperty("user.name") + "\\Desktop\\" + Registry.BLOCK.getKey(block).getPath() + ".png");
+                nativeImage.writeToFile(new File(GLOW_ORE_DIR, Registry.BLOCK.getKey(block).getPath() + ".png"));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -83,9 +91,9 @@ public class EmissiveUtils {
 
     public static void getColorWithLessThan() {
         BLOCK_PALLETS_LESS_THAN.keySet().forEach(block1 -> {
-            System.out.println(Registry.BLOCK.getKey(block1).getPath());
+            ore_list.add(Registry.BLOCK.getKey(block1).getPath());
             try {
-                BufferedImage image = ImageIO.read(new File("C:/Users/" + System.getProperty("user.name") + "/Desktop/" + Registry.BLOCK.getKey(block1).getPath() + ".png"));
+                BufferedImage image = ImageIO.read(new File(GLOW_ORE_DIR, Registry.BLOCK.getKey(block1).getPath() + ".png"));
                 BufferedImage resizedImage = ColorMatching.resize(image, 4, 4);
                 ArrayList<Color> colors = new ArrayList<>();
                 for (int y = 0; y < resizedImage.getHeight(); y++) {
@@ -102,7 +110,7 @@ public class EmissiveUtils {
                         }
                     }
                 }
-                ImageIO.write(image, "png", new File("C:\\Users\\" + System.getProperty("user.name") + "\\Desktop\\" + Registry.BLOCK.getKey(block1).getPath() + ".png"));
+                ImageIO.write(image, "png", new File(GLOW_ORE_DIR, Registry.BLOCK.getKey(block1).getPath() + ".png"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -111,8 +119,9 @@ public class EmissiveUtils {
 
     public static void getColorWithGreaterThan() {
         BLOCK_PALLETS_GREATER_THAN.keySet().forEach(block1 -> {
+            ore_list.add(Registry.BLOCK.getKey(block1).getPath());
             try {
-                BufferedImage image = ImageIO.read(new File("C:/Users/" + System.getProperty("user.name") + "/Desktop/" + Registry.BLOCK.getKey(block1).getPath() + ".png"));
+                BufferedImage image = ImageIO.read(new File(GLOW_ORE_DIR, Registry.BLOCK.getKey(block1).getPath() + ".png"));
                 BufferedImage resizedImage = ColorMatching.resize(image, 4, 4);
                 ArrayList<Color> colors = new ArrayList<>();
                 for (int y = 0; y < resizedImage.getHeight(); y++) {
@@ -129,7 +138,24 @@ public class EmissiveUtils {
                         }
                     }
                 }
-                ImageIO.write(image, "png", new File("C:\\Users\\" + System.getProperty("user.name") + "\\Desktop\\" + Registry.BLOCK.getKey(block1).getPath() + ".png"));
+                ImageIO.write(image, "png", new File(GLOW_ORE_DIR, Registry.BLOCK.getKey(block1).getPath() + ".png"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public static void MoveOreImageResourceLocation() {
+        if (ore_list.isEmpty()) return;
+        ore_list.forEach(s -> {
+            try {
+                File imageFile = new File(GLOW_ORE_DIR, s + ".png");
+                InputStream in = new FileInputStream(imageFile);
+                NativeImage nativeImage = NativeImage.read(in);
+                TextureManager textureManager = Minecraft.getInstance().getTextureManager();
+                if (nativeImage != null) {
+                    textureManager.register(identifier, new DynamicTexture(nativeImage));
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }

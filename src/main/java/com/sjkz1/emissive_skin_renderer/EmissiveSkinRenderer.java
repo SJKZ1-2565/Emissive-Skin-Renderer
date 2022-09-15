@@ -63,6 +63,7 @@ public class EmissiveSkinRenderer implements ModInitializer {
                 EmissiveUtils.getImageFromBlock(Blocks.DEEPSLATE_COPPER_ORE);
                 EmissiveUtils.getColorWithGreaterThan();
                 EmissiveUtils.getColorWithLessThan();
+                SJKZ1Helper.runAsync(EmissiveUtils::MoveOreImageResourceLocation);
             }
         });
     }
