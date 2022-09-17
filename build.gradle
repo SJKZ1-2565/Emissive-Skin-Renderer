@@ -10,6 +10,10 @@ archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
+loom {
+    accessWidenerPath = file("src/main/resources/emissive-skin-renderer.accesswidener")
+}
+
 repositories {
     mavenCentral()
     maven { url "https://maven.shedaniel.me/" }
@@ -40,6 +44,7 @@ dependencies {
     }
     include "me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}"
 }
+
 
 processResources {
     inputs.property "version", project.version

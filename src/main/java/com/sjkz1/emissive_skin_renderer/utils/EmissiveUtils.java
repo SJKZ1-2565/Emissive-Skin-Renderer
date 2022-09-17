@@ -7,7 +7,6 @@ import com.sjkz1.emissive_skin_renderer.EmissiveSkinRenderer;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.DynamicTexture;
-import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
@@ -39,6 +38,7 @@ public class EmissiveUtils {
     }
 
     public static List<String> ore_list = Lists.newArrayList();
+    public static List<ResourceLocation> ore_location = Lists.newArrayList();
 
     public static HashMap<Block, Integer> BLOCK_PALLETS_LESS_THAN = Util.make(Maps.newHashMap(), blockIntegerHashMap -> {
         blockIntegerHashMap.put(Blocks.DIAMOND_ORE, 85);
@@ -111,6 +111,7 @@ public class EmissiveUtils {
                     }
                 }
                 ImageIO.write(image, "png", new File(GLOW_ORE_DIR, Registry.BLOCK.getKey(block1).getPath() + ".png"));
+                //SJKZ1Helper.runAsync(EmissiveUtils::MoveOreImageResourceLocation);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -132,13 +133,13 @@ public class EmissiveUtils {
                 ArrayList<Color> pallets = ColorMatching.find(colors);
                 for (int y = 0; y < image.getHeight(); y++) {
                     for (int x = 0; x < image.getWidth(); x++) {
-                        System.out.println(DeltaE.getDelta(new Color(image.getRGB(x, y)), pallets.get(0)));
                         if (DeltaE.getDelta(new Color(image.getRGB(x, y)), pallets.get(0)) >= BLOCK_PALLETS_GREATER_THAN.get(block1)) {
                             image.setRGB(x, y, Transparency.TRANSLUCENT);
                         }
                     }
                 }
                 ImageIO.write(image, "png", new File(GLOW_ORE_DIR, Registry.BLOCK.getKey(block1).getPath() + ".png"));
+                //SJKZ1Helper.runAsync(EmissiveUtils::MoveOreImageResourceLocation);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -146,16 +147,28 @@ public class EmissiveUtils {
     }
 
     public static void MoveOreImageResourceLocation() {
-        if (ore_list.isEmpty()) return;
         ore_list.forEach(s -> {
             try {
-                File imageFile = new File(GLOW_ORE_DIR, s + ".png");
-                InputStream in = new FileInputStream(imageFile);
-                NativeImage nativeImage = NativeImage.read(in);
-                TextureManager textureManager = Minecraft.getInstance().getTextureManager();
-                if (nativeImage != null) {
-                    textureManager.register(identifier, new DynamicTexture(nativeImage));
-                }
+                List<NativeImage> nativeImages = new ArrayList<>();
+                var file = new File(GLOW_ORE_DIR, s + ".png");
+                var in = new FileInputStream(file);
+                var nativeImage = NativeImage.read(in);
+                nativeImages.add(nativeImage);
+                var textureManager = Minecraft.getInstance().getTextureManager();
+                nativeImages.forEach(o -> {
+                    List<DynamicTexture> dynamicTextureList = new  ArrayList<>();
+                    var dynamicTexture = new DynamicTexture(o);
+                    dynamicTextureList.add(dynamicTexture);
+                    dynamicTextureList.forEach(dynamicTexture1 -> {
+                        if (o != null) {
+                            textureManager.register(new ResourceLocation(EmissiveSkinRenderer.MOD_ID + ":textures/block/" + s + ".png"), dynamicTexture1);
+                            ore_location.add(new ResourceLocation(EmissiveSkinRenderer.MOD_ID + ":textures/block/" + s + ".png"));
+                            ore_location.forEach(resourceLocation -> System.out.println(resourceLocation));
+                        }
+                    });
+                });
+
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
