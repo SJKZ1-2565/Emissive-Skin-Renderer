@@ -11,10 +11,8 @@ import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.Blocks;
 import org.slf4j.Logger;
@@ -73,7 +71,6 @@ public class EmissiveSkinRenderer implements ModInitializer {
                 EmissiveUtils.getImageFromBlock(Blocks.DEEPSLATE_COPPER_ORE);
                 EmissiveUtils.getColorWithGreaterThan();
                 EmissiveUtils.getColorWithLessThan();
-                Minecraft.getInstance().keyboardHandler.setClipboard("img import");
             }
         });
         ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
