@@ -12,7 +12,18 @@ group = project.maven_group
 
 loom {
     accessWidenerPath = file("src/main/resources/emissive-skin-renderer.accesswidener")
+    runs {
+        datagen {
+            server()
+
+            name "Minecraft Data"
+            vmArg "-Dfabric-api.datagen"
+            vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
+            runDir "build/datagen"
+        }
+    }
 }
+assemble.dependsOn runDatagen
 
 repositories {
     mavenCentral()
