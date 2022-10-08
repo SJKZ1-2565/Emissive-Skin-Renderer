@@ -10,9 +10,10 @@ import com.sjkz1.emissive_skin_renderer.utils.SJKZ1Helper;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.Blocks;
 import org.slf4j.Logger;
@@ -49,13 +50,12 @@ public class EmissiveSkinRenderer implements ModInitializer {
         CONFIG = AutoConfig.getConfigHolder(EmissiveSkinRendererConfig.class).getConfig();
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
             if (handler.player != null) {
-                if(!EmissiveUtils.GLOW_ORE_DIR.exists())
-                {
+                if (!EmissiveUtils.GLOW_ORE_DIR.exists()) {
                     EmissiveUtils.GLOW_ORE_DIR.mkdirs();
                 }
                 SJKZ1Helper.runAsync(ColorMatching::MoveToResourceLoc);
                 handler.player.sendSystemMessage(Component.literal("[WARN] <Emissive Skin Renderer> is now better than old 20% :)").withStyle(ChatFormatting.GOLD));
-                handler.player.sendSystemMessage(Component.literal("<Emissive Skin Renderer> type `img import` to finish glowing ore getter").withStyle(ChatFormatting.YELLOW));
+                handler.player.sendSystemMessage(Component.literal("<Emissive Skin Renderer> DO NOT type `img import`").withStyle(ChatFormatting.RED));
                 EmissiveUtils.getImageFromBlock(Blocks.DIAMOND_ORE);
                 EmissiveUtils.getImageFromBlock(Blocks.COAL_ORE);
                 EmissiveUtils.getImageFromBlock(Blocks.REDSTONE_ORE);
@@ -74,17 +74,14 @@ public class EmissiveSkinRenderer implements ModInitializer {
             }
         });
         ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
-            if(handler.player != null)
-            {
+            if (handler.player != null) {
                 hasTypedMsg = false;
             }
         });
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if(client.player != null)
-            {
-                client.gui.getChat().getRecentChat().forEach(s -> {
-                    if(s.contains("img import") && !hasTypedMsg)
-                    {
+        ServerTickEvents.END_WORLD_TICK.register(client -> {
+            if (client != null) {
+                Minecraft.getInstance().gui.getChat().getRecentChat().forEach(s -> {
+                    if (s.contains("img import") && !hasTypedMsg) {
                         SJKZ1Helper.runAsync(EmissiveUtils::MoveOreImageResourceLocation);
                         hasTypedMsg = true;
                     }
