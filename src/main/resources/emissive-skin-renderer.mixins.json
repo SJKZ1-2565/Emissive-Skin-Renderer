@@ -6,11 +6,11 @@
   "mixins": [
     "CustomHeadLayerMixin",
     "HorseRendererMixin",
-    "InventoryScreenMixin",
     "PlayerRenderMixin",
     "SkullBlockRendererMixin"
   ],
   "client": [
+    "InventoryScreenMixin",
     "BlockEntityWithoutLevelRenderMixin",
     "FontMixin",
     "LivingEntityRendererMixin"

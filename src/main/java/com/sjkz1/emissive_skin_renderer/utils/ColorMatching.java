@@ -18,7 +18,6 @@ import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.Objects;
 
 public class ColorMatching {
     private static final Minecraft client = Minecraft.getInstance();

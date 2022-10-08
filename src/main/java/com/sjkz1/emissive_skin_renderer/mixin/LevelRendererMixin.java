@@ -22,13 +22,15 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LevelRenderer.class)
-public class LevelRendererMixin
-{
-    @Shadow private @Nullable ClientLevel level;
+public class LevelRendererMixin {
+    @Shadow
+    private @Nullable ClientLevel level;
 
-    @Shadow @Final private RenderBuffers renderBuffers;
+    @Shadow
+    @Final
+    private RenderBuffers renderBuffers;
 
-    @Inject(method = "renderLevel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/LevelRenderer;checkPoseStack(Lcom/mojang/blaze3d/vertex/PoseStack;)V",ordinal = 2,shift = At.Shift.AFTER),cancellable = true)
+    @Inject(method = "renderLevel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/LevelRenderer;checkPoseStack(Lcom/mojang/blaze3d/vertex/PoseStack;)V", ordinal = 2, shift = At.Shift.AFTER), cancellable = true)
     public void test(PoseStack poseStack, float f, long l, boolean bl, Camera camera, GameRenderer gameRenderer, LightTexture lightTexture, Matrix4f matrix4f, CallbackInfo ci) {
         var vec3 = camera.getPosition();
         var blockPos = camera.getBlockPosition();

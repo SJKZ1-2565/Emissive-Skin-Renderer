@@ -156,7 +156,7 @@ public class EmissiveUtils {
                 nativeImages.add(nativeImage);
                 var textureManager = Minecraft.getInstance().getTextureManager();
                 nativeImages.forEach(o -> {
-                    List<DynamicTexture> dynamicTextureList = new  ArrayList<>();
+                    List<DynamicTexture> dynamicTextureList = new ArrayList<>();
                     var dynamicTexture = new DynamicTexture(o);
                     dynamicTextureList.add(dynamicTexture);
                     dynamicTextureList.forEach(dynamicTexture1 -> {
