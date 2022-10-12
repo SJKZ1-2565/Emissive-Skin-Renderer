@@ -10,10 +10,11 @@
     "SkullBlockRendererMixin"
   ],
   "client": [
-    "InventoryScreenMixin",
     "BlockEntityWithoutLevelRenderMixin",
     "FontMixin",
-    "LivingEntityRendererMixin"
+    "InventoryScreenMixin",
+    "LivingEntityRendererMixin",
+    "SplashManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
