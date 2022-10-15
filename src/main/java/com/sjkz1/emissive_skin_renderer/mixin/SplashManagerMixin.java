@@ -14,9 +14,8 @@ import java.util.List;
 @Mixin(SplashManager.class)
 public abstract class SplashManagerMixin extends SimplePreparableReloadListener<List<String>> {
 
-    @Inject(method = "getSplash",at = @At("TAIL"))
-    public void  injectMyBirthDay(CallbackInfoReturnable<String> cir)
-    {
+    @Inject(method = "getSplash", at = @At("TAIL"))
+    public void injectMyBirthDay(CallbackInfoReturnable<String> cir) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         if (calendar.get(2) + 1 == 6 && calendar.get(5) == 3) {
