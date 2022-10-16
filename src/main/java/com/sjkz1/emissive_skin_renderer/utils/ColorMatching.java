@@ -21,7 +21,7 @@ import java.util.Base64;
 
 public class ColorMatching {
     private static final Minecraft client = Minecraft.getInstance();
-    public static final File GLOWSKIN_DIR = new File(Minecraft.getInstance().gameDirectory, "glow");
+    public static final File GLOW_SKIN_PATH = new File(Minecraft.getInstance().gameDirectory, "glow");
     public static ResourceLocation identifier = new ResourceLocation(EmissiveSkinRenderer.MOD_ID + ":textures/entity/skin/");
 
     public static void createGlowingSkinImageLessThan() {
@@ -46,11 +46,11 @@ public class ColorMatching {
                 }
             }
 
-            if (!GLOWSKIN_DIR.exists()) {
-                GLOWSKIN_DIR.mkdirs();
+            if (!GLOW_SKIN_PATH.exists()) {
+                GLOW_SKIN_PATH.mkdirs();
             }
 
-            ImageIO.write(image, "png", new File(GLOWSKIN_DIR, "glow_layer.png"));
+            ImageIO.write(image, "png", new File(GLOW_SKIN_PATH, "glow_layer.png"));
             SJKZ1Helper.runAsync(ColorMatching::MoveToResourceLoc);
             EmissiveSkinRenderer.LOGGER.info("Created Skin Already!");
         } catch (IOException e) {
@@ -80,11 +80,11 @@ public class ColorMatching {
                 }
             }
 
-            if (!GLOWSKIN_DIR.exists()) {
-                GLOWSKIN_DIR.mkdirs();
+            if (!GLOW_SKIN_PATH.exists()) {
+                GLOW_SKIN_PATH.mkdirs();
             }
 
-            ImageIO.write(image, "png", new File(GLOWSKIN_DIR, "glow_layer.png"));
+            ImageIO.write(image, "png", new File(GLOW_SKIN_PATH, "glow_layer.png"));
             SJKZ1Helper.runAsync(ColorMatching::MoveToResourceLoc);
             EmissiveSkinRenderer.LOGGER.info("Created Skin Already!");
         } catch (IOException e) {
@@ -94,7 +94,7 @@ public class ColorMatching {
 
     public static void MoveToResourceLoc() {
         try {
-            File imageFile = new File(GLOWSKIN_DIR, "glow_layer.png");
+            File imageFile = new File(GLOW_SKIN_PATH, "glow_layer.png");
             InputStream in = new FileInputStream(imageFile);
             NativeImage nativeImage = NativeImage.read(in);
             TextureManager textureManager = client.getTextureManager();
