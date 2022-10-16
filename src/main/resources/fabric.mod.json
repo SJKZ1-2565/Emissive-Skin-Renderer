@@ -3,7 +3,7 @@
   "id": "emissive-skin-renderer",
   "version": "${version}",
   "name": "Emissive Skin Renderer",
-  "description": "Glow your skin and skull!\nGlow horse armor!",
+  "description": "This mod makes your own skin and player head glow! (same as Enderman eyes), Additionally causes colored horse armor to glow.\n\nRecommend using Complementary Shader with my mod, It makes your skin MOST beautiful!\n\nHow to use it?\n\nPress E to open your inventory screen then press the button that has leather armor on it will open the Skin Editor screen, Press Create Skin Button to create your glowing skin!\n\nHope you guys enjoy it, Thank you!\n\nSpecial If u paid for this mod I'll do special things for you(Early Access, Discord Role)",
   "authors": [
     "SJKZ1",
     "boon4681"
