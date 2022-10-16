@@ -55,7 +55,8 @@ public abstract class InventoryScreenMixin extends EffectRenderingInventoryScree
         COLOR = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
         this.newX = this.recipeBookComponent.updateScreenPosition(this.width, this.imageWidth);
         this.addRenderableWidget(new Button(newX + 140, (this.height / 2) - 24, 21, 21, Component.empty(), (buttonWidget) -> {
-            this.minecraft.setScreen(new SkinEditorScreen(Component.empty()));
+            assert this.minecraft != null;
+            this.minecraft.setScreen(new SkinEditorScreen());
         }));
     }
 

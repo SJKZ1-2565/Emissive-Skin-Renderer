@@ -4,6 +4,14 @@
   "text.autoconfig.emissive-skin-renderer.option.main.glowingHorseArmor": "Glowing horse armor",
   "text.autoconfig.emissive-skin-renderer.option.main.palletsRate": "Deleting rate of Create Glowing skin",
   "text.autoconfig.emissive-skin-renderer.option.main.renderPlayerNameInThirdPerson": "Render name tag in third-person",
-  "create_skin": "Create Skin",
-  "delete_rate": "Deleting color rate"
+  "create_skin_less_than": "Create Skin (L)",
+  "create_skin_greater_than": "Create Skin (G)",
+  "pallets_desc_l1" : "L is for `less than`",
+  "pallets_desc_l2": "G is for `greater than`",
+  "pallets_desc_l3": "In previous release some skin can't be glowing",
+  "pallets_desc_l4": "`Greater than` when you have selected this option it will delete color that has delta more than `Base Color Delta",
+  "pallets_desc_l5": "`Less than` when you have selected this option it will delete color that has delta less than `Base Color Delta`",
+  "pallets_desc_l6": "(Most skin use less than option)",
+  "not_final_gui": "NOT FINAL GUI WIP!!",
+  "base_delta": "Base Color Delta"
 }

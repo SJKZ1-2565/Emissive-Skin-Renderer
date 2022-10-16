@@ -21,11 +21,10 @@ import java.util.Base64;
 
 public class ColorMatching {
     private static final Minecraft client = Minecraft.getInstance();
-
     public static final File GLOWSKIN_DIR = new File(Minecraft.getInstance().gameDirectory, "glow");
     public static ResourceLocation identifier = new ResourceLocation(EmissiveSkinRenderer.MOD_ID + ":textures/entity/skin/");
 
-    public static void createGlowingSkinImage() {
+    public static void createGlowingSkinImageLessThan() {
         try {
             String url = getSkin();
             if (url.isBlank() || url.isEmpty()) return;
@@ -59,16 +58,47 @@ public class ColorMatching {
         }
     }
 
-    @SuppressWarnings("resource")
+    public static void createGlowingSkinImageLGreaterThan() {
+        try {
+            String url = getSkin();
+            if (url.isBlank() || url.isEmpty()) return;
+            BufferedImage image = ImageIO.read(new URL(url).openStream());
+            BufferedImage resizedImage = resize(image, 2, 2);
+            ArrayList<Color> colors = new ArrayList<>();
+
+            for (int y = 0; y < resizedImage.getHeight(); y++) {
+                for (int x = 0; x < resizedImage.getWidth(); x++) {
+                    colors.add(new Color(resizedImage.getRGB(x, y), false));
+                }
+            }
+            ArrayList<Color> pallets = find(colors);
+            for (int y = 0; y < image.getHeight(); y++) {
+                for (int x = 0; x < image.getWidth(); x++) {
+                    if (DeltaE.getDelta(new Color(image.getRGB(x, y)), pallets.get(0)) < EmissiveSkinRenderer.CONFIG.main.palletsRate) {
+                        image.setRGB(x, y, Transparency.TRANSLUCENT);
+                    }
+                }
+            }
+
+            if (!GLOWSKIN_DIR.exists()) {
+                GLOWSKIN_DIR.mkdirs();
+            }
+
+            ImageIO.write(image, "png", new File(GLOWSKIN_DIR, "glow_layer.png"));
+            SJKZ1Helper.runAsync(ColorMatching::MoveToResourceLoc);
+            EmissiveSkinRenderer.LOGGER.info("Created Skin Already!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void MoveToResourceLoc() {
         try {
             File imageFile = new File(GLOWSKIN_DIR, "glow_layer.png");
             InputStream in = new FileInputStream(imageFile);
             NativeImage nativeImage = NativeImage.read(in);
             TextureManager textureManager = client.getTextureManager();
-            if (nativeImage != null) {
-                textureManager.register(identifier, new DynamicTexture(nativeImage));
-            }
+            textureManager.register(identifier, new DynamicTexture(nativeImage));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -108,17 +138,16 @@ public class ColorMatching {
     }
 
     public static String getSkin() throws IOException {
+        assert client.player != null;
         URL url1 = new URL("https://sessionserver.mojang.com/session/minecraft/profile/" + client.player.getStringUUID().replace("-", ""));
         InputStreamReader reader1 = new InputStreamReader(url1.openStream());
         JsonObject property = JsonParser.parseReader(reader1).getAsJsonObject().get("properties").getAsJsonArray().get(0).getAsJsonObject();
-        if (!property.isJsonNull() || property != null) {
-            String texture = property.get("value").getAsString();
-            byte[] decodedBytes = Base64.getMimeDecoder().decode(texture);
-            String decodedMime = new String(decodedBytes);
-            JsonObject property1 = JsonParser.parseString(decodedMime).getAsJsonObject().get("textures").getAsJsonObject();
-            JsonObject texture1 = property1.get("SKIN").getAsJsonObject();
-            return texture1.get("url").getAsString();
-        }
-        return "";
+        property.isJsonNull();
+        String texture = property.get("value").getAsString();
+        byte[] decodedBytes = Base64.getMimeDecoder().decode(texture);
+        String decodedMime = new String(decodedBytes);
+        JsonObject property1 = JsonParser.parseString(decodedMime).getAsJsonObject().get("textures").getAsJsonObject();
+        JsonObject texture1 = property1.get("SKIN").getAsJsonObject();
+        return texture1.get("url").getAsString();
     }
 }
