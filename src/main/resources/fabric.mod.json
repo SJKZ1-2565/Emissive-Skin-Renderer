@@ -22,9 +22,6 @@
     ],
     "modmenu": [
       "com.sjkz1.emissive_skin_renderer.gui.screen.EmissiveSkinRendererConfigModMenuScreen"
-    ],
-    "fabric-datagen": [
-      "com.sjkz1.emissive_skin_renderer.datagen.DataGenProvider"
     ]
   },
   "mixins": [
