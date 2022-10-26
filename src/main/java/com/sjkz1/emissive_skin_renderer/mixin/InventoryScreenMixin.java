@@ -37,9 +37,9 @@ public abstract class InventoryScreenMixin extends EffectRenderingInventoryScree
     @Final
     private RecipeBookComponent recipeBookComponent;
     @Unique
-    private static String COLOR_KEY = "color";
+    private static final String COLOR_KEY = "color";
     @Unique
-    private static String DISPLAY_KEY = "display";
+    private static final String DISPLAY_KEY = "display";
 
     private static Color COLOR = null;
 
