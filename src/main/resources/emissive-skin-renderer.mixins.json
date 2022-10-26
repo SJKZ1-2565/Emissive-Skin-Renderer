@@ -4,16 +4,16 @@
   "package": "com.sjkz1.emissive_skin_renderer.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "CustomHeadLayerMixin",
-    "HorseRendererMixin",
-    "PlayerRenderMixin",
-    "SkullBlockRendererMixin"
   ],
   "client": [
     "BlockEntityWithoutLevelRenderMixin",
+    "CustomHeadLayerMixin",
     "FontMixin",
+    "HorseRendererMixin",
     "InventoryScreenMixin",
     "LivingEntityRendererMixin",
+    "PlayerRenderMixin",
+    "SkullBlockRendererMixin",
     "SplashManagerMixin"
   ],
   "injectors": {
