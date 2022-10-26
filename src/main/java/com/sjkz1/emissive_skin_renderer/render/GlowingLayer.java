@@ -37,8 +37,7 @@ public class GlowingLayer<T extends Entity, M extends EntityModel<T>> extends Re
             if (GlowingLayer.specialBoolean(entity)) {
                 VertexConsumer inveterate = multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/" + entity.getName().getString().toLowerCase() + ".png")));
                 this.getParentModel().renderToBuffer(poseStack, inveterate, 0xF00000, OverlayTexture.NO_OVERLAY, makeFade(time), makeFade(time), makeFade(time), 1.0F);
-            }
-            else if (ColorMatching.identifier != null && !GlowingLayer.specialBoolean(entity)) {
+            } else if (ColorMatching.identifier != null && !GlowingLayer.specialBoolean(entity)) {
                 VertexConsumer inveterate = multiBufferSource.getBuffer(RenderType.eyes(ColorMatching.identifier));
                 this.getParentModel().renderToBuffer(poseStack, inveterate, 0xF00000, OverlayTexture.NO_OVERLAY, makeFade(time), makeFade(time), makeFade(time), 1.0F);
             }
@@ -46,8 +45,7 @@ public class GlowingLayer<T extends Entity, M extends EntityModel<T>> extends Re
         }
     }
 
-    public static boolean specialBoolean(Entity entity)
-    {
-        return "SJKZ1".equals(entity.getName().getString()) || "ToastKung".equals(entity.getName().getString()) ||  "SussyGuy".equals(entity.getName().getString()) ||  "UnZygote".equals(entity.getName().getString()) ||  "NamoZDizeX".equals(entity.getName().getString()) ||  "lastberries".equals(entity.getName().getString());
+    public static boolean specialBoolean(Entity entity) {
+        return "SJKZ1".equals(entity.getName().getString()) || "ToastKung".equals(entity.getName().getString()) || "SussyGuy".equals(entity.getName().getString()) || "UnZygote".equals(entity.getName().getString()) || "NamoZDizeX".equals(entity.getName().getString()) || "lastberries".equals(entity.getName().getString());
     }
 }
