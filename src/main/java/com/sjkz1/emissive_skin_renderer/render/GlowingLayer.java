@@ -37,12 +37,12 @@ public class GlowingLayer<T extends Entity, M extends EntityModel<T>> extends Re
             for (String s : EmissiveSkinRenderer.SPECIAL_MEMBER) {
                 if (entity.getName().getString().equals(s)) {
                     VertexConsumer inveterate = multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/" + s.toLowerCase() + ".png")));
-                    this.getParentModel().renderToBuffer(poseStack, inveterate, i, OverlayTexture.NO_OVERLAY, makeFade(time), makeFade(time), makeFade(time), 1.0F);
+                    this.getParentModel().renderToBuffer(poseStack, inveterate, 0xF00000, OverlayTexture.NO_OVERLAY, makeFade(time), makeFade(time), makeFade(time), 1.0F);
                 }
             }
-            if (entity.getName().getString().equals(entity.getName()) && ColorMatching.identifier != null) {
+            if (entity.getName().getString().equals(entity.getName().getString()) && ColorMatching.identifier != null) {
                 VertexConsumer inveterate = multiBufferSource.getBuffer(RenderType.eyes(ColorMatching.identifier));
-                this.getParentModel().renderToBuffer(poseStack, inveterate, i, OverlayTexture.NO_OVERLAY, makeFade(time), makeFade(time), makeFade(time), 1.0F);
+                this.getParentModel().renderToBuffer(poseStack, inveterate, 0xF00000, OverlayTexture.NO_OVERLAY, makeFade(time), makeFade(time), makeFade(time), 1.0F);
             }
         }
     }
