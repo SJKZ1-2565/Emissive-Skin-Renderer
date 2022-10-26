@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class GlowingLayer<T extends Entity, M extends EntityModel<T>> extends RenderLayer<T, M> {
@@ -31,7 +32,7 @@ public class GlowingLayer<T extends Entity, M extends EntityModel<T>> extends Re
 
 
     @Override
-    public void render(PoseStack poseStack, MultiBufferSource multiBufferSource, int i, T entity, float f, float g, float h, float j, float k, float l) {
+    public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource multiBufferSource, int i, T entity, float f, float g, float h, float j, float k, float l) {
         float time = Minecraft.getInstance().getDeltaFrameTime() + entity.tickCount;
         if (!entity.isInvisible() && EmissiveSkinRenderer.CONFIG.main.glowingSkin) {
             for (String s : EmissiveSkinRenderer.SPECIAL_MEMBER) {
