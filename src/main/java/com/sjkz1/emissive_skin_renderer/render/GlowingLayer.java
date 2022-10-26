@@ -6,7 +6,6 @@ import com.sjkz1.emissive_skin_renderer.EmissiveSkinRenderer;
 import com.sjkz1.emissive_skin_renderer.utils.ColorMatching;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -33,7 +32,7 @@ public class GlowingLayer<T extends Entity, M extends EntityModel<T>> extends Re
 
     @Override
     public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource multiBufferSource, int i, T entity, float f, float g, float h, float j, float k, float l) {
-        float time = Minecraft.getInstance().getDeltaFrameTime() + entity.tickCount;
+        float time = h + entity.tickCount;
         if (!entity.isInvisible() && EmissiveSkinRenderer.CONFIG.main.glowingSkin) {
             for (String s : EmissiveSkinRenderer.SPECIAL_MEMBER) {
                 if (entity.getName().getString().equals(s)) {
