@@ -1,9 +1,17 @@
 {
-  "create_skin": "สร้างสกิน",
-  "delete_rate": "เดลต้าของสี",
+  "base_delta": "ตัวตั้งของเดลต้าของสี",
+  "create_skin_greater_than": "สร้างสกิน (ม)",
+  "create_skin_less_than": "สร้างสกิน (น)",
+  "not_final_gui": "GUI ยังไม่เสร็จ!!",
+  "pallets_desc_l1": "น คือ `น้อยกว่า`",
+  "pallets_desc_l2": "ม คือ `มากกว่า`",
+  "pallets_desc_l3": "ในเวอร์ชั่นที่ผ่านมา มีบางสกินไม่สามารถเรืองแสงได้",
+  "pallets_desc_l4": "`มากกว่า`เมื่อคุณเลือก/กดปุ่มนี้ จะทำการทำการลบสีที่มีเดลต้าของสีมากกว่า `ตัวตั้งของเดลต้าของสี",
+  "pallets_desc_l5": "`น้อยกว่า`เมื่อคุณเลือก/กดปุ่มนี้ จะทำการทำการลบสีที่มีเดลต้าของสีน้อยกว่า `ตัวตั้งของเดลต้าของสี`",
+  "pallets_desc_l6": "(สกินส่วนใหญ่จะใช้รในรูปแบบน้อยกว่า)",
   "text.autoconfig.emissive-skin-renderer.option.main.glowingHorseArmor": "เกราะม้าเรืองแสง",
   "text.autoconfig.emissive-skin-renderer.option.main.glowingSkin": "สกินเรืองแสง",
-  "text.autoconfig.emissive-skin-renderer.option.main.palletsRate": "เดลต้าของสี",
+  "text.autoconfig.emissive-skin-renderer.option.main.palletsRate": "อัตราการหายไปของสี",
   "text.autoconfig.emissive-skin-renderer.option.main.renderPlayerNameInThirdPerson": "แสดงชื่อในมุมมองบุคคลที่สาม",
   "text.autoconfig.emissive-skin-renderer.title": "Emissive Skin Renderer"
 }
