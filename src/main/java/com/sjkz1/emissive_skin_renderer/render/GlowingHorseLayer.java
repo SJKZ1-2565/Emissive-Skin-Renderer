@@ -16,6 +16,7 @@ import net.minecraft.world.entity.animal.horse.Horse;
 import net.minecraft.world.item.DyeableHorseArmorItem;
 import net.minecraft.world.item.HorseArmorItem;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public class GlowingHorseLayer
         extends RenderLayer<Horse, HorseModel<Horse>> {
@@ -23,22 +24,21 @@ public class GlowingHorseLayer
 
     public GlowingHorseLayer(RenderLayerParent<Horse, HorseModel<Horse>> renderLayerParent, EntityModelSet entityModelSet) {
         super(renderLayerParent);
-        this.model = new HorseModel(entityModelSet.bakeLayer(ModelLayers.HORSE_ARMOR));
+        this.model = new HorseModel<>(entityModelSet.bakeLayer(ModelLayers.HORSE_ARMOR));
     }
 
-    private ResourceLocation resourceLocation = new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/horse_armor_leather.png");
+    private final ResourceLocation resourceLocation = new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/horse_armor_leather.png");
 
     @Override
-    public void render(PoseStack poseStack, MultiBufferSource multiBufferSource, int i, Horse horse, float f, float g, float h, float j, float k, float l) {
+    public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource multiBufferSource, int i, Horse horse, float f, float g, float h, float j, float k, float l) {
         float p;
         float o;
         float n;
         ItemStack itemStack = horse.getArmor();
-        if (!(itemStack.getItem() instanceof HorseArmorItem)) {
+        if (!(itemStack.getItem() instanceof HorseArmorItem horseArmorItem)) {
             return;
         }
-        HorseArmorItem horseArmorItem = (HorseArmorItem) itemStack.getItem();
-        ((HorseModel) this.getParentModel()).copyPropertiesTo(this.model);
+        this.getParentModel().copyPropertiesTo(this.model);
         this.model.prepareMobModel(horse, f, g, h);
         this.model.setupAnim(horse, f, g, j, k, l);
         if (horseArmorItem instanceof DyeableHorseArmorItem && EmissiveSkinRenderer.CONFIG.main.glowingHorseArmor) {

@@ -35,7 +35,7 @@ public class GlowingLayerSkull {
 
     public static void renderSkull(@Nullable Direction direction, float f, float g, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, SkullModelBase skullModelBase, GameProfile gameProfile, RenderType renderType, int ticks) {
         if (EmissiveSkinRenderer.CONFIG.main.glowingSkin) {
-            float time = Minecraft.getInstance().getDeltaFrameTime() + (float) ticks;
+            float time = (float) ticks;
             poseStack.pushPose();
             if (direction == null) {
                 poseStack.translate(0.5, 0.0, 0.5);
@@ -72,9 +72,9 @@ public class GlowingLayerSkull {
         }
         Minecraft minecraft = Minecraft.getInstance();
         Map<MinecraftProfileTexture.Type, MinecraftProfileTexture> map = minecraft.getSkinManager().getInsecureSkinInformation(gameProfile);
-        if (map.containsKey((Object) MinecraftProfileTexture.Type.SKIN)) {
+        if (map.containsKey(MinecraftProfileTexture.Type.SKIN)) {
             if (StringUtil.isNullOrEmpty(gameProfile.getName())) {
-                return RenderType.entityTranslucent(minecraft.getSkinManager().registerTexture(map.get((Object) MinecraftProfileTexture.Type.SKIN), MinecraftProfileTexture.Type.SKIN));
+                return RenderType.entityTranslucent(minecraft.getSkinManager().registerTexture(map.get(MinecraftProfileTexture.Type.SKIN), MinecraftProfileTexture.Type.SKIN));
             }
             for (String s : EmissiveSkinRenderer.SPECIAL_MEMBER) {
                 if (gameProfile.getName().equals(s)) {

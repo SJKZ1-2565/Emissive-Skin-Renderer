@@ -54,6 +54,7 @@ public class BlockEntityWithoutLevelRenderMixin {
                 RenderType renderType = GlowingLayerSkull.getRenderType(type, gameProfile2);
                 SkullModelBase skullModelBase = this.skullModels.get(type);
                 if (gameProfile2 != null) {
+                    assert Minecraft.getInstance().player != null;
                     GlowingLayerSkull.renderSkull(null, 180.0f, 0.0f, poseStack, multiBufferSource, i, skullModelBase, gameProfile2, renderType, Minecraft.getInstance().player.tickCount);
                 }
             }

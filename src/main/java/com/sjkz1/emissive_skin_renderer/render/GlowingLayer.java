@@ -34,16 +34,20 @@ public class GlowingLayer<T extends Entity, M extends EntityModel<T>> extends Re
     public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource multiBufferSource, int i, T entity, float f, float g, float h, float j, float k, float l) {
         float time = h + entity.tickCount;
         if (!entity.isInvisible() && EmissiveSkinRenderer.CONFIG.main.glowingSkin) {
-            for (String s : EmissiveSkinRenderer.SPECIAL_MEMBER) {
-                if (entity.getName().getString().equals(s)) {
-                    VertexConsumer inveterate = multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/" + s.toLowerCase() + ".png")));
-                    this.getParentModel().renderToBuffer(poseStack, inveterate, 0xF00000, OverlayTexture.NO_OVERLAY, makeFade(time), makeFade(time), makeFade(time), 1.0F);
-                }
+            if (GlowingLayer.specialBoolean(entity)) {
+                VertexConsumer inveterate = multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/" + entity.getName().getString().toLowerCase() + ".png")));
+                this.getParentModel().renderToBuffer(poseStack, inveterate, 0xF00000, OverlayTexture.NO_OVERLAY, makeFade(time), makeFade(time), makeFade(time), 1.0F);
             }
-            if (entity.getName().getString().equals(entity.getName().getString()) && ColorMatching.identifier != null) {
+            else if (ColorMatching.identifier != null && !GlowingLayer.specialBoolean(entity)) {
                 VertexConsumer inveterate = multiBufferSource.getBuffer(RenderType.eyes(ColorMatching.identifier));
                 this.getParentModel().renderToBuffer(poseStack, inveterate, 0xF00000, OverlayTexture.NO_OVERLAY, makeFade(time), makeFade(time), makeFade(time), 1.0F);
             }
+
         }
+    }
+
+    public static boolean specialBoolean(Entity entity)
+    {
+        return "SJKZ1".equals(entity.getName().getString()) || "ToastKung".equals(entity.getName().getString()) ||  "SussyGuy".equals(entity.getName().getString()) ||  "UnZygote".equals(entity.getName().getString()) ||  "NamoZDizeX".equals(entity.getName().getString()) ||  "lastberries".equals(entity.getName().getString());
     }
 }

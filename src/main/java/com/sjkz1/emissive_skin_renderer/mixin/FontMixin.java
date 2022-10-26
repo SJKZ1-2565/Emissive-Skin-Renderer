@@ -27,7 +27,7 @@ public abstract class FontMixin {
     public void drawString(PoseStack poseStack, Component component, float f, float g, int i, CallbackInfoReturnable<Integer> cir) {
         int color = Math.abs(Color.HSBtoRGB(System.currentTimeMillis() % 2500L / 2500.0F, 0.8F, 0.8F));
         for (String s : EmissiveSkinRenderer.SPECIAL_MEMBER) {
-            if (component.getString().equalsIgnoreCase(s)) {
+            if (component.getString().equals(s)) {
                 cir.setReturnValue(this.drawInternal(component.getVisualOrderText(), f, g, color, poseStack.last().pose(), true));
             }
         }
@@ -37,7 +37,7 @@ public abstract class FontMixin {
     public void drawInBatch(Component component, float f, float g, int i, boolean bl, Matrix4f matrix4f, MultiBufferSource multiBufferSource, boolean bl2, int j, int k, CallbackInfoReturnable<Integer> cir) {
         int color = Math.abs(Color.HSBtoRGB(System.currentTimeMillis() % 2500L / 2500.0F, 0.8F, 0.8F));
         for (String s : EmissiveSkinRenderer.SPECIAL_MEMBER) {
-            if (component.getString().equalsIgnoreCase(s)) {
+            if (component.getString().equals(s)) {
                 cir.setReturnValue(this.drawInBatch(component.getVisualOrderText(), f, g, color, bl, matrix4f, multiBufferSource, bl2, j, k));
             }
         }

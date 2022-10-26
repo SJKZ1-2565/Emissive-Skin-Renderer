@@ -22,6 +22,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Map;
+import java.util.Objects;
 
 @Mixin(SkullBlockRenderer.class)
 public abstract class SkullBlockRendererMixin implements BlockEntityRenderer<SkullBlockEntity> {
@@ -41,7 +42,7 @@ public abstract class SkullBlockRendererMixin implements BlockEntityRenderer<Sku
             SkullBlock.Type type = ((AbstractSkullBlock) blockState.getBlock()).getType();
             SkullModelBase skullModelBase = this.modelByType.get(type);
             RenderType renderType = GlowingLayerSkull.getRenderType(type, skullBlockEntity.getOwnerProfile());
-            GlowingLayerSkull.renderSkull(direction, h, g, poseStack, multiBufferSource, i, skullModelBase, skullBlockEntity.getOwnerProfile(), renderType, Minecraft.getInstance().player.tickCount);
+            GlowingLayerSkull.renderSkull(direction, h, g, poseStack, multiBufferSource, i, skullModelBase, skullBlockEntity.getOwnerProfile(), renderType, (int) Objects.requireNonNull(skullBlockEntity.getLevel()).getGameTime());
         }
     }
 }
