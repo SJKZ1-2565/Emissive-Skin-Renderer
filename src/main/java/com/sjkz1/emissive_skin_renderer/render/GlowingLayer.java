@@ -3,7 +3,6 @@ package com.sjkz1.emissive_skin_renderer.render;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.sjkz1.emissive_skin_renderer.EmissiveSkinRenderer;
-import com.sjkz1.emissive_skin_renderer.utils.ColorMatching;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.EntityModel;
@@ -37,8 +36,8 @@ public class GlowingLayer<T extends Entity, M extends EntityModel<T>> extends Re
             if (GlowingLayer.specialBoolean(entity)) {
                 VertexConsumer inveterate = multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/" + entity.getName().getString().toLowerCase() + ".png")));
                 this.getParentModel().renderToBuffer(poseStack, inveterate, 0xF00000, OverlayTexture.NO_OVERLAY, makeFade(time), makeFade(time), makeFade(time), 1.0F);
-            } else if (ColorMatching.identifier != null && !GlowingLayer.specialBoolean(entity)) {
-                VertexConsumer inveterate = multiBufferSource.getBuffer(RenderType.eyes(ColorMatching.identifier));
+            } else if (!GlowingLayer.specialBoolean(entity)) {
+                VertexConsumer inveterate = multiBufferSource.getBuffer(RenderType.dragonExplosionAlpha(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/skin/" + entity.getStringUUID() + ".png")));
                 this.getParentModel().renderToBuffer(poseStack, inveterate, 0xF00000, OverlayTexture.NO_OVERLAY, makeFade(time), makeFade(time), makeFade(time), 1.0F);
             }
 

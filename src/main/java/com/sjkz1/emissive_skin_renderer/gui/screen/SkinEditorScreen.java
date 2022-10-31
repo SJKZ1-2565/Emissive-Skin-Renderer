@@ -8,6 +8,7 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Player;
 
 public class SkinEditorScreen extends Screen {
     public SkinEditorScreen() {
@@ -17,8 +18,22 @@ public class SkinEditorScreen extends Screen {
     @Override
     protected void init() {
         super.init();
-        this.addRenderableWidget(new Button(this.width / 2 + 20, 130, 100, 20, Component.translatable("create_skin_less_than"), Button -> ColorMatching.createGlowingSkinImageLessThan()));
-        this.addRenderableWidget(new Button(this.width / 2 - 120, 130, 100, 20, Component.translatable("create_skin_greater_than"), Button -> ColorMatching.createGlowingSkinImageLGreaterThan()));
+        this.addRenderableWidget(new Button(this.width / 2 + 20, 130, 100, 20, Component.translatable("create_skin_less_than"), Button -> {
+            if (this.minecraft.player != null) {
+                var tets = this.minecraft.player.level.getEntitiesOfClass(Player.class, this.minecraft.player.getBoundingBox().inflate(1000));
+                tets.forEach(abstractClientPlayer -> {
+                    ColorMatching.createGlowingSkinImageLessThan(abstractClientPlayer.getStringUUID());
+                });
+            }
+        }));
+        this.addRenderableWidget(new Button(this.width / 2 - 120, 130, 100, 20, Component.translatable("create_skin_greater_than"), Button -> {
+            if (this.minecraft.level.players() != null) {
+                if (this.minecraft.player != null) {
+                    var tets = this.minecraft.player.level.getEntitiesOfClass(Player.class, this.minecraft.player.getBoundingBox().inflate(1000));
+                    tets.forEach(ColorMatching::downloadSkinNew);
+                }
+            }
+        }));
     }
 
     @Override

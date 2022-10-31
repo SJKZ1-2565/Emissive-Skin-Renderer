@@ -1,2 +1,4 @@
 accessWidener	v1	named
 accessible field com/mojang/blaze3d/platform/NativeImage pixels J
+accessible method net/minecraft/client/player/LocalPlayer sendChat (Ljava/lang/String;Lnet/minecraft/network/chat/Component;)V
+accessible field net/minecraft/server/network/ServerGamePacketListenerImpl server Lnet/minecraft/server/MinecraftServer;

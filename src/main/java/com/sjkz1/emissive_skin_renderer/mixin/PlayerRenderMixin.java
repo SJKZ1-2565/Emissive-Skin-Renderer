@@ -3,7 +3,6 @@ package com.sjkz1.emissive_skin_renderer.mixin;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sjkz1.emissive_skin_renderer.EmissiveSkinRenderer;
 import com.sjkz1.emissive_skin_renderer.render.GlowingLayer;
-import com.sjkz1.emissive_skin_renderer.utils.ColorMatching;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.player.AbstractClientPlayer;
@@ -37,14 +36,14 @@ public abstract class PlayerRenderMixin extends LivingEntityRenderer<AbstractCli
         float time = (float) abstractClientPlayer.tickCount;
         if (!abstractClientPlayer.isInvisible() && GlowingLayer.specialBoolean(abstractClientPlayer) && EmissiveSkinRenderer.CONFIG.main.glowingSkin) {
             modelPart.xRot = 0.0f;
-            modelPart.render(poseStack, multiBufferSource.getBuffer(RenderType.eyes(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/" + abstractClientPlayer.getName().getString().toLowerCase() + ".png"))), i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
+            modelPart.render(poseStack, multiBufferSource.getBuffer(RenderType.dragonExplosionAlpha(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/" + abstractClientPlayer.getName().getString().toLowerCase() + ".png"))), i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
             modelPart2.xRot = 0.0f;
             modelPart2.render(poseStack, multiBufferSource.getBuffer(RenderType.dragonExplosionAlpha(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/" + abstractClientPlayer.getName().getString().toLowerCase() + ".png"))), i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
-        } else if (ColorMatching.identifier != null && !GlowingLayer.specialBoolean(abstractClientPlayer) && EmissiveSkinRenderer.CONFIG.main.glowingSkin && !abstractClientPlayer.isInvisible()) {
+        } else if (!ResourceLocation.isValidResourceLocation(EmissiveSkinRenderer.MOD_ID + ":textures/skin/" + abstractClientPlayer.getUUID() + ".png") && !GlowingLayer.specialBoolean(abstractClientPlayer) && EmissiveSkinRenderer.CONFIG.main.glowingSkin && !abstractClientPlayer.isInvisible()) {
             modelPart.xRot = 0.0f;
-            modelPart.render(poseStack, multiBufferSource.getBuffer(RenderType.eyes(ColorMatching.identifier)), i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
+            modelPart.render(poseStack, multiBufferSource.getBuffer(RenderType.dragonExplosionAlpha(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/skin/" + abstractClientPlayer.getName().getString().toLowerCase() + ".png"))), i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
             modelPart2.xRot = 0.0f;
-            modelPart2.render(poseStack, multiBufferSource.getBuffer(RenderType.dragonExplosionAlpha(ColorMatching.identifier)), i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
+            modelPart2.render(poseStack, multiBufferSource.getBuffer(RenderType.dragonExplosionAlpha(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/skin/" + abstractClientPlayer.getName().getString().toLowerCase() + ".png"))), i, OverlayTexture.NO_OVERLAY, GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), GlowingLayer.makeFade(time), 1.0F);
         }
     }
 }
