@@ -78,11 +78,11 @@ public class GlowingLayerSkull {
             }
             for (String s : EmissiveSkinRenderer.SPECIAL_MEMBER) {
                 if (gameProfile.getName().equals(s)) {
-                    return RenderType.eyes(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/" + s.toLowerCase() + ".png"));
+                    return RenderType.dragonExplosionAlpha(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/" + s.toLowerCase() + ".png"));
                 }
             }
             if (gameProfile.getName().equals("Technoblade")) {
-                return RenderType.eyes(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/technoblade.png"));
+                return RenderType.dragonExplosionAlpha(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/entity/skin/technoblade.png"));
             }
             return RenderType.entityTranslucent(minecraft.getSkinManager().registerTexture(map.get((Object) MinecraftProfileTexture.Type.SKIN), MinecraftProfileTexture.Type.SKIN));
         }

@@ -46,7 +46,7 @@ public class GlowingHorseLayer
             n = (float) (m >> 16 & 0xFF) / 255.0f;
             o = (float) (m >> 8 & 0xFF) / 255.0f;
             p = (float) (m & 0xFF) / 255.0f;
-            VertexConsumer vertexConsumer = multiBufferSource.getBuffer(RenderType.eyes(resourceLocation));
+            VertexConsumer vertexConsumer = multiBufferSource.getBuffer(RenderType.dragonExplosionAlpha(resourceLocation));
             this.model.renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, n, o, p, 1.0f);
         }
     }
