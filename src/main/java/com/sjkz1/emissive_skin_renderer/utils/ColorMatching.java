@@ -97,7 +97,7 @@ public class ColorMatching {
         }
     }
 
-    public static void createGlowingSkinImageLGreaterThan(String string) {
+    public static void createGlowingSkinImageGreaterThan(String string) {
         try {
             String url = getSkin(string);
             if (url.isBlank() || url.isEmpty()) return;
