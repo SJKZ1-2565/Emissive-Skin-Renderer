@@ -15,6 +15,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantments;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -55,7 +56,6 @@ public abstract class InventoryScreenMixin extends EffectRenderingInventoryScree
         COLOR = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
         this.newX = this.recipeBookComponent.updateScreenPosition(this.width, this.imageWidth);
         this.addRenderableWidget(new Button(newX + 140, (this.height / 2) - 24, 20, 20, Component.empty(), (buttonWidget) -> {
-            assert this.minecraft != null;
             this.minecraft.setScreen(new SkinEditorScreen());
         }));
     }
@@ -66,6 +66,7 @@ public abstract class InventoryScreenMixin extends EffectRenderingInventoryScree
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
         ItemStack itemStack = Items.LEATHER_CHESTPLATE.getDefaultInstance();
         itemStack.getOrCreateTagElement(DISPLAY_KEY).putInt(COLOR_KEY, COLOR.getRGB());
+        itemStack.enchant(Enchantments.UNBREAKING,1);
         itemRenderer.blitOffset = 100;
         itemRenderer.renderGuiItem(itemStack, newX + 142, (this.height / 2) - 22);
         itemRenderer.blitOffset = 0;
