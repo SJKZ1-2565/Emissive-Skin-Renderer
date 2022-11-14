@@ -1,8 +1,10 @@
 package com.sjkz1.emissive_skin_renderer.mixin;
 
-import com.sjkz1.emissive_skin_renderer.gui.screen.SkinEditorScreen;
+import com.mojang.blaze3d.platform.NativeImage;
+import com.sjkz1.emissive_skin_renderer.EmissiveSkinRenderer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
@@ -10,7 +12,10 @@ import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.gui.screens.recipebook.RecipeBookComponent;
 import net.minecraft.client.gui.screens.recipebook.RecipeUpdateListener;
 import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.texture.DynamicTexture;
+import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
@@ -25,6 +30,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.awt.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Random;
 
 @Environment(EnvType.CLIENT)
@@ -46,6 +55,8 @@ public abstract class InventoryScreenMixin extends EffectRenderingInventoryScree
 
     public int newX;
 
+    private static final File GLOW_SKIN_PATH = new File(Minecraft.getInstance().gameDirectory, "glow");
+
     public InventoryScreenMixin(InventoryMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
     }
@@ -56,7 +67,7 @@ public abstract class InventoryScreenMixin extends EffectRenderingInventoryScree
         COLOR = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
         this.newX = this.recipeBookComponent.updateScreenPosition(this.width, this.imageWidth);
         this.addRenderableWidget(new Button(newX + 140, (this.height / 2) - 24, 20, 20, Component.empty(), (buttonWidget) -> {
-            this.minecraft.setScreen(new SkinEditorScreen());
+            Util.getPlatform().openFile(GLOW_SKIN_PATH);
         }));
     }
 
@@ -66,10 +77,27 @@ public abstract class InventoryScreenMixin extends EffectRenderingInventoryScree
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
         ItemStack itemStack = Items.LEATHER_CHESTPLATE.getDefaultInstance();
         itemStack.getOrCreateTagElement(DISPLAY_KEY).putInt(COLOR_KEY, COLOR.getRGB());
-        itemStack.enchant(Enchantments.UNBREAKING,1);
+        itemStack.enchant(Enchantments.UNBREAKING, 1);
         itemRenderer.blitOffset = 100;
         itemRenderer.renderGuiItem(itemStack, newX + 142, (this.height / 2) - 22);
         itemRenderer.blitOffset = 0;
     }
 
+    @Override
+    public void onClose() {
+        super.onClose();
+        InventoryScreenMixin.MoveToResourceLoc();
+    }
+
+    private static void MoveToResourceLoc() {
+        try {
+            File imageFile = new File(GLOW_SKIN_PATH, "glow.png");
+            InputStream in = new FileInputStream(imageFile);
+            NativeImage nativeImage = NativeImage.read(in);
+            TextureManager textureManager = Minecraft.getInstance().getTextureManager();
+            textureManager.register(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/skin/glow.png"), new DynamicTexture(nativeImage));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
