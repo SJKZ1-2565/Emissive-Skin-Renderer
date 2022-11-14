@@ -17,7 +17,9 @@ import java.util.List;
 @Mixin(SplashManager.class)
 public abstract class SplashManagerMixin extends SimplePreparableReloadListener<List<String>> {
 
-    @Shadow @Final private static RandomSource RANDOM;
+    @Shadow
+    @Final
+    private static RandomSource RANDOM;
 
     @Inject(method = "getSplash", at = @At("TAIL"), cancellable = true)
     public void injectMyBirthDay(CallbackInfoReturnable<String> cir) {
@@ -26,12 +28,10 @@ public abstract class SplashManagerMixin extends SimplePreparableReloadListener<
         if (calendar.get(Calendar.MONTH) + 1 == 6 && calendar.get(Calendar.DATE) == 3) {
             cir.setReturnValue("§dHappy birthday SJKZ1!");
         }
-        if(RANDOM.nextInt(1000) == 0)
-        {
+        if (RANDOM.nextInt(1000) == 0) {
             cir.setReturnValue("Thanks to boon4681");
         }
-        if(RANDOM.nextInt(1000) == 1)
-        {
+        if (RANDOM.nextInt(1000) == 1) {
             cir.setReturnValue("Visit boon4681 GitHub!");
         }
     }
