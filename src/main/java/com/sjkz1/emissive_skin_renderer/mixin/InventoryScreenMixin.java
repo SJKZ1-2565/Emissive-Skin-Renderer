@@ -2,6 +2,7 @@ package com.sjkz1.emissive_skin_renderer.mixin;
 
 import com.mojang.blaze3d.platform.NativeImage;
 import com.sjkz1.emissive_skin_renderer.EmissiveSkinRenderer;
+import com.sjkz1.emissive_skin_renderer.utils.ColorMatching;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.Util;
@@ -11,6 +12,7 @@ import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.gui.screens.recipebook.RecipeBookComponent;
 import net.minecraft.client.gui.screens.recipebook.RecipeUpdateListener;
+import net.minecraft.client.player.RemotePlayer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
@@ -50,13 +52,8 @@ public abstract class InventoryScreenMixin extends EffectRenderingInventoryScree
     private static final String COLOR_KEY = "color";
     @Unique
     private static final String DISPLAY_KEY = "display";
-
     private static Color COLOR = null;
-
     public int newX;
-
-    private static final File GLOW_SKIN_PATH = new File(Minecraft.getInstance().gameDirectory, "glow");
-
     public InventoryScreenMixin(InventoryMenu abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
     }
@@ -66,9 +63,7 @@ public abstract class InventoryScreenMixin extends EffectRenderingInventoryScree
         Random random = new Random();
         COLOR = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
         this.newX = this.recipeBookComponent.updateScreenPosition(this.width, this.imageWidth);
-        this.addRenderableWidget(new Button(newX + 140, (this.height / 2) - 24, 20, 20, Component.empty(), (buttonWidget) -> {
-            Util.getPlatform().openFile(GLOW_SKIN_PATH);
-        }));
+        this.addRenderableWidget(new Button(newX + 140, (this.height / 2) - 24, 20, 20, Component.empty(), (buttonWidget) -> ColorMatching.createGlowingSkinImageLessThan(this.minecraft.player)));
     }
 
     @Inject(method = "render", at = @At("TAIL"))
@@ -83,21 +78,4 @@ public abstract class InventoryScreenMixin extends EffectRenderingInventoryScree
         itemRenderer.blitOffset = 0;
     }
 
-    @Override
-    public void onClose() {
-        super.onClose();
-        InventoryScreenMixin.MoveToResourceLoc();
-    }
-
-    private static void MoveToResourceLoc() {
-        try {
-            File imageFile = new File(GLOW_SKIN_PATH, "glow.png");
-            InputStream in = new FileInputStream(imageFile);
-            NativeImage nativeImage = NativeImage.read(in);
-            TextureManager textureManager = Minecraft.getInstance().getTextureManager();
-            textureManager.register(new ResourceLocation(EmissiveSkinRenderer.MOD_ID, "textures/skin/glow.png"), new DynamicTexture(nativeImage));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }

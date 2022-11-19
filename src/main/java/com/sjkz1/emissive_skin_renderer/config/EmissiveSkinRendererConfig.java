@@ -25,5 +25,6 @@ public class EmissiveSkinRendererConfig implements ConfigData {
         public double palletsRate = 100D;
         public boolean glowingHorseArmor = false;
         public boolean renderPlayerNameInThirdPerson = true;
+        public boolean manualSkin = true;
     }
 }
